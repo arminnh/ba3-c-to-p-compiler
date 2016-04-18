@@ -1,3 +1,0 @@
-antlr.jar -Dlanguage=Python2 lists.g4 -visitor
-
-python Flatten.py
