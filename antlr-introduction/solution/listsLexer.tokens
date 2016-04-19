@@ -1,0 +1,8 @@
+NUMBER=1
+COMMA=2
+LBRACKET=3
+RBRACKET=4
+WS=5
+','=2
+'('=3
+')'=4

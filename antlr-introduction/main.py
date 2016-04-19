@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser = NestedListsParser(stream)
 
     tree = parser.nstdlst()
-    walk = ParseTreeWalker()
+    walker = ParseTreeWalker()
     listener = MyNestedListsListener()
     # listener.enterItm(context)
-    walk.walk(listener, tree)
+    walker.walk(listener, tree)
