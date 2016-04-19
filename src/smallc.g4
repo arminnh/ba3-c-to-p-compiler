@@ -7,7 +7,7 @@ program : header mainFunction;
 
 header : includes;
 
-includes : '#include' LABRA STRING RABRA
+includes : '#include' LABRA ID '.' ID RABRA
     |
     ;
 

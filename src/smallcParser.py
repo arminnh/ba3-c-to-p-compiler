@@ -5,15 +5,15 @@ from io import StringIO
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\16")
-        buf.write("\31\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\3\3")
-        buf.write("\3\3\4\3\4\3\4\3\4\3\4\5\4\25\n\4\3\5\3\5\3\5\2\2\6\2")
-        buf.write("\4\6\b\2\2\25\2\n\3\2\2\2\4\r\3\2\2\2\6\24\3\2\2\2\b\26")
-        buf.write("\3\2\2\2\n\13\5\4\3\2\13\f\5\b\5\2\f\3\3\2\2\2\r\16\5")
-        buf.write("\6\4\2\16\5\3\2\2\2\17\20\7\3\2\2\20\21\7\n\2\2\21\22")
-        buf.write("\7\5\2\2\22\25\7\13\2\2\23\25\3\2\2\2\24\17\3\2\2\2\24")
-        buf.write("\23\3\2\2\2\25\7\3\2\2\2\26\27\3\2\2\2\27\t\3\2\2\2\3")
-        buf.write("\24")
+        buf.write("\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\17")
+        buf.write("\33\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\3\3\3")
+        buf.write("\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\27\n\4\3\5\3\5\3\5")
+        buf.write("\2\2\6\2\4\6\b\2\2\27\2\n\3\2\2\2\4\r\3\2\2\2\6\26\3\2")
+        buf.write("\2\2\b\30\3\2\2\2\n\13\5\4\3\2\13\f\5\b\5\2\f\3\3\2\2")
+        buf.write("\2\r\16\5\6\4\2\16\5\3\2\2\2\17\20\7\3\2\2\20\21\7\13")
+        buf.write("\2\2\21\22\7\5\2\2\22\23\7\4\2\2\23\24\7\5\2\2\24\27\7")
+        buf.write("\f\2\2\25\27\3\2\2\2\26\17\3\2\2\2\26\25\3\2\2\2\27\7")
+        buf.write("\3\2\2\2\30\31\3\2\2\2\31\t\3\2\2\2\3\26")
         return buf.getvalue()
 
 
@@ -27,13 +27,13 @@ class smallcParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'#include'", "<INVALID>", "'(.*?)'", 
+    literalNames = [ "<INVALID>", "'#include'", "'.'", "<INVALID>", "'(.*?)'", 
                      "<INVALID>", "','", "'('", "')'", "'<'", "'>'", "'{'", 
                      "'}'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "ID", "STRING", "NUMBER", 
-                      "COMMA", "LBRA", "RBRA", "LABRA", "RABRA", "LCBRA", 
-                      "RCBRA", "WS" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "ID", "STRING", 
+                      "NUMBER", "COMMA", "LBRA", "RBRA", "LABRA", "RABRA", 
+                      "LCBRA", "RCBRA", "WS" ]
 
     RULE_program = 0
     RULE_header = 1
@@ -44,17 +44,18 @@ class smallcParser ( Parser ):
 
     EOF = Token.EOF
     T__0=1
-    ID=2
-    STRING=3
-    NUMBER=4
-    COMMA=5
-    LBRA=6
-    RBRA=7
-    LABRA=8
-    RABRA=9
-    LCBRA=10
-    RCBRA=11
-    WS=12
+    T__1=2
+    ID=3
+    STRING=4
+    NUMBER=5
+    COMMA=6
+    LBRA=7
+    RBRA=8
+    LABRA=9
+    RABRA=10
+    LCBRA=11
+    RCBRA=12
+    WS=13
 
     def __init__(self, input:TokenStream):
         super().__init__(input)
@@ -171,8 +172,11 @@ class smallcParser ( Parser ):
         def LABRA(self):
             return self.getToken(smallcParser.LABRA, 0)
 
-        def STRING(self):
-            return self.getToken(smallcParser.STRING, 0)
+        def ID(self, i:int=None):
+            if i is None:
+                return self.getTokens(smallcParser.ID)
+            else:
+                return self.getToken(smallcParser.ID, i)
 
         def RABRA(self):
             return self.getToken(smallcParser.RABRA, 0)
@@ -202,7 +206,7 @@ class smallcParser ( Parser ):
         localctx = smallcParser.IncludesContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_includes)
         try:
-            self.state = 18
+            self.state = 20
             token = self._input.LA(1)
             if token in [smallcParser.T__0]:
                 self.enterOuterAlt(localctx, 1)
@@ -211,8 +215,12 @@ class smallcParser ( Parser ):
                 self.state = 14
                 self.match(smallcParser.LABRA)
                 self.state = 15
-                self.match(smallcParser.STRING)
+                self.match(smallcParser.ID)
                 self.state = 16
+                self.match(smallcParser.T__1)
+                self.state = 17
+                self.match(smallcParser.ID)
+                self.state = 18
                 self.match(smallcParser.RABRA)
 
             elif token in [smallcParser.EOF]:
