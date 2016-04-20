@@ -1,0 +1,28 @@
+Download
+```
+$ cd /usr/local/lib
+$ curl -O http://www.antlr.org/download/antlr-4.5.3-complete.jar
+```
+Add `antlr-4.5-complete.jar` to your `CLASSPATH`:
+```
+$ export CLASSPATH=".:/usr/local/lib/antlr-4.5.3-complete.jar:$CLASSPATH"
+```
+It's also a good idea to put this in your `.bash_profile` or whatever your startup script is.
+Create aliases for the ANTLR Tool, and `TestRig`.
+```
+$ alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.5.3-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+$ alias grun='java -cp "/usr/local/lib/antlr-4.5.3-complete.jar:$CLASSPATH" org.antlr.v4.runtime.misc.TestRig'
+```
+I put these in .bash_profile too.
+
+Execute:
+```
+antlr4 smallc.g4
+javac smallc*.java
+```
+If necessary, specify the class path explicitly to javac using `-classpath`.
+
+Then run grun and pipe a file to it:
+```
+cat testfiles/hello_world.c | grun smallc program -gui
+```
