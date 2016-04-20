@@ -44,3 +44,21 @@ class smallcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by smallcParser#typeDecl.
+    def enterTypeDecl(self, ctx:smallcParser.TypeDeclContext):
+        pass
+
+    # Exit a parse tree produced by smallcParser#typeDecl.
+    def exitTypeDecl(self, ctx:smallcParser.TypeDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by smallcParser#functionBody.
+    def enterFunctionBody(self, ctx:smallcParser.FunctionBodyContext):
+        pass
+
+    # Exit a parse tree produced by smallcParser#functionBody.
+    def exitFunctionBody(self, ctx:smallcParser.FunctionBodyContext):
+        pass
+
+
