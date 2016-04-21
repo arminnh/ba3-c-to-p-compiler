@@ -54,6 +54,81 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#oplevel15.
+    def visitOplevel15(self, ctx:SmallCParser.Oplevel15Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel14.
+    def visitOplevel14(self, ctx:SmallCParser.Oplevel14Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel13.
+    def visitOplevel13(self, ctx:SmallCParser.Oplevel13Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel12.
+    def visitOplevel12(self, ctx:SmallCParser.Oplevel12Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel11.
+    def visitOplevel11(self, ctx:SmallCParser.Oplevel11Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel10.
+    def visitOplevel10(self, ctx:SmallCParser.Oplevel10Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel9.
+    def visitOplevel9(self, ctx:SmallCParser.Oplevel9Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel8.
+    def visitOplevel8(self, ctx:SmallCParser.Oplevel8Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel7.
+    def visitOplevel7(self, ctx:SmallCParser.Oplevel7Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel6.
+    def visitOplevel6(self, ctx:SmallCParser.Oplevel6Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel5.
+    def visitOplevel5(self, ctx:SmallCParser.Oplevel5Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel4.
+    def visitOplevel4(self, ctx:SmallCParser.Oplevel4Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel3.
+    def visitOplevel3(self, ctx:SmallCParser.Oplevel3Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel2.
+    def visitOplevel2(self, ctx:SmallCParser.Oplevel2Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#oplevel1.
+    def visitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#variableDeclaration.
     def visitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
         return self.visitChildren(ctx)
@@ -61,11 +136,6 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#variable.
     def visitVariable(self, ctx:SmallCParser.VariableContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SmallCParser#arithmeticop.
-    def visitArithmeticop(self, ctx:SmallCParser.ArithmeticopContext):
         return self.visitChildren(ctx)
 
 
@@ -104,6 +174,11 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#numberLiteral.
+    def visitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#floatLiteral.
     def visitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         return self.visitChildren(ctx)
@@ -111,6 +186,11 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#integerLiteral.
     def visitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#characterLiteral.
+    def visitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         return self.visitChildren(ctx)
 
 

@@ -43,6 +43,93 @@ expression :
     | integerLiteral
     | stringLiteral
     | floatLiteral
+    | oplevel15
+    ;
+
+oplevel15 :
+      oplevel14
+    ;
+
+oplevel14 :
+      oplevel13 '=' oplevel14 // simple assignment
+    | oplevel13
+    ;
+
+oplevel13 :
+      oplevel12 '?' oplevel12 ':' oplevel13
+    | oplevel12
+    ;
+
+oplevel12 :
+      oplevel12 '||' oplevel11
+    | oplevel11
+    ;  
+    
+oplevel11 :
+      oplevel11 '&&' oplevel10
+    | oplevel10
+    ;
+    
+oplevel10 :
+      oplevel9
+    ;
+
+oplevel9 :
+      oplevel8
+    ;
+
+oplevel8 :
+      oplevel7
+    ;
+
+oplevel7 :
+      oplevel7 '==' oplevel6
+    | oplevel7 '!=' oplevel6
+    | oplevel6
+    ;
+    
+oplevel6 :
+      oplevel6 '<' oplevel5
+    | oplevel6 '<=' oplevel5
+    | oplevel6 '>' oplevel5
+    | oplevel6 '>=' oplevel5
+    | oplevel5
+    ;
+
+oplevel5 :
+      oplevel4
+    ;
+
+oplevel4 :
+      oplevel4 '+' oplevel3
+    | oplevel4 '-' oplevel3
+    | oplevel3
+    ;
+
+oplevel3 :
+      oplevel3 '*' oplevel2
+    | oplevel3 '/' oplevel2
+    | oplevel3 '%' oplevel2
+    | oplevel2
+    ;
+
+oplevel2 :
+      '++' oplevel2
+    | '--' oplevel2
+    | '&' oplevel1
+    | '*' oplevel2
+    | '!' oplevel2
+    | numberLiteral
+    | characterLiteral
+    | LBRA typeDeclaration RBRA oplevel2
+    | oplevel1
+    ;
+
+oplevel1 :
+      oplevel1 '++'
+    | oplevel1 '--'
+    | variable
+    | '(' expression ')'
     ;
 
 variableDeclaration :
@@ -51,11 +138,6 @@ variableDeclaration :
     
 variable :
       identifier
-    ;
-
-arithmeticop :
-      integerLiteral OPERATOR integerLiteral
-      variable OPERATOR variable
     ;
 
 functionDeclaration :
@@ -75,7 +157,7 @@ typeDeclaration :
     ;
 
 functionCall:
-      CFUN LBRA arguments? RBRA
+      CFUN LBRA arguments RBRA
     ;
     
 arguments :
@@ -90,12 +172,21 @@ argument :
     | floatLiteral
     ;
 
+numberLiteral :
+      FLOAT
+    | INTEGER
+    ;
+
 floatLiteral :
       FLOAT
     ;
     
 integerLiteral :
       INTEGER
+    ;
+
+characterLiteral :
+      CHARACTER
     ;
 
 stringLiteral :
@@ -105,6 +196,9 @@ stringLiteral :
 identifier :
       IDENTIFIER
     ;
+
+
+
 
 
 
@@ -138,3 +232,4 @@ CHARACTER    : ['] (. | '\n') ['];
 STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines, \r (Windows)
+

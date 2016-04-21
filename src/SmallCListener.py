@@ -89,6 +89,141 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#oplevel15.
+    def enterOplevel15(self, ctx:SmallCParser.Oplevel15Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel15.
+    def exitOplevel15(self, ctx:SmallCParser.Oplevel15Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel14.
+    def enterOplevel14(self, ctx:SmallCParser.Oplevel14Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel14.
+    def exitOplevel14(self, ctx:SmallCParser.Oplevel14Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel13.
+    def enterOplevel13(self, ctx:SmallCParser.Oplevel13Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel13.
+    def exitOplevel13(self, ctx:SmallCParser.Oplevel13Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel12.
+    def enterOplevel12(self, ctx:SmallCParser.Oplevel12Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel12.
+    def exitOplevel12(self, ctx:SmallCParser.Oplevel12Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel11.
+    def enterOplevel11(self, ctx:SmallCParser.Oplevel11Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel11.
+    def exitOplevel11(self, ctx:SmallCParser.Oplevel11Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel10.
+    def enterOplevel10(self, ctx:SmallCParser.Oplevel10Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel10.
+    def exitOplevel10(self, ctx:SmallCParser.Oplevel10Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel9.
+    def enterOplevel9(self, ctx:SmallCParser.Oplevel9Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel9.
+    def exitOplevel9(self, ctx:SmallCParser.Oplevel9Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel8.
+    def enterOplevel8(self, ctx:SmallCParser.Oplevel8Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel8.
+    def exitOplevel8(self, ctx:SmallCParser.Oplevel8Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel7.
+    def enterOplevel7(self, ctx:SmallCParser.Oplevel7Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel7.
+    def exitOplevel7(self, ctx:SmallCParser.Oplevel7Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel6.
+    def enterOplevel6(self, ctx:SmallCParser.Oplevel6Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel6.
+    def exitOplevel6(self, ctx:SmallCParser.Oplevel6Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel5.
+    def enterOplevel5(self, ctx:SmallCParser.Oplevel5Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel5.
+    def exitOplevel5(self, ctx:SmallCParser.Oplevel5Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel4.
+    def enterOplevel4(self, ctx:SmallCParser.Oplevel4Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel4.
+    def exitOplevel4(self, ctx:SmallCParser.Oplevel4Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel3.
+    def enterOplevel3(self, ctx:SmallCParser.Oplevel3Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel3.
+    def exitOplevel3(self, ctx:SmallCParser.Oplevel3Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel2.
+    def enterOplevel2(self, ctx:SmallCParser.Oplevel2Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel2.
+    def exitOplevel2(self, ctx:SmallCParser.Oplevel2Context):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#oplevel1.
+    def enterOplevel1(self, ctx:SmallCParser.Oplevel1Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#oplevel1.
+    def exitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#variableDeclaration.
     def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
         pass
@@ -104,15 +239,6 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#variable.
     def exitVariable(self, ctx:SmallCParser.VariableContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#arithmeticop.
-    def enterArithmeticop(self, ctx:SmallCParser.ArithmeticopContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#arithmeticop.
-    def exitArithmeticop(self, ctx:SmallCParser.ArithmeticopContext):
         pass
 
 
@@ -179,6 +305,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#numberLiteral.
+    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#numberLiteral.
+    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         pass
@@ -194,6 +329,15 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#integerLiteral.
     def exitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#characterLiteral.
+    def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#characterLiteral.
+    def exitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         pass
 
 
