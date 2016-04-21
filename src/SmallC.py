@@ -1,8 +1,8 @@
 from antlr4 import *
-from smallcLexer import smallcLexer
-from smallcListener import smallcListener
-from smallcVisitor import smallcVisitor
-from smallcParser import smallcParser
+from SmallCLexer import SmallCLexer
+from SmallCListener import SmallCListener
+from SmallCVisitor import SmallCVisitor
+from SmallCParser import SmallCParser
 
 
 
@@ -10,13 +10,13 @@ def main(filename):
     input_file = FileStream(filename)
 
     # get lexer
-    lexer = smallcLexer(input_file)
+    lexer = SmallCLexer(input_file)
 
     # get list of matched tokens
     stream = CommonTokenStream(lexer)
 
     # pass tokens to the parser
-    parser = smallcParser(stream)
+    parser = SmallCParser(stream)
 
     # specify the entry point
     programContext = parser.program() # tree with program as root
@@ -28,30 +28,31 @@ def main(filename):
 
 
 
-class MyListener(smallcListener):
-    def enterProgram(self, ctx:smallcParser.ProgramContext):
+class MyListener(SmallCListener):
+    def enterProgram(self, ctx:SmallCParser.ProgramContext):
         print ("Program: " + ctx.getText())
+        
         return
 
-    def enterHeader(self, ctx:smallcParser.ProgramContext):
+    def enterHeader(self, ctx:SmallCParser.ProgramContext):
         print ("header: " + ctx.getText())
-        return
+        return 
 
-    def enterIncludes(self, ctx:smallcParser.IncludesContext):
+    def enterIncludes(self, ctx:SmallCParser.IncludesContext):
         print ("Includes: " + ctx.getText())
-        return
+        return 
 
-    def enterMainFunction(self, ctx:smallcParser.MainFunctionContext):
+    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
         print ("MainFunction: " + ctx.getText())
-        return
+        return 
 
-    def enterTypeDecl(self, ctx:smallcParser.TypeDeclContext):
+    def enterTypeDecl(self, ctx:SmallCParser.TypeDeclContext):
         print ("TypeDecl: " + ctx.getText())
-        return
+        return 
 
-    def enterFunctionBody(self, ctx:smallcParser.FunctionBodyContext):
+    def enterFunctionBody(self, ctx:SmallCParser.FunctionBodyContext):
         print ("FunctionBody: " + ctx.getText())
-        return
+        return 
 
 
 
