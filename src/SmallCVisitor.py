@@ -34,23 +34,93 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#statements.
+    def visitStatements(self, ctx:SmallCParser.StatementsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#statement.
+    def visitStatement(self, ctx:SmallCParser.StatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#statementBody.
+    def visitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#expression.
+    def visitExpression(self, ctx:SmallCParser.ExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#variableDeclaration.
+    def visitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#variable.
+    def visitVariable(self, ctx:SmallCParser.VariableContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#arithmeticop.
+    def visitArithmeticop(self, ctx:SmallCParser.ArithmeticopContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#functionDeclaration.
+    def visitFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#functionDefinition.
+    def visitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#mainFunction.
     def visitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#typeDecl.
-    def visitTypeDecl(self, ctx:SmallCParser.TypeDeclContext):
+    # Visit a parse tree produced by SmallCParser#typeDeclaration.
+    def visitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#functionBody.
-    def visitFunctionBody(self, ctx:SmallCParser.FunctionBodyContext):
+    # Visit a parse tree produced by SmallCParser#functionCall.
+    def visitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#number.
-    def visitNumber(self, ctx:SmallCParser.NumberContext):
+    # Visit a parse tree produced by SmallCParser#arguments.
+    def visitArguments(self, ctx:SmallCParser.ArgumentsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#argument.
+    def visitArgument(self, ctx:SmallCParser.ArgumentContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#floatLiteral.
+    def visitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#integerLiteral.
+    def visitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#stringLiteral.
+    def visitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#identifier.
+    def visitIdentifier(self, ctx:SmallCParser.IdentifierContext):
         return self.visitChildren(ctx)
 
 

@@ -11,8 +11,8 @@ header :
     ;
 
 include :
-      LABRA STRING1 RABRA
-    | STRING2
+      LABRA stringLiteral RABRA
+    | stringLiteral
     ;
 
 stdInclude :
@@ -23,49 +23,118 @@ customInclude :
       
     ;
 
+statements :
+      statement*
+    ;
+
+statement :
+      statementBody ';'
+    ;
+
+statementBody :
+      expression
+    | variableDeclaration
+    | RETURN expression
+    ;
+
+expression :
+      functionCall
+    | variable
+    | integerLiteral
+    | stringLiteral
+    | floatLiteral
+    ;
+
+variableDeclaration :
+      typeDeclaration identifier ('=' expression)?
+    ;
+    
+variable :
+      identifier
+    ;
+
+arithmeticop :
+      integerLiteral OPERATOR integerLiteral
+      variable OPERATOR variable
+    ;
+
+functionDeclaration :
+    ;
+
+functionDefinition :
+    ;
+
 mainFunction :
-      typeDecl 'main' LBRA 'void' RBRA LCBRA (functionBody)+ RCBRA
+      typeDeclaration 'main' LBRA 'void' RBRA LCBRA statements RCBRA
     ;
 
-typeDecl :
-      CHAR
-    | FLOAT
-    | INT
+typeDeclaration :
+      TYPECHAR
+    | TYPEFLOAT
+    | TYPEINT
     ;
 
-functionBody:
-      CFUN LBRA STRING2 RBRA ';'
-    | RETURN number ';'
+functionCall:
+      CFUN LBRA arguments? RBRA
+    ;
+    
+arguments :
+    | argument (',' argument)*
+    |
+    ;
+    
+argument :
+      stringLiteral
+    | integerLiteral
+    | variable
+    | floatLiteral
     ;
 
-number :
-      NUMBER
+floatLiteral :
+      FLOAT
     ;
+    
+integerLiteral :
+      INTEGER
+    ;
+
+stringLiteral :
+      STRING
+    ;
+
+identifier :
+      IDENTIFIER
+    ;
+
+
 
 // lexer rules (rule names start with capital character)
-PTR   : '*';
-COMMA : ',';
-LBRA  : '(';
-RBRA  : ')';
-LABRA : '<';
-RABRA : '>';
-LCBRA : '{';
-RCBRA : '}';
-QUOTE : '"';
+COMMA     : ',';
+LBRA      : '(';
+RBRA      : ')';
+LABRA     : '<';
+RABRA     : '>';
+LCBRA     : '{';
+RCBRA     : '}';
+QUOTE     : '"';
+OPERATOR  : [+-*/%];
 
-CHAR   : 'char';
-FLOAT  : 'float';
-INT    : 'int';
-CFUN   : 'printf' | 'scanf';
-RETURN : 'return';
+TYPECHAR  : 'char';
+TYPEFLOAT : 'float';
+TYPEINT   : 'int';
 
-NUMBER : [0-9]+;
+CFUN      : 'printf' | 'scanf';
+RETURN    : 'return';
 
-//ID     : [a-zA-Z]+;
-//TEXT   : [a-zA-Z\-\.\_\\\s]+;
-//STRING : ["].*?["];
+COMMENT   : '//'~[\r\n]* -> skip;
 
-STRING1 : ~[\\"\r\n];
-STRING2 : '"' ( '\\' [\\"] | STRING1 ) '"';
+INTEGER   : [0-9]+;
+FLOAT     : INTEGER . INTEGER ([eE] [+-]? INTEGER)?
+          | INTEGER [eE] [+-]? INTEGER
+          ;
+
+IDENTIFIER   : [a-zA-Z]+;
+CHARACTER    : ['] (. | '\n') ['];
+STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines, \r (Windows)
