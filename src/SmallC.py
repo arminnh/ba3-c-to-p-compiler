@@ -3,7 +3,8 @@ from SmallCLexer import SmallCLexer
 from SmallCListener import SmallCListener
 from SmallCVisitor import SmallCVisitor
 from SmallCParser import SmallCParser
-
+from AbstractSyntaxTree import *
+from MyListener import *
 
 
 def main(filename):
@@ -23,38 +24,11 @@ def main(filename):
 
     # walk it and attach our listener
     walker = ParseTreeWalker()
-    listener = MyListener()
+    abstractSyntaxTree = AbstractSyntaxTree();
+    listener = MyListener(abstractSyntaxTree)
     walker.walk(listener, programContext)
 
-
-
-class MyListener(SmallCListener):
-    def enterProgram(self, ctx:SmallCParser.ProgramContext):
-        print ("Program: " + ctx.getText())
-        
-        return
-
-    def enterHeader(self, ctx:SmallCParser.ProgramContext):
-        print ("header: " + ctx.getText())
-        return 
-
-    def enterIncludes(self, ctx:SmallCParser.IncludesContext):
-        print ("Includes: " + ctx.getText())
-        return 
-
-    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        print ("MainFunction: " + ctx.getText())
-        return 
-
-    def enterTypeDecl(self, ctx:SmallCParser.TypeDeclContext):
-        print ("TypeDecl: " + ctx.getText())
-        return 
-
-    def enterFunctionBody(self, ctx:SmallCParser.FunctionBodyContext):
-        print ("FunctionBody: " + ctx.getText())
-        return 
-
-
+    print (abstractSyntaxTree)
 
 
 if __name__=="__main__":
