@@ -8,96 +8,6 @@ else:
 # This class defines a complete listener for a parse tree produced by SmallCParser.
 class SmallCListener(ParseTreeListener):
 
-    # Enter a parse tree produced by SmallCParser#program.
-    def enterProgram(self, ctx:SmallCParser.ProgramContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#program.
-    def exitProgram(self, ctx:SmallCParser.ProgramContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#header.
-    def enterHeader(self, ctx:SmallCParser.HeaderContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#header.
-    def exitHeader(self, ctx:SmallCParser.HeaderContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#include.
-    def enterInclude(self, ctx:SmallCParser.IncludeContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#include.
-    def exitInclude(self, ctx:SmallCParser.IncludeContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#stdInclude.
-    def enterStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#stdInclude.
-    def exitStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#customInclude.
-    def enterCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#customInclude.
-    def exitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#statements.
-    def enterStatements(self, ctx:SmallCParser.StatementsContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#statements.
-    def exitStatements(self, ctx:SmallCParser.StatementsContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#statement.
-    def enterStatement(self, ctx:SmallCParser.StatementContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#statement.
-    def exitStatement(self, ctx:SmallCParser.StatementContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#statementBody.
-    def enterStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#statementBody.
-    def exitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#expression.
-    def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#expression.
-    def exitExpression(self, ctx:SmallCParser.ExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#returnExpression.
-    def enterReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#returnExpression.
-    def exitReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#oplevel15.
     def enterOplevel15(self, ctx:SmallCParser.Oplevel15Context):
         pass
@@ -233,21 +143,48 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#variableDeclaration.
-    def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+    # Enter a parse tree produced by SmallCParser#program.
+    def enterProgram(self, ctx:SmallCParser.ProgramContext):
         pass
 
-    # Exit a parse tree produced by SmallCParser#variableDeclaration.
-    def exitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+    # Exit a parse tree produced by SmallCParser#program.
+    def exitProgram(self, ctx:SmallCParser.ProgramContext):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#variable.
-    def enterVariable(self, ctx:SmallCParser.VariableContext):
+    # Enter a parse tree produced by SmallCParser#header.
+    def enterHeader(self, ctx:SmallCParser.HeaderContext):
         pass
 
-    # Exit a parse tree produced by SmallCParser#variable.
-    def exitVariable(self, ctx:SmallCParser.VariableContext):
+    # Exit a parse tree produced by SmallCParser#header.
+    def exitHeader(self, ctx:SmallCParser.HeaderContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#stdInclude.
+    def enterStdInclude(self, ctx:SmallCParser.StdIncludeContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#stdInclude.
+    def exitStdInclude(self, ctx:SmallCParser.StdIncludeContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#customInclude.
+    def enterCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#customInclude.
+    def exitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#functions.
+    def enterFunctions(self, ctx:SmallCParser.FunctionsContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#functions.
+    def exitFunctions(self, ctx:SmallCParser.FunctionsContext):
         pass
 
 
@@ -269,6 +206,33 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#parameters.
+    def enterParameters(self, ctx:SmallCParser.ParametersContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#parameters.
+    def exitParameters(self, ctx:SmallCParser.ParametersContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#parameter.
+    def enterParameter(self, ctx:SmallCParser.ParameterContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#parameter.
+    def exitParameter(self, ctx:SmallCParser.ParameterContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#arrayParameter.
+    def enterArrayParameter(self, ctx:SmallCParser.ArrayParameterContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#arrayParameter.
+    def exitArrayParameter(self, ctx:SmallCParser.ArrayParameterContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
         pass
@@ -278,12 +242,138 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#typeDeclaration.
-    def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+    # Enter a parse tree produced by SmallCParser#parametersMain.
+    def enterParametersMain(self, ctx:SmallCParser.ParametersMainContext):
         pass
 
-    # Exit a parse tree produced by SmallCParser#typeDeclaration.
-    def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+    # Exit a parse tree produced by SmallCParser#parametersMain.
+    def exitParametersMain(self, ctx:SmallCParser.ParametersMainContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#statements.
+    def enterStatements(self, ctx:SmallCParser.StatementsContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#statements.
+    def exitStatements(self, ctx:SmallCParser.StatementsContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#statement.
+    def enterStatement(self, ctx:SmallCParser.StatementContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#statement.
+    def exitStatement(self, ctx:SmallCParser.StatementContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#statementBody.
+    def enterStatementBody(self, ctx:SmallCParser.StatementBodyContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#statementBody.
+    def exitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#expression.
+    def enterExpression(self, ctx:SmallCParser.ExpressionContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#expression.
+    def exitExpression(self, ctx:SmallCParser.ExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#ifCond.
+    def enterIfCond(self, ctx:SmallCParser.IfCondContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#ifCond.
+    def exitIfCond(self, ctx:SmallCParser.IfCondContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#elseIfCond.
+    def enterElseIfCond(self, ctx:SmallCParser.ElseIfCondContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#elseIfCond.
+    def exitElseIfCond(self, ctx:SmallCParser.ElseIfCondContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#elseCond.
+    def enterElseCond(self, ctx:SmallCParser.ElseCondContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#elseCond.
+    def exitElseCond(self, ctx:SmallCParser.ElseCondContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#whileCond.
+    def enterWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#whileCond.
+    def exitWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#variableDeclaration.
+    def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#variableDeclaration.
+    def exitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#declarationSpecifier.
+    def enterDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#declarationSpecifier.
+    def exitDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#cvQualifier.
+    def enterCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#cvQualifier.
+    def exitCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#declaratorInitializer.
+    def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#declaratorInitializer.
+    def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#arrayDeclaration.
+    def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#arrayDeclaration.
+    def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#returnExpression.
+    def enterReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#returnExpression.
+    def exitReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
         pass
 
 
@@ -314,6 +404,69 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#variable.
+    def enterVariable(self, ctx:SmallCParser.VariableContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#variable.
+    def exitVariable(self, ctx:SmallCParser.VariableContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#textLiteral.
+    def enterTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#textLiteral.
+    def exitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#numberLiteral.
+    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#numberLiteral.
+    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#identifier.
+    def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#identifier.
+    def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#pointer.
+    def enterPointer(self, ctx:SmallCParser.PointerContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#pointer.
+    def exitPointer(self, ctx:SmallCParser.PointerContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#reference.
+    def enterReference(self, ctx:SmallCParser.ReferenceContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#reference.
+    def exitReference(self, ctx:SmallCParser.ReferenceContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#typeDeclaration.
+    def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#typeDeclaration.
+    def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         pass
@@ -332,15 +485,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#numberLiteral.
-    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#numberLiteral.
-    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         pass
@@ -356,24 +500,6 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
     def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#textLiteral.
-    def enterTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#textLiteral.
-    def exitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#identifier.
-    def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#identifier.
-    def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
         pass
 
 

@@ -2,52 +2,7 @@
 grammar SmallC;
 
 // parser rules (rule names start with lower case character)
-program :
-      header mainFunction
-    ;
 
-header :
-      ('#include' include)*
-    ;
-
-include :
-      LABRA stringLiteral RABRA
-    | stringLiteral
-    ;
-
-stdInclude :
-
-    ;
-
-customInclude :
-
-    ;
-
-statements :
-      statement*
-    ;
-
-statement :
-      statementBody ';'
-    ;
-
-statementBody :
-      expression
-    | variableDeclaration
-    | returnExpression
-    ;
-
-expression :
-      functionCall
-    | variable
-    | numberLiteral
-    | textLiteral
-    | oplevel15
-    ;
-
-returnExpression :
-      RETURN expression
-    ;
 
 oplevel15 :
       oplevel14
@@ -135,28 +90,128 @@ oplevel1 :
     | '(' expression ')'
     ;
 
-variableDeclaration :
-      typeDeclaration identifier ('=' expression)?
+program :
+      header* functions mainFunction
     ;
 
-variable :
-      identifier
+header :
+      ('#include' LABRA stdInclude RABRA)
+    | ('#include' customInclude)
+    ;
+
+stdInclude :
+      identifier '.' identifier // https://en.wikipedia.org/wiki/C_standard_library
+    ;
+
+customInclude :
+      stringLiteral
+    ;
+
+ functions:
+      functionDeclaration* functionDefinition*
     ;
 
 functionDeclaration :
+      typeDeclaration identifier LBRA parameters RBRA ';'
     ;
 
 functionDefinition :
+      typeDeclaration identifier LBRA parameters RBRA LCBRA statements* RCBRA
+    ;
+
+parameters :
+    | parameter (',' parameter)*
+    |
+    ;
+
+parameter :
+      declarationSpecifier+ identifier
+    | arrayParameter
+    ;
+
+arrayParameter :
+      declarationSpecifier+ identifier (LSBRA integerLiteral? RSBRA)?
     ;
 
 mainFunction :
-      typeDeclaration 'main' LBRA arguments RBRA LCBRA statements RCBRA
+      TYPEINT 'main' LBRA parametersMain RBRA LCBRA statements* RCBRA
     ;
 
-typeDeclaration :
-      TYPECHAR
-    | TYPEFLOAT
-    | TYPEINT
+parametersMain :
+      TYPEVOID
+    | 'int argc, char *argv[]'
+    ;
+
+statements :
+      statement
+    | ifCond
+    | elseCond
+    | elseIfCond
+    | whileCond
+    ;
+
+statement :
+      statementBody ';'
+    ;
+
+statementBody :
+      expression
+    | variableDeclaration
+    | returnExpression
+    ;
+
+expression :
+      functionCall
+    | variable
+    | numberLiteral
+    | textLiteral
+    | oplevel15
+    ;
+
+ifCond :
+      IF LBRA expression RBRA LCBRA statements* RCBRA
+    | IF LBRA expression RBRA statement
+    ;
+
+elseIfCond :
+      ELSE IF LBRA expression RBRA LCBRA statements* RCBRA
+    ;
+
+elseCond:
+      ELSE LCBRA statements* RCBRA
+    | ELSE statement
+    ;
+
+whileCond :
+      WHILE LBRA expression RBRA LCBRA statements* RCBRA
+    | DO LCBRA statements* RCBRA WHILE LBRA expression RBRA ';'
+    ;
+
+variableDeclaration :
+      declarationSpecifier+ declaratorInitializer (',' declaratorInitializer)*
+    ;
+
+declarationSpecifier :
+      typeDeclaration
+    | cvQualifier
+    ;
+
+cvQualifier :
+      CONST
+//  | VOLATILE | MUTABLE
+    ;
+
+declaratorInitializer :
+      identifier ('=' expression)?
+    | arrayDeclaration
+    ;
+
+arrayDeclaration :
+      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA numberLiteral (',' numberLiteral)* RCBRA)?
+    ;
+
+returnExpression :
+      RETURN expression
     ;
 
 functionCall:
@@ -174,25 +229,9 @@ argument :
     | variable
     ;
 
-floatLiteral :
-      FLOAT
-    ;
 
-integerLiteral :
-      INTEGER
-    ;
-
-numberLiteral :
-      floatLiteral
-    | integerLiteral
-    ;
-
-characterLiteral :
-      CHARACTER
-    ;
-
-stringLiteral :
-      STRING
+variable :
+      identifier
     ;
 
 textLiteral :
@@ -200,11 +239,22 @@ textLiteral :
     | stringLiteral
     ;
 
-identifier :
-      IDENTIFIER
+numberLiteral :
+      floatLiteral
+    | integerLiteral
     ;
 
 
+identifier : IDENTIFIER | pointer IDENTIFIER | reference IDENTIFIER;
+pointer : '*';
+reference : '&';
+
+typeDeclaration : TYPECHAR | TYPEFLOAT | TYPEINT | TYPEVOID;
+
+floatLiteral : FLOAT;
+integerLiteral : INTEGER;
+characterLiteral : CHARACTER;
+stringLiteral : STRING;
 
 
 
@@ -217,24 +267,37 @@ LABRA     : '<';
 RABRA     : '>';
 LCBRA     : '{';
 RCBRA     : '}';
+LSBRA     : '[';
+RSBRA     : ']';
 QUOTE     : '"';
 OPERATOR  : [+-*/%];
 
 TYPECHAR  : 'char';
 TYPEFLOAT : 'float';
 TYPEINT   : 'int';
+TYPEVOID  : 'void';
+CONST     : 'const';
+VOLATILE  : 'volatile';
+MUTABLE   : 'mutable';
 
 //CFUN      : 'printf' | 'scanf';
+IF        : 'if';
+ELSE      : 'else';
+DO        : 'do';
+WHILE     : 'while';
+FOR       : 'for';
+BREAK     : 'break';
+CONTINUE  : 'continue';
 RETURN    : 'return';
 
 COMMENT   : '//'~[\r\n]* -> skip;
 
 INTEGER   : [0-9]+;
-FLOAT     : INTEGER . INTEGER ([eE] [+-]? INTEGER)?
+FLOAT     : INTEGER '.' INTEGER ([eE] [+-]? INTEGER)?
           | INTEGER [eE] [+-]? INTEGER
           ;
 
-IDENTIFIER   : [a-zA-Z]+;
+IDENTIFIER   : [a-zA-Z0-9]+;
 CHARACTER    : ['] (. | '\n') ['];
 STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
 
