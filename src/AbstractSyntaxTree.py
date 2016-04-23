@@ -1,14 +1,24 @@
 from pprint import *
 
-class Node:
+class ASTNode:
 
     def __init__(self, label="no label", parent=None):
         self.label = label
         self.children = []
         self.parent = parent
 
-    def addChild(self, label):
-        node = Node(label, self)
+    def addChildNode(self, node):
+        if not isinstance(node, ASTNode):
+            print("trying to add child of non-ASTNode type: expected" + str(ASTNode) + ", got " + str(type(node)))
+            return
+        self.children.append(node)
+        node.parent = self
+        return node
+
+    def addChild(self, label:str):
+        if type(label) is not str:
+            print("trying to add child with label of non-str type")
+        node = ASTNode(label, self)
         self.children.append(node)
         return node
 
@@ -27,11 +37,21 @@ class Node:
         return self.label
 
 
+class ASTInequalityOperatorNode(ASTNode):
+    def __init__(self, lt:bool, eq:bool, parent=None):
+        label = ("<" if lt else ">") + ("=" if eq else "")
+        ASTNode.__init__(self, label, parent)
+        self.lt = lt
+        self.eq = eq
 
+class ASTEqualityOperatorNode(ASTNode):
+    def __init__(self, ineq:bool, parent=None):
+        ASTNode.__init__(self, "!=" if ineq else "==", parent)
+        self.ineq = ineq
 
 class AbstractSyntaxTree:
 
-    def __init__(self, root=Node("root")):
+    def __init__(self, root=ASTNode("root")):
         self.root = root
 
     def __str__(self):
@@ -43,7 +63,7 @@ class AbstractSyntaxTree:
 
 # tests
 if __name__=="__main__":
-    root = Node("root")
+    root = ASTNode("root")
 
     one = root.addChild("child1")
     two = root.addChild("child2")

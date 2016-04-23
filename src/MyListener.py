@@ -1,6 +1,8 @@
 from SmallCListener import SmallCListener
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
+from antlr4 import tree
+from antlr4 import ParserRuleContext
 
 
 class MyListener(SmallCListener):
@@ -9,6 +11,7 @@ class MyListener(SmallCListener):
         self.ast = tree
         self.currentNode = self.ast.root
         self.nodes = {}
+        self.createdNode = []
 
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
         self.currentNode = self.currentNode.addChild("program")
@@ -114,166 +117,185 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel15.
     def enterOplevel15(self, ctx:SmallCParser.Oplevel15Context):
-        self.currentNode = self.currentNode.addChild("oplevel15")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel15.
     def exitOplevel15(self, ctx:SmallCParser.Oplevel15Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel14.
     def enterOplevel14(self, ctx:SmallCParser.Oplevel14Context):
-        self.currentNode = self.currentNode.addChild("oplevel14")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel14.
     def exitOplevel14(self, ctx:SmallCParser.Oplevel14Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel13.
     def enterOplevel13(self, ctx:SmallCParser.Oplevel13Context):
-        self.currentNode = self.currentNode.addChild("oplevel13")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel13.
     def exitOplevel13(self, ctx:SmallCParser.Oplevel13Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel12.
     def enterOplevel12(self, ctx:SmallCParser.Oplevel12Context):
-        self.currentNode = self.currentNode.addChild("oplevel12")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel12.
     def exitOplevel12(self, ctx:SmallCParser.Oplevel12Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel11.
     def enterOplevel11(self, ctx:SmallCParser.Oplevel11Context):
-        self.currentNode = self.currentNode.addChild("oplevel11")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel11.
     def exitOplevel11(self, ctx:SmallCParser.Oplevel11Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel10.
     def enterOplevel10(self, ctx:SmallCParser.Oplevel10Context):
-        self.currentNode = self.currentNode.addChild("oplevel10")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel10.
     def exitOplevel10(self, ctx:SmallCParser.Oplevel10Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel9.
     def enterOplevel9(self, ctx:SmallCParser.Oplevel9Context):
-        self.currentNode = self.currentNode.addChild("oplevel9")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel9.
     def exitOplevel9(self, ctx:SmallCParser.Oplevel9Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel8.
     def enterOplevel8(self, ctx:SmallCParser.Oplevel8Context):
-        self.currentNode = self.currentNode.addChild("oplevel8")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel8.
     def exitOplevel8(self, ctx:SmallCParser.Oplevel8Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel7.
     def enterOplevel7(self, ctx:SmallCParser.Oplevel7Context):
-        self.currentNode = self.currentNode.addChild("oplevel7")
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getSymbol().text
+            self.currentNode = self.currentNode.addChildNode(ASTEqualityOperatorNode(symbol == "!="))
+            self.createdNode.append(True)
+        else:
+            self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel7.
     def exitOplevel7(self, ctx:SmallCParser.Oplevel7Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel6.
     def enterOplevel6(self, ctx:SmallCParser.Oplevel6Context):
-        self.currentNode = self.currentNode.addChild("oplevel6")
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getSymbol().text
+            if symbol == "<":
+                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=True, eq=False))
+            elif symbol == ">":
+                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=False, eq=False))
+            elif symbol == "<=":
+                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=True, eq=True))
+            elif symbol == ">=":
+                self.currentNode = self.currentNode.addChildnOde(ASTInequalityOperatorNode(lt=False, eq=True))
+            self.createdNode.append(True)
+        else:
+            self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel6.
     def exitOplevel6(self, ctx:SmallCParser.Oplevel6Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel5.
     def enterOplevel5(self, ctx:SmallCParser.Oplevel5Context):
-        self.currentNode = self.currentNode.addChild("oplevel5")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel5.
     def exitOplevel5(self, ctx:SmallCParser.Oplevel5Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel4.
     def enterOplevel4(self, ctx:SmallCParser.Oplevel4Context):
-        self.currentNode = self.currentNode.addChild("oplevel4")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel4.
     def exitOplevel4(self, ctx:SmallCParser.Oplevel4Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel3.
     def enterOplevel3(self, ctx:SmallCParser.Oplevel3Context):
-        self.currentNode = self.currentNode.addChild("oplevel3")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel3.
     def exitOplevel3(self, ctx:SmallCParser.Oplevel3Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel2.
     def enterOplevel2(self, ctx:SmallCParser.Oplevel2Context):
-        self.currentNode = self.currentNode.addChild("oplevel2")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel2.
     def exitOplevel2(self, ctx:SmallCParser.Oplevel2Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel1.
     def enterOplevel1(self, ctx:SmallCParser.Oplevel1Context):
-        self.currentNode = self.currentNode.addChild("oplevel1")
+        self.createdNode.append(False)
         pass
 
     # Exit a parse tree produced by SmallCParser#oplevel1.
     def exitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
-        self.currentNode = self.currentNode.parent
+        if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
 

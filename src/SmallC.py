@@ -6,6 +6,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
 
+import sys
 
 def main(filename):
     input_file = FileStream(filename)
@@ -32,4 +33,8 @@ def main(filename):
 
 
 if __name__=="__main__":
-    main("testfiles/hello_world.c")
+
+    if len(sys.argv) != 2:
+        print("Forgot yo source file dumas.")
+
+    main(sys.argv[1])
