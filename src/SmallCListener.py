@@ -89,6 +89,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#returnExpression.
+    def enterReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#returnExpression.
+    def exitReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#oplevel15.
     def enterOplevel15(self, ctx:SmallCParser.Oplevel15Context):
         pass
@@ -305,15 +314,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#numberLiteral.
-    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#numberLiteral.
-    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         pass
@@ -332,6 +332,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#numberLiteral.
+    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#numberLiteral.
+    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         pass
@@ -347,6 +356,15 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
     def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#textLiteral.
+    def enterTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#textLiteral.
+    def exitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
         pass
 
 

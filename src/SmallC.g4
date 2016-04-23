@@ -16,11 +16,11 @@ include :
     ;
 
 stdInclude :
-      
+
     ;
-    
+
 customInclude :
-      
+
     ;
 
 statements :
@@ -34,16 +34,19 @@ statement :
 statementBody :
       expression
     | variableDeclaration
-    | RETURN expression
+    | returnExpression
     ;
 
 expression :
       functionCall
     | variable
-    | integerLiteral
-    | stringLiteral
-    | floatLiteral
+    | numberLiteral
+    | textLiteral
     | oplevel15
+    ;
+
+returnExpression :
+      RETURN expression
     ;
 
 oplevel15 :
@@ -63,13 +66,13 @@ oplevel13 :
 oplevel12 :
       oplevel12 '||' oplevel11
     | oplevel11
-    ;  
-    
+    ;
+
 oplevel11 :
       oplevel11 '&&' oplevel10
     | oplevel10
     ;
-    
+
 oplevel10 :
       oplevel9
     ;
@@ -87,7 +90,7 @@ oplevel7 :
     | oplevel7 '!=' oplevel6
     | oplevel6
     ;
-    
+
 oplevel6 :
       oplevel6 '<' oplevel5
     | oplevel6 '<=' oplevel5
@@ -120,7 +123,7 @@ oplevel2 :
     | '*' oplevel2
     | '!' oplevel2
     | numberLiteral
-    | characterLiteral
+    | textLiteral
     | LBRA typeDeclaration RBRA oplevel2
     | oplevel1
     ;
@@ -135,7 +138,7 @@ oplevel1 :
 variableDeclaration :
       typeDeclaration identifier ('=' expression)?
     ;
-    
+
 variable :
       identifier
     ;
@@ -147,7 +150,7 @@ functionDefinition :
     ;
 
 mainFunction :
-      typeDeclaration 'main' LBRA 'void' RBRA LCBRA statements RCBRA
+      typeDeclaration 'main' LBRA arguments RBRA LCBRA statements RCBRA
     ;
 
 typeDeclaration :
@@ -157,32 +160,31 @@ typeDeclaration :
     ;
 
 functionCall:
-      CFUN LBRA arguments RBRA
+      identifier LBRA arguments RBRA // identifier is not completely correct, IDENTIFIER   : [a-zA-Z]+;
     ;
-    
+
 arguments :
     | argument (',' argument)*
     |
     ;
-    
-argument :
-      stringLiteral
-    | integerLiteral
-    | variable
-    | floatLiteral
-    ;
 
-numberLiteral :
-      FLOAT
-    | INTEGER
+argument :
+      numberLiteral
+    | textLiteral
+    | variable
     ;
 
 floatLiteral :
       FLOAT
     ;
-    
+
 integerLiteral :
       INTEGER
+    ;
+
+numberLiteral :
+      floatLiteral
+    | integerLiteral
     ;
 
 characterLiteral :
@@ -191,6 +193,11 @@ characterLiteral :
 
 stringLiteral :
       STRING
+    ;
+
+textLiteral :
+      characterLiteral
+    | stringLiteral
     ;
 
 identifier :
@@ -217,7 +224,7 @@ TYPECHAR  : 'char';
 TYPEFLOAT : 'float';
 TYPEINT   : 'int';
 
-CFUN      : 'printf' | 'scanf';
+//CFUN      : 'printf' | 'scanf';
 RETURN    : 'return';
 
 COMMENT   : '//'~[\r\n]* -> skip;
@@ -232,4 +239,3 @@ CHARACTER    : ['] (. | '\n') ['];
 STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines, \r (Windows)
-

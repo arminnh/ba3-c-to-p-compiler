@@ -54,6 +54,11 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#returnExpression.
+    def visitReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#oplevel15.
     def visitOplevel15(self, ctx:SmallCParser.Oplevel15Context):
         return self.visitChildren(ctx)
@@ -174,11 +179,6 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#numberLiteral.
-    def visitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SmallCParser#floatLiteral.
     def visitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         return self.visitChildren(ctx)
@@ -189,6 +189,11 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#numberLiteral.
+    def visitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#characterLiteral.
     def visitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         return self.visitChildren(ctx)
@@ -196,6 +201,11 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#stringLiteral.
     def visitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#textLiteral.
+    def visitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
         return self.visitChildren(ctx)
 
 

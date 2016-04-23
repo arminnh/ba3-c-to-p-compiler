@@ -74,23 +74,19 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statement.
     def enterStatement(self, ctx:SmallCParser.StatementContext):
-        self.currentNode = self.currentNode.addChild("statement")
         pass
 
     # Exit a parse tree produced by SmallCParser#statement.
     def exitStatement(self, ctx:SmallCParser.StatementContext):
-        self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#statementBody.
     def enterStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        self.currentNode = self.currentNode.addChild("statementBody")
         pass
 
     # Exit a parse tree produced by SmallCParser#statementBody.
     def exitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        self.currentNode = self.currentNode.parent
         pass
 
 
@@ -101,6 +97,17 @@ class MyListener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#expression.
     def exitExpression(self, ctx:SmallCParser.ExpressionContext):
+        self.currentNode = self.currentNode.parent
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#expression.
+    def enterReturnExpression(self, ctx:SmallCParser.ExpressionContext):
+        self.currentNode = self.currentNode.addChild("returnExpression")
+        pass
+
+    # Exit a parse tree produced by SmallCParser#expression.
+    def exitReturnExpression(self, ctx:SmallCParser.ExpressionContext):
         self.currentNode = self.currentNode.parent
         pass
 
@@ -362,24 +369,10 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#argument.
     def enterArgument(self, ctx:SmallCParser.ArgumentContext):
-        self.currentNode = self.currentNode.addChild("argument")
         pass
 
     # Exit a parse tree produced by SmallCParser#argument.
     def exitArgument(self, ctx:SmallCParser.ArgumentContext):
-        self.currentNode = self.currentNode.parent
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#numberLiteral.
-    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        self.currentNode = self.currentNode.addChild("numberLiteral")
-        self.currentNode.addChild(ctx.getText())
-        pass
-
-    # Exit a parse tree produced by SmallCParser#numberLiteral.
-    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        self.currentNode = self.currentNode.parent
         pass
 
 
@@ -407,6 +400,15 @@ class MyListener(SmallCListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#numberLiteral.
+    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#numberLiteral.
+    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         self.currentNode = self.currentNode.addChild("characterLiteral")
@@ -428,6 +430,15 @@ class MyListener(SmallCListener):
     # Exit a parse tree produced by SmallCParser#stringLiteral.
     def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
         self.currentNode = self.currentNode.parent
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#characterLiteral.
+    def enterTextLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#characterLiteral.
+    def exitTextLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
         pass
 
 
