@@ -1,6 +1,6 @@
 # create files for java tree visualisation
-java -jar ../resources/antlr-4.5.2-complete.jar SmallC.g4 -visitor
-javac -classpath ../resources/antlr-4.5.2-complete.jar SmallC*.java
+java -jar ../resources/antlr-4.5.3-complete.jar SmallC.g4 -visitor
+javac -classpath ../resources/antlr-4.5.3-complete.jar SmallC*.java
 
 # move java files to build dir
 if [ -d "build" ]; then
