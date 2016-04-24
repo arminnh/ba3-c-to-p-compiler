@@ -35,6 +35,8 @@ def main(filename):
 if __name__=="__main__":
 
     if len(sys.argv) != 2:
-        print("Forgot yo source file dumas.")
+        print("Usage: python3 SmallC.py filename\n")
+        sys.exit()
+
 
     main(sys.argv[1])
