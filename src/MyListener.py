@@ -14,7 +14,7 @@ class MyListener(SmallCListener):
         self.createdNode = []
 
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
-        self.currentNode = self.currentNode.addChild("program")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("program"))
         return
 
     def exitProgram(self, ctx:SmallCParser.ProgramContext):
@@ -22,7 +22,7 @@ class MyListener(SmallCListener):
 
 
     def enterHeader(self, ctx:SmallCParser.ProgramContext):
-        self.currentNode = self.currentNode.addChild("header")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("header"))
         return
 
     # Exit a parse tree produced by SmallCParser#header.
@@ -31,20 +31,20 @@ class MyListener(SmallCListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#include.
-    def enterInclude(self, ctx:SmallCParser.IncludeContext):
-        self.currentNode = self.currentNode.addChild("include")
-        pass
+    # # Enter a parse tree produced by SmallCParser#include.
+    # def enterInclude(self, ctx:SmallCParser.IncludeContext):
+    #     self.currentNode = self.currentNode.addChild("include")
+    #     pass
 
-    # Exit a parse tree produced by SmallCParser#include.
-    def exitInclude(self, ctx:SmallCParser.IncludeContext):
-        self.currentNode = self.currentNode.parent
-        pass
+    # # Exit a parse tree produced by SmallCParser#include.
+    # def exitInclude(self, ctx:SmallCParser.IncludeContext):
+    #     self.currentNode = self.currentNode.parent
+    #     pass
 
 
     # Enter a parse tree produced by SmallCParser#stdInclude.
     def enterStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        self.currentNode = self.currentNode.addChild("stdInclude")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("stdInclude"))
         pass
 
     # Exit a parse tree produced by SmallCParser#stdInclude.
@@ -55,7 +55,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#customInclude.
     def enterCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        self.currentNode = self.currentNode.addChild("customInclude")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("customInclude"))
         pass
 
     # Exit a parse tree produced by SmallCParser#customInclude.
@@ -66,7 +66,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statements.
     def enterStatements(self, ctx:SmallCParser.StatementsContext):
-        self.currentNode = self.currentNode.addChild("statements")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("statements"))
         pass
 
     # Exit a parse tree produced by SmallCParser#statements.
@@ -95,7 +95,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#expression.
     def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.addChild("expression")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("expression"))
         pass
 
     # Exit a parse tree produced by SmallCParser#expression.
@@ -106,7 +106,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#expression.
     def enterReturnExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.addChild("returnExpression")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("returnExpression"))
         pass
 
     # Exit a parse tree produced by SmallCParser#expression.
@@ -128,6 +128,11 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel14.
     def enterOplevel14(self, ctx:SmallCParser.Oplevel14Context):
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getText()
+            if symbol == "=":
+                self.currentNode = self.currentNode.addChildNode(ASTSimpleAssignmentOperatorNode())
         self.createdNode.append(False)
         pass
 
@@ -139,8 +144,16 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel13.
     def enterOplevel13(self, ctx:SmallCParser.Oplevel13Context):
+        children = list(ctx.getChildren())
+        if len(children) == 5:
+            symbol1 = children[1].getText()
+            symbol2 = children[3].getText()
+            if symbol1 == "?" and symbol2 == ":":
+                self.currentNode = self.currentNode.addChildNode(ASTTernaryConditionalOperatorNode())
+                self.createdNode.append(True)
+                return
+        
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel13.
     def exitOplevel13(self, ctx:SmallCParser.Oplevel13Context):
@@ -150,8 +163,15 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel12.
     def enterOplevel12(self, ctx:SmallCParser.Oplevel12Context):
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getText()
+            if symbol == "||":
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['disj']))
+                self.createdNode.append(True)
+                return
+
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel12.
     def exitOplevel12(self, ctx:SmallCParser.Oplevel12Context):
@@ -161,8 +181,15 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel11.
     def enterOplevel11(self, ctx:SmallCParser.Oplevel11Context):
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getText()
+            if symbol == "&&":
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['conj']))
+                self.createdNode.append(True)
+                return
+                
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel11.
     def exitOplevel11(self, ctx:SmallCParser.Oplevel11Context):
@@ -208,11 +235,11 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 3:
             symbol = children[1].getSymbol().text
-            self.currentNode = self.currentNode.addChildNode(ASTEqualityOperatorNode(symbol == "!="))
+            self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode( \
+                ASTComparisonOperatorNode.ComparisonType['inequal'] if symbol == "!=" else ASTComparisonOperatorNode.ComparisonType['equal']))
             self.createdNode.append(True)
         else:
             self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel7.
     def exitOplevel7(self, ctx:SmallCParser.Oplevel7Context):
@@ -225,18 +252,17 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 3:
             symbol = children[1].getSymbol().text
-            if symbol == "<":
-                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=True, eq=False))
-            elif symbol == ">":
-                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=False, eq=False))
-            elif symbol == "<=":
-                self.currentNode = self.currentNode.addChildNode(ASTInequalityOperatorNode(lt=True, eq=True))
-            elif symbol == ">=":
-                self.currentNode = self.currentNode.addChildnOde(ASTInequalityOperatorNode(lt=False, eq=True))
-            self.createdNode.append(True)
-        else:
-            self.createdNode.append(False)
-        pass
+            if symbol in ["<", ">", "<=", ">="]:
+                comparisonType = None
+                if symbol == "<": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
+                elif symbol == ">": comparisonType = ASTComparisonOperatorNode.ComparisonType['gt']
+                elif symbol == "<=": comparisonType = ASTComparisonOperatorNode.ComparisonType['le']
+                elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
+                self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode(comparisonType))
+                self.createdNode.append(True)
+                return
+
+        self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel6.
     def exitOplevel6(self, ctx:SmallCParser.Oplevel6Context):
@@ -257,19 +283,40 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel4.
     def enterOplevel4(self, ctx:SmallCParser.Oplevel4Context):
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getText()
+            if self.addBinaryArithmeticOperator(symbol):
+                self.createdNode.append(True)
+                return
+
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel4.
     def exitOplevel4(self, ctx:SmallCParser.Oplevel4Context):
         if self.createdNode.pop(): self.currentNode = self.currentNode.parent
         pass
 
+    def addBinaryArithmeticOperator(self, symbol):
+        arithmeticType = None
+        if symbol == "+": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['add']
+        elif symbol == "-": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']
+        elif symbol == "*": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['mul']
+        elif symbol == "/": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['div']
+        elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['remainder']
+        else: return False
+        self.currentNode = self.currentNode.addChildNode(ASTBinaryArithmeticOperatorNode(arithmeticType))
+        return True
 
     # Enter a parse tree produced by SmallCParser#oplevel3.
     def enterOplevel3(self, ctx:SmallCParser.Oplevel3Context):
+        children = list(ctx.getChildren())
+        if len(children) == 3:
+            symbol = children[1].getText()
+            if self.addBinaryArithmeticOperator(symbol):
+                self.createdNode.append(True)
+                return
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel3.
     def exitOplevel3(self, ctx:SmallCParser.Oplevel3Context):
@@ -279,8 +326,16 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel2.
     def enterOplevel2(self, ctx:SmallCParser.Oplevel2Context):
+        children = list(ctx.getChildren())
+        if len(children) == 2:
+            symbol = children[0].getText()
+            arithmeticType = None
+            if symbol == "++": arithmeticType = ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']
+            elif symbol == "--": arithmeticType = ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']
+            self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(arithmeticType, ASTUnaryOperatorNode.Type['prefix']))
+            self.createdNode.append(True)
+            return
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel2.
     def exitOplevel2(self, ctx:SmallCParser.Oplevel2Context):
@@ -290,8 +345,17 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#oplevel1.
     def enterOplevel1(self, ctx:SmallCParser.Oplevel1Context):
+        children = list(ctx.getChildren())
+        if len(children) == 2:
+            symbol = children[1].getText()
+            if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix']))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['postfix']))
+            elif symbol == "&": self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode())
+            elif symbol == "*": self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode())
+            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode())
+            self.createdNode.append(True)
+            return
         self.createdNode.append(False)
-        pass
 
     # Exit a parse tree produced by SmallCParser#oplevel1.
     def exitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
@@ -301,7 +365,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#variableDeclaration.
     def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
-        self.currentNode = self.currentNode.addChild("variableDeclaration")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("variableDeclaration"))
         pass
 
     # Exit a parse tree produced by SmallCParser#variableDeclaration.
@@ -312,7 +376,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#variable.
     def enterVariable(self, ctx:SmallCParser.VariableContext):
-        self.currentNode = self.currentNode.addChild("variable")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("variable"))
         pass
 
     # Exit a parse tree produced by SmallCParser#variable.
@@ -323,7 +387,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDeclaration.
     def enterFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
-        self.currentNode = self.currentNode.addChild("functionDeclaration")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("functionDeclaration"))
         pass
 
     # Exit a parse tree produced by SmallCParser#functionDeclaration.
@@ -334,7 +398,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChild("functionDefinition")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("functionDefinition"))
         pass
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
@@ -345,7 +409,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        self.currentNode = self.currentNode.addChild("mainFunction")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("mainFunction"))
         return
 
     # Exit a parse tree produced by SmallCParser#mainFunction.
@@ -357,8 +421,8 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#typeDeclaration.
     def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
-        self.currentNode = self.currentNode.addChild("typeDeclaration")
-        self.currentNode.addChild("\"" + ctx.getText() + "\"")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("typeDeclaration"))
+        self.currentNode.addChildNode(ASTNode("\"" + ctx.getText() + "\""))
         pass
 
     # Exit a parse tree produced by SmallCParser#typeDeclaration.
@@ -369,7 +433,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionCall.
     def enterFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        self.currentNode = self.currentNode.addChild("functionCall")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("functionCall"))
         pass
 
     # Exit a parse tree produced by SmallCParser#functionCall.
@@ -380,7 +444,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#arguments.
     def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        self.currentNode = self.currentNode.addChild("arguments")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("arguments"))
         pass
 
     # Exit a parse tree produced by SmallCParser#arguments.
@@ -400,8 +464,8 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
-        self.currentNode = self.currentNode.addChild("floatLiteral")
-        self.currentNode.addChild(ctx.getText())
+        self.currentNode = self.currentNode.addChildNode(ASTNumberLiteralNode(float(ctx.getText())))
+
         pass
 
     # Exit a parse tree produced by SmallCParser#floatLiteral.
@@ -412,8 +476,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#integerLiteral.
     def enterIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
-        self.currentNode = self.currentNode.addChild("integerLiteral")
-        self.currentNode.addChild(ctx.getText())
+        self.currentNode = self.currentNode.addChildNode(ASTNumberLiteralNode(int(ctx.getText())))
         pass
 
     # Exit a parse tree produced by SmallCParser#integerLiteral.
@@ -433,8 +496,8 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        self.currentNode = self.currentNode.addChild("characterLiteral")
-        self.currentNode.addChild("\"" + ctx.getText() + "\"")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("characterLiteral"))
+        self.currentNode.addChildNode(ASTNode("\"" + ctx.getText() + "\""))
         pass
 
     # Exit a parse tree produced by SmallCParser#characterLiteral.
@@ -445,8 +508,8 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#stringLiteral.
     def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        self.currentNode = self.currentNode.addChild("stringLiteral")
-        self.currentNode.addChild("\"" + ctx.getText() + "\"")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("stringLiteral"))
+        self.currentNode.addChildNode(ASTNode("\"" + ctx.getText() + "\""))
         pass
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
@@ -466,8 +529,8 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#identifier.
     def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        self.currentNode = self.currentNode.addChild("identifier")
-        self.currentNode.addChild("\"" + ctx.getText() + "\"")
+        self.currentNode = self.currentNode.addChildNode(ASTNode("identifier"))
+        self.currentNode.addChildNode(ASTNode("\"" + ctx.getText() + "\""))
         pass
 
     # Exit a parse tree produced by SmallCParser#identifier.
