@@ -1,4 +1,4 @@
-# Generated from SmallC.g4 by ANTLR 4.5.3
+# Generated from SmallC.g4 by ANTLR 4.5.2
 from antlr4 import *
 from io import StringIO
 
@@ -263,7 +263,7 @@ class SmallCLexer(Lexer):
 
     def __init__(self, input=None):
         super().__init__(input)
-        self.checkVersion("4.5.3")
+        self.checkVersion("4.5.2")
         self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None

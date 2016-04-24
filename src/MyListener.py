@@ -133,6 +133,7 @@ class MyListener(SmallCListener):
             symbol = children[1].getText()
             if symbol == "=":
                 self.currentNode = self.currentNode.addChildNode(ASTSimpleAssignmentOperatorNode())
+                self.createdNode.append(True)
         self.createdNode.append(False)
         pass
 
@@ -152,7 +153,7 @@ class MyListener(SmallCListener):
                 self.currentNode = self.currentNode.addChildNode(ASTTernaryConditionalOperatorNode())
                 self.createdNode.append(True)
                 return
-        
+
         self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel13.
@@ -188,7 +189,7 @@ class MyListener(SmallCListener):
                 self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['conj']))
                 self.createdNode.append(True)
                 return
-                
+
         self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel11.

@@ -19,7 +19,7 @@ class ASTNode(object):
         return self.children
 
     def out(self, level=1):
-        str = self.label + "\n"
+        str =  self.label + "\n"
 
         for child in self.getChildren():
             str += "   " * level + child.out(level+1)
