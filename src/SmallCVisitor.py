@@ -94,6 +94,11 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SmallCParser#include.
+    def visitInclude(self, ctx:SmallCParser.IncludeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SmallCParser#stdInclude.
     def visitStdInclude(self, ctx:SmallCParser.StdIncludeContext):
         return self.visitChildren(ctx)

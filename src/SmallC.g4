@@ -91,12 +91,16 @@ oplevel1 :
     ;
 
 program :
-      header* functions mainFunction
+      header functions mainFunction
     ;
 
 header :
-      ('#include' LABRA stdInclude RABRA)
-    | ('#include' customInclude)
+      include+
+    ;
+    
+include :
+      '#include' LABRA stdInclude RABRA
+    | '#include' customInclude
     ;
 
 stdInclude :
@@ -107,7 +111,7 @@ customInclude :
       stringLiteral
     ;
 
- functions:
+functions :
       functionDeclaration* functionDefinition*
     ;
 
@@ -209,7 +213,7 @@ declaratorInitializer :
     ;
 
 arrayDeclaration :
-      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA arguments? RCBRA)?
+      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA arguments RCBRA)?
     ;
 
 returnExpression :
