@@ -454,15 +454,6 @@ class MyListener(SmallCListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#argument.
-    def enterArgument(self, ctx:SmallCParser.ArgumentContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#argument.
-    def exitArgument(self, ctx:SmallCParser.ArgumentContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
         self.currentNode = self.currentNode.addChildNode(ASTNumberLiteralNode(float(ctx.getText())))

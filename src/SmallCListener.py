@@ -287,21 +287,21 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#arguments.
+    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#arguments.
+    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#ifCond.
     def enterIfCond(self, ctx:SmallCParser.IfCondContext):
         pass
 
     # Exit a parse tree produced by SmallCParser#ifCond.
     def exitIfCond(self, ctx:SmallCParser.IfCondContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#elseIfCond.
-    def enterElseIfCond(self, ctx:SmallCParser.ElseIfCondContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#elseIfCond.
-    def exitElseIfCond(self, ctx:SmallCParser.ElseIfCondContext):
         pass
 
 
@@ -320,6 +320,15 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#whileCond.
     def exitWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#doWhileCond.
+    def enterDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#doWhileCond.
+    def exitDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
         pass
 
 
@@ -383,24 +392,6 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#functionCall.
     def exitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#arguments.
-    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#arguments.
-    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#argument.
-    def enterArgument(self, ctx:SmallCParser.ArgumentContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#argument.
-    def exitArgument(self, ctx:SmallCParser.ArgumentContext):
         pass
 
 

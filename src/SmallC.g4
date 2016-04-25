@@ -116,7 +116,7 @@ functionDeclaration :
     ;
 
 functionDefinition :
-      typeDeclaration identifier LBRA parameters RBRA LCBRA statements* RCBRA
+      typeDeclaration identifier LBRA parameters RBRA statements
     ;
 
 parameters :
@@ -134,7 +134,7 @@ arrayParameter :
     ;
 
 mainFunction :
-      TYPEINT 'main' LBRA parametersMain RBRA LCBRA statements* RCBRA
+      TYPEINT 'main' LBRA parametersMain RBRA statements
     ;
 
 parametersMain :
@@ -143,15 +143,15 @@ parametersMain :
     ;
 
 statements :
-      statement
-    | ifCond
-    | elseCond
-    | elseIfCond
-    | whileCond
+      LCBRA statement* RCBRA
     ;
 
 statement :
-      statementBody ';'
+      statements
+    | statementBody ';'
+    | ifCond
+    | whileCond
+    | doWhileCond
     ;
 
 statementBody :
@@ -168,23 +168,25 @@ expression :
     | oplevel15
     ;
 
-ifCond :
-      IF LBRA expression RBRA LCBRA statements* RCBRA
-    | IF LBRA expression RBRA statement
+arguments :
+      expression (',' expression)*
+    |
     ;
 
-elseIfCond :
-      ELSE IF LBRA expression RBRA LCBRA statements* RCBRA
+ifCond :
+      IF LBRA expression RBRA statement elseCond?
     ;
 
 elseCond:
-      ELSE LCBRA statements* RCBRA
-    | ELSE statement
+      ELSE statement
     ;
 
 whileCond :
-      WHILE LBRA expression RBRA LCBRA statements* RCBRA
-    | DO LCBRA statements* RCBRA WHILE LBRA expression RBRA ';'
+      WHILE LBRA expression RBRA statement
+    ;
+
+doWhileCond :
+      DO LCBRA statement* RCBRA WHILE LBRA expression RBRA ';'
     ;
 
 variableDeclaration :
@@ -207,7 +209,7 @@ declaratorInitializer :
     ;
 
 arrayDeclaration :
-      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA numberLiteral (',' numberLiteral)* RCBRA)?
+      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA arguments? RCBRA)?
     ;
 
 returnExpression :
@@ -216,17 +218,6 @@ returnExpression :
 
 functionCall:
       identifier LBRA arguments RBRA // identifier is not completely correct, IDENTIFIER   : [a-zA-Z]+;
-    ;
-
-arguments :
-    | argument (',' argument)*
-    |
-    ;
-
-argument :
-      numberLiteral
-    | textLiteral
-    | variable
     ;
 
 

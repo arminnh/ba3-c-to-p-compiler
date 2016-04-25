@@ -164,13 +164,13 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#ifCond.
-    def visitIfCond(self, ctx:SmallCParser.IfCondContext):
+    # Visit a parse tree produced by SmallCParser#arguments.
+    def visitArguments(self, ctx:SmallCParser.ArgumentsContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#elseIfCond.
-    def visitElseIfCond(self, ctx:SmallCParser.ElseIfCondContext):
+    # Visit a parse tree produced by SmallCParser#ifCond.
+    def visitIfCond(self, ctx:SmallCParser.IfCondContext):
         return self.visitChildren(ctx)
 
 
@@ -181,6 +181,11 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#whileCond.
     def visitWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SmallCParser#doWhileCond.
+    def visitDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
         return self.visitChildren(ctx)
 
 
@@ -216,16 +221,6 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#functionCall.
     def visitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SmallCParser#arguments.
-    def visitArguments(self, ctx:SmallCParser.ArgumentsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SmallCParser#argument.
-    def visitArgument(self, ctx:SmallCParser.ArgumentContext):
         return self.visitChildren(ctx)
 
 
