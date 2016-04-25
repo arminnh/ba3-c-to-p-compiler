@@ -95,7 +95,7 @@ program :
     ;
 
 header :
-      include+
+      include*
     ;
     
 include :
@@ -138,7 +138,7 @@ arrayParameter :
     ;
 
 mainFunction :
-      TYPEINT 'main' LBRA parametersMain RBRA statements
+      (TYPEINT 'main' LBRA parametersMain RBRA statements)?
     ;
 
 parametersMain :
@@ -152,18 +152,14 @@ statements :
 
 statement :
       statements
-    | statementBody ';'
     | ifCond
     | whileCond
     | doWhileCond
+    | expression ';'
+    | variableDeclaration ';'
+    | returnExpression ';'
     ;
-
-statementBody :
-      expression
-    | variableDeclaration
-    | returnExpression
-    ;
-
+    
 expression :
       functionCall
     | variable
@@ -191,6 +187,8 @@ whileCond :
 
 doWhileCond :
       DO LCBRA statement* RCBRA WHILE LBRA expression RBRA ';'
+      // DO LCBRA doWhileCondStatements RCBRA WHILE LBRA expression RBRA ';'
+      // ; doWhileCondStatements : statement* ;
     ;
 
 variableDeclaration :
@@ -286,6 +284,7 @@ CONTINUE  : 'continue';
 RETURN    : 'return';
 
 COMMENT   : '//'~[\r\n]* -> skip;
+MULTICOMMENT : '/*'(.)*?'*/' -> skip;
 
 INTEGER   : [0-9]+;
 FLOAT     : INTEGER '.' INTEGER ([eE] [+-]? INTEGER)?
