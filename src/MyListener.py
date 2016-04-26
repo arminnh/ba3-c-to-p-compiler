@@ -66,11 +66,11 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#expression.
     def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTExpressionNode())
+        pass
 
     # Exit a parse tree produced by SmallCParser#expression.
     def exitExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.parent
+        pass
 
 
     # Enter a parse tree produced by SmallCParser#expression.
