@@ -10,11 +10,18 @@ class ASTSymbolTableFiller:
         if node is None:
             node = self.ast.root
 
-        # if node.label == "identifier":
-        #     print(node.getChildren()[0].label)
+        openedScope = False
+        if isinstance(node, (ASTStatementsNode, ASTFunctionDeclarationNode, ASTFunctionDefinitionNode)):
+            if isinstance(node, (ASTFunctionDeclarationNode, ASTFunctionDefinitionNode)):
+                self.table.insertSymbol(node.identifier, "function")
+            openedScope = True
+            self.table.openScope()
 
-        if hasattr(node, "identifier"):
-            print(node.identifier)
+        if isinstance(node, ASTParameterNode):
+            self.table.insertSymbol(node.identifier, node.type)
 
         for child in node.getChildren():
             self.fill(child)
+
+        if openedScope:
+            self.table.closeScope()

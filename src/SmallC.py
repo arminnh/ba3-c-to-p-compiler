@@ -36,7 +36,8 @@ def main(filename):
     symbolTable = SymbolTable()
 
     tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
-    # tableFiller.fill()
+    tableFiller.fill()
+    print(symbolTable)
 
 
 

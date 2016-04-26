@@ -334,8 +334,13 @@ class ASTVariableDeclarationNode(ASTNode):
         self.arrayLength = None
         """
 
+class ASTStatementsNode(ASTNode):
+    def __init__(self, parent=None):
+        super(ASTStatementsNode, self).__init__("statements", parent)
 
-
+class ASTStatementNode(ASTNode):
+    def __init__(self, parent=None):
+        super(ASTStatementNode, self).__init__("statement", parent)
 
 class AbstractSyntaxTree:
 

@@ -19,6 +19,16 @@ class Scope:
 	def retrieveSymbol(self, name):
 		return self.symbols.get(name)
 
+	def out(self, level):
+		out = "  " * level + "Scope:\n"
+		for key, value in self.symbols.items():
+			out += "  " * level + " " + key + ": " + value + "\n"
+
+		for child in self.children:
+			out += child.out(level + 1)
+
+		return out
+
 class SymbolTable(object):
 	def __init__(self):
 		self.root = Scope()
@@ -41,7 +51,8 @@ class SymbolTable(object):
 				return nametype
 			scope = scope.parent
 
-
+	def __str__(self):
+		return self.root.out(0)
 
 if __name__ == "__main__":
 	table = SymbolTable()

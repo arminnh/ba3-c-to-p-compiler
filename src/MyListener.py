@@ -68,7 +68,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statements.
     def enterStatements(self, ctx:SmallCParser.StatementsContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("statements"))
+        self.currentNode = self.currentNode.addChildNode(ASTStatementsNode())
 
     # Exit a parse tree produced by SmallCParser#statements.
     def exitStatements(self, ctx:SmallCParser.StatementsContext):
