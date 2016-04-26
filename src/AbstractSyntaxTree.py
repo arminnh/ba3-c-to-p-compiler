@@ -24,7 +24,7 @@ class ASTNode(object):
         for child in self.getChildren():
             str += "   " * level + child.out(level+1)
 
-        if not self.children:
+        if not self.children and not isinstance(self.parent, ASTBinaryOperatorNode):
             str += "\n"
 
         return str
@@ -321,7 +321,14 @@ class ASTParameterNode(ASTNode):
         if (self.identifier != None) : self.label += " | " + self.identifier
         if (self.isArray != False) : self.label += " | isArray "
         if (self.arrayLength != None) : self.label += " | arrayLength " + str(self.arrayLength)
-        return super(ASTParameterNode, self).out(level)
+        return (super(ASTParameterNode, self).out(level)[:-1])
+
+class ASTParametersNode(ASTNode):
+    def __init__(self):
+        super(ASTParametersNode, self).__init__("parameters")
+
+    def out(self, level):
+        return super(ASTParametersNode, self).out(level) + "\n"
 
 class ASTVariableDeclarationNode(ASTNode):
     def __init__(self):
@@ -343,9 +350,6 @@ class AbstractSyntaxTree:
         self.root = root
 
     def __str__(self):
-
-
-
         return "AST:\n" + self.root.out()
 
 

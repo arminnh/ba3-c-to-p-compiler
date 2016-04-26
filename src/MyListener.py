@@ -418,7 +418,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("parameters"))
+        self.currentNode = self.currentNode.addChildNode(ASTParametersNode())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
