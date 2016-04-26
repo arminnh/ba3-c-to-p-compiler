@@ -5,6 +5,8 @@ from SmallCVisitor import SmallCVisitor
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
+from ASTWalker import *
+from ASTSymbolTableFiller import *
 
 import sys
 
@@ -30,6 +32,13 @@ def main(filename):
     walker.walk(listener, programContext)
 
     print (abstractSyntaxTree)
+
+    symbolTable = SymbolTable()
+
+    tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
+    # tableFiller.fill()
+
+
 
 
 if __name__=="__main__":
