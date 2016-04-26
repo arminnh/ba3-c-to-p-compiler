@@ -31,12 +31,12 @@ def main(filename):
     listener = MyListener(abstractSyntaxTree)
     walker.walk(listener, programContext)
 
-    # print (abstractSyntaxTree)
+    print (abstractSyntaxTree)
 
     symbolTable = SymbolTable()
 
     tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
-    tableFiller.fill()
+    # tableFiller.fill()
 
 
 

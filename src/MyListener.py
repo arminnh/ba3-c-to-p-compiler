@@ -430,7 +430,8 @@ class MyListener(SmallCListener):
         self.currentNode = self.currentNode.addChildNode(ASTParameterNode())
         child = ctx.getChild(0, SmallCParser.IdentifierContext)
         if (child != None):
-            self.currentNode.identifier = child.getText()
+            # self.currentNode.identifier = child.getText()
+            pass
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
@@ -448,7 +449,8 @@ class MyListener(SmallCListener):
 
         child = ctx.getChild(0, SmallCParser.IdentifierContext)
         if (child != None):
-            self.currentNode.identifier = child.getText()
+            # self.currentNode.identifier = child.getText()
+            pass
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
@@ -588,13 +590,15 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#identifier.
     def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("identifier"))
-        self.currentNode.addChildNode(ASTNode(ctx.getText()))
+        if hasattr(self.currentNode, "identifier"):
+            self.currentNode.identifier = ctx.getText()
+        # self.currentNode = self.currentNode.addChildNode(ASTNode("identifier"))
+        # self.currentNode.addChildNode(ASTNode(ctx.getText()))
 
     # Exit a parse tree produced by SmallCParser#identifier.
     def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        self.currentNode = self.currentNode.parent
-
+        # self.currentNode = self.currentNode.parent
+        pass
 
     # Enter a parse tree produced by SmallCParser#pointer.
     def enterPointer(self, ctx:SmallCParser.PointerContext):
