@@ -97,7 +97,7 @@ program :
 header :
       include*
     ;
-    
+
 include :
       '#include' LABRA stdInclude RABRA
     | '#include' customInclude
@@ -159,7 +159,7 @@ statement :
     | variableDeclaration ';'
     | returnExpression ';'
     ;
-    
+
 expression :
       functionCall
     | variable

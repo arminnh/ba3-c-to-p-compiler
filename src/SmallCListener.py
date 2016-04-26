@@ -278,15 +278,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#statementBody.
-    def enterStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#statementBody.
-    def exitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#expression.
     def enterExpression(self, ctx:SmallCParser.ExpressionContext):
         pass

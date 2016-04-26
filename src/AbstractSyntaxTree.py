@@ -269,6 +269,71 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
         ASTBinaryOperatorNode.__init__(self, label, parent)
         self.arithmeticType = arithmeticType
 
+class ASTProgramNode(ASTNode):
+    def __init__(self):
+        super(ASTProgramNode, self).__init__("program")
+
+class ASTHeaderNode(ASTNode):
+    def __init__(self):
+        super(ASTHeaderNode, self).__init__("header")
+
+class ASTStdIncludeNode(ASTNode):
+    def __init__(self):
+        self.includeName = None
+        super(ASTStdIncludeNode, self).__init__("stdInclude")
+
+class ASTFunctionsNode(ASTNode):
+    def __init__(self):
+        super(ASTFunctionsNode, self).__init__("functions")
+
+class ASTMainFunctionNode(ASTNode):
+    def __init__(self):
+        super(ASTMainFunctionNode, self).__init__("mainFunction")
+        self.parameters = None
+
+class ASTFunctionDeclarationNode(ASTNode):
+    def __init__(self):
+        super(ASTFunctionDeclarationNode, self).__init__("functionDeclaration")
+        self.type = None
+        self.identifier = None
+        # parameters are child nodes
+
+class ASTFunctionDefinitionNode(ASTNode):
+    def __init__(self):
+        super(ASTFunctionDeclarationNode, self).__init__("functionDefinition")
+        self.type = None
+        self.identifier = None
+        # parameters and statements are child nodes
+
+class ASTParameterNode(ASTNode):
+    def __init__(self):
+        super(ASTParameterNode, self).__init__("parameter")
+        self.type = None
+        self.identifier = None
+        self.isArray = False
+        self.arrayLength = None
+        self.isConstant = False
+
+    def out(self, level):
+        self.label = "parameter"
+        if (self.type != None) : self.label += " | " + self.type
+        if (self.isConstant != False) : self.label += " | const"
+        if (self.identifier != None) : self.label += " | " + self.identifier
+        if (self.isArray != False) : self.label += " | isArray "
+        if (self.arrayLength != None) : self.label += " | arrayLength " + str(self.arrayLength)
+        return super(ASTParameterNode, self).out(level)
+
+class ASTVariableDeclarationNode(ASTNode):
+    def __init__(self):
+        super(ASTVariableDeclarationNode, self).__init__("variableDeclaration")
+        self.type = None
+        self.isConstant = None
+        """ meerdere per variableDeclaration
+        self.identifier = None
+        self.isArray = None
+        self.arrayLength = None
+        """
+
 
 
 
@@ -278,6 +343,9 @@ class AbstractSyntaxTree:
         self.root = root
 
     def __str__(self):
+
+
+
         return "AST:\n" + self.root.out()
 
 

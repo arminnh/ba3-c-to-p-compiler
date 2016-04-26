@@ -159,11 +159,6 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#statementBody.
-    def visitStatementBody(self, ctx:SmallCParser.StatementBodyContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SmallCParser#expression.
     def visitExpression(self, ctx:SmallCParser.ExpressionContext):
         return self.visitChildren(ctx)
