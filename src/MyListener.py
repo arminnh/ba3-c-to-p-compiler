@@ -15,55 +15,35 @@ class MyListener(SmallCListener):
 
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
         self.currentNode = self.currentNode.addChildNode(ASTNode("program"))
-        return
 
     def exitProgram(self, ctx:SmallCParser.ProgramContext):
-        return
+        pass
 
 
     def enterHeader(self, ctx:SmallCParser.ProgramContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("header"))
-        return
+        self.currentNode = self.currentNode.addChildNode(ASTHeaderNode())
 
     # Exit a parse tree produced by SmallCParser#header.
     def exitHeader(self, ctx:SmallCParser.HeaderContext):
         self.currentNode = self.currentNode.parent
 
 
-    # # Enter a parse tree produced by SmallCParser#include.
-    # def enterInclude(self, ctx:SmallCParser.IncludeContext):
-    #     self.currentNode = self.currentNode.addChild("include")
-    #     pass
-
-    # # Exit a parse tree produced by SmallCParser#include.
-    # def exitInclude(self, ctx:SmallCParser.IncludeContext):
-    #     self.currentNode = self.currentNode.parent
-    #     pass
-
-
     # Enter a parse tree produced by SmallCParser#stdInclude.
     def enterStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("stdInclude"))
-        self.currentNode = self.currentNode.addChildNode(ASTNode(ctx.getText()))
+        self.currentNode.stdIncludes.append(ctx.getText())
 
     # Exit a parse tree produced by SmallCParser#stdInclude.
     def exitStdInclude(self, ctx:SmallCParser.StdIncludeContext):
         self.currentNode.children = []
-        self.currentNode = self.currentNode.parent
-        self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#customInclude.
     def enterCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("customInclude"))
-        self.currentNode = self.currentNode.addChildNode(ASTNode(ctx.getText()[1:-1]))
+        self.currentNode.customIncludes.append(ctx.getText()[1:-1])
 
     # Exit a parse tree produced by SmallCParser#customInclude.
     def exitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
         self.currentNode.children = []
-        self.currentNode = self.currentNode.parent
-        self.currentNode = self.currentNode.parent
-        pass
 
 
     # Enter a parse tree produced by SmallCParser#statements.
@@ -400,7 +380,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDeclaration.
     def enterFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("functionDeclaration"))
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDeclarationNode())
 
     # Exit a parse tree produced by SmallCParser#functionDeclaration.
     def exitFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
@@ -409,7 +389,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("functionDefinition"))
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
@@ -418,7 +398,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("parameters"))
+        self.currentNode = self.currentNode.addChildNode(ASTParametersNode())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
@@ -460,7 +440,6 @@ class MyListener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
         self.currentNode = self.currentNode.addChildNode(ASTNode("main"))
-        return
 
     # Exit a parse tree produced by SmallCParser#mainFunction.
     def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
