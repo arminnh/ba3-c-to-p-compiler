@@ -3,7 +3,7 @@
 #include "josse.h"
 //#include "hello_world.c"
 
-int myFunction1(int i, float *c);
+//int myFunction1(int i, float *c);
 float myFunction2(const char c);
 
 int myFunction1(int const i, float *c) {
@@ -36,9 +36,10 @@ int main(int argc, char *argv[])
         const int a[] = {1, 2, 3};
         int b = 0;
         b;
+        1;
         b + 1;
     }
-
+    int aaa = 2, ba = 3, ca[] = {1}, ad[5] = {1, 2, 3, 4, 5}, hh[5], *josse;
     while (0) {
 
     }
@@ -51,8 +52,8 @@ int main(int argc, char *argv[])
     const int aa = 5;
     float b = 6, f = 7, g = 8;
 
-    int c[5];
-    int d[] = {1, 2, 3};
+    int c[5], cc[] = {1, 2}, dd[1] = {6};
+    int const d[1+8+9] = {1, 2, 3};
     int e[7] = {1, 2}; // rest is 0
 
     myFunction1(a, &b);

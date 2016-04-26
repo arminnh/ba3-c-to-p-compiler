@@ -1,5 +1,6 @@
-from pprint import *
 from enum import Enum
+
+offset = "    "
 
 class ASTNode(object):
 
@@ -19,7 +20,7 @@ class ASTNode(object):
         return self.children
 
     def out(self, level=1):
-        s = self.label + "\n"
+        s = offset * level + self.label + "\n"
 
         s = self.outChildren(s, level)
 
@@ -27,15 +28,15 @@ class ASTNode(object):
 
     def outChildren(self, s, level):
         for child in self.getChildren():
-            s += "    " * level + child.out(level+1)
+            s += child.out(level+1)
 
-        if not self.getChildren() and not isinstance(self.parent, ASTBinaryOperatorNode):
+        if not self.getChildren():
             s += "\n"
 
         return s
 
-    def __str__(self):
-        return self.label
+    # def __str__(self):
+    #     return self.label
 
 class ASTProgramNode(ASTNode):
     def __init__(self):
@@ -48,13 +49,13 @@ class ASTHeaderNode(ASTNode):
         super(ASTHeaderNode, self).__init__("header")
 
     def out(self, level):
-        s = self.label + "\n"
+        s = offset * level + self.label + "\n"
 
         if self.stdIncludes:
-            s += "    " * level + "std includes:    " + str(self.stdIncludes) + "\n"
+            s += offset * level + "std includes:    " + str(self.stdIncludes) + "\n"
 
         if self.customIncludes:
-            s += "    " * level + "custom includes: " + str(self.customIncludes) + "\n"
+            s += offset * level + "custom includes: " + str(self.customIncludes) + "\n"
 
         s = self.outChildren(s, level)
 
@@ -82,9 +83,9 @@ class ASTFunctionDeclarationNode(ASTNode):
         # parameters are child nodes
 
     def out(self, level):
-        s = self.label + "\n"
-        s += "    " * level + "return type: " + self.type + "\n"
-        s += "    " * level + "identifier:  " + self.identifier + "\n"
+        s = offset * level + self.label + "\n"
+        s += offset * (level+1) + "return type: " + self.type + "\n"
+        s += offset * (level+1) + "identifier:  " + self.identifier + "\n\n"
 
         s = self.outChildren(s, level)
 
@@ -102,10 +103,12 @@ class ASTParameterNode(ASTNode):
         self.identifier = None
         self.isArray = False
         self.arrayLength = None
+        # TODO: arrayLength can be an expressionNode -> change
         self.isConstant = False
+        self.indirections = 0
 
     def out(self, level):
-        s = "parameter" + " | " + self.type
+        s = offset * level + "parameter" + " | " + self.type
 
         if (self.isConstant != False) :
             s += " | const"
@@ -113,10 +116,10 @@ class ASTParameterNode(ASTNode):
         s += " | " + self.identifier
 
         if (self.isArray != False) :
-            s += " | isArray "
+            s += " | array:  " + str(self.isArray)
 
-        if (self.arrayLength != None) :
-            s += " | arrayLength " + str(self.arrayLength)
+            if (self.arrayLength != None) :
+                s += " | arrayLength: " + str(self.arrayLength)
 
         s = self.outChildren(s, level)
 
@@ -129,6 +132,19 @@ class ASTParametersNode(ASTNode):
     def out(self, level):
         return super(ASTParametersNode, self).out(level) + "\n"
 
+class ASTArgumentsNode(ASTNode):
+    def __init__(self):
+        super(ASTArgumentsNode, self).__init__("arguments")
+
+    def out(self, level):
+        return super(ASTArgumentsNode, self).out(level) + "\n"
+
+    def outChildren(self, s, level):
+        for child in self.getChildren():
+            s += child.out(level+1)
+
+        return s
+
 '''
     STATEMENTS
 '''
@@ -137,9 +153,27 @@ class ASTStatementsNode(ASTNode):
     def __init__(self):
         super(ASTStatementsNode, self).__init__("statements")
 
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+
+        if self.getChildren():
+            s = self.outChildren(s, level)
+        else:
+            s += offset * (level+1) + "None\n\n"
+
+        return s
+
 class ASTStatementNode(ASTNode):
     def __init__(self, label="statement"):
         super(ASTStatementNode, self).__init__(label)
+
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+        s = ""
+
+        s = self.outChildren(s, level-1)
+
+        return s
 
 class ASTIfNode(ASTStatementNode):
     def __init__(self):
@@ -147,41 +181,118 @@ class ASTIfNode(ASTStatementNode):
         self.condition = None # expressionNode
         self.elseCondNode = None # elseNode
 
+    def out(self, level):
+        s = offset * level + self.label + "\n"
+
+        for child in self.getChildren():
+            if isinstance(child, ASTExpressionNode):
+                s += offset * (level+1) + "condition\n"
+                s += child.out(level+2)
+            elif isinstance(child, ASTStatementNode):
+                s += offset * (level+1) + "then\n"
+                s += child.out(level+2)
+            else:
+                s += child.out(level+1)
+
+        if not self.getChildren() and not isinstance(self.parent, ASTBinaryOperatorNode):
+            s += "\n"
+
+        return s
+
 class ASTElseNode(ASTNode):
     def __init__(self):
         super(ASTElseNode, self).__init__("else")
+
+    def out(self, level):
+        return ASTNode.out(self, level)
 
 class ASTWhileNode(ASTStatementNode):
     def __init__(self):
         super(ASTWhileNode, self).__init__("while")
 
+    def out(self, level):
+        return ASTNode.out(self,    level)
+
 class ASTDoWhileNode(ASTStatementNode):
     def __init__(self):
         super(ASTDoWhileNode, self).__init__("doWhile")
+
+    def out(self, level):
+        return ASTNode.out(self,    level)
 
 class ASTVariableDeclarationNode(ASTStatementNode):
     def __init__(self):
         super(ASTVariableDeclarationNode, self).__init__("variableDeclaration")
         self.type = None
-        self.isConstant = None
-        """ meerdere per variableDeclaration
+        self.isConstant = False
+        # declaratorInitializers are children
+
+    def out(self, level):
+        s  = offset * level + self.label + "\n"
+        s += offset * (level+1) + "return type: " + self.type
+        s += ", const:  " + str(self.isConstant) + "\n\n"
+
+        s = self.outChildren(s, level)
+
+        return s
+
+class ASTDeclaratorInitializerNode(ASTNode):
+    def __init__(self):
+        super(ASTDeclaratorInitializerNode, self).__init__("declaratorInitializer")
         self.identifier = None
-        self.isArray = None
-        self.arrayLength = None
-        """
+        self.isArray = False
+        self.indirections = 0
+        # arrayLength will be an expressionNode child
+
+    def out(self, level):
+        s  = offset * level + "declaratorInitializer" + "\n"
+        s += offset * (level+1) + "identifier: " + self.identifier
+
+        if (self.isArray != False) :
+            s += " | array: " + str(self.isArray)
+
+        s += "\n\n"
+
+        for child in self.getChildren():
+            if self.isArray and isinstance(child, ASTExpressionNode):
+                s += offset * (level+1) + "arrayLength\n"
+                s += child.out(level+2)
+            elif isinstance(child, ASTExpressionNode):
+                s += offset * (level+1) + "initialization value\n"
+                s += child.out(level+2)
+            else:
+                s += child.out(level+1)
+
+        if not self.getChildren():
+            s += "\n"
+
+        return s
 
 class ASTReturnExpressionNode(ASTStatementNode):
     def __init__(self):
-        super(ASTReturnExpressionNode, self).__init__("returnExpression")
+        super(ASTReturnExpressionNode, self).__init__("return")
+
+    def out(self, level):
+        return ASTNode.out(self,    level)
+
 
 '''
     EXPRESSIONS
 '''
 
-class ASTExpressionNode(ASTStatementNode):
+class ASTExpressionNode(ASTNode):
     def __init__(self, label="expression"):
         super(ASTExpressionNode, self).__init__(label)
 
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+        s = ""
+
+        s = self.outChildren(s, level-1)
+
+        return s
+
+# TODO: split into int and float literal classes
 class ASTNumberLiteralNode(ASTExpressionNode):
     class NumberType(Enum):
         int = 1
@@ -193,6 +304,8 @@ class ASTNumberLiteralNode(ASTExpressionNode):
             return super(ASTNumberLiteralNode.NumberType, self).__str__()
 
     def __init__(self, value):
+        print ("nope")
+        exit()
         self.value = value
         super(ASTNumberLiteralNode, self).__init__(str(value) + "|" + str(self.type()))
 
@@ -204,17 +317,82 @@ class ASTNumberLiteralNode(ASTExpressionNode):
         if type(self.value) == float: return ASTNumberLiteralNode.NumberType['float']
         return None
 
-class ASTTextLiteralNode(ASTExpressionNode):
-    def __init__(self):
-        super(ASTTextLiteralNode, self).__init__("textLiteral")
+class ASTIntegerLiteralNode(ASTExpressionNode):
+    def __init__(self, value):
+        super(ASTIntegerLiteralNode, self).__init__("int")
+        self.value = value
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + str(self.value) + "\n"
+
+        if (isinstance(self.parent.parent, ASTStatementNode) or isinstance(self.parent.parent.parent, ASTVariableDeclarationNode)):
+            s += "\n"
+
+        return s
+
+class ASTFloatLiteralNode(ASTExpressionNode):
+    def __init__(self, value):
+        super(ASTFloatLiteralNode, self).__init__("float")
+        self.value = value
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + str(self.value) + "\n"
+
+        if (isinstance(self.parent.parent, ASTStatementNode)):
+            s += "\n"
+
+        return s
+
+class ASTCharacterLiteralNode(ASTExpressionNode):
+    def __init__(self, value):
+        super(ASTCharacterLiteralNode, self).__init__("char")
+        self.value = value
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + self.value + "\n"
+
+        if (isinstance(self.parent.parent, ASTStatementNode)):
+            s += "\n"
+
+        return s
+
+class ASTStringLiteralNode(ASTExpressionNode):
+    def __init__(self, value):
+        super(ASTStringLiteralNode, self).__init__("char*")
+        self.value = value
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + self.value + "\n"
+
+        if (isinstance(self.parent.parent, ASTStatementNode)):
+            s += "\n"
+
+        return s
 
 class ASTVariableNode(ASTExpressionNode):
-    def __init__(self):
+    def __init__(self, identifier):
         super(ASTVariableNode, self).__init__("variable")
+        self.identifier = identifier
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + self.identifier + "\n"
+
+        if (isinstance(self.parent.parent, ASTStatementNode)):
+            s += "\n"
+
+        return s
 
 class ASTFunctionCallNode(ASTExpressionNode):
     def __init__(self):
         super(ASTFunctionCallNode, self).__init__("function call")
+        self.identifier = None
+
+    def out(self, level):
+        s = offset * level + self.label + " | " + self.identifier + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
 
 '''
     EXPRESISSION OPERATIONS
@@ -258,6 +436,19 @@ class ASTUnaryOperatorNode(ASTExpressionNode):
         if self.operand is not None: children.append(self.operand)
         return children
 
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
+
+    def outChildren(self, s, level):
+        for child in self.getChildren():
+            s += child.out(level+1)
+
+        return s
+
 class ASTBinaryOperatorNode(ASTExpressionNode):
     def __init__(self, label):
         super(ASTBinaryOperatorNode, self).__init__(label)
@@ -296,8 +487,18 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
         if self.secondOperand is not None: children.append(self.secondOperand)
         return children
 
-    def out(self, level):
-        return super(ASTBinaryOperatorNode, self).out(level) + "\n"
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s + "\n"
+
+    def outChildren(self, s, level):
+        for child in self.getChildren():
+            s += child.out(level+1)
+
+        return s
 
 class ASTTernaryOperatorNode(ASTExpressionNode):
     def __init__(self, label):
@@ -346,6 +547,19 @@ class ASTTernaryOperatorNode(ASTExpressionNode):
         if self.secondOperand is not None: children.append(self.secondOperand)
         if self.thirdOperand is not None: children.append(self.thirdOperand)
         return children
+
+    def out(self, level=1):
+        s = offset * level + self.label + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
+
+    def outChildren(self, s, level):
+        for child in self.getChildren():
+            s += child.out(level+1)
+
+        return s
 
 class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
     def __init__(self):

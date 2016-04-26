@@ -57,19 +57,23 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statement.
     def enterStatement(self, ctx:SmallCParser.StatementContext):
+        self.currentNode = self.currentNode.addChildNode(ASTStatementNode())
         pass
 
     # Exit a parse tree produced by SmallCParser#statement.
     def exitStatement(self, ctx:SmallCParser.StatementContext):
+        self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#expression.
     def enterExpression(self, ctx:SmallCParser.ExpressionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTExpressionNode())
         pass
 
     # Exit a parse tree produced by SmallCParser#expression.
     def exitExpression(self, ctx:SmallCParser.ExpressionContext):
+        self.currentNode = self.currentNode.parent
         pass
 
 
@@ -340,7 +344,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#declaratorInitializer.
     def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("declaratorInitializer"))
+        self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode())
 
     # Exit a parse tree produced by SmallCParser#declaratorInitializer.
     def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
@@ -349,16 +353,21 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#arrayDeclaration.
     def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("arrayDeclaration"))
+        # parent will always be DeclaratorInitializer
+        self.currentNode.isArray = True
+
+        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
+        if (child != None):
+            self.currentNode.arrayLength = int(child.getText())
 
     # Exit a parse tree produced by SmallCParser#arrayDeclaration.
     def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        self.currentNode = self.currentNode.parent
+        pass
 
 
     # Enter a parse tree produced by SmallCParser#variable.
     def enterVariable(self, ctx:SmallCParser.VariableContext):
-        self.currentNode = self.currentNode.addChildNode(ASTVariableNode())
+        self.currentNode = self.currentNode.addChildNode(ASTVariableNode(ctx.getText()))
 
     # Exit a parse tree produced by SmallCParser#variable.
     def exitVariable(self, ctx:SmallCParser.VariableContext):
@@ -423,11 +432,6 @@ class MyListener(SmallCListener):
         if (child != None):
             self.currentNode.arrayLength = int(child.getText())
 
-        child = ctx.getChild(0, SmallCParser.IdentifierContext)
-        if (child != None):
-            # self.currentNode.identifier = child.getText()
-            pass
-
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
         pass
@@ -463,7 +467,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#arguments.
     def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("arguments"))
+        self.currentNode = self.currentNode.addChildNode(ASTArgumentsNode())
 
     # Exit a parse tree produced by SmallCParser#arguments.
     def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
@@ -508,8 +512,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNumberLiteralNode(float(ctx.getText())))
-
+        self.currentNode = self.currentNode.addChildNode(ASTFloatLiteralNode(float(ctx.getText())))
 
     # Exit a parse tree produced by SmallCParser#floatLiteral.
     def exitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
@@ -518,26 +521,16 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#integerLiteral.
     def enterIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNumberLiteralNode(int(ctx.getText())))
+        self.currentNode = self.currentNode.addChildNode(ASTIntegerLiteralNode(int(ctx.getText())))
 
     # Exit a parse tree produced by SmallCParser#integerLiteral.
     def exitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
         self.currentNode = self.currentNode.parent
 
 
-    # Enter a parse tree produced by SmallCParser#numberLiteral.
-    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#numberLiteral.
-    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("characterLiteral"))
-        self.currentNode.addChildNode(ASTNode(ctx.getText()))
+        self.currentNode = self.currentNode.addChildNode(ASTCharacterLiteralNode(ctx.getText()))
 
     # Exit a parse tree produced by SmallCParser#characterLiteral.
     def exitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
@@ -546,21 +539,11 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#stringLiteral.
     def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTNode("stringLiteral"))
-        self.currentNode.addChildNode(ASTNode(ctx.getText()))
+        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText()))
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
     def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
         self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#characterLiteral.
-    def enterTextLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#characterLiteral.
-    def exitTextLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        pass
 
 
     # Enter a parse tree produced by SmallCParser#identifier.
@@ -570,7 +553,6 @@ class MyListener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#identifier.
     def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        # self.currentNode = self.currentNode.parent
         pass
 
     # Enter a parse tree produced by SmallCParser#pointer.

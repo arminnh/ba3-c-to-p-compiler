@@ -77,8 +77,10 @@ oplevel2 :
     | '&' oplevel1
     | '*' oplevel2
     | '!' oplevel2
-    | numberLiteral
-    | textLiteral
+    | floatLiteral
+    | integerLiteral
+    | characterLiteral
+    | stringLiteral
     | LBRA typeDeclaration RBRA oplevel2
     | oplevel1
     ;
@@ -134,7 +136,7 @@ parameter :
     ;
 
 arrayParameter :
-      declarationSpecifier+ identifier (LSBRA integerLiteral? RSBRA)?
+      declarationSpecifier+ identifier (LSBRA expression? RSBRA)?
     ;
 
 mainFunction :
@@ -161,10 +163,12 @@ statement :
     ;
 
 expression :
-      functionCall
-    | variable
-    | numberLiteral
-    | textLiteral
+      variable
+    | floatLiteral
+    | integerLiteral
+    | characterLiteral
+    | stringLiteral
+    | functionCall
     | oplevel15
     ;
 
@@ -192,7 +196,7 @@ doWhileCond :
     ;
 
 variableDeclaration :
-      declarationSpecifier+ declaratorInitializer (',' declaratorInitializer)*
+      declarationSpecifier+ (declaratorInitializer) (',' declaratorInitializer)*
     ;
 
 declarationSpecifier :
@@ -211,7 +215,7 @@ declaratorInitializer :
     ;
 
 arrayDeclaration :
-      identifier LSBRA integerLiteral? RSBRA ('=' LCBRA arguments RCBRA)?
+      identifier LSBRA expression? RSBRA ('=' LCBRA arguments RCBRA)?
     ;
 
 returnExpression :
@@ -222,19 +226,8 @@ functionCall:
       identifier LBRA arguments RBRA // identifier is not completely correct, IDENTIFIER   : [a-zA-Z]+;
     ;
 
-
 variable :
       identifier
-    ;
-
-textLiteral :
-      characterLiteral
-    | stringLiteral
-    ;
-
-numberLiteral :
-      floatLiteral
-    | integerLiteral
     ;
 
 
@@ -244,10 +237,10 @@ reference : '&';
 
 typeDeclaration : TYPECHAR | TYPEFLOAT | TYPEINT | TYPEVOID;
 
-floatLiteral : FLOAT;
-integerLiteral : INTEGER;
+floatLiteral     : FLOAT;
+integerLiteral   : INTEGER;
 characterLiteral : CHARACTER;
-stringLiteral : STRING;
+stringLiteral    : STRING;
 
 
 

@@ -14,7 +14,7 @@ class ASTSymbolTableFiller:
         if isinstance(node, (ASTStatementsNode, ASTFunctionDeclarationNode, ASTVariableDeclarationNode)):
             if isinstance(node, (ASTFunctionDeclarationNode)):
                 if self.table.retrieveSymbol(node.identifier) is not None:
-                    raise Excpetion("'" + node.identifier + "' has a previous declaration")
+                    raise Exception("'" + node.identifier + "' has a previous declaration")
                 self.table.insertSymbol(node.identifier, "function")
             openedScope = True
             self.table.openScope()

@@ -404,24 +404,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#textLiteral.
-    def enterTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#textLiteral.
-    def exitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#numberLiteral.
-    def enterNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#numberLiteral.
-    def exitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#identifier.
     def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
         pass

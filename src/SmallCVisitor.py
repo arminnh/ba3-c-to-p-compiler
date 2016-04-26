@@ -229,16 +229,6 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#textLiteral.
-    def visitTextLiteral(self, ctx:SmallCParser.TextLiteralContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SmallCParser#numberLiteral.
-    def visitNumberLiteral(self, ctx:SmallCParser.NumberLiteralContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SmallCParser#identifier.
     def visitIdentifier(self, ctx:SmallCParser.IdentifierContext):
         return self.visitChildren(ctx)
