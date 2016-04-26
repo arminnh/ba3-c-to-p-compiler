@@ -19,15 +19,20 @@ class ASTNode(object):
         return self.children
 
     def out(self, level=1):
-        str =  self.label + "\n"
+        s = self.label + "\n"
 
+        s = self.outChildren(s, level)
+
+        return s
+
+    def outChildren(self, s, level):
         for child in self.getChildren():
-            str += "   " * level + child.out(level+1)
+            s += "    " * level + child.out(level+1)
 
-        if not self.children and not isinstance(self.parent, ASTBinaryOperatorNode):
-            str += "\n"
+        if not self.getChildren() and not isinstance(self.parent, ASTBinaryOperatorNode):
+            s += "\n"
 
-        return str
+        return s
 
     def __str__(self):
         return self.label
@@ -129,6 +134,9 @@ class ASTBinaryOperatorNode(ASTNode):
         if self.firstOperand is not None: children.append(self.firstOperand)
         if self.secondOperand is not None: children.append(self.secondOperand)
         return children
+
+    def out(self, level):
+        return super(ASTBinaryOperatorNode, self).out(level) + "\n"
 
 class ASTTernaryOperatorNode(ASTNode):
     def __init__(self, label, parent=None):
@@ -275,7 +283,22 @@ class ASTProgramNode(ASTNode):
 
 class ASTHeaderNode(ASTNode):
     def __init__(self):
+        self.stdIncludes = []
+        self.customIncludes = []
         super(ASTHeaderNode, self).__init__("header")
+
+    def out(self, level):
+        s = self.label + "\n"
+
+        if self.stdIncludes:
+            s += "    " * level + "std includes:    " + str(self.stdIncludes) + "\n"
+
+        if self.customIncludes:
+            s += "    " * level + "custom includes: " + str(self.customIncludes) + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
 
 class ASTStdIncludeNode(ASTNode):
     def __init__(self):
@@ -298,12 +321,30 @@ class ASTFunctionDeclarationNode(ASTNode):
         self.identifier = None
         # parameters are child nodes
 
+    def out(self, level):
+        s = self.label + "\n"
+        s += "    " * level + "return type: " + self.type + "\n"
+        s += "    " * level + "identifier:  " + self.identifier + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
+
 class ASTFunctionDefinitionNode(ASTNode):
     def __init__(self):
-        super(ASTFunctionDeclarationNode, self).__init__("functionDefinition")
+        super(ASTFunctionDefinitionNode, self).__init__("functionDefinition")
         self.type = None
         self.identifier = None
         # parameters and statements are child nodes
+
+    def out(self, level):
+        s = self.label + "\n"
+        s += "    " * level + "return type: " + self.type + "\n"
+        s += "    " * level + "identifier:  " + self.identifier + "\n"
+
+        s = self.outChildren(s, level)
+
+        return s
 
 class ASTParameterNode(ASTNode):
     def __init__(self):
@@ -315,13 +356,22 @@ class ASTParameterNode(ASTNode):
         self.isConstant = False
 
     def out(self, level):
-        self.label = "parameter"
-        if (self.type != None) : self.label += " | " + self.type
-        if (self.isConstant != False) : self.label += " | const"
-        if (self.identifier != None) : self.label += " | " + self.identifier
-        if (self.isArray != False) : self.label += " | isArray "
-        if (self.arrayLength != None) : self.label += " | arrayLength " + str(self.arrayLength)
-        return (super(ASTParameterNode, self).out(level)[:-1])
+        s = "parameter" + " | " + self.type
+
+        if (self.isConstant != False) :
+            s += " | const"
+
+        s += " | " + self.identifier
+
+        if (self.isArray != False) :
+            s += " | isArray "
+
+        if (self.arrayLength != None) :
+            s += " | arrayLength " + str(self.arrayLength)
+
+        s = self.outChildren(s, level)
+
+        return s
 
 class ASTParametersNode(ASTNode):
     def __init__(self):
