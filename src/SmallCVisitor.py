@@ -89,11 +89,6 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#header.
-    def visitHeader(self, ctx:SmallCParser.HeaderContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SmallCParser#include.
     def visitInclude(self, ctx:SmallCParser.IncludeContext):
         return self.visitChildren(ctx)
@@ -106,11 +101,6 @@ class SmallCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SmallCParser#customInclude.
     def visitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SmallCParser#functions.
-    def visitFunctions(self, ctx:SmallCParser.FunctionsContext):
         return self.visitChildren(ctx)
 
 

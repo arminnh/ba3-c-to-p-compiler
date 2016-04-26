@@ -3,6 +3,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from antlr4 import tree
 from antlr4 import ParserRuleContext
+from enum import Enum
 
 
 class MyListener(SmallCListener):
@@ -10,40 +11,35 @@ class MyListener(SmallCListener):
         super(MyListener, self).__init__()
         self.ast = tree
         self.currentNode = self.ast.root
-        self.nodes = {}
         self.createdNode = []
 
+
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
-        self.currentNode = self.currentNode.addChildNode(ASTProgramNode())
+        self.ast.root = ASTProgramNode()
+        self.currentNode = self.ast.root
 
     def exitProgram(self, ctx:SmallCParser.ProgramContext):
+        # TODO: (maybe) order children of program node nicely: header, functions, variablesBeforeMain, variablesAfterMain, main
         pass
-
-
-    def enterHeader(self, ctx:SmallCParser.ProgramContext):
-        self.currentNode = self.currentNode.addChildNode(ASTHeaderNode())
-
-    # Exit a parse tree produced by SmallCParser#header.
-    def exitHeader(self, ctx:SmallCParser.HeaderContext):
-        self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#stdInclude.
     def enterStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        self.currentNode.stdIncludes.append(ctx.getText())
+        self.currentNode = self.currentNode.addChildNode(ASTIncludeNode(True, ctx.getText()))
 
     # Exit a parse tree produced by SmallCParser#stdInclude.
     def exitStdInclude(self, ctx:SmallCParser.StdIncludeContext):
-        self.currentNode.children = []
+        self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#customInclude.
     def enterCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        self.currentNode.customIncludes.append(ctx.getText()[1:-1])
+        self.currentNode = self.currentNode.addChildNode(ASTIncludeNode(False, ctx.getText()[1:-1]))
 
     # Exit a parse tree produced by SmallCParser#customInclude.
     def exitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
         self.currentNode.children = []
+        self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#statements.
@@ -57,23 +53,23 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statement.
     def enterStatement(self, ctx:SmallCParser.StatementContext):
-        self.currentNode = self.currentNode.addChildNode(ASTStatementNode())
+        # self.currentNode = self.currentNode.addChildNode(ASTStatementNode())
         pass
 
     # Exit a parse tree produced by SmallCParser#statement.
     def exitStatement(self, ctx:SmallCParser.StatementContext):
-        self.currentNode = self.currentNode.parent
+        # self.currentNode = self.currentNode.parent
         pass
 
 
     # Enter a parse tree produced by SmallCParser#expression.
     def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTExpressionNode())
+        # self.currentNode = self.currentNode.addChildNode(ASTExpressionNode())
         pass
 
     # Exit a parse tree produced by SmallCParser#expression.
     def exitExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.parent
+        # self.currentNode = self.currentNode.parent
         pass
 
 
@@ -84,6 +80,251 @@ class MyListener(SmallCListener):
     # Exit a parse tree produced by SmallCParser#expression.
     def exitReturnExpression(self, ctx:SmallCParser.ExpressionContext):
         self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#variableDeclaration.
+    def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+        self.currentNode = self.currentNode.addChildNode(ASTVariableDeclarationNode())
+
+
+    # Exit a parse tree produced by SmallCParser#variableDeclaration.
+    def exitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#declarationSpecifier.
+    def enterDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#declarationSpecifier.
+    def exitDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#cvQualifier.
+    def enterCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
+        self.currentNode.isConstant = True
+
+    # Exit a parse tree produced by SmallCParser#cvQualifier.
+    def exitCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#declaratorInitializer.
+    def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
+        self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode())
+
+    # Exit a parse tree produced by SmallCParser#declaratorInitializer.
+    def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#arrayDeclaration.
+    def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
+        # parent will always be DeclaratorInitializer
+        self.currentNode.isArray = True
+
+        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
+        if (child != None):
+            self.currentNode.arrayLength = int(child.getText())
+
+    # Exit a parse tree produced by SmallCParser#arrayDeclaration.
+    def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#variable.
+    def enterVariable(self, ctx:SmallCParser.VariableContext):
+        self.currentNode = self.currentNode.addChildNode(ASTVariableNode(ctx.getText()))
+
+    # Exit a parse tree produced by SmallCParser#variable.
+    def exitVariable(self, ctx:SmallCParser.VariableContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#functionDeclaration.
+    def enterFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDeclarationNode())
+
+    # Exit a parse tree produced by SmallCParser#functionDeclaration.
+    def exitFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#functionDefinition.
+    def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode())
+
+    # Exit a parse tree produced by SmallCParser#functionDefinition.
+    def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#functionDefinition.
+    def enterParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTParametersNode())
+
+    # Exit a parse tree produced by SmallCParser#functionDefinition.
+    def exitParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#functionDefinition.
+    def enterParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTParameterNode())
+
+    # Exit a parse tree produced by SmallCParser#functionDefinition.
+    def exitParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+        self.currentNode.children = []
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#functionDefinition.
+    def enterArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+        # parent will always be Parameter
+        self.currentNode.isArray = True
+        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
+        if (child != None):
+            self.currentNode.arrayLength = int(child.getText())
+
+    # Exit a parse tree produced by SmallCParser#functionDefinition.
+    def exitArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#mainFunction.
+    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode())
+
+    # Exit a parse tree produced by SmallCParser#mainFunction.
+    def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#typeDeclaration.
+    def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+        self.currentNode.type = ctx.getText()
+
+    # Exit a parse tree produced by SmallCParser#typeDeclaration.
+    def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#functionCall.
+    def enterFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionCallNode())
+
+    # Exit a parse tree produced by SmallCParser#functionCall.
+    def exitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#arguments.
+    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
+        self.currentNode = self.currentNode.addChildNode(ASTArgumentsNode())
+
+    # Exit a parse tree produced by SmallCParser#arguments.
+    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#ifCond.
+    def enterIfCond(self, ctx:SmallCParser.IfCondContext):
+        self.currentNode = self.currentNode.addChildNode(ASTIfNode())
+
+    # Exit a parse tree produced by SmallCParser#ifCond.
+    def exitIfCond(self, ctx:SmallCParser.IfCondContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#elseCond.
+    def enterElseCond(self, ctx:SmallCParser.ElseCondContext):
+        self.currentNode = self.currentNode.addChildNode(ASTElseNode())
+
+    # Exit a parse tree produced by SmallCParser#elseCond.
+    def exitElseCond(self, ctx:SmallCParser.ElseCondContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#whileCond.
+    def enterWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        self.currentNode = self.currentNode.addChildNode(ASTWhileNode())
+
+    # Exit a parse tree produced by SmallCParser#whileCond.
+    def exitWhileCond(self, ctx:SmallCParser.WhileCondContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#doWhileCond.
+    def enterDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
+        self.currentNode = self.currentNode.addChildNode(ASTDoWhileNode())
+
+    # Exit a parse tree produced by SmallCParser#doWhileCond.
+    def exitDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#floatLiteral.
+    def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
+        self.currentNode = self.currentNode.addChildNode(ASTFloatLiteralNode(float(ctx.getText())))
+
+    # Exit a parse tree produced by SmallCParser#floatLiteral.
+    def exitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#integerLiteral.
+    def enterIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
+        self.currentNode = self.currentNode.addChildNode(ASTIntegerLiteralNode(int(ctx.getText())))
+
+    # Exit a parse tree produced by SmallCParser#integerLiteral.
+    def exitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#characterLiteral.
+    def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
+        self.currentNode = self.currentNode.addChildNode(ASTCharacterLiteralNode(ctx.getText()))
+
+    # Exit a parse tree produced by SmallCParser#characterLiteral.
+    def exitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#stringLiteral.
+    def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText()))
+
+    # Exit a parse tree produced by SmallCParser#stringLiteral.
+    def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#identifier.
+    def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
+        if hasattr(self.currentNode, "identifier"):
+            self.currentNode.identifier = ctx.getText()
+
+    # Exit a parse tree produced by SmallCParser#identifier.
+    def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
+        pass
+
+    # Enter a parse tree produced by SmallCParser#pointer.
+    def enterPointer(self, ctx:SmallCParser.PointerContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#pointer.
+    def exitPointer(self, ctx:SmallCParser.PointerContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#reference.
+    def enterReference(self, ctx:SmallCParser.ReferenceContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#reference.
+    def exitReference(self, ctx:SmallCParser.ReferenceContext):
+        pass
 
 
     # Enter a parse tree produced by SmallCParser#oplevel15.
@@ -312,263 +553,3 @@ class MyListener(SmallCListener):
     # Exit a parse tree produced by SmallCParser#oplevel1.
     def exitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
         if self.createdNode.pop(): self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#variableDeclaration.
-    def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
-        self.currentNode = self.currentNode.addChildNode(ASTVariableDeclarationNode())
-
-
-    # Exit a parse tree produced by SmallCParser#variableDeclaration.
-    def exitVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#declarationSpecifier.
-    def enterDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#declarationSpecifier.
-    def exitDeclarationSpecifier(self, ctx:SmallCParser.DeclarationSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#cvQualifier.
-    def enterCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
-        self.currentNode.isConstant = True
-
-    # Exit a parse tree produced by SmallCParser#cvQualifier.
-    def exitCvQualifier(self, ctx:SmallCParser.CvQualifierContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#declaratorInitializer.
-    def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
-        self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode())
-
-    # Exit a parse tree produced by SmallCParser#declaratorInitializer.
-    def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#arrayDeclaration.
-    def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        # parent will always be DeclaratorInitializer
-        self.currentNode.isArray = True
-
-        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
-        if (child != None):
-            self.currentNode.arrayLength = int(child.getText())
-
-    # Exit a parse tree produced by SmallCParser#arrayDeclaration.
-    def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#variable.
-    def enterVariable(self, ctx:SmallCParser.VariableContext):
-        self.currentNode = self.currentNode.addChildNode(ASTVariableNode(ctx.getText()))
-
-    # Exit a parse tree produced by SmallCParser#variable.
-    def exitVariable(self, ctx:SmallCParser.VariableContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functions.
-    def enterFunctions(self, ctx:SmallCParser.FunctionsContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionsNode())
-
-    # Exit a parse tree produced by SmallCParser#functions.
-    def exitFunctions(self, ctx:SmallCParser.FunctionsContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functionDeclaration.
-    def enterFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionDeclarationNode())
-
-    # Exit a parse tree produced by SmallCParser#functionDeclaration.
-    def exitFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode())
-
-    # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTParametersNode())
-
-    # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTParameterNode())
-        child = ctx.getChild(0, SmallCParser.IdentifierContext)
-        if (child != None):
-            # self.currentNode.identifier = child.getText()
-            pass
-
-    # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode.children = []
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
-        # parent will always be Parameter
-        self.currentNode.isArray = True
-        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
-        if (child != None):
-            self.currentNode.arrayLength = int(child.getText())
-
-    # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#mainFunction.
-    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode())
-
-    # Exit a parse tree produced by SmallCParser#mainFunction.
-    def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        self.currentNode = self.currentNode.parent
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#typeDeclaration.
-    def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
-        self.currentNode.type = ctx.getText()
-
-    # Exit a parse tree produced by SmallCParser#typeDeclaration.
-    def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#functionCall.
-    def enterFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionCallNode())
-
-    # Exit a parse tree produced by SmallCParser#functionCall.
-    def exitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#arguments.
-    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        self.currentNode = self.currentNode.addChildNode(ASTArgumentsNode())
-
-    # Exit a parse tree produced by SmallCParser#arguments.
-    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#ifCond.
-    def enterIfCond(self, ctx:SmallCParser.IfCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTIfNode())
-
-    # Exit a parse tree produced by SmallCParser#ifCond.
-    def exitIfCond(self, ctx:SmallCParser.IfCondContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#elseCond.
-    def enterElseCond(self, ctx:SmallCParser.ElseCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTElseNode())
-
-    # Exit a parse tree produced by SmallCParser#elseCond.
-    def exitElseCond(self, ctx:SmallCParser.ElseCondContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#whileCond.
-    def enterWhileCond(self, ctx:SmallCParser.WhileCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTWhileNode())
-
-    # Exit a parse tree produced by SmallCParser#whileCond.
-    def exitWhileCond(self, ctx:SmallCParser.WhileCondContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#doWhileCond.
-    def enterDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTDoWhileNode())
-
-    # Exit a parse tree produced by SmallCParser#doWhileCond.
-    def exitDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#floatLiteral.
-    def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFloatLiteralNode(float(ctx.getText())))
-
-    # Exit a parse tree produced by SmallCParser#floatLiteral.
-    def exitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#integerLiteral.
-    def enterIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTIntegerLiteralNode(int(ctx.getText())))
-
-    # Exit a parse tree produced by SmallCParser#integerLiteral.
-    def exitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#characterLiteral.
-    def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTCharacterLiteralNode(ctx.getText()))
-
-    # Exit a parse tree produced by SmallCParser#characterLiteral.
-    def exitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#stringLiteral.
-    def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText()))
-
-    # Exit a parse tree produced by SmallCParser#stringLiteral.
-    def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#identifier.
-    def enterIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        if hasattr(self.currentNode, "identifier"):
-            self.currentNode.identifier = ctx.getText()
-
-    # Exit a parse tree produced by SmallCParser#identifier.
-    def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
-        pass
-
-    # Enter a parse tree produced by SmallCParser#pointer.
-    def enterPointer(self, ctx:SmallCParser.PointerContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#pointer.
-    def exitPointer(self, ctx:SmallCParser.PointerContext):
-        #self.currentNode = self.currentNode.parent
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#reference.
-    def enterReference(self, ctx:SmallCParser.ReferenceContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#reference.
-    def exitReference(self, ctx:SmallCParser.ReferenceContext):
-        pass

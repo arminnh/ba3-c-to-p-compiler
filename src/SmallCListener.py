@@ -152,15 +152,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#header.
-    def enterHeader(self, ctx:SmallCParser.HeaderContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#header.
-    def exitHeader(self, ctx:SmallCParser.HeaderContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#include.
     def enterInclude(self, ctx:SmallCParser.IncludeContext):
         pass
@@ -185,15 +176,6 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#customInclude.
     def exitCustomInclude(self, ctx:SmallCParser.CustomIncludeContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#functions.
-    def enterFunctions(self, ctx:SmallCParser.FunctionsContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#functions.
-    def exitFunctions(self, ctx:SmallCParser.FunctionsContext):
         pass
 
 

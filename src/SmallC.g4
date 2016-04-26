@@ -81,6 +81,7 @@ oplevel2 :
     | integerLiteral
     | characterLiteral
     | stringLiteral
+    | functionCall
     | LBRA typeDeclaration RBRA oplevel2
     | oplevel1
     ;
@@ -88,16 +89,13 @@ oplevel2 :
 oplevel1 :
       oplevel1 '++'
     | oplevel1 '--'
+    | oplevel1 '[' (variable | integerLiteral | functionCall | oplevel15) ']'
     | variable
     | '(' expression ')'
     ;
 
 program :
-      header functions mainFunction
-    ;
-
-header :
-      include*
+      (include | mainFunction | functionDeclaration | functionDefinition | variableDeclaration ';')+
     ;
 
 include :
@@ -111,10 +109,6 @@ stdInclude :
 
 customInclude :
       stringLiteral
-    ;
-
-functions :
-      functionDeclaration* functionDefinition*
     ;
 
 functionDeclaration :
@@ -140,7 +134,7 @@ arrayParameter :
     ;
 
 mainFunction :
-      (TYPEINT 'main' LBRA parametersMain RBRA statements)?
+      TYPEINT 'main' LBRA parametersMain RBRA statements
     ;
 
 parametersMain :
@@ -160,6 +154,7 @@ statement :
     | expression ';'
     | variableDeclaration ';'
     | returnExpression ';'
+    | ';'
     ;
 
 expression :

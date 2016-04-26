@@ -1,47 +1,38 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-int add(int a, int b) {
-    return 0;
+#include "josse.h"
+#include "armin.h"
+
+
+int b = 5;
+
+
+int sum(int a, int b) {
+    return a + b;
 }
 
-int main(void)
+
+int main(int argc, char *argv[])
 {
-    int a;
-    float b;
-    char c;
+    int a = 1;
 
-    int d = 1;
-    float e = 1.1;
-    char f = 'a';
+    while (a != 3) {
+        a = sum(a, 1);
+    }
 
-    int g = d;
-    //float h = e;
-    //char i = f;
-    //comment
+    if (a != 3 && 1) {
+        printf("a == %d\n", a);
+    } else {
+        printf("a == 3\n");
+    }
 
-    printf("Hello World  a a   a", "josse", "pro", "grammatica schrijver");
-    //printf("Hello World\"", b, 5);
-    printf(" aaa \" \\ Hello World \n", 23, 45.0, a, 'a');
-    //printf("Hello Worldn", "test", "a", "b", "c");
+    printf("b == %d\n", b);
+    int b = 0;
+    printf("b == %d\n", b);
 
-    // comment jeiofajfoijaoighgh 0-24387528397540987498516*&@(
-    // )*%&Q(_&@)&*$(%&(#&%*()_&#*(%$W*()($&%TY*%&#()*%^#T ty4ugriguir
-
-    //printf("Hello World josse", 1, a, "aa");
-
-    a;
-
-    a = 1;
-    a = d;
-    b = 1.0;
-    b = 1.0 * 2.0;
-    c = 'a';
-    h = (e - 0.5) + 1;
-    a = 5 + 5 + d + (f);
-    a = 5 * (5 + 5 + d) + f;
-    a = (5 * (5 + 5 + d) + f) * 7 - 5;
-    a = ((5 * (5 + 5 + d) + f) * 7 - 5) / 100;
-
+    float c[2] = {1.1, 2.2};
+    //printf("%f\n", (1 || 2 ? c[0] : c[1]));
 
     return 1;
 }
