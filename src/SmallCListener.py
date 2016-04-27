@@ -215,12 +215,12 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#arrayParameter.
-    def enterArrayParameter(self, ctx:SmallCParser.ArrayParameterContext):
+    # Enter a parse tree produced by SmallCParser#arrayPart.
+    def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         pass
 
-    # Exit a parse tree produced by SmallCParser#arrayParameter.
-    def exitArrayParameter(self, ctx:SmallCParser.ArrayParameterContext):
+    # Exit a parse tree produced by SmallCParser#arrayPart.
+    def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         pass
 
 

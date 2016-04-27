@@ -7,18 +7,17 @@
 
 int b = 5;
 
-
-int sum(int a, int b) {
+int sum(int a, int *b) {
     return a + b;
 }
 
 
 int main(int argc, char *argv[])
 {
-    int a = 1;
+    int* a = 1;
 
     while (a != 3) {
-        a = sum(a, 1);
+        a = sum(a = 2, 1);
     }
 
     if (a != 3 && 1) {
@@ -36,3 +35,5 @@ int main(int argc, char *argv[])
 
     return 1;
 }
+
+// int abc (int argc, char *argv[]) { } //not recognized by grammar

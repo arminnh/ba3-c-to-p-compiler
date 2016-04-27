@@ -3,7 +3,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from antlr4 import tree
 from antlr4 import ParserRuleContext
-from enum import Enum
+import sys
 
 
 class MyListener(SmallCListener):
@@ -19,7 +19,6 @@ class MyListener(SmallCListener):
         self.currentNode = self.ast.root
 
     def exitProgram(self, ctx:SmallCParser.ProgramContext):
-        # TODO: (maybe) order children of program node nicely: header, functions, variablesBeforeMain, variablesAfterMain, main
         pass
 
 
@@ -161,26 +160,26 @@ class MyListener(SmallCListener):
 
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def enterParameters(self, ctx:SmallCParser.ParametersContext):
         self.currentNode = self.currentNode.addChildNode(ASTParametersNode())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitParameters(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def exitParameters(self, ctx:SmallCParser.ParametersContext):
         self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def enterParameter(self, ctx:SmallCParser.ParameterContext):
         self.currentNode = self.currentNode.addChildNode(ASTParameterNode())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def exitParameter(self, ctx:SmallCParser.ParameterContext):
         self.currentNode.children = []
         self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
-    def enterArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         # parent will always be Parameter
         self.currentNode.isArray = True
         child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
@@ -188,12 +187,17 @@ class MyListener(SmallCListener):
             self.currentNode.arrayLength = int(child.getText())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
-    def exitArrayParameter(self, ctx:SmallCParser.FunctionDefinitionContext):
+    def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         pass
 
 
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
+        for child in self.currentNode.getChildren():
+            if isinstance(child, ASTMainFunctionNode):
+                print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
+                sys.exit()
+                
         self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode())
 
     # Exit a parse tree produced by SmallCParser#mainFunction.
@@ -309,8 +313,11 @@ class MyListener(SmallCListener):
     def exitIdentifier(self, ctx:SmallCParser.IdentifierContext):
         pass
 
+
     # Enter a parse tree produced by SmallCParser#pointer.
     def enterPointer(self, ctx:SmallCParser.PointerContext):
+        if hasattr(self.currentNode, "indirections"):
+            self.currentNode.indirections += 1
         pass
 
     # Exit a parse tree produced by SmallCParser#pointer.
@@ -344,6 +351,8 @@ class MyListener(SmallCListener):
             if symbol == "=":
                 self.currentNode = self.currentNode.addChildNode(ASTSimpleAssignmentOperatorNode())
                 self.createdNode.append(True)
+                return
+
         self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel14.

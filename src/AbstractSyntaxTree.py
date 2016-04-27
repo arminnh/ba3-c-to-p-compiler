@@ -38,40 +38,11 @@ class ASTProgramNode(ASTNode):
     def __init__(self):
         super(ASTProgramNode, self).__init__("program")
 
-class ASTHeaderNode(ASTNode):
-    def __init__(self):
-        super(ASTHeaderNode, self).__init__("header")
-        self.stdIncludes = []
-        self.customIncludes = []
-
-    def out(self, level):
-        s = offset * level + self.label + "\n"
-
-        if self.stdIncludes:
-            s += offset * (level + 1) + "std includes:    " + str(self.stdIncludes) + "\n"
-
-        if self.customIncludes:
-            s += offset * (level + 1) + "custom includes: " + str(self.customIncludes) + "\n"
-
-        return s + "\n"
-
 class ASTIncludeNode(ASTNode):
     def __init__(self, isStdInclude=False, name="include name"):
         super(ASTIncludeNode, self).__init__("include | " + name)
         self.isStdInclude = isStdInclude
         self.name = name
-
-class ASTFunctionsNode(ASTNode):
-    def __init__(self):
-        super(ASTFunctionsNode, self).__init__("functions")
-
-class ASTVariablesBeforeMainNode(ASTNode):
-    def __init__(self):
-        super(ASTVariablesBeforeMainNode, self).__init__("variables before main")
-
-class ASTVariablesAfterMainNode(ASTNode):
-    def __init__(self):
-        super(ASTVariablesAfterMainNode, self).__init__("variables after main")
 
 class ASTMainFunctionNode(ASTNode):
     def __init__(self):
@@ -116,6 +87,9 @@ class ASTParameterNode(ASTNode):
 
         if (self.isConstant != False) :
             s += " | const"
+
+        if (self.indirections != 0) :
+            s += " | indirections: " + str(self.indirections)
 
         s += " | " + self.identifier
 
@@ -201,7 +175,11 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # arrayLength will be an expressionNode child
 
     def out(self, level):
-        s  = offset * level + "declaratorInitializer" + "\n"
+        s = offset * level + "declaratorInitializer" + "\n"
+
+        if (self.indirections != 0) :
+            s += offset * (level + 1) + "indirections: " + str(self.indirections) + "\n"
+
         s += offset * (level + 1) + "identifier: " + self.identifier
 
         if (self.isArray != False) :

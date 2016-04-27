@@ -89,13 +89,13 @@ oplevel2 :
 oplevel1 :
       oplevel1 '++'
     | oplevel1 '--'
-    | oplevel1 '[' (variable | integerLiteral | functionCall | oplevel15) ']'
+    | oplevel1 '[' expression ']'
     | variable
     | '(' expression ')'
     ;
 
 program :
-      (include | mainFunction | functionDeclaration | functionDefinition | variableDeclaration ';')+
+      (include | mainFunction | functionDeclaration | functionDefinition | variableDeclaration ';')*
     ;
 
 include :
@@ -125,16 +125,14 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ identifier
-    | arrayParameter
-    ;
+      declarationSpecifier+ pointer? identifier arrayPart?;
 
-arrayParameter :
-      declarationSpecifier+ identifier (LSBRA expression? RSBRA)?
+arrayPart :
+      LSBRA expression? RSBRA
     ;
 
 mainFunction :
-      TYPEINT 'main' LBRA parametersMain RBRA statements
+      TYPEINT MAIN LBRA parametersMain RBRA statements
     ;
 
 parametersMain :
@@ -205,8 +203,8 @@ cvQualifier :
     ;
 
 declaratorInitializer :
-      identifier ('=' expression)?
-    | arrayDeclaration
+      pointer? identifier ('=' expression)?
+    | pointer? arrayDeclaration
     ;
 
 arrayDeclaration :
@@ -226,7 +224,7 @@ variable :
     ;
 
 
-identifier : IDENTIFIER | pointer IDENTIFIER | reference IDENTIFIER;
+identifier : IDENTIFIER | reference IDENTIFIER;
 pointer : '*';
 reference : '&';
 
@@ -251,7 +249,6 @@ RCBRA     : '}';
 LSBRA     : '[';
 RSBRA     : ']';
 QUOTE     : '"';
-OPERATOR  : [+-*/%];
 
 TYPECHAR  : 'char';
 TYPEFLOAT : 'float';
@@ -270,6 +267,7 @@ FOR       : 'for';
 BREAK     : 'break';
 CONTINUE  : 'continue';
 RETURN    : 'return';
+MAIN      : 'main';
 
 COMMENT   : '//'~[\r\n]* -> skip;
 MULTICOMMENT : '/*'(.)*?'*/' -> skip;

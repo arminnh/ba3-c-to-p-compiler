@@ -124,8 +124,8 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#arrayParameter.
-    def visitArrayParameter(self, ctx:SmallCParser.ArrayParameterContext):
+    # Visit a parse tree produced by SmallCParser#arrayPart.
+    def visitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         return self.visitChildren(ctx)
 
 
