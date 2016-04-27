@@ -110,7 +110,7 @@ class ASTParameterNode(ASTNode):
         if (self.indirections != 0) :
             s += " | indirections: " + str(self.indirections)
 
-        s += " | " + self.identifier
+        s += " | " + str(self.identifier)
 
         if (self.isArray != False) :
             s += " | array:  " + str(self.isArray)

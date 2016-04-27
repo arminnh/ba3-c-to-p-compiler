@@ -125,7 +125,7 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ pointer? identifier arrayPart?;
+      declarationSpecifier+ pointer? identifier? arrayPart?;
 
 arrayPart :
       LSBRA expression? RSBRA

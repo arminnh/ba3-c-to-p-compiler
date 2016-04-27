@@ -25,7 +25,7 @@ class FunctionSymbolInfo(SymbolInfo):
 
     @property
     def defined(self):
-        return isinstance(self.astnode, ASTFunctionDefinition)
+        return isinstance(self.astnode, ASTFunctionDefinitionNode)
     
 
 class Scope:
@@ -40,9 +40,8 @@ class Scope:
         return new
 
     def insertSymbol(self, info:SymbolInfo):
-        if self.isInsertionOk(info):
-            if isinstance(info.astnode, ASTFunctionDefinitionNode):
-                print("inserted function definition for id " + info.astnode.identifier + " into symbol table")
+        if self.isInsertionOk(info):    
+            #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
             self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name):
@@ -77,10 +76,13 @@ class Scope:
                             raise Exception("parameters don't match")
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
-                        return False
+                        if old.astnode.getParameters() == new.astnode.getParameters():
+                            return False # declaration cannot overwrite definition
+                        else:
+                            raise Exception("parameters don't match")
 
             elif type(new) is VariableSymbolInfo:
-                return False
+                raise Exception("identifier " + old.astnode.identifier + " already taken")
 
         else:
             return True

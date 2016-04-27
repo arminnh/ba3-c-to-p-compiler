@@ -156,6 +156,12 @@ class MyListener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
+        # in a function definition, all parameters need to have identifiers
+        parameters = self.currentNode.getParameters()
+        for parameter in parameters.children:
+            if parameter.identifier is None:
+                raise Exception("parameter name omitted")
+
         self.currentNode = self.currentNode.parent
 
 
