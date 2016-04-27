@@ -1,6 +1,6 @@
 int main(int argc, char *argv[])
 {
-    int a, b, c;
+    int a = 5, b, c;
 
     if (1)
         1 + 1; // declaration not allowed here in c99
@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
         if (0) {
             b;
         } else {
-            if (1)
+            if (1) {
                 c;
+                int a;
+            }
         }
     }
 
@@ -37,6 +39,7 @@ int main(int argc, char *argv[])
 
     do {
         c = a + b;
+        int var;
     } while (1 == 2);
 
     return 1;

@@ -229,11 +229,6 @@ class SmallCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SmallCParser#reference.
-    def visitReference(self, ctx:SmallCParser.ReferenceContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SmallCParser#typeDeclaration.
     def visitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
         return self.visitChildren(ctx)

@@ -1,3 +1,8 @@
+if [[ ! $1 ]]; then
+	echo "Usage: $0 filename"
+	exit
+fi
+
 # create files for java tree visualisation
 java -jar ../resources/antlr-4.5.3-complete.jar SmallC.g4 -visitor
 javac -classpath ../resources/antlr-4.5.3-complete.jar SmallC*.java

@@ -193,7 +193,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        for child in self.currentNode.getChildren():
+        for child in self.currentNode.children:
             if isinstance(child, ASTMainFunctionNode):
                 print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
                 sys.exit()
@@ -322,15 +322,6 @@ class MyListener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#pointer.
     def exitPointer(self, ctx:SmallCParser.PointerContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#reference.
-    def enterReference(self, ctx:SmallCParser.ReferenceContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#reference.
-    def exitReference(self, ctx:SmallCParser.ReferenceContext):
         pass
 
 
@@ -532,10 +523,14 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 2:
             symbol = children[0].getText()
-            arithmeticType = None
-            if symbol == "++": arithmeticType = ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']
-            elif symbol == "--": arithmeticType = ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']
-            self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(arithmeticType, ASTUnaryOperatorNode.Type['prefix']))
+            if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['prefix']))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['prefix']))
+            elif symbol == "&":  self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode())
+            elif symbol == "*":  self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode())
+            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode())
+            else:
+                self.createdNode.append(False)
+                return;
             self.createdNode.append(True)
             return
         self.createdNode.append(False)
@@ -552,11 +547,13 @@ class MyListener(SmallCListener):
             symbol = children[1].getText()
             if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix']))
             elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['postfix']))
-            elif symbol == "&": self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode())
-            elif symbol == "*": self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode())
-            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode())
             self.createdNode.append(True)
             return
+        elif len(children) == 4:
+            symbol1 = children[1].getText()
+            symbol2 = children[3].getText()
+            if symbol1 == "[" and symbol2 == "]":
+                self.currentNode = self.currentNode.addChildNode()
         self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel1.

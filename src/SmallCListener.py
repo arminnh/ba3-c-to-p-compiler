@@ -404,15 +404,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#reference.
-    def enterReference(self, ctx:SmallCParser.ReferenceContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#reference.
-    def exitReference(self, ctx:SmallCParser.ReferenceContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#typeDeclaration.
     def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
         pass
