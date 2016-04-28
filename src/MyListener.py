@@ -191,7 +191,7 @@ class MyListener(SmallCListener):
             if isinstance(child, ASTMainFunctionNode):
                 print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
                 sys.exit()
-                
+
         self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#mainFunction.
@@ -201,8 +201,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#typeDeclaration.
     def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
-        self.currentNode.type = ctx.getText()
-        pass
+        self.currentNode.type = ctx.getText() #TODO: rename self.type where it is used in this way to self.basetype (to prevent confusion with typeInfo type)
 
     # Exit a parse tree produced by SmallCParser#typeDeclaration.
     def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):

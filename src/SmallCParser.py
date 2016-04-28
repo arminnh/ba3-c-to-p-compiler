@@ -421,12 +421,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel15" ):
                 listener.exitOplevel15(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel15" ):
-                return visitor.visitOplevel15(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -470,12 +464,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel14" ):
                 listener.exitOplevel14(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel14" ):
-                return visitor.visitOplevel14(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -541,12 +529,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel13" ):
                 listener.exitOplevel13(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel13" ):
-                return visitor.visitOplevel13(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -611,12 +593,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel12" ):
                 listener.exitOplevel12(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel12" ):
-                return visitor.visitOplevel12(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -687,12 +663,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel11" ):
                 listener.exitOplevel11(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel11" ):
-                return visitor.visitOplevel11(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
     def oplevel11(self, _p:int=0):
@@ -758,12 +728,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel10" ):
                 listener.exitOplevel10(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel10" ):
-                return visitor.visitOplevel10(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -804,12 +768,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel9" ):
                 listener.exitOplevel9(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel9" ):
-                return visitor.visitOplevel9(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -849,12 +807,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel8" ):
                 listener.exitOplevel8(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel8" ):
-                return visitor.visitOplevel8(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -899,12 +851,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel7" ):
                 listener.exitOplevel7(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel7" ):
-                return visitor.visitOplevel7(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -994,12 +940,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel6" ):
                 listener.exitOplevel6(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel6" ):
-                return visitor.visitOplevel6(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1112,12 +1052,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitOplevel5" ):
                 listener.exitOplevel5(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel5" ):
-                return visitor.visitOplevel5(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1161,12 +1095,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel4" ):
                 listener.exitOplevel4(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel4" ):
-                return visitor.visitOplevel4(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1256,12 +1184,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel3" ):
                 listener.exitOplevel3(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel3" ):
-                return visitor.visitOplevel3(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1394,12 +1316,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel2" ):
                 listener.exitOplevel2(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel2" ):
-                return visitor.visitOplevel2(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1537,12 +1453,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitOplevel1" ):
                 listener.exitOplevel1(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitOplevel1" ):
-                return visitor.visitOplevel1(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1686,12 +1596,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProgram" ):
-                return visitor.visitProgram(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1780,12 +1684,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitInclude" ):
                 listener.exitInclude(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitInclude" ):
-                return visitor.visitInclude(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1850,12 +1748,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitStdInclude" ):
                 listener.exitStdInclude(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStdInclude" ):
-                return visitor.visitStdInclude(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -1899,12 +1791,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCustomInclude" ):
                 listener.exitCustomInclude(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCustomInclude" ):
-                return visitor.visitCustomInclude(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -1959,12 +1845,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunctionDeclaration" ):
                 listener.exitFunctionDeclaration(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunctionDeclaration" ):
-                return visitor.visitFunctionDeclaration(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2034,12 +1914,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitFunctionDefinition" ):
                 listener.exitFunctionDefinition(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunctionDefinition" ):
-                return visitor.visitFunctionDefinition(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2092,12 +1966,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitParameters" ):
                 listener.exitParameters(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParameters" ):
-                return visitor.visitParameters(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2187,12 +2055,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitParameter" ):
                 listener.exitParameter(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParameter" ):
-                return visitor.visitParameter(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2272,12 +2134,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitPointerPart" ):
                 listener.exitPointerPart(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPointerPart" ):
-                return visitor.visitPointerPart(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2331,12 +2187,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitArrayPart" ):
                 listener.exitArrayPart(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArrayPart" ):
-                return visitor.visitArrayPart(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2404,12 +2254,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitMainFunction" ):
                 listener.exitMainFunction(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitMainFunction" ):
-                return visitor.visitMainFunction(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2458,12 +2302,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitParametersMain" ):
                 listener.exitParametersMain(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitParametersMain" ):
-                return visitor.visitParametersMain(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2529,12 +2367,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatements" ):
                 listener.exitStatements(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStatements" ):
-                return visitor.visitStatements(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2612,12 +2444,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStatement" ):
-                return visitor.visitStatement(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -2731,12 +2557,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitExpression" ):
                 listener.exitExpression(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpression" ):
-                return visitor.visitExpression(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2823,12 +2643,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitArguments" ):
                 listener.exitArguments(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitArguments" ):
-                return visitor.visitArguments(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2910,12 +2724,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitIfCond" ):
                 listener.exitIfCond(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIfCond" ):
-                return visitor.visitIfCond(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -2975,12 +2783,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitElseCond" ):
                 listener.exitElseCond(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitElseCond" ):
-                return visitor.visitElseCond(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3035,12 +2837,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitWhileCond" ):
                 listener.exitWhileCond(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitWhileCond" ):
-                return visitor.visitWhileCond(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3106,12 +2902,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitDoWhileCond" ):
                 listener.exitDoWhileCond(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDoWhileCond" ):
-                return visitor.visitDoWhileCond(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3173,12 +2963,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVariableDeclaration" ):
                 listener.exitVariableDeclaration(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVariableDeclaration" ):
-                return visitor.visitVariableDeclaration(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3249,12 +3033,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitDeclarationSpecifier" ):
                 listener.exitDeclarationSpecifier(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDeclarationSpecifier" ):
-                return visitor.visitDeclarationSpecifier(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3305,12 +3083,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCvQualifier" ):
                 listener.exitCvQualifier(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCvQualifier" ):
-                return visitor.visitCvQualifier(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3376,12 +3148,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitDeclaratorInitializer" ):
                 listener.exitDeclaratorInitializer(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitDeclaratorInitializer" ):
-                return visitor.visitDeclaratorInitializer(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3495,12 +3261,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitReturnStmt" ):
                 listener.exitReturnStmt(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitReturnStmt" ):
-                return visitor.visitReturnStmt(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3553,12 +3313,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitFunctionCall" ):
                 listener.exitFunctionCall(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFunctionCall" ):
-                return visitor.visitFunctionCall(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3605,12 +3359,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitVariable" ):
                 listener.exitVariable(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitVariable" ):
-                return visitor.visitVariable(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3650,12 +3398,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitIdentifier" ):
                 listener.exitIdentifier(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIdentifier" ):
-                return visitor.visitIdentifier(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3692,12 +3434,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitPointer" ):
                 listener.exitPointer(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPointer" ):
-                return visitor.visitPointer(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3747,12 +3483,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitTypeDeclaration" ):
                 listener.exitTypeDeclaration(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTypeDeclaration" ):
-                return visitor.visitTypeDeclaration(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3797,12 +3527,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitFloatLiteral" ):
                 listener.exitFloatLiteral(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFloatLiteral" ):
-                return visitor.visitFloatLiteral(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3841,12 +3565,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIntegerLiteral" ):
                 listener.exitIntegerLiteral(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitIntegerLiteral" ):
-                return visitor.visitIntegerLiteral(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
@@ -3887,12 +3605,6 @@ class SmallCParser ( Parser ):
             if hasattr( listener, "exitCharacterLiteral" ):
                 listener.exitCharacterLiteral(self)
 
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitCharacterLiteral" ):
-                return visitor.visitCharacterLiteral(self)
-            else:
-                return visitor.visitChildren(self)
-
 
 
 
@@ -3931,12 +3643,6 @@ class SmallCParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStringLiteral" ):
                 listener.exitStringLiteral(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStringLiteral" ):
-                return visitor.visitStringLiteral(self)
-            else:
-                return visitor.visitChildren(self)
 
 
 
