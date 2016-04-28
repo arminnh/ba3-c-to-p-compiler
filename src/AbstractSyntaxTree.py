@@ -138,6 +138,10 @@ class ASTStatementNode(ASTNode):
     def __init__(self, label="statement"):
         super(ASTStatementNode, self).__init__(label)
 
+class ASTReturnNode(ASTStatementNode):
+    def __init__(self):
+        super(ASTReturnStatementNode, self).__init__("return")
+
 class ASTIfNode(ASTStatementNode):
     def __init__(self):
         super(ASTIfNode, self).__init__("if")
@@ -185,22 +189,17 @@ class ASTVariableDeclarationNode(ASTStatementNode):
 
         return s if (not self.children) else self.outChildren(s, level)
 
-class ASTVariableDefinitionNode(ASTVariableDeclarationNode):
-    def __init__(self):
-        super(ASTVariableDefinitionNode, self).__init__("variable definition")
-        # parameters and statements are child nodes
-
 class ASTDeclaratorInitializerNode(ASTNode):
     def __init__(self):
         super(ASTDeclaratorInitializerNode, self).__init__("declarator initializer")
         self.identifier = None
         self.isArray = False
         self.indirections = 0
+        self.const = []
         # arrayLength will be an expressionNode child
 
-    @property
-    def type(self):
-        return self.parent.type
+    def getType(self):
+        return TypeInfo(rvalue=None, basetype=self.parent.type, indirections=self.indirections, const=self.const, isArray=self.isArray)
 
     def out(self, level):
         s = offset * level + "declaratorInitializer" + "\n"
@@ -239,15 +238,18 @@ class ASTExpressionNode(ASTNode):
     def __init__(self, label="expression"):
         super(ASTExpressionNode, self).__init__(label)
 
-class ASTReturnExpressionNode(ASTExpressionNode):
-    def __init__(self):
-        super(ASTReturnExpressionNode, self).__init__("return")
+    @property
+    def type(self):
+        return self.children[0].type
 
 class ASTIntegerLiteralNode(ASTExpressionNode):
     def __init__(self, value):
         super(ASTIntegerLiteralNode, self).__init__("int")
         self.value = value
 
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="int", const=[True])
+    
     def out(self, level):
         return offset * level + self.label + " | " + str(self.value) + "\n"
 
@@ -256,6 +258,9 @@ class ASTFloatLiteralNode(ASTExpressionNode):
         super(ASTFloatLiteralNode, self).__init__("float")
         self.value = value
 
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="float", const=[True])
+    
     def out(self, level):
         return offset * level + self.label + " | " + str(self.value) + "\n"
 
@@ -264,6 +269,10 @@ class ASTCharacterLiteralNode(ASTExpressionNode):
         super(ASTCharacterLiteralNode, self).__init__("char")
         self.value = value
 
+    @property
+    def type(self):
+        return TypeInfo("char")
+    
     def out(self, level):
         return offset * level + self.label + " | " + str(self.value) + "\n"
 
@@ -271,6 +280,10 @@ class ASTStringLiteralNode(ASTExpressionNode):
     def __init__(self, value):
         super(ASTStringLiteralNode, self).__init__("char*")
         self.value = value
+
+    @property
+    def type(self):
+        return TypeInfo("char", 1, [True, False])
 
     def out(self, level):
         return offset * level + self.label + " | " + str(self.value) + "\n"

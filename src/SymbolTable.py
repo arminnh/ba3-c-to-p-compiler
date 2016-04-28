@@ -5,7 +5,8 @@ offset = "    "
 class SymbolInfo:
     def __init__(self, astnode):
         self.astnode = astnode
-
+        self.typeInfo = astnode.getType()
+    
 class VariableSymbolInfo(SymbolInfo):
     def __init__(self, astnode):
         # astnode is ASTDeclaratorInitializerNode

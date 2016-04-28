@@ -125,7 +125,11 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ pointer? identifier? arrayPart?;
+      declarationSpecifier+ pointerPart* identifier? arrayPart?;
+
+pointerPart:
+      pointer cvQualifier?
+    ;
 
 arrayPart :
       LSBRA expression? RSBRA
@@ -138,6 +142,7 @@ mainFunction :
 parametersMain :
       TYPEVOID
     | 'int argc, char *argv[]'
+    |
     ;
 
 statements :
@@ -151,7 +156,7 @@ statement :
     | doWhileCond
     | expression ';'
     | variableDeclaration ';'
-    | returnExpression ';'
+    | returnStmt ';'
     | ';'
     ;
 
@@ -201,15 +206,11 @@ cvQualifier :
     ;
 
 declaratorInitializer :
-      pointer? identifier ('=' expression)?
-    | pointer? arrayDeclaration
+      pointerPart* identifier ('=' expression)?
+    | pointerPart* identifier arrayPart ('=' (LCBRA arguments RCBRA | stringLiteral))?
     ;
 
-arrayDeclaration :
-      identifier LSBRA expression? RSBRA ('=' LCBRA arguments RCBRA)?
-    ;
-
-returnExpression :
+returnStmt :
       RETURN expression
     ;
 

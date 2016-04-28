@@ -73,11 +73,11 @@ class MyListener(SmallCListener):
 
 
     # Enter a parse tree produced by SmallCParser#expression.
-    def enterReturnExpression(self, ctx:SmallCParser.ExpressionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTReturnExpressionNode())
+    def enterReturnStmt(self, ctx:SmallCParser.ExpressionContext):
+        self.currentNode = self.currentNode.addChildNode(ASTReturnNode())
 
     # Exit a parse tree produced by SmallCParser#expression.
-    def exitReturnExpression(self, ctx:SmallCParser.ExpressionContext):
+    def exitReturnStmt(self, ctx:SmallCParser.ExpressionContext):
         self.currentNode = self.currentNode.parent
 
 
@@ -116,20 +116,6 @@ class MyListener(SmallCListener):
     # Exit a parse tree produced by SmallCParser#declaratorInitializer.
     def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
         self.currentNode = self.currentNode.parent
-
-
-    # Enter a parse tree produced by SmallCParser#arrayDeclaration.
-    def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        # parent will always be DeclaratorInitializer
-        self.currentNode.isArray = True
-
-        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
-        if (child != None):
-            self.currentNode.arrayLength = int(child.getText())
-
-    # Exit a parse tree produced by SmallCParser#arrayDeclaration.
-    def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        pass
 
 
     # Enter a parse tree produced by SmallCParser#variable.
@@ -188,9 +174,9 @@ class MyListener(SmallCListener):
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         # parent will always be Parameter
         self.currentNode.isArray = True
-        child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
-        if (child != None):
-            self.currentNode.arrayLength = int(child.getText())
+        # child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
+        # if (child != None):
+        #     self.currentNode.arrayLength = int(child.getText())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):

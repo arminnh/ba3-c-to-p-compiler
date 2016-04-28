@@ -215,6 +215,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#pointerPart.
+    def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#pointerPart.
+    def exitPointerPart(self, ctx:SmallCParser.PointerPartContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#arrayPart.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         pass
@@ -350,21 +359,12 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#arrayDeclaration.
-    def enterArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
+    # Enter a parse tree produced by SmallCParser#returnStmt.
+    def enterReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
         pass
 
-    # Exit a parse tree produced by SmallCParser#arrayDeclaration.
-    def exitArrayDeclaration(self, ctx:SmallCParser.ArrayDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#returnExpression.
-    def enterReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#returnExpression.
-    def exitReturnExpression(self, ctx:SmallCParser.ReturnExpressionContext):
+    # Exit a parse tree produced by SmallCParser#returnStmt.
+    def exitReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
         pass
 
 

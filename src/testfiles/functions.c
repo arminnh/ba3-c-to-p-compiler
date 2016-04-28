@@ -12,12 +12,15 @@ float myFunction3(int const i[5], int const j[]);
 float myFunction4();
 
 float myFunction3(int const i[5], int const j[]) {
-    /*if (i[3] == 0)
+    if (i[3] == 0)
         return j[5];
     else  {
         return j[0];
-    }*/
+    }
 }
+
+int sum(int const * const * * a);
+int sub(const int * const * * a);
 
 
 #include <stdio.h>

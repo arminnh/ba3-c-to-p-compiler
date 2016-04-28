@@ -28,6 +28,10 @@ int main(void)
     int t = aa, u = bb;
     // aaa and bbb are undeclared here
 
+    char hello[] = "5", ccc = 'c', *str = "string";
+
+    int *arrint[] = {&e};
+
     return 1;
 }
 
