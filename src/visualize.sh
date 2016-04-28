@@ -1,10 +1,12 @@
+echo "This script is meant to be run from the src directory" # because i don't know how to bash
+
 if [[ ! $1 ]]; then
 	echo "Usage: $0 filename"
 	exit
 fi
 
 # create files for java tree visualisation
-java -jar ../resources/antlr-4.5.3-complete.jar SmallC.g4 -visitor
+java -jar ../resources/antlr-4.5.3-complete.jar SmallC.g4 #-visitor
 javac -classpath ../resources/antlr-4.5.3-complete.jar SmallC*.java
 
 # move java files to build dir
