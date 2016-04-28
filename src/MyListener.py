@@ -173,6 +173,7 @@ class MyListener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         self.currentNode.isArray = True
+        self.currentNode.indirections += 1
         # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
         if ctx.getChildCount() == 1:
             self.currentNode.hasArrayLength = True

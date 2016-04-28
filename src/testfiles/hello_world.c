@@ -22,6 +22,8 @@ int sub(int a, int b) {
     return a;
 }
 
+float sub(int, int);
+
 int main(int argc, char *argv[])
 {
     int* a = 1;
@@ -36,7 +38,7 @@ int main(int argc, char *argv[])
     } else {
         // printf("a == 3\n");
     }
-
+    
     // printf("b == %d\n", b);
     int b = 0;
     // printf("b == %d\n", b);

@@ -92,7 +92,7 @@ class Scope:
     def out(self, level):
         out = offset * level + "Scope:\n"
         for key, value in self.symbols.items():
-            out += offset * (level + 1) + key + ": " + value.astnode.type + "\n"
+            out += offset * (level + 1) + key + ": " + str(value.astnode.getType()) + "\n"
 
         for child in self.children:
             out += child.out(level + 1)

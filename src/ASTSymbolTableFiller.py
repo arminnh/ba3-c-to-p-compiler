@@ -24,9 +24,12 @@ class ASTSymbolTableFiller:
                     raise Exception("Variable '" + node.identifier + "' used before it was declared")
                 elif isinstance(node, ASTFunctionCallNode):
                     raise Exception("Function '" + node.identifier + "' used before it was declared")
-            else:
-                if isinstance(node, ASTFunctionCallNode) and not symbolInfo.defined:
+            elif isinstance(node, ASTFunctionCallNode):
+                if not symbolInfo.defined:
                     raise Exception("Function: undefined reference")
+                node.type = symbolInfo.typeInfo
+            elif isinstance(node, ASTVariableNode):
+                node.type = symbolInfo.typeInfo
 
         # insert function declaration or definition into symbol table
         elif isinstance(node, ASTFunctionDeclarationNode):

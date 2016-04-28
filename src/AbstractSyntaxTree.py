@@ -1,4 +1,6 @@
+import copy
 from enum import Enum
+from TypeInfo import TypeInfo
 
 offset = "  | "
 
@@ -15,6 +17,10 @@ class ASTNode(object):
         self.children.append(node)
         node.parent = self
         return node
+
+    def typeCheck(self):
+        for child in self.children:
+            child.typeCheck()
 
     def out(self, level=0):
         s = offset * level + self.label + "\n"
@@ -51,6 +57,11 @@ class ASTFunctionDeclarationNode(ASTNode):
         self.type = None
         self.identifier = None
         # parameters are child nodes
+
+    def getType(self):
+        if self.type is None:
+            raise Exception("ASTFunctionDeclarationNode type not filled in")
+        return TypeInfo(rvalue=None, basetype=self.type)
 
     def getParameters(self):
         for child in self.children:
@@ -93,6 +104,11 @@ class ASTParameterNode(ASTNode):
         # TODO: arrayLength can be an expressionNode -> change
         self.const = []
         self.indirections = 0
+    
+    def getType(self):
+        if self.type is None:
+            raise Exception("ASTParameterNode type not filled in")
+        return TypeInfo(rvalue=None, basetype=self.type, indirections=self.indirections, const=self.const)
 
     def __eq__(self, other):
         return self.type == other.type \
@@ -244,17 +260,22 @@ class ASTExpressionNode(ASTNode):
     def __init__(self, label="expression"):
         super(ASTExpressionNode, self).__init__(label)
 
-    @property
-    def type(self):
-        return self.children[0].type
+    def typeCheck(self):
+        return NotImplementedError
+
+    def getType(self):
+        raise NotImplementedError
 
 class ASTIntegerLiteralNode(ASTExpressionNode):
     def __init__(self, value):
         super(ASTIntegerLiteralNode, self).__init__("int")
         self.value = value
 
+    def typeCheck(self):
+        return True
+
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int", const=[True])
+        return TypeInfo(rvalue=True, basetype="int")
     
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -264,8 +285,11 @@ class ASTFloatLiteralNode(ASTExpressionNode):
         super(ASTFloatLiteralNode, self).__init__("float")
         self.value = value
 
+    def typeCheck(self):
+        return True
+
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="float", const=[True])
+        return TypeInfo(rvalue=True, basetype="float")
     
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -275,9 +299,11 @@ class ASTCharacterLiteralNode(ASTExpressionNode):
         super(ASTCharacterLiteralNode, self).__init__("char")
         self.value = value
 
-    @property
-    def type(self):
-        return TypeInfo("char")
+    def typeCheck(self):
+        return True
+
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="char")
     
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -287,9 +313,11 @@ class ASTStringLiteralNode(ASTExpressionNode):
         super(ASTStringLiteralNode, self).__init__("string")
         self.value = value
 
-    @property
-    def type(self):
-        return TypeInfo("char", 1, [True, False])
+    def typeCheck(self):
+        return True
+
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -298,6 +326,15 @@ class ASTVariableNode(ASTExpressionNode):
     def __init__(self, identifier):
         super(ASTVariableNode, self).__init__("variable")
         self.identifier = identifier
+        self.type = None
+
+    def typeCheck(self):
+        return True
+
+    def getType(self):
+        if self.type is None:
+            raise Exception("Type has not been set yet for variable " + self.identifier)
+        return self.type
 
     def out(self, level):
         return offset * level + self.label + " - " + self.identifier + "\n"
@@ -306,6 +343,15 @@ class ASTFunctionCallNode(ASTExpressionNode):
     def __init__(self):
         super(ASTFunctionCallNode, self).__init__("function call")
         self.identifier = None
+        self.type = None
+
+    def typeCheck(self):
+        return True
+
+    def getType(self):
+        if self.type is None:
+            raise Exception("Type has not been set yet for function " + self.identifier)
+        return self.type
 
     def out(self, level):
         s = offset * level + self.label + " - " + self.identifier + "\n"
@@ -338,9 +384,22 @@ class ASTUnaryOperatorNode(ASTExpressionNode):
         print(str(type(node)))
         return super(ASTUnaryOperatorNode, self).addChildNode(node)
 
+    def typeCheck(self):
+        return True
+
+    def getType(self):
+        return self.children[0].getType()
+
 class ASTBinaryOperatorNode(ASTExpressionNode):
     def __init__(self, label):
         super(ASTBinaryOperatorNode, self).__init__(label)
+
+    def typeCheck(self):
+        if not self.children[0].getType().isCompatible(self.children[1].getType()):
+            raise Exception("Binary operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")")
+
+    def getType(self):
+        return self.children[0].getType()
 
     def addChildNode(self, node):
         if len(self.children) >= 2: # this should never happen
@@ -360,6 +419,16 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
     def __init__(self):
         super(ASTTernaryConditionalOperatorNode, self).__init__("?:")
 
+    def typeCheck(self):
+        if not self.children[0].getType().isCompatible(TypeInfo(basetype="int")):
+            raise Exception("Ternary conditional operator needs int as first operand")
+        if self.children[1].getType() != self.children[2].getType():
+            raise Exception("Ternary conditional operator alternatives should be of equal type")
+        return True
+
+    def getType():
+        return self.children[1].getType()
+
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
     def __init__(self):
         super(ASTSimpleAssignmentOperatorNode, self).__init__("=")
@@ -377,6 +446,15 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     def __init__(self, logicOperatorType):
         super(ASTLogicOperatorNode, self).__init__(str(logicOperatorType))
         self.logicOperatorType = logicOperatorType
+
+    def typeCheck(self):
+        if self.children[0].getType() != self.children[1].getType():
+            raise Exception("Logic operator operands must have the same type")
+        if self.children[0].getType().isCompatible(TypeInfo(basetype="int")):
+            raise Exception("Logic operator operands not compatible with int")
+
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="int")
 
 class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
     class ComparisonType(Enum):
@@ -401,6 +479,14 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         super(ASTComparisonOperatorNode, self).__init__(label)
         self.comparisonType = comparisonType
 
+    def typeCheck(self):
+        if self.children[0].getType() != self.children[1].getType():
+            raise Exception("Comparison operator operands need to be of same type")
+        return True
+
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="int")
+
 class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     class ArithmeticType(Enum):
         increment = 1
@@ -418,9 +504,21 @@ class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
     def __init__(self):
         super(ASTAddressOfOperatorNode, self).__init__("&", ASTUnaryOperatorNode.Type['prefix'])
 
+    def getType(self):
+        ttype = copy.deepcopy(self.children[0].getType())
+        ttype.indirections += 1
+        return ttype
+
 class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
     def __init__(self):
         super(ASTDereferenceOperatorNode, self).__init__("*", ASTUnaryOperatorNode.Type['prefix'])
+
+    def getType(self):
+        ttype = copy.deepcopy(self.children[0].getType())
+        ttype.indirections -= 1
+        if ttype.indirections == 0:
+            ttype.isArray = False
+        return ttype
 
 class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
     def __init__(self):
@@ -463,3 +561,6 @@ class AbstractSyntaxTree:
 
     def __str__(self):
         return "AST:\n" + self.root.out()
+
+    def typeCheck(self):
+        self.root.typeCheck()

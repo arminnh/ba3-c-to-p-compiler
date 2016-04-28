@@ -35,12 +35,14 @@ def main(filename):
 
     symbolTable = SymbolTable()
 
-    # tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
-    # tableFiller.fill()
-    # print(symbolTable)
+    tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
+    tableFiller.fill()
+    print(symbolTable)
 
-
-
+    # try:
+    abstractSyntaxTree.typeCheck()
+    # except Exception as e:
+    #     print(e)
 
 if __name__=="__main__":
 
