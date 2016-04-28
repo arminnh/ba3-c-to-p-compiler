@@ -7,7 +7,7 @@ int sub(const int * const * * a);
 int main() {
 	//char hello[] = {'5'};
 	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier heb ik niet aan gedacht";
-	
+
 	int i = 5;
 	int *arrint[1] = {&i};
 
