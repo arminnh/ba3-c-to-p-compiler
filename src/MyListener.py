@@ -562,7 +562,9 @@ class MyListener(SmallCListener):
             symbol1 = children[1].getText()
             symbol2 = children[3].getText()
             if symbol1 == "[" and symbol2 == "]":
-                self.currentNode = self.currentNode.addChildNode()
+                self.currentNode = self.currentNode.addChildNode(ASTArraySubscriptNode())
+                self.createdNode.append(True)
+                return
         self.createdNode.append(False)
 
     # Exit a parse tree produced by SmallCParser#oplevel1.

@@ -6,10 +6,10 @@ offset = "  | "
 
 class ASTNode(object):
 
-    def __init__(self, label="no label", parent=None):
+    def __init__(self, label="no label", ctx=None):
         self.label = label
+        self.ctx = ctx
         self.children = [] # don't manipulate or read directly; use addChildNode and getChildren
-        self.parent = parent
 
     def addChildNode(self, node):
         if not isinstance(node, ASTNode):
@@ -347,6 +347,7 @@ class ASTFunctionCallNode(ASTExpressionNode):
 
     def typeCheck(self):
         return True
+        #TODO typecheck arguments with function definition
 
     def getType(self):
         if self.type is None:
@@ -385,7 +386,7 @@ class ASTUnaryOperatorNode(ASTExpressionNode):
         return super(ASTUnaryOperatorNode, self).addChildNode(node)
 
     def typeCheck(self):
-        return True
+        return self.children[0].typeCheck()
 
     def getType(self):
         return self.children[0].getType()
@@ -395,6 +396,9 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
         super(ASTBinaryOperatorNode, self).__init__(label)
 
     def typeCheck(self):
+        for child in self.children:
+            child.typeCheck()
+
         if not self.children[0].getType().isCompatible(self.children[1].getType()):
             raise Exception("Binary operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")")
 
@@ -420,6 +424,9 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
         super(ASTTernaryConditionalOperatorNode, self).__init__("?:")
 
     def typeCheck(self):
+        for child in self.children:
+            child.typeCheck()
+
         if not self.children[0].getType().isCompatible(TypeInfo(basetype="int")):
             raise Exception("Ternary conditional operator needs int as first operand")
         if self.children[1].getType() != self.children[2].getType():
@@ -448,9 +455,12 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
         self.logicOperatorType = logicOperatorType
 
     def typeCheck(self):
+        for child in self.children:
+            child.typeCheck()
+
         if self.children[0].getType() != self.children[1].getType():
             raise Exception("Logic operator operands must have the same type")
-        if self.children[0].getType().isCompatible(TypeInfo(basetype="int")):
+        if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             raise Exception("Logic operator operands not compatible with int")
 
     def getType(self):
@@ -480,7 +490,10 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         self.comparisonType = comparisonType
 
     def typeCheck(self):
-        if self.children[0].getType() != self.children[1].getType():
+        for child in self.children:
+            child.typeCheck()
+        
+        if not self.children[0].getType().equals(self.children[1].getType(), ignoreConst=True):
             raise Exception("Comparison operator operands need to be of same type")
         return True
 
@@ -516,7 +529,9 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
-        if ttype.indirections == 0:
+        if ttype.indirections < 0:
+            raise Exception("invalid type argument of unary '*' (have '" + str(ttype) + "')")
+        elif ttype.indirections == 0:
             ttype.isArray = False
         return ttype
 
@@ -525,8 +540,21 @@ class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
         super(ASTLogicalNotOperatorNode, self).__init__("!", ASTUnaryOperatorNode.Type['prefix'])
 
 class ASTArraySubscriptNode(ASTUnaryOperatorNode):
-    def __init__(self, subscript):
+    def __init__(self):
         super(ASTArraySubscriptNode, self).__init__("[]", ASTUnaryOperatorNode.Type['postfix'])
+
+    def getType(self):
+        ttype = copy.deepcopy(self.children[0].getType())
+        ttype.indirections -= 1
+        if ttype.indirections == 0:
+            ttype.isArray = False
+        return ttype
+
+    def addChildNode(self, node):
+        if len(self.children) <= 2:
+            self.children.append(node)
+        node.parent = self
+        return node
 
 class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
     class ArithmeticType(Enum):

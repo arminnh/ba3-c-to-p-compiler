@@ -25,7 +25,7 @@ int main() {
 	int const bb = 1;
 	int bbb = 2;
 	int const constarr[2] = {1, 2};
-	constarr[0] = bb;
+	// constarr[0] = bb;
 
 	//hello;
 
@@ -35,7 +35,7 @@ int main() {
 
 	int *aaa;
 	int aaaaa[] = {1, 2, 3};
-	aaa = aaaaa;
+	//aaa = aaaaa;
 
 	// printf("%s\n", hello);
 

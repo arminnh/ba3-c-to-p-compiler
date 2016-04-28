@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
         }
     }
 
+    // if (2 == 3.0) {
     if (2 == 3) {
     } else if (2 == 2) {
         const int a[] = {1, 2, 3};
