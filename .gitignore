@@ -2,6 +2,7 @@ a.out
 *.java
 *.class
 .DS_Store
+.tm_properties
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

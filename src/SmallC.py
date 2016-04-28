@@ -27,17 +27,18 @@ def main(filename):
 
     # walk it and attach our listener
     walker = ParseTreeWalker()
-    abstractSyntaxTree = AbstractSyntaxTree();
+    errorHandler = CompilerErrorHandler(filename)
+    abstractSyntaxTree = AbstractSyntaxTree(errorHandler=errorHandler);
     listener = MyListener(abstractSyntaxTree)
     walker.walk(listener, programContext)
 
-    print (abstractSyntaxTree)
+    # print (abstractSyntaxTree)
 
     symbolTable = SymbolTable()
 
     tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
     tableFiller.fill()
-    print(symbolTable)
+    # print(symbolTable)
 
     # try:
     abstractSyntaxTree.typeCheck()

@@ -18,9 +18,9 @@ class TypeInfo:
 		return False
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
-		print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
-		print ("self: " + str(self))
-		print ("other: " + str(other) + "\n")
+        # print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
+        # print ("self: " + str(self))
+        # print ("other: " + str(other) + "\n")
 
 		if not ignoreConst and self.const != other.const:
 			return False
