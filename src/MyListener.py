@@ -13,7 +13,6 @@ class MyListener(SmallCListener):
         self.currentNode = self.ast.root
         self.createdNode = []
 
-
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
         self.ast.root = ASTProgramNode()
         self.currentNode = self.ast.root
@@ -129,7 +128,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDeclaration.
     def enterFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionDeclarationNode())
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDeclarationNode(ctx=ctx))
 
     # Exit a parse tree produced by SmallCParser#functionDeclaration.
     def exitFunctionDeclaration(self, ctx:SmallCParser.FunctionDeclarationContext):
@@ -138,7 +137,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode())
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode(ctx=ctx))
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
@@ -193,7 +192,7 @@ class MyListener(SmallCListener):
                 print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
                 sys.exit()
 
-        self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode())
+        self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#mainFunction.
     def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
@@ -211,7 +210,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionCall.
     def enterFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionCallNode())
+        self.currentNode = self.currentNode.addChildNode(ASTFunctionCallNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#functionCall.
     def exitFunctionCall(self, ctx:SmallCParser.FunctionCallContext):
@@ -220,7 +219,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#arguments.
     def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        self.currentNode = self.currentNode.addChildNode(ASTArgumentsNode())
+        self.currentNode = self.currentNode.addChildNode(ASTArgumentsNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#arguments.
     def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
@@ -229,7 +228,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#ifCond.
     def enterIfCond(self, ctx:SmallCParser.IfCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTIfNode())
+        self.currentNode = self.currentNode.addChildNode(ASTIfNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#ifCond.
     def exitIfCond(self, ctx:SmallCParser.IfCondContext):
@@ -238,7 +237,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#elseCond.
     def enterElseCond(self, ctx:SmallCParser.ElseCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTElseNode())
+        self.currentNode = self.currentNode.addChildNode(ASTElseNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#elseCond.
     def exitElseCond(self, ctx:SmallCParser.ElseCondContext):
@@ -247,7 +246,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#whileCond.
     def enterWhileCond(self, ctx:SmallCParser.WhileCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTWhileNode())
+        self.currentNode = self.currentNode.addChildNode(ASTWhileNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#whileCond.
     def exitWhileCond(self, ctx:SmallCParser.WhileCondContext):
@@ -256,7 +255,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#doWhileCond.
     def enterDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
-        self.currentNode = self.currentNode.addChildNode(ASTDoWhileNode())
+        self.currentNode = self.currentNode.addChildNode(ASTDoWhileNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#doWhileCond.
     def exitDoWhileCond(self, ctx:SmallCParser.DoWhileCondContext):
@@ -265,7 +264,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#floatLiteral.
     def enterFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFloatLiteralNode(float(ctx.getText())))
+        self.currentNode = self.currentNode.addChildNode(ASTFloatLiteralNode(float(ctx.getText()), ctx))
 
     # Exit a parse tree produced by SmallCParser#floatLiteral.
     def exitFloatLiteral(self, ctx:SmallCParser.FloatLiteralContext):
@@ -274,7 +273,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#integerLiteral.
     def enterIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTIntegerLiteralNode(int(ctx.getText())))
+        self.currentNode = self.currentNode.addChildNode(ASTIntegerLiteralNode(int(ctx.getText()), ctx))
 
     # Exit a parse tree produced by SmallCParser#integerLiteral.
     def exitIntegerLiteral(self, ctx:SmallCParser.IntegerLiteralContext):
@@ -283,7 +282,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#characterLiteral.
     def enterCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTCharacterLiteralNode(ctx.getText()))
+        self.currentNode = self.currentNode.addChildNode(ASTCharacterLiteralNode(ctx.getText(), ctx))
 
     # Exit a parse tree produced by SmallCParser#characterLiteral.
     def exitCharacterLiteral(self, ctx:SmallCParser.CharacterLiteralContext):
@@ -292,7 +291,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#stringLiteral.
     def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText()))
+        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText(), ctx))
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
     def exitStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
@@ -349,7 +348,7 @@ class MyListener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getText()
             if symbol == "=":
-                self.currentNode = self.currentNode.addChildNode(ASTSimpleAssignmentOperatorNode())
+                self.currentNode = self.currentNode.addChildNode(ASTSimpleAssignmentOperatorNode(ctx))
                 self.createdNode.append(True)
                 return
 
@@ -367,7 +366,7 @@ class MyListener(SmallCListener):
             symbol1 = children[1].getText()
             symbol2 = children[3].getText()
             if symbol1 == "?" and symbol2 == ":":
-                self.currentNode = self.currentNode.addChildNode(ASTTernaryConditionalOperatorNode())
+                self.currentNode = self.currentNode.addChildNode(ASTTernaryConditionalOperatorNode(ctx))
                 self.createdNode.append(True)
                 return
 
@@ -384,7 +383,7 @@ class MyListener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getText()
             if symbol == "||":
-                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['disj']))
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['disj'], ctx))
                 self.createdNode.append(True)
                 return
 
@@ -401,7 +400,7 @@ class MyListener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getText()
             if symbol == "&&":
-                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['conj']))
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['conj'], ctx))
                 self.createdNode.append(True)
                 return
 
@@ -445,7 +444,7 @@ class MyListener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getSymbol().text
             self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode( \
-                ASTComparisonOperatorNode.ComparisonType['inequal'] if symbol == "!=" else ASTComparisonOperatorNode.ComparisonType['equal']))
+                ASTComparisonOperatorNode.ComparisonType['inequal'] if symbol == "!=" else ASTComparisonOperatorNode.ComparisonType['equal'], ctx))
             self.createdNode.append(True)
         else:
             self.createdNode.append(False)
@@ -466,7 +465,7 @@ class MyListener(SmallCListener):
                 elif symbol == ">": comparisonType = ASTComparisonOperatorNode.ComparisonType['gt']
                 elif symbol == "<=": comparisonType = ASTComparisonOperatorNode.ComparisonType['le']
                 elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
-                self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode(comparisonType))
+                self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode(comparisonType, ctx))
                 self.createdNode.append(True)
                 return
 
@@ -491,7 +490,7 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 3:
             symbol = children[1].getText()
-            if self.addBinaryArithmeticOperator(symbol):
+            if self.addBinaryArithmeticOperator(symbol, ctx):
                 self.createdNode.append(True)
                 return
 
@@ -501,7 +500,7 @@ class MyListener(SmallCListener):
     def exitOplevel4(self, ctx:SmallCParser.Oplevel4Context):
         if self.createdNode.pop(): self.currentNode = self.currentNode.parent
 
-    def addBinaryArithmeticOperator(self, symbol):
+    def addBinaryArithmeticOperator(self, symbol, ctx):
         arithmeticType = None
         if symbol == "+": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['add']
         elif symbol == "-": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']
@@ -509,7 +508,7 @@ class MyListener(SmallCListener):
         elif symbol == "/": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['div']
         elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['remainder']
         else: return False
-        self.currentNode = self.currentNode.addChildNode(ASTBinaryArithmeticOperatorNode(arithmeticType))
+        self.currentNode = self.currentNode.addChildNode(ASTBinaryArithmeticOperatorNode(arithmeticType, ctx))
         return True
 
     # Enter a parse tree produced by SmallCParser#oplevel3.
@@ -517,7 +516,7 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 3:
             symbol = children[1].getText()
-            if self.addBinaryArithmeticOperator(symbol):
+            if self.addBinaryArithmeticOperator(symbol, ctx):
                 self.createdNode.append(True)
                 return
         self.createdNode.append(False)
@@ -532,11 +531,11 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 2:
             symbol = children[0].getText()
-            if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['prefix']))
-            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['prefix']))
-            elif symbol == "&":  self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode())
-            elif symbol == "*":  self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode())
-            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode())
+            if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['prefix'], ctx))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['prefix'], ctx))
+            elif symbol == "&":  self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode(ctx))
+            elif symbol == "*":  self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode(ctx))
+            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode(ctx))
             else:
                 self.createdNode.append(False)
                 return;
@@ -554,15 +553,15 @@ class MyListener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 2:
             symbol = children[1].getText()
-            if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix']))
-            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['postfix']))
+            if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix'], ctx))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['postfix'], ctx))
             self.createdNode.append(True)
             return
         elif len(children) == 4:
             symbol1 = children[1].getText()
             symbol2 = children[3].getText()
             if symbol1 == "[" and symbol2 == "]":
-                self.currentNode = self.currentNode.addChildNode(ASTArraySubscriptNode())
+                self.currentNode = self.currentNode.addChildNode(ASTArraySubscriptNode(ctx))
                 self.createdNode.append(True)
                 return
         self.createdNode.append(False)

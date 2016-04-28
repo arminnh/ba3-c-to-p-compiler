@@ -27,8 +27,10 @@ def main(filename):
     # walk it and attach our listener
     walker = ParseTreeWalker()
 
+    errorHandler = CompilerErrorHandler(filename)
     # create an AST an attach it to a listener so the listener can fill in the tree
-    abstractSyntaxTree = AbstractSyntaxTree();
+    abstractSyntaxTree = AbstractSyntaxTree(errorHandler=errorHandler);
+
     listener = MyListener(abstractSyntaxTree)
 
     # walk the parse tree and fill in the AST, this can throw exceptions (e.g. double main() definition)
@@ -41,7 +43,7 @@ def main(filename):
     symbolTable = SymbolTable()
     tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
     tableFiller.fill()
-    print(symbolTable)
+    # print(symbolTable)
 
     #do the type checking of the c file
     # try:
