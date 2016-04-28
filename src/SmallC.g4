@@ -207,8 +207,26 @@ cvQualifier :
 
 declaratorInitializer :
       pointerPart* identifier ('=' expression)?
-    | pointerPart* identifier arrayPart ('=' (LCBRA arguments RCBRA | stringLiteral))?
+    | pointerPart* identifier arrayPart ('=' (LCBRA arguments RCBRA | expression))?
     ;
+    
+/*
+1? (1? | 1?)?
+0 1
+1 0
+int a;
+int a = 5;
+int *a;
+int *a = 5;
+
+int a[];
+int a[3];
+int a[] = {1, 2, 3};
+int a[3] = {1, 2, 3};
+int a[] = "aaa";
+int a[5] = "aaa";
+char *a = "aaa";
+*/
 
 returnStmt :
       RETURN expression

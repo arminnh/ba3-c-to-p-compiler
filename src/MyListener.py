@@ -172,8 +172,10 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
-        # parent will always be Parameter
         self.currentNode.isArray = True
+        # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
+        if ctx.getChildCount() == 1:
+            self.currentNode.hasArrayLength = True
         # child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
         # if (child != None):
         #     self.currentNode.arrayLength = int(child.getText())
@@ -308,12 +310,26 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#pointer.
     def enterPointer(self, ctx:SmallCParser.PointerContext):
-        if hasattr(self.currentNode, "indirections"):
-            self.currentNode.indirections += 1
         pass
 
     # Exit a parse tree produced by SmallCParser#pointer.
     def exitPointer(self, ctx:SmallCParser.PointerContext):
+        pass
+
+     # Enter a parse tree produced by SmallCParser#pointerPart.
+    def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
+        if hasattr(self.currentNode, "indirections"):
+            self.currentNode.indirections += 1
+
+        if hasattr(self.currentNode, "const"):
+            if ctx.getChildCount() == 2:
+                self.currentNode.const.append(True)
+            else:
+                self.currentNode.const.append(False)
+        pass
+
+    # Exit a parse tree produced by SmallCParser#pointerPart.
+    def exitPointerPart(self, ctx:SmallCParser.PointerPartContext):
         pass
 
 

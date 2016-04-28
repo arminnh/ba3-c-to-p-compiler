@@ -30,6 +30,8 @@ int main(void)
 
     char hello[] = "5", ccc = 'c', *str = "string";
 
+    *hello = 'u';
+    
     int *arrint[] = {&e};
 
     return 1;

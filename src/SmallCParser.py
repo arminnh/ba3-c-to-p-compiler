@@ -219,7 +219,7 @@ def serializedATN():
         buf.write("\3\2\2\2\u01c7\u01c5\3\2\2\2\u01c8\u01c9\5V,\2\u01c9\u01d2")
         buf.write("\5\62\32\2\u01ca\u01d0\7\3\2\2\u01cb\u01cc\7\36\2\2\u01cc")
         buf.write("\u01cd\5> \2\u01cd\u01ce\7\37\2\2\u01ce\u01d1\3\2\2\2")
-        buf.write("\u01cf\u01d1\5b\62\2\u01d0\u01cb\3\2\2\2\u01d0\u01cf\3")
+        buf.write("\u01cf\u01d1\5<\37\2\u01d0\u01cb\3\2\2\2\u01d0\u01cf\3")
         buf.write("\2\2\2\u01d1\u01d3\3\2\2\2\u01d2\u01ca\3\2\2\2\u01d2\u01d3")
         buf.write("\3\2\2\2\u01d3\u01d5\3\2\2\2\u01d4\u01ba\3\2\2\2\u01d4")
         buf.write("\u01c5\3\2\2\2\u01d5O\3\2\2\2\u01d6\u01d7\7\61\2\2\u01d7")
@@ -3366,10 +3366,6 @@ class SmallCParser ( Parser ):
         def RCBRA(self):
             return self.getToken(SmallCParser.RCBRA, 0)
 
-        def stringLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.StringLiteralContext,0)
-
-
         def getRuleIndex(self):
             return SmallCParser.RULE_declaratorInitializer
 
@@ -3455,9 +3451,9 @@ class SmallCParser ( Parser ):
                         self.state = 459
                         self.match(SmallCParser.RCBRA)
 
-                    elif token in [SmallCParser.STRING]:
+                    elif token in [SmallCParser.T__11, SmallCParser.T__14, SmallCParser.T__15, SmallCParser.T__16, SmallCParser.T__17, SmallCParser.LBRA, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
                         self.state = 461
-                        self.stringLiteral()
+                        self.expression()
 
                     else:
                         raise NoViableAltException(self)

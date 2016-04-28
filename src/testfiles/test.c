@@ -6,10 +6,10 @@ int sub(const int * const * * a);
 
 int main() {
 	//char hello[] = {'5'};
-	char hello[] = "5", ccc = 'c', *str = "string";
+	char hello[6+5*8] = "hello", ccc = 'c', *str = "string";
 	
 	int i = 5;
-	int *arrint[] = {&i};
+	int *arrint[1] = {&i};
 
 	char* h = hello;
 	h++;
@@ -25,11 +25,11 @@ int main() {
 
 	printf("%s\n", hello);
 
-	// const int* p;
-	// int* q = p;
+	const int* p;
+	int* q = p;
 
-	// const int a, *b, * const c;
-	// int const a, *b, * const c;
+	const int a, *b, * const c;
+	int const a, *b, * const c;
 	int const * const *  a, *b, * const c;
 
 	return 0;
