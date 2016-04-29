@@ -8,7 +8,7 @@ int main(void)
 
     {
         float b = 1.0;
-        float c = 7.0, d = 8.0;
+        float c = 2.7, d = 8.0;
         char f = 'a', *ff = "aaa";
 
         {
