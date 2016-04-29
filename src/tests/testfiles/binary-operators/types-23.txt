@@ -1,0 +1,3 @@
+Error at 2:5: Logic operator operands must have the same type (have float rvalue and int rvalue)
+1.0 || 0;
+^

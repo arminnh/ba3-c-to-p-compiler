@@ -44,7 +44,7 @@ def main(filename):
         symbolTable = SymbolTable()
         tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, errorHandler)
         tableFiller.fill()
-        # print(symbolTable)
+        print(symbolTable)
 
         #do the type checking of the c file
         # try:

@@ -157,8 +157,41 @@ class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testBinaryOperatorTypes21(self):
         self.generateOneErrorAndCompare("testfiles/binary-operators/types-21")
 
-    def testBinaryOperatorTypes22(self):
+    def testBinaryOperatorTypes23(self):
         self.generateOneErrorAndCompare("testfiles/binary-operators/types-22")
+
+    def testBinaryOperatorTypes24(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-23")
+
+    def testBinaryOperatorTypes25(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-24")
+
+    def testBinaryOperatorTypes26(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-25")
+
+    def testBinaryOperatorTypes27(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-26")
+
+    def testBinaryOperatorTypes28(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-27")
+
+    def testBinaryOperatorTypes29(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-28")
+
+    def testBinaryOperatorTypes30(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-30")
+
+    def testBinaryOperatorTypes31(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-31")
+
+    def testBinaryOperatorTypes32(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-32")
+
+    def testBinaryOperatorTypes33(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-33")
+
+    def testBinaryOperatorTypes34(self):
+        self.generateOneErrorAndCompare("testfiles/binary-operators/types-34")
 
 
 class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):

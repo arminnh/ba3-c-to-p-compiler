@@ -1,0 +1,3 @@
+Error at 2:5: Logic operator operands not compatible with int
+"a" || "b";
+^
