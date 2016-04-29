@@ -33,10 +33,12 @@ class ASTNode(object):
 
     def getRelevantToken(self):
         return self.getFirstToken()
-        
-    def getFirstToken(self, node=None):
+
+    def getFirstToken(self, node=None): # node = context node, not AST node
         # TODO: rewrite please
         if node is None: node = self.ctx
+        if node is None:
+            raise Exception(str(type(self)) + "'s ctx was not set")
         if isinstance(node, TerminalNode):
             return node.getSymbol()
         for child in node.getChildren():
@@ -46,12 +48,12 @@ class ASTNode(object):
                 result = self.getFirstToken(child)
                 if result is not None:
                     return result
-                    
+
         return None
 
     def getLineAndColumn(self):
         token = None
-        
+
         token = self.getRelevantToken()
         if isinstance(token, CommonToken):
             return (token.line, token.column)
@@ -140,7 +142,7 @@ class ASTParameterNode(ASTNode):
         # TODO: arrayLength can be an expressionNode -> change
         self.const = []
         self.indirections = 0
-    
+
     def getType(self):
         if self.type is None:
             line, column = self.getLineAndColumn()
@@ -319,7 +321,7 @@ class ASTIntegerLiteralNode(ASTExpressionNode):
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")
-    
+
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
 
@@ -333,7 +335,7 @@ class ASTFloatLiteralNode(ASTExpressionNode):
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="float")
-    
+
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
 
@@ -347,7 +349,7 @@ class ASTCharacterLiteralNode(ASTExpressionNode):
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="char")
-    
+
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
 
@@ -517,7 +519,7 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
         if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands not compatible with int", line, column)
-            
+
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")
 
@@ -547,7 +549,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
     def typeCheck(self):
         for child in self.children:
             child.typeCheck()
-        
+
         if not self.children[0].getType().equals(self.children[1].getType(), ignoreConst=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Comparison operator operands need to be of same type", line, column)
@@ -655,7 +657,7 @@ class AbstractSyntaxTree:
     @property
     def root(self):
         return self._root
-    
+
     @root.setter
     def root(self, root):
         self._root = root
