@@ -67,12 +67,12 @@
             <li>const variables/parameters</li>
             <li>binary operators <=, >=</li>
             <li>unary operators ++, --, [ ]</li>
-            <li>array aggregate initalization</li>
+            <li>array aggregate initialization</li>
             <li>do while</li>
             <li>multi-line comments</li>
         </ul>
         <p>
-            After the parsing of a .c file, an AST gets built using a listener.
+            After the parsing of a .c file, an AST gets built using a listener. <br>
             Then, the AST is visited in-order and a symbol table is filled (this is the first pass).
             This table is used for scoping and type checking.
             If a variable or a function is used in a scope where it doesn't exist, an error is displayed. <br>
@@ -80,10 +80,10 @@
         </p>
         <ul>
             <li>For function calls, the types of the arguments must comply with the types of the parameters in the function's definition/declaration.</li>
-            <li>For binary operators, the types of both operands must be equal</li>
+            <li>For binary operators, the types of both operands must be equal.</li>
             <li>For logic operators, the type of the operands must equate to "int". <br> The return type of these operators is "int".</li>
-            <li>For the ternary conditional, the type first operand (which is the conditional) must equate to "int", and both alternatives should be of equal type</li>
-            <li>For variable definitions, the type of the initializer must be compatible</li>
+            <li>For the ternary conditional, the type first operand (which is the conditional) must equate to "int", and both alternatives should be of equal type.</li>
+            <li>For variable definitions, the type of the initializer must be compatible.</li>
         </ul>
         </p>
 
@@ -130,7 +130,7 @@
             <li><a href="images/SymbolTable.png">SymbolTable.py</a>: Our symbol table class which is used for scope and type checking.</li>
             <li><a href="images/ASTSymbolTableFiller.png">ASTSymbolTableFiller.py</a>: A class that fills in a symbol table</li>
             <li><a href="images/CompilerErrorHandler.png">CompilerErrorHandler.py</a>: A class in which errors generated in tree nodes, MyListener, ASTSymbolTableFiller or SymbolTable are collected. We use this to collect error and display them after/during compilation. It is also used to check errors in testing</li>
-            <li><a href="images/tesfiles-main.png">testfiles/main.py</a>: ASTTest and test classes, ASTTest provides the test classes with functions to test functionality easily</li>
+            <li><a href="images/testfiles-main.png">testfiles/main.py</a>: ASTTest and test classes, ASTTest provides the test classes with functions to test functionality easily</li>
         </ul>
 
     </div>
