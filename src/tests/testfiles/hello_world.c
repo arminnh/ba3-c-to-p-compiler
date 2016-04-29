@@ -19,6 +19,9 @@ int sub(int a, int b) {
     return a;
 }
 
+int fun1(int const * const * * a);
+int fun2(const int * const * * a);
+
 int main(int argc, char *argv[])
 {
     int a = 1;

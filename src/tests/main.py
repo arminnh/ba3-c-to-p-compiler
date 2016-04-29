@@ -299,7 +299,7 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
 
     # tests different usages of if, else, while, do while, if without else
     def testFlowControl(self):
-        self.generateOneError("testfiles/flow-control.c")
+        self.generateNoError("testfiles/flow_control.c")
 
     # many scopes and many variables and some more complex initializers
     def testVariables(self):
@@ -307,7 +307,7 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
 
     # a file with some includes, functions, expressions and flow control
     def testHelloWorld(self):
-        self.generateOneError("testfiles/hello_world.c")
+        self.generateNoError("testfiles/hello_world.c")
 
 
 def testAll():

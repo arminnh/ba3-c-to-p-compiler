@@ -13,10 +13,10 @@ int main(void)
 
         {
             const int g[] = {1, 2, 3};
-            int const h = 5; // if const, variable must be initialized
+            int const h = 5;
 
             {
-                int i[7] = {1, 2}; // {1, 2, 0, 0, 0, 0, 0}
+                int i[7] = {1, 2};
             }
         }
 
@@ -26,21 +26,51 @@ int main(void)
     }
 
     int t = aa, u = bb;
-    // aaa and bbb are undeclared here
-
 
 	const int aghf, *bfh, * const ccbv;
 	int const ahga, *dfab, * const afc;
 	int const * const * abab, *atab, * const caa;
 
-    char ccc = 'c', *str = "string";
-
-    // char hello[] = "5", ccc = 'c', *str = "string";
-    // *hello = 'u';
+    char hello[] = "5", ccc = 'c', *str = "string";
+    *hello = 'u';
 
     int *arrint[] = {&e};
 
-    return 1;
+    {
+    	char helloo[] = {'5'};
+    	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier hebben we aan gedacht";
+
+    	int i = 5;
+    	int *arrint[1] = {&i};
+
+    	char* h = hello;
+    	h++;
+
+    	//int j = "hello"; // error
+
+    	*hello = 'u';
+    	// *hello = "uu"; // mag niet werken
+
+    	int const bb = 1;
+    	int bbb = 2;
+    	int const constarr[2] = {1, 2};
+    	// constarr[0] = bb; // error
+
+
+    	// char* = char[]
+    	h = "newst";
+    	// h = 'n'; //error
+
+    	int *aaa;
+    	int aaaaa[] = {1, 2, 3};
+    	aaa = aaaaa;
+
+
+    	const int* p;
+    	// int* q = p; // error
+    }
+
+	return 0;
 }
 
 int aaa = 1;
