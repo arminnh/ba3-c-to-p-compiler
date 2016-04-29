@@ -63,29 +63,39 @@ class Scope:
                             return True # definition can overwrite declaration
                         else:
                             line, column = new.astnode.getLineAndColumn() # TODO: get line, column of old declaration as well
-                            new.astnode.errorHandler.addError("Function definition parameters don't match with previous declaration.", line, column)
+                            new.astnode.errorHandler.addError("Function definition parameters don't match with previous declaration", line, column)
 
                     elif type(old.astnode) is ASTFunctionDefinitionNode:
-                        line, column = new.astnode.getLineAndColumn()
-                        new.astnode.errorHandler.addError("Redefinition of function", line, column)
+                        if not old.astnode.getType().isCompatible(new.astnode.getType()):
+                            line, column = new.astnode.getLineAndColumn()
+                            new.astnode.errorHandler.addError("Conflicting types for function definition " + str(new.astnode.identifier), line, column)
+                            return False
+                        else:
+                            line, column = new.astnode.getLineAndColumn()
+                            new.astnode.errorHandler.addError("Redefinition of function", line, column)
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
                     if type(old.astnode) is ASTFunctionDefinitionNode:
+                        if not old.astnode.getType().isCompatible(new.astnode.getType()):
+                            line, column = new.astnode.getLineAndColumn()
+                            new.astnode.errorHandler.addError("Conflicting types for function declaration " + str(new.astnode.identifier), line, column)
+                            return False
+
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            new.astnode.errorHandler.addError("Function declaration parameters don't match previous definition.", line, column)
+                            new.astnode.errorHandler.addError("Function declaration parameters don't match previous definition", line, column)
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            new.astnode.errorHandler.addError("Function declaration parameters don't match previous declaration.", line, column)
+                            new.astnode.errorHandler.addError("Function declaration parameters don't match previous declaration", line, column)
 
             elif type(new) is VariableSymbolInfo:
-                raise Exception("identifier " + old.astnode.identifier + " already taken by function")
+                raise Exception("Identifier " + old.astnode.identifier + " already taken by function")
 
         else:
             return True

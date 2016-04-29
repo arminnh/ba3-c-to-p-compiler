@@ -1,0 +1,4 @@
+Error at 4:1: Function declaration parameters don't match previous declaration
+int f(int a, float b);
+^
+ 

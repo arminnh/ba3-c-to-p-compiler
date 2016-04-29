@@ -201,6 +201,21 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
     def testFunctionDeclaration2(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/2")
 
+    def testFunctionDeclaration3(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/3")
+
+    def testFunctionDeclaration4(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/4")
+
+    def testFunctionDeclaration5(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/5")
+
+    def testFunctionDeclaration6(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/6")
+
+    def testFunctionDeclaration7(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/7")
+
 def testAll():
     unittest.main()
 
