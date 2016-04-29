@@ -10,7 +10,6 @@ from SmallCListener import SmallCListener
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
-from ASTWalker import *
 from ASTSymbolTableFiller import *
 
 # import re to remove all whitespace from strings
