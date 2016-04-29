@@ -52,13 +52,19 @@ class ASTTest():
 class ComparisonOperatorTypeTests(ASTTest, unittest.TestCase):
 
     def testIntEqualsFloat(self):
-        self.parseFile("./testfiles/binary-operator-types.c")
+        #self.parseFile("./testfiles/binary-operator-types.c")
+        #self.assertRaises(Exception, self.parseFile, "./testfiles/binary-operator-types.c")
+        with self.assertRaises(Exception) as context:
+            self.parseFile("./testfiles/binary-operator-types.c")
+            
+        self.assertTrue(' ' in context.exception)
         #TODO: compare output
-        self.assertTrue(True)
         
 
 def testAll():
+    print ("tests start")
     unittest.main()
+    print ("tests end")
     #test = ComparisonOperatorTypeTests()
     #test.testIntEqualsFloat()
     #print ("--- All tests passed ---")

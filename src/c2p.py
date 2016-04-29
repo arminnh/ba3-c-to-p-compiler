@@ -51,6 +51,10 @@ def main(filename):
     # except Exception as e:
     #     print(e)
 
+    #if errorHandler.getErrorCount() > 0:
+    #    print (errorHandler.getErrors())
+    #    quit()
+
 if __name__=="__main__":
 
     if len(sys.argv) != 2:
