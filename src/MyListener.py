@@ -7,7 +7,7 @@ import sys
 
 
 class MyListener(SmallCListener):
-    def __init__(self, tree:AbstractSyntaxTree):
+    def __init__(self, tree):
         super(MyListener, self).__init__()
         self.ast = tree
         self.currentNode = self.ast.root
