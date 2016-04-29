@@ -1,0 +1,3 @@
+Error at 2:8: Comparison operator operands need to be of same type
+"a" == 'c';
+    ^
