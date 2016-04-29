@@ -1,5 +1,5 @@
-int f(int a) {
-
+int f() {
+  return 0;
 }
 
 int main() {

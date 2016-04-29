@@ -110,7 +110,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#declaratorInitializer.
     def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
-        self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode())
+        self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode(ctx))
 
     # Exit a parse tree produced by SmallCParser#declaratorInitializer.
     def exitDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):

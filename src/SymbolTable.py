@@ -53,7 +53,8 @@ class Scope:
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
-                raise Exception("identifier " + old.astnode.identifier + " already taken by variable")
+                line, column = new.astnode.getLineAndColumn()
+                new.astnode.errorHandler.addError("identifier " + old.astnode.identifier + " already taken by variable", line, column)
 
             if type(new) is FunctionSymbolInfo:
                 if type(new.astnode) is ASTFunctionDefinitionNode:
