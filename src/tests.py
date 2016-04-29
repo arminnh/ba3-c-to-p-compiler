@@ -9,6 +9,6 @@ import main
 main.main()
 '''
 
-import tests.main
+from tests.main import *
 
-tests.main.main()
+testAll()
