@@ -1,0 +1,3 @@
+Error at 3:7: identifier a already taken by variable
+int a;
+    ^

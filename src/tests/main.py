@@ -142,32 +142,38 @@ class ComparisonOperatorTypeTests(ASTTest, unittest.TestCase):
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterType1(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-1")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-1")
 
     def testFunctionCallParameterType2(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-2")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-2")
 
     def testFunctionCallParameterType3(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-3")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-3")
 
     def testFunctionCallParameterType4(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-4")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-4")
 
     def testFunctionCallParameterType5(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-5")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-5")
 
     def testFunctionCallParameterType6(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-6")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-6")
 
     def testFunctionCallParameterType7(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-7")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-7")
 
     def testFunctionCallParameterType8(self):
-        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-8")
+        self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-8")
 
     def testFunctionCallParameterTypeCorrect(self):
-        self.generateNoError("testfiles/function-call-parameter-type-correct.c")
+        self.generateNoError("testfiles/function-calls/parameter-type-correct.c")
 
+class VariableDeclarationTests(ASTTest, unittest.TestCase):
+    def testVariableDeclaration1(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declaration-1")
+
+    def testVariableDeclaration2(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declaration-2")
 
 def testAll():
     unittest.main()

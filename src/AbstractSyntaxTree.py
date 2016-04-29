@@ -243,6 +243,10 @@ class ASTVariableDeclarationNode(ASTStatementNode):
         self.isConstant = False
         # declaratorInitializers are children
 
+    def getRelevantToken(self):
+        # TODO: point to specific parts of declaration node
+        super(ASTVariableDeclarationNode, self).getRelevantToken()
+
     def out(self, level):
         s  = offset * level + self.label + "\n"
         s += offset * (level + 1) + "type: " + str(self.type)
@@ -260,6 +264,20 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
         self.hasArrayLength = False
         # arrayLength will be an expressionNode child
+
+    def typeCheck(self):
+        childIndex = None
+        if len(self.children) == 1 and not self.hasArrayLength:
+                childIndex = 0
+        elif len(self.children) == 2:
+            childIndex = 1
+
+        if childIndex is not None:
+            if not self.getType().isCompatible(self.children[childIndex].getType()):
+                line, column = self.getLineAndColumn()
+                self.errorHandler.addError("Variable initialization must have the same type (have " + str(self.getType()) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
+        else:
+            return
 
     def getType(self):
         return TypeInfo(rvalue=None, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
