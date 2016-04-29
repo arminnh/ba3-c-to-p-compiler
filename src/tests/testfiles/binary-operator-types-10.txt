@@ -1,3 +1,3 @@
-Error at 2:6: Comparison operator operands need to be of same type
-1 == 2.0;
+Error at 2:7: Comparison operator operands need to be of same type (have int rvalue and char[] rvalue)
+4 > "a";
   ^
