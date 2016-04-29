@@ -1,0 +1,3 @@
+Error at 3:9: Variable initialization must have the same type (have float and int rvalue)
+float a = 8;
+      ^

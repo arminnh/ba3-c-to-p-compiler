@@ -1,5 +1,6 @@
-int myFunction1(int const i, float c) {
-    if (i == 1)
+int myFunction1(int const* i, float c) {
+    int *a;
+    if (i == a)
         return 5;
         // return 5 * 3 * **c;
     else
@@ -32,7 +33,7 @@ int main(void)
     float e;
     const char f;
 
-    myfunction1(5, 6);
+    myFunction1(&d, 6.0);
 
     // printf("%d\n", myFunction1(a, &e));
     // printf("%f\n", myFunction3(b, c));

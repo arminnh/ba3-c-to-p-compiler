@@ -182,6 +182,18 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclaration2(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/2")
 
+    def testVariableDeclaration3(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/3")
+
+    def testVariableDeclaration4(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/4")
+
+    def testVariableDeclaration5(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/5")
+
+    def testVariableDeclaration6(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/6")
+
 def testAll():
     unittest.main()
 
