@@ -648,9 +648,9 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
 
 class AbstractSyntaxTree:
 
-    def __init__(self, root=ASTNode("root"), errorHandler=None):
+    def __init__(self, errorHandler=None):
         self.errorHandler = errorHandler
-        self._root = root
+        self._root = None
 
     @property
     def root(self):

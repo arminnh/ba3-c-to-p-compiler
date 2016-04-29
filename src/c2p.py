@@ -6,6 +6,7 @@ from AbstractSyntaxTree import *
 from MyListener import *
 from ASTWalker import *
 from ASTSymbolTableFiller import *
+import traceback
 
 import sys
 
@@ -29,27 +30,35 @@ def main(filename):
 
     errorHandler = CompilerErrorHandler(filename)
     # create an AST an attach it to a listener so the listener can fill in the tree
-    abstractSyntaxTree = AbstractSyntaxTree(errorHandler=errorHandler);
+    abstractSyntaxTree = AbstractSyntaxTree(errorHandler);
 
     listener = MyListener(abstractSyntaxTree)
 
-    # walk the parse tree and fill in the AST, this can throw exceptions (e.g. double main() definition)
-    walker.walk(listener, programContext)
+    try:
+        # walk the parse tree and fill in the AST, this can throw exceptions (e.g. double main() definition)
+        walker.walk(listener, programContext)
 
-    # print the resulting AST after the walk
-    print (abstractSyntaxTree)
+        # print the resulting AST after the walk
+        print (abstractSyntaxTree)
 
-    # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
-    symbolTable = SymbolTable()
-    tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
-    tableFiller.fill()
-    # print(symbolTable)
+        # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
+        symbolTable = SymbolTable()
+        tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, errorHandler)
+        tableFiller.fill()
+        # print(symbolTable)
+        raise Exception
+        #do the type checking of the c file
+        # try:
+        abstractSyntaxTree.typeCheck()
+        # except Exception as e:
+        #     print(e)
+    except Exception as e:
+        if errorHandler.errorCount():
+            errorHandler.printError(0)
+        else:
+            print(e)
+            #traceback.print_tb(sys.last_traceback)
 
-    #do the type checking of the c file
-    # try:
-    abstractSyntaxTree.typeCheck()
-    # except Exception as e:
-    #     print(e)
 
     #if errorHandler.getErrorCount() > 0:
     #    print (errorHandler.getErrors())
