@@ -46,7 +46,7 @@ def main(filename):
         tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, errorHandler)
         tableFiller.fill()
         # print(symbolTable)
-        raise Exception
+
         #do the type checking of the c file
         # try:
         abstractSyntaxTree.typeCheck()

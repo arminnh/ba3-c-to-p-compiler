@@ -139,7 +139,7 @@ class ASTParameterNode(ASTNode):
         self.identifier = None
         self.isArray = False
         self.arrayLength = None
-        # TODO: arrayLength can be an expressionNode -> change
+        # TODO: arrayLength can be an expressionNode -> change # done i think; check if member can be removed
         self.const = []
         self.indirections = 0
 
@@ -389,17 +389,31 @@ class ASTFunctionCallNode(ASTExpressionNode):
     def __init__(self, ctx=None):
         super(ASTFunctionCallNode, self).__init__("function call", ctx)
         self.identifier = None
-        self.type = None
+        self.definitionNode = None
+        self.errorParameter = None
 
     def typeCheck(self):
-        return True
+        parameterNodes = self.definitionNode.getParameters().children
+        for child in self.children:
+            if isinstance(child, ASTArgumentsNode):
+                for i, argument in enumerate(child.children):
+                    if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
+                        self.errorParameter = i
+                        line, column = self.getLineAndColumn()
+                        self.errorHandler.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(self.identifier, str(argument.getType()), str(parameterNodes[i].getType())), line, column)
+                break
         #TODO typecheck arguments with function definition
+        #TODO check constness of arguments/parameters
 
     def getType(self):
-        if self.type is None:
-            line, column = getLineAndColumn()
-            self.errorHandler.addError("Type has not been set yet for function " + self.identifier, line, column)
-        return self.type
+        if self.definitionNode is None:
+            raise Exception("definitionNode has not been set yet for function " + self.identifier)
+        return self.definitionNode.getType()
+
+    def getRelevantToken(self):
+        if self.errorParameter is not None:
+            return self.getFirstToken(list(list(self.ctx.getChildren())[2].getChildren())[2 * self.errorParameter])
+        return super(ASTFunctionCallNode, self).getRelevantToken()
 
     def out(self, level):
         s = offset * level + self.label + " - " + self.identifier + "\n"

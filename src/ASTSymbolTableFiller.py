@@ -31,7 +31,7 @@ class ASTSymbolTableFiller:
                 if not symbolInfo.defined:
                     line, column = node.getLineAndColumn()
                     self.errorHandler.addError("Function: undefined reference", line, column)
-                node.type = symbolInfo.typeInfo
+                node.definitionNode = symbolInfo.astnode
             elif isinstance(node, ASTVariableNode):
                 node.type = symbolInfo.typeInfo
 
