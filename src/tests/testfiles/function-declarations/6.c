@@ -1,4 +1,3 @@
 
-int f(int a, int b);
-
+int f;
 int f(int a, float b);

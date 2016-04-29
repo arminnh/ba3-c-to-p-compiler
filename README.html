@@ -91,34 +91,34 @@
         <p>
             These messages can be generated during the filling of the symbol table or during type checking.
         </p>
-        <ul>
-            <li>Function: Undefined reference</li>
-            <li>Function Definition: Parameter name omitted</li>
-            <li>Redefinition of function</li>
-            <li>Conflicting types for function definition (functionIdentifier)</li>
-            <li>Conflicting types for function declaration (functionIdentifier)</li>
-            <li>Function definition parameters don't match with previous declaration</li>
-            <li>Function declaration parameters don't match previous definition</li>
-            <li>Function declaration parameters don't match previous declaration</li>
-            <li>Variable/Function Declaration/Definition: Identifier already taken by variable</li>
-            <li>Variable Declaration/Definition: Identifier already by function</li>
-            <li>Variable (variableIdentifier) used before it was declared</li>
-            <li>Function (functionIdentifier) used before it was declared</li>
-            <li>Redefinition of main</li>
+        <ul> <!--errors in symbol table -->
+            <li>Function: Undefined reference</li> <!-- done -->
+            <li>Function Definition: Parameter name omitted</li> <!-- done -->
+            <li>Redefinition of function</li> <!-- done -->
+            <li>Conflicting types for function definition (functionIdentifier)</li> <!-- done -->
+            <li>Conflicting types for function declaration (functionIdentifier)</li> <!-- done -->
+            <li>Function definition parameters don't match with previous declaration</li> <!-- done -->
+            <li>Function declaration parameters don't match previous definition</li> <!-- done -->
+            <li>Function declaration parameters don't match previous declaration</li> <!-- done -->
+            <li>Variable/Function Declaration/Definition: Identifier (identifier) already taken by variable</li> <!-- done -->
+            <li>Variable Declaration/Definition: Identifier (identifier) already taken by function</li> <!-- done -->
+            <li>Variable (variableIdentifier) used before it was declared</li> <!-- done -->
+            <li>Function (functionIdentifier) used before it was declared</li> <!-- done -->
+            <li>Redefinition of main</li> <!-- done -->
         </ul>
 
-        <ul>
-            <li>Variable initialization must have the same type (have type1 and type2)</li>
-            <li>Function call: Number of arguments to function (functionIdentifier) does not match definition (have type1, need type2)</li>
-            <li>Function call: Arguments to function (functionIdentifier) don't match: type1 vs type2"</li>
-            <li>Binary operator operands must have the same type (have type1 and type2)</li>
-            <li>Ternary conditional operator needs int as first operand</li>
-            <li>Ternary conditional operator alternatives should be of equal type</li>
-            <li>Logic operator operands must have the same type (have type1 and type2)</li>
-            <li>Logic operator operands not compatible with int</li>
-            <li>Comparison operator operands need to be of same type (have type1 and type2)</li>
-            <li>invalid type argument of unary '*' (have type1)</li>
-            <li>Logical not operator operand not compatible with int</li>
+        <ul> <!--errors in type checking -->
+            <li>Variable initialization must have the same type (have type1 and type2)</li> <!-- done -->
+            <li>Function call: Number of arguments to function (functionIdentifier) does not match definition (have type1, need type2)</li> <!-- done -->
+            <li>Function call: Arguments to function (functionIdentifier) don't match: type1 vs type2"</li> <!-- done -->
+            <li>Binary operator operands must have the same type (have type1 and type2)</li> <!-- done -->
+            <li>Ternary conditional operator needs int as first operand</li> <!-- -->
+            <li>Ternary conditional operator alternatives should be of equal type</li> <!-- -->
+            <li>Logic operator operands must have the same type (have type1 and type2)</li> <!-- -->
+            <li>Logic operator operands not compatible with int</li> <!-- -->
+            <li>Comparison operator operands need to be of same type (have type1 and type2)</li> <!-- done -->
+            <li>invalid type argument of unary '*' (have type1)</li> <!-- -->
+            <li>Logical not operator operand not compatible with int</li> <!-- -->
         </ul>
 
         <h3>Classes</h3>

@@ -144,8 +144,10 @@ class MyListener(SmallCListener):
         # in a function definition, all parameters need to have identifiers
         parameters = self.currentNode.getParameters()
         for parameter in parameters.children:
-            if parameter.identifier is None:
-                raise Exception("parameter name omitted")
+            if parameter.identifier is None: # TODO: move this to a better place
+                line, column = parameter.getLineAndColumn()
+                parameter.errorHandler.addError("Parameter name omitted", line, column)
+                #raise Exception("parameter name omitted")
 
         self.currentNode = self.currentNode.parent
 
@@ -161,7 +163,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterParameter(self, ctx:SmallCParser.ParameterContext):
-        self.currentNode = self.currentNode.addChildNode(ASTParameterNode())
+        self.currentNode = self.currentNode.addChildNode(ASTParameterNode(ctx=ctx))
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitParameter(self, ctx:SmallCParser.ParameterContext):
@@ -188,9 +190,11 @@ class MyListener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#mainFunction.
     def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
         for child in self.currentNode.children:
-            if isinstance(child, ASTMainFunctionNode):
-                print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
-                sys.exit()
+            if isinstance(child, ASTMainFunctionNode):# TODO: move this to a better place
+                mainFunctionNode = ASTMainFunctionNode(ctx)
+                line, column = mainFunctionNode.getLineAndColumn()
+                self.currentNode.errorHandler.addError("Redefinition of main", line, column)
+                #print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
 
         self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode(ctx))
 

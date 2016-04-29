@@ -65,8 +65,8 @@ class ASTTest():
 class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # unary operators: ++, --, *, &, !, [], can be prefix or postfix
     # unary logic operator: ! only works with type int
-    def testUnaryOperatorTypes1(self):
-        pass
+    pass
+
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # binary operators tests: <, >, <=, >=, ==, +, +, -, *, /, %
@@ -141,11 +141,12 @@ class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testBinaryOperatorTypes22(self):
         self.generateOneErrorAndCompare("testfiles/binary-operators/types-22")
 
+
 class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
     # ternary operator test: needs int as first operator and alternatives should be of same type
     # (expression with type int) ? (expression with type T) : (expression with same type T);
-    def ternaryOperatorTypes1(self):
-        pass
+    pass
+
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterType1(self):
@@ -175,6 +176,7 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterTypeCorrect(self):
         self.generateNoError("testfiles/function-calls/parameter-type-correct.c")
 
+
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclaration1(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/1")
@@ -193,6 +195,10 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
 
     def testVariableDeclaration6(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/6")
+
+    def testVariableDeclaration7(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/7")
+
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
     def testFunctionDeclaration1(self):
@@ -215,6 +221,22 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 
     def testFunctionDeclaration7(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/7")
+
+    def testFunctionDeclaration8(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/8")
+
+    def testFunctionDeclaration9(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/9")
+
+    def testFunctionDeclaration10(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/10")
+
+    def testFunctionDeclaration11(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/11")
+
+    def testFunctionDeclaration12(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/12")
+
 
 def testAll():
     unittest.main()

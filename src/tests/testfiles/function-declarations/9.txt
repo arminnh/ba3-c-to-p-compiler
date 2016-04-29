@@ -1,0 +1,3 @@
+Error at 5:1: Function declaration parameters don't match previous definition
+int sum(int a);
+^

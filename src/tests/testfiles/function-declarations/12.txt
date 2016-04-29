@@ -1,0 +1,3 @@
+Error at 6:1: Redefinition of main
+int main(void) {
+^
