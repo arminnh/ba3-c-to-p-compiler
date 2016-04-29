@@ -59,11 +59,6 @@ def main(filename):
             print(e)
             #traceback.print_tb(sys.last_traceback)
 
-
-    #if errorHandler.getErrorCount() > 0:
-    #    print (errorHandler.getErrors())
-    #    quit()
-
 if __name__=="__main__":
 
     if len(sys.argv) != 2:
