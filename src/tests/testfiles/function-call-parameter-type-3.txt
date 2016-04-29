@@ -1,0 +1,3 @@
+Error at 6:5: Arguments to function 'f' don't match: int rvalue vs float
+f(0);
+  ^

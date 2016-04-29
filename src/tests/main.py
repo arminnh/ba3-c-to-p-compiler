@@ -80,8 +80,27 @@ class ComparisonOperatorTypeTests(ASTTest, unittest.TestCase):
         #print(self.errorHandler.errorToString(0))
         #print (errorNoWhitespace.find("Errorat2:6:Comparisonoperatoroperandsneedtobeofsametype1==2.0;^") != -1)
 
+        print("correctOutput: " + correctOutput)
+        print("errorMessageNoWhitespace: " + errorMessageNoWhitespace)
         self.assertTrue(errorMessageNoWhitespace.find(correctOutput) != -1)
 
+class FunctionCallTypeTests(ASTTest, unittest.TestCase):
+    def testFunctionCallReturnType1(self):
+        filename = "testfiles/function-call-parameter-type-1"
+
+        with self.assertRaises(Exception) as context:
+            self.parseFile(filename + ".c")
+
+        self.assertTrue(self.errorHandler.errorCount() == 1)
+
+        # if there is error output generated, compare with txt file
+        with open(filename + ".txt", 'r') as myfile:
+            correctOutput = myfile.read()
+
+        # remove all whitespace
+        errorMessageNoWhitespace = re.sub('[ \t\n\r]', '', self.errorHandler.errorToString(0))
+        correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
+        self.assertTrue(errorMessageNoWhitespace.find(correctOutput) != -1)
 
 def testAll():
     unittest.main()
