@@ -65,7 +65,26 @@ class ASTTest():
 class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # unary operators: ++, --, *, &, !, [], can be prefix or postfix
     # unary logic operator: ! only works with type int
-    pass
+    def testUnaryOperatorTypes1(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-1")
+
+    def testUnaryOperatorTypes2(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-2")
+
+    def testUnaryOperatorTypes3(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-3")
+
+    def testUnaryOperatorTypes4(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-4")
+    
+    def testUnaryOperatorTypes5(self):
+        self.generateNoError("testfiles/unary-operators/types-5.c")
+
+    def testUnaryOperatorTypes6(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-6")
+
+    def testUnaryOperatorTypes7(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-7")
 
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
