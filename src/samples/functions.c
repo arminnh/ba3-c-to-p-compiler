@@ -32,7 +32,7 @@ int main(void)
     float e;
     const char f;
 
-    myFunction1(5, 6);
+    myfunction1(5, 6);
 
     // printf("%d\n", myFunction1(a, &e));
     // printf("%f\n", myFunction3(b, c));

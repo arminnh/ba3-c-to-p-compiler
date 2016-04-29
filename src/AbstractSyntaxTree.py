@@ -398,6 +398,7 @@ class ASTFunctionCallNode(ASTExpressionNode):
             if isinstance(child, ASTArgumentsNode):
                 for i, argument in enumerate(child.children):
                     if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
+                        self.errorParameter = i
                         line, column = self.getLineAndColumn()
                         self.errorHandler.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(self.identifier, str(argument.getType()), str(parameterNodes[i].getType())), line, column)
                 break
@@ -408,6 +409,11 @@ class ASTFunctionCallNode(ASTExpressionNode):
         if self.definitionNode is None:
             raise Exception("definitionNode has not been set yet for function " + self.identifier)
         return self.definitionNode.getType()
+
+    def getRelevantToken(self):
+        if self.errorParameter is not None:
+            return self.getFirstToken(list(list(self.ctx.getChildren())[2].getChildren())[2 * self.errorParameter])
+        return super(ASTFunctionCallNode, self).getRelevantToken()
 
     def out(self, level):
         s = offset * level + self.label + " - " + self.identifier + "\n"
