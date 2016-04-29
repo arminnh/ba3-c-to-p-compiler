@@ -98,6 +98,7 @@ class ASTFunctionDeclarationNode(ASTNode):
     def getType(self):
         if self.type is None:
             line, column = self.getLineAndColumn()
+            # TODO: change these kinds of errors to exceptions, because "they should never happen"
             self.errorHandler.addError("ASTFunctionDeclarationNode type not filled in", line, column)
         return TypeInfo(rvalue=None, basetype=self.type)
 
