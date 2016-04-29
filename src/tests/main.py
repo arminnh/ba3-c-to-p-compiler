@@ -86,8 +86,11 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testUnaryOperatorTypes7(self):
         self.generateOneErrorAndCompare("testfiles/unary-operators/types-7")
 
-    def testUnaryOperatorTypes23(self):
-        self.generateNoError("testfiles/unary-operators/types-23.c")
+    def testUnaryOperatorTypes8(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-8")
+
+    def testUnaryOperatorTypes9(self):
+        self.generateNoError("testfiles/unary-operators/types-9.c")
 
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
@@ -198,7 +201,14 @@ class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
     # ternary operator test: needs int as first operator and alternatives should be of same type
     # (expression with type int) ? (expression with type T) : (expression with same type T);
-    pass
+    def test1(self):
+        self.generateOneErrorAndCompare("testfiles/ternary-operator/types-1")
+
+    def test2(self):
+        self.generateOneErrorAndCompare("testfiles/ternary-operator/types-2")
+
+    def test3(self):
+        self.generateNoError("testfiles/ternary-operator/types-3.c")
 
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):

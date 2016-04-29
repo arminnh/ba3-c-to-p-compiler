@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     b;
 
     float c[2] = {1.1, 2.2};
-    (1 || 2 ? c[0] : c[1]);
+    (1 || 2 ? 0 : 1);
 
     return 1;
 }
