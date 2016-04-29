@@ -1,0 +1,3 @@
+Error at 2:7: Variable initialization must have the same type (have char *[] and char[] rvalue)
+char *str[] = "hello i am string";
+     ^

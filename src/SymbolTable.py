@@ -30,13 +30,14 @@ class FunctionSymbolInfo(SymbolInfo):
 
 
 class Scope:
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, name=None):
+        self.name = name
         self.parent = parent
         self.children = []
         self.symbols = {}
 
-    def addChild(self):
-        new = Scope(self)
+    def addChild(self, name=None):
+        new = Scope(self, name)
         self.children.append(new)
         return new
 
@@ -108,7 +109,7 @@ class Scope:
 
 
     def out(self, level):
-        out = offset * level + "Scope:\n"
+        out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
         for key, value in self.symbols.items():
             out += offset * (level + 1) + key + ": " + str(value.astnode.getType()) + "\n"
 
@@ -122,8 +123,8 @@ class SymbolTable(object):
         self.root = Scope()
         self.currentScope = self.root
 
-    def openScope(self):
-        self.currentScope = self.currentScope.addChild()
+    def openScope(self, name=None):
+        self.currentScope = self.currentScope.addChild(name)
 
     def closeScope(self):
         self.currentScope = self.currentScope.parent

@@ -42,7 +42,7 @@ class ASTSymbolTableFiller:
             # in function definition, open new scope (earlier than normal) to add paramaters
             if isinstance(node, (ASTFunctionDefinitionNode)):
                 openedScope = True
-                self.table.openScope()
+                self.table.openScope(node.identifier)
 
         # put variables and parameters into the currently open scope, but not parameters of a function declaration
         elif isinstance(node, (ASTDeclaratorInitializerNode, ASTParameterNode)) and type(node.parent.parent) is not ASTFunctionDeclarationNode:
