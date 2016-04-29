@@ -150,6 +150,9 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterType3(self):
         self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-3")
 
+    def testFunctionCallParameterType4(self):
+        self.generateOneErrorAndCompare("testfiles/function-call-parameter-type-4")
+
 
 def testAll():
     unittest.main()
