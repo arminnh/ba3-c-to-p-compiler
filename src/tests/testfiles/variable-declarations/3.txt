@@ -1,0 +1,3 @@
+Error at 3:7: Variable initialization must have the same type (have int and float rvalue)
+int b = 5.0;
+    ^

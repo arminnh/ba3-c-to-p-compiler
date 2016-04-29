@@ -265,18 +265,31 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
         self.hasArrayLength = False
         # arrayLength will be an expressionNode child
+        # TODO: dont't allow const variable declaration without initial value
 
     def typeCheck(self):
         childIndex = None
         if len(self.children) == 1 and not self.hasArrayLength:
-                childIndex = 0
+            childIndex = 0
         elif len(self.children) == 2:
             childIndex = 1
 
+        ownType = copy.deepcopy(self.getType())
+        if ownType.isArray:
+            ownType.isArray = False
+            ownType.indirections -= 1
+
         if childIndex is not None:
-            if not self.getType().isCompatible(self.children[childIndex].getType()):
-                line, column = self.getLineAndColumn()
-                self.errorHandler.addError("Variable initialization must have the same type (have " + str(self.getType()) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
+
+            if isinstance(self.children[childIndex], ASTArgumentsNode): # type check array elements
+                for argument in self.children[childIndex].children:
+                    if not ownType.isCompatible(argument.getType(), ignoreRvalue=True, ignoreConst=True):
+                        line, column = self.getLineAndColumn()
+                        self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(argument.getType()) + ")", line, column)
+            else: # type check non-array elements
+                if not ownType.isCompatible(self.children[childIndex].getType(), ignoreRvalue=True, ignoreConst=True):
+                    line, column = self.getLineAndColumn()
+                    self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
         else:
             return
 
