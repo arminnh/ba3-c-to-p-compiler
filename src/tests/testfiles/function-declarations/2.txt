@@ -1,0 +1,3 @@
+Error at 6:1: Redefinition of function
+int f(int a, int b) {
+^
