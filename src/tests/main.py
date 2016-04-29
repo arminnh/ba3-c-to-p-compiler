@@ -1,6 +1,6 @@
 import unittest
 
-# insert the tests directory into this path
+# insert the parent directory into this path to get antlr files
 import sys
 sys.path.insert(0, '..')
 
@@ -13,21 +13,11 @@ from MyListener import *
 from ASTWalker import *
 from ASTSymbolTableFiller import *
 
-# Here's our "unit".
-def IsOdd(n):
-    return n % 2 == 1
+# import re to remove all whitespace from strings
+import re
 
-# Here's our "unit tests".
-class IsOddTests(unittest.TestCase):
-
-    def testOne(self):
-        self.assertTrue(IsOdd(1))
-
-    def testTwo(self):
-        self.assertFalse(IsOdd(2))
 
 class ASTTest():
-
     def setUp(self):
         self.errorHandler = None
 
@@ -40,34 +30,62 @@ class ASTTest():
 
         walker = ParseTreeWalker()
         self.errorHandler = CompilerErrorHandler(filename)
-        abstractSyntaxTree = AbstractSyntaxTree(errorHandler=self.errorHandler);
+        abstractSyntaxTree = AbstractSyntaxTree(self.errorHandler);
         listener = MyListener(abstractSyntaxTree)
         walker.walk(listener, programContext)
 
         symbolTable = SymbolTable()
-        tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable)
+        tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, self.errorHandler)
         tableFiller.fill()
         abstractSyntaxTree.typeCheck()
+
+    def exampleTestForCopyPasting(self):
+        filename = "testfiles/binary-operator-types"
+
+        with self.assertRaises(Exception) as context:
+            self.parseFile(filename + ".c")
+
+        self.assertTrue(self.errorHandler.errorCount() == 1)
+
+        # if there is error output generated, compare with txt file
+        with open(filename + ".txt", 'r') as myfile:
+            correctOutput = myfile.read()
+
+        # remove all whitespace
+        errorMessageNoWhitespace = re.sub('[ \t\n\r]', '', self.errorHandler.errorToString(0))
+        correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
+
+        self.assertTrue(errorMessageNoWhitespace.find(correctOutput) != -1)
 
 class ComparisonOperatorTypeTests(ASTTest, unittest.TestCase):
 
     def testIntEqualsFloat(self):
-        #self.parseFile("./testfiles/binary-operator-types.c")
-        #self.assertRaises(Exception, self.parseFile, "./testfiles/binary-operator-types.c")
+        filename = "testfiles/binary-operator-types"
+
         with self.assertRaises(Exception) as context:
-            self.parseFile("./testfiles/binary-operator-types.c")
-            
-        self.assertTrue(' ' in context.exception)
-        #TODO: compare output
-        
+            self.parseFile(filename + ".c")
+
+        self.assertTrue(self.errorHandler.errorCount() == 1)
+
+        with open(filename + ".txt", 'r') as myfile:
+            correctOutput = myfile.read()
+
+        errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', self.errorHandler.errorToString(0)))
+        correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
+
+        #messageNoWhitespace = str(re.sub('[ \t\n\r]', '', str(context.exception)))
+        #print (messageNoWhitespace.lower().find("errorhasoccur") != -1)
+        #self.assertTrue(messageNoWhitespace.lower().find("errorhasoccur") != -1)
+
+        #print(self.errorHandler.errorToString(0))
+        #print (errorNoWhitespace.find("Errorat2:6:Comparisonoperatoroperandsneedtobeofsametype1==2.0;^") != -1)
+
+        self.assertTrue(errorMessageNoWhitespace.find(correctOutput) != -1)
+
 
 def testAll():
-    print ("tests start")
     unittest.main()
-    print ("tests end")
-    #test = ComparisonOperatorTypeTests()
-    #test.testIntEqualsFloat()
-    #print ("--- All tests passed ---")
+
 
 if __name__=="__main__":
     testAll()
