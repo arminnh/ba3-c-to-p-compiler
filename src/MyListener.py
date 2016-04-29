@@ -119,7 +119,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#variable.
     def enterVariable(self, ctx:SmallCParser.VariableContext):
-        self.currentNode = self.currentNode.addChildNode(ASTVariableNode(ctx.getText()))
+        self.currentNode = self.currentNode.addChildNode(ASTVariableNode(ctx.getText(), ctx))
 
     # Exit a parse tree produced by SmallCParser#variable.
     def exitVariable(self, ctx:SmallCParser.VariableContext):

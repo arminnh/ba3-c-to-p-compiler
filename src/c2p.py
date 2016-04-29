@@ -56,8 +56,8 @@ def main(filename):
         if errorHandler.errorCount():
             errorHandler.printError(0)
         else:
-            print(e)
-            #traceback.print_tb(sys.last_traceback)
+            ex_type, ex, tb = sys.exc_info()
+            traceback.print_exception(ex_type, ex, tb)
 
 if __name__=="__main__":
 
