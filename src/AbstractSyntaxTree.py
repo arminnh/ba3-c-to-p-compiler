@@ -277,24 +277,23 @@ class ASTDeclaratorInitializerNode(ASTNode):
         elif len(self.children) == 2:
             childIndex = 1
 
+        if childIndex is None:
+            return
+
         ownType = copy.deepcopy(self.getType())
-        if ownType.isArray:
+        if ownType.isArray and not isinstance(self.children[childIndex], ASTStringLiteralNode):
             ownType.isArray = False
             ownType.indirections -= 1
 
-        if childIndex is not None:
-
-            if isinstance(self.children[childIndex], ASTArgumentsNode): # type check array elements
-                for argument in self.children[childIndex].children:
-                    if not ownType.isCompatible(argument.getType(), ignoreRvalue=True, ignoreConst=True):
-                        line, column = self.getLineAndColumn()
-                        self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(argument.getType()) + ")", line, column)
-            else: # type check non-array elements
-                if not ownType.isCompatible(self.children[childIndex].getType(), ignoreRvalue=True, ignoreConst=True):
+        if isinstance(self.children[childIndex], ASTArgumentsNode): # type check array elements
+            for argument in self.children[childIndex].children:
+                if not ownType.isCompatible(argument.getType(), ignoreRvalue=True, ignoreConst=True):
                     line, column = self.getLineAndColumn()
-                    self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
-        else:
-            return
+                    self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(argument.getType()) + ")", line, column)
+        else: # type check non-array elements
+            if not ownType.isCompatible(self.children[childIndex].getType(), ignoreRvalue=True, ignoreConst=True):
+                line, column = self.getLineAndColumn()
+                self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
 
     def getType(self):
         return TypeInfo(rvalue=None, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
