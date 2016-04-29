@@ -28,8 +28,15 @@ int main(void)
     int t = aa, u = bb;
     // aaa and bbb are undeclared here
 
-    char hello[] = "5", ccc = 'c', *str = "string";
-    *hello = 'u';
+
+	const int aghf, *bfh, * const ccbv;
+	int const ahga, *dfab, * const afc;
+	int const * const * abab, *atab, * const caa;
+
+    char ccc = 'c', *str = "string";
+
+    // char hello[] = "5", ccc = 'c', *str = "string";
+    // *hello = 'u';
 
     int *arrint[] = {&e};
 

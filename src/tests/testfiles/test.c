@@ -1,11 +1,8 @@
-#include <stdio.h>
-#include <string.h>
-
 int sum(int const * const * * a);
 int sub(const int * const * * a);
 
 int main() {
-	//char hello[] = {'5'};
+	char helloo[] = {'5'};
 	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier heb ik niet aan gedacht";
 
 	int i = 5;
@@ -37,10 +34,6 @@ int main() {
 
 	const int* p;
 	// int* q = p; // error
-
-	const int a, *b, * const c;
-	int const aa, *ab, * const ac;
-	int const * const * abab, *aab, * const caa;
 
 	// char (*acec[5])[]; // TODO: special case
 	// char cPtr = *c;
