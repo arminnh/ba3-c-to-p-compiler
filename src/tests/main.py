@@ -86,6 +86,9 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testUnaryOperatorTypes7(self):
         self.generateOneErrorAndCompare("testfiles/unary-operators/types-7")
 
+    def testUnaryOperatorTypes23(self):
+        self.generateNoError("testfiles/unary-operators/types-23.c")
+
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # binary operators tests: <, >, <=, >=, ==, +, +, -, *, /, %
@@ -251,6 +254,12 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclaration7(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/7")
 
+    def testVariableDeclarations20(self):
+        self.generateNoError("testfiles/variable-declarations/20.c")
+
+    # def testVariableDeclarations21(self):
+    #     self.generateOneErrorAndCompare("testfiles/variable-declarations/21.c")
+
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
     def testFunctionDeclaration1(self):
@@ -288,6 +297,59 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 
     def testFunctionDeclaration12(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/12")
+
+class ASTNodeTests(unittest.TestCase):
+    pass
+
+class SymbolTableTests(unittest.TestCase):
+    def testInsertionAndRetrieval(self):
+        table = SymbolTable()
+        inttype = TypeInfo(rvalue=False, basetype="int")
+        floattype = TypeInfo(rvalue=False, basetype="float")
+        chartype = TypeInfo(rvalue=False, basetype="char")
+        a = ASTVariableNode("a")
+        a.type = inttype
+        
+        b = ASTVariableNode("b")
+        b.type = floattype
+
+        c = ASTVariableNode("c")
+        c.type = chartype
+        
+        d = ASTVariableNode("d")
+        d.type = floattype
+        
+        b_bis = ASTVariableNode("b")
+        b_bis.type = inttype
+        
+        # d_bis = ASTVariableNode("d")
+        # d_bis.type = floattype
+
+        table.insertVariableSymbol(a)
+        table.insertVariableSymbol(b)
+        table.openScope()
+        table.insertVariableSymbol(c)
+        self.assertTrue(table.retrieveSymbol("a") is not None)
+        self.assertTrue(table.retrieveSymbol("b") is not None)
+        self.assertTrue(table.retrieveSymbol("c") is not None)
+        self.assertTrue(table.retrieveSymbol("d") is None)
+        table.closeScope()
+        table.openScope()
+        table.insertVariableSymbol(d)
+        table.insertVariableSymbol(b_bis)
+        self.assertTrue(table.retrieveSymbol("a") is not None)
+        self.assertTrue(table.retrieveSymbol("b") is not None)
+        self.assertTrue(table.retrieveSymbol("c") is None)
+        self.assertTrue(table.retrieveSymbol("d") is not None)
+        self.assertTrue(table.retrieveSymbol("b").typeInfo.basetype == "int")
+
+        table.closeScope()
+
+        self.assertTrue(table.retrieveSymbol("b").typeInfo.basetype == "float")
+        self.assertTrue(table.retrieveSymbol("a") is not None)
+        self.assertTrue(table.retrieveSymbol("b") is not None)
+        self.assertTrue(table.retrieveSymbol("c") is None)
+        self.assertTrue(table.retrieveSymbol("d") is None)
 
 
 def testAll():
