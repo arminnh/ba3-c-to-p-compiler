@@ -515,7 +515,7 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
 
         if self.children[0].getType() != self.children[1].getType():
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Logic operator operands must have the same type", line, column)
+            self.errorHandler.addError("Logic operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
         if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands not compatible with int", line, column)
@@ -552,7 +552,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
 
         if not self.children[0].getType().equals(self.children[1].getType(), ignoreConst=True):
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Comparison operator operands need to be of same type", line, column)
+            self.errorHandler.addError("Comparison operator operands need to be of same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
         return True
 
     def getRelevantToken(self):
@@ -606,6 +606,16 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
 class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
         super(ASTLogicalNotOperatorNode, self).__init__("!", ASTUnaryOperatorNode.Type['prefix'], ctx)
+
+    def typeCheck(self):
+        self.children[0].typeCheck()
+
+        if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
+            line, column = self.getLineAndColumn()
+            self.errorHandler.addError("Logical not operator operand not compatible with int", line, column)
+
+    def getType(self):
+        return TypeInfo(rvalue=True, basetype="int")
 
 class ASTArraySubscriptNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):

@@ -25,10 +25,6 @@ int main(void)
     // 3 == 3.0 == 3;
     3 == 3 == 3;
 
-    * a;
-
-    g;
-
     // printf("Hello World \n");
     // printf("%d, %f, %d, %c, %f\n", 23, 45.0, a, 'a', 5 * (5 + 5 + d) + e);
 
