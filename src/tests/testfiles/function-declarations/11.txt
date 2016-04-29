@@ -1,0 +1,3 @@
+Error at 3:5: Function 'sum' used before it was declared
+sum(1, 2);
+^

@@ -1,3 +1,7 @@
+int sum(int a, int b);
 
-int f;
-int f(int a, float b);
+int main(void) {
+    sum(1, 2);
+
+    return 1;
+}

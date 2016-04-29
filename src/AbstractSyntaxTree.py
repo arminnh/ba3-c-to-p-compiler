@@ -157,11 +157,14 @@ class ASTParameterNode(ASTNode):
             and self.indirections == other.indirections
         # and self.arrayLength == other.arrayLength # if checking arrayLength, need to check possible expression child equality
 
+    # TODO: If the following is not commented out, the error "Parameter name omitted" will be printed without any line or column number
+    '''
     def getRelevantToken(self):
         for child in self.ctx.getChildren():
             if isinstance(child, CommonToken):
                 return child
         return None
+    '''
 
     def out(self, level):
         s = offset * level + "parameter" + " - " + str(self.type)

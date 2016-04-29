@@ -64,6 +64,7 @@ class Scope:
                         else:
                             line, column = new.astnode.getLineAndColumn() # TODO: get line, column of old declaration as well
                             new.astnode.errorHandler.addError("Function definition parameters don't match with previous declaration", line, column)
+                            return False
 
                     elif type(old.astnode) is ASTFunctionDefinitionNode:
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
@@ -73,6 +74,7 @@ class Scope:
                         else:
                             line, column = new.astnode.getLineAndColumn()
                             new.astnode.errorHandler.addError("Redefinition of function", line, column)
+                            return False
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
                     if type(old.astnode) is ASTFunctionDefinitionNode:
@@ -86,6 +88,7 @@ class Scope:
                         else:
                             line, column = new.astnode.getLineAndColumn()
                             new.astnode.errorHandler.addError("Function declaration parameters don't match previous definition", line, column)
+                            return False
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
@@ -93,9 +96,12 @@ class Scope:
                         else:
                             line, column = new.astnode.getLineAndColumn()
                             new.astnode.errorHandler.addError("Function declaration parameters don't match previous declaration", line, column)
+                            return False
 
             elif type(new) is VariableSymbolInfo:
-                raise Exception("Identifier " + old.astnode.identifier + " already taken by function")
+                line, column = old.astnode.getLineAndColumn()
+                new.astnode.errorHandler.addError("Identifier " + old.astnode.identifier + " already taken by function", line, column)
+                return False
 
         else:
             return True
