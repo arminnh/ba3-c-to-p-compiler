@@ -6,7 +6,7 @@ class SymbolInfo:
     def __init__(self, astnode):
         self.astnode = astnode
         self.typeInfo = astnode.getType()
-    
+
 class VariableSymbolInfo(SymbolInfo):
     def __init__(self, astnode):
         # astnode is ASTDeclaratorInitializerNode
@@ -14,11 +14,11 @@ class VariableSymbolInfo(SymbolInfo):
 
     @property
     def defined(self):
-        for child in self.astnode.getChildren():
+        for child in self.astnode.children:
             if isinstance(child, ASTExpressionNode):
                 return True
         return False
-    
+
 
 class FunctionSymbolInfo(SymbolInfo):
     def __init__(self, astnode):
@@ -27,7 +27,7 @@ class FunctionSymbolInfo(SymbolInfo):
     @property
     def defined(self):
         return isinstance(self.astnode, ASTFunctionDefinitionNode)
-    
+
 
 class Scope:
     def __init__(self, parent=None):
@@ -41,7 +41,7 @@ class Scope:
         return new
 
     def insertSymbol(self, info:SymbolInfo):
-        if self.isInsertionOk(info):    
+        if self.isInsertionOk(info):
             #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
             self.symbols[info.astnode.identifier] = info
 

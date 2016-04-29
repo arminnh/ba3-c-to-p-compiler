@@ -394,15 +394,23 @@ class ASTFunctionCallNode(ASTExpressionNode):
 
     def typeCheck(self):
         parameterNodes = self.definitionNode.getParameters().children
+        arguments = None
         for child in self.children:
             if isinstance(child, ASTArgumentsNode):
-                for i, argument in enumerate(child.children):
-                    if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
-                        self.errorParameter = i
-                        line, column = self.getLineAndColumn()
-                        self.errorHandler.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(self.identifier, str(argument.getType()), str(parameterNodes[i].getType())), line, column)
+                arguments = child
                 break
-        #TODO typecheck arguments with function definition
+        if arguments is not None:
+            if len(arguments.children) != len(parameterNodes):
+                line, column = self.getLineAndColumn()
+                self.errorHandler.addError("Number of arguments to function {0} does not match definition (have {1}, need {2})" \
+                    .format(self.identifier, len(arguments.children), len(parameterNodes)), line, column)
+            for i, argument in enumerate(arguments.children):
+                if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
+                    self.errorParameter = i
+                    line, column = self.getLineAndColumn()
+                    self.errorHandler.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(self.identifier, str(argument.getType()), str(parameterNodes[i].getType())), line, column)
+        else:
+            raise Exception("Did not find arguments node in ASTFunctionCallNode")
         #TODO check constness of arguments/parameters
 
     def getType(self):
