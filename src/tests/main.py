@@ -251,6 +251,15 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclaration7(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/7")
 
+    def testVariableDeclaration8(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/8")
+
+    def testVariableDeclaration9(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/9")
+
+    def testVariableDeclaration10(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/10")
+
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 

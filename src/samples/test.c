@@ -22,7 +22,7 @@ int main() {
 	int const bb = 1;
 	int bbb = 2;
 	int const constarr[2] = {1, 2};
-	// constarr[0] = bb; // error
+	// constarr[0] = bb; // TODO: error: assignment of read-only location ‘constarr[0]’
 
 
 	// char* = char[]
@@ -36,7 +36,7 @@ int main() {
 	// printf("%s\n", hello);
 
 	const int* p;
-	// int* q = p; // error
+	// int* q = p; // TODO: initialization discards ‘const’ qualifier from pointer target type
 
 	const int a, *b, * const c;
 	int const aa, *ab, * const ac;

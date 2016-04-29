@@ -46,28 +46,19 @@ int main(void)
     	char* h = hello;
     	h++;
 
-    	//int j = "hello"; // error
-
     	*hello = 'u';
-    	// *hello = "uu"; // mag niet werken
 
     	int const bb = 1;
     	int bbb = 2;
     	int const constarr[2] = {1, 2};
-    	// constarr[0] = bb; // error
 
-
-    	// char* = char[]
     	h = "newst";
-    	// h = 'n'; //error
 
     	int *aaa;
     	int aaaaa[] = {1, 2, 3};
     	aaa = aaaaa;
 
-
     	const int* p;
-    	// int* q = p; // error
     }
 
 	return 0;
