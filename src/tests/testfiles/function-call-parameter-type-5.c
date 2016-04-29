@@ -1,7 +1,9 @@
-int f(int a) {
+int f(char a, int b, float c, int* d, float** e, int f) {
 
 }
 
 int main() {
-  f(0.0);
+  int a;
+  float* b;
+  f('z', a, *b, &a, &b, b);
 }

@@ -1,7 +1,7 @@
-int f(int a) {
+int f(int a, int b) {
 
 }
 
 int main() {
-  f(0.0);
+  f(0.0, 'a', 9);
 }
