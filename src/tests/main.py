@@ -66,7 +66,25 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # unary operators: ++, --, *, &, !, [], can be prefix or postfix
     # unary logic operator: ! only works with type int
     def testUnaryOperatorTypes1(self):
-        pass
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-1")
+
+    def testUnaryOperatorTypes2(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-2")
+
+    def testUnaryOperatorTypes3(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-3")
+
+    def testUnaryOperatorTypes4(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-4")
+    
+    def testUnaryOperatorTypes5(self):
+        self.generateNoError("testfiles/unary-operators/types-5.c")
+
+    def testUnaryOperatorTypes6(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-6")
+
+    def testUnaryOperatorTypes7(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-7")
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # binary operators tests: <, >, <=, >=, ==, +, +, -, *, /, %
@@ -200,21 +218,6 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 
     def testFunctionDeclaration2(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/2")
-
-    def testFunctionDeclaration3(self):
-        self.generateOneErrorAndCompare("testfiles/function-declarations/3")
-
-    def testFunctionDeclaration4(self):
-        self.generateOneErrorAndCompare("testfiles/function-declarations/4")
-
-    def testFunctionDeclaration5(self):
-        self.generateOneErrorAndCompare("testfiles/function-declarations/5")
-
-    def testFunctionDeclaration6(self):
-        self.generateOneErrorAndCompare("testfiles/function-declarations/6")
-
-    def testFunctionDeclaration7(self):
-        self.generateOneErrorAndCompare("testfiles/function-declarations/7")
 
 def testAll():
     unittest.main()

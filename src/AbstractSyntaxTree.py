@@ -499,7 +499,7 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
         for child in self.children:
             child.typeCheck()
 
-        if not self.children[0].getType().isCompatible(self.children[1].getType()):
+        if not self.children[0].getType().isCompatible(self.children[1].getType(), ignoreConst=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Binary operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
 
@@ -666,7 +666,7 @@ class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
 
         if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Logical not operator operand not compatible with int", line, column)
+            self.errorHandler.addError("Logical not operator operand not compatible with {0}".format(self.children[0].getType()), line, column)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")

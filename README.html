@@ -72,6 +72,9 @@
             <li>multi-line comments</li>
         </ul>
         <p>
+            The order of precedence of operators is respected by the grammar.
+        </p>
+        <p>
             After the parsing of a .c file, an AST gets built using a listener. <br>
             Then, the AST is visited in-order and a symbol table is filled (this is the first pass).
             This table is used for scoping and type checking.
