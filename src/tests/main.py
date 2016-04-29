@@ -177,10 +177,10 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclaration1(self):
-        self.generateOneErrorAndCompare("testfiles/variable-declaration-1")
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/1")
 
     def testVariableDeclaration2(self):
-        self.generateOneErrorAndCompare("testfiles/variable-declaration-2")
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/2")
 
 def testAll():
     unittest.main()
