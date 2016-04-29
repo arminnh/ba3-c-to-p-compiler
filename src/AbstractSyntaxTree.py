@@ -544,7 +544,7 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
     def getRelevantToken(self):
             return self.getFirstToken(list(self.ctx.getChildren())[self.errorOperand * 2])
 
-    def getType():
+    def getType(self):
         return self.children[1].getType()
 
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):

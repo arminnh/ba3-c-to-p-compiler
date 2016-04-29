@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "josse.h"
-#include "armin.h"
+// #include "josse.h"
+// #include "armin.h"
 
-
-//int b = 5;
 
 int sum(int a, int b) {
     return a + b;
@@ -16,13 +14,13 @@ int sum(int aaaa, int);
 
 int sub(int, int);
 
-//int sum;
 
 int sub(int a, int b) {
     return a;
 }
 
-// float sub(int, int);
+int fun1(int const * const * * a);
+int fun2(const int * const * * a);
 
 int main(int argc, char *argv[])
 {
@@ -34,19 +32,16 @@ int main(int argc, char *argv[])
     sub(5, 6);
 
     if (a != 3 && 1) {
-        // printf("a == %d\n", a);
+        a;
     } else {
-        // printf("a == 3\n");
+        a == 3;
     }
 
-    // printf("b == %d\n", b);
     int b = 0;
-    // printf("b == %d\n", b);
+    b;
 
     float c[2] = {1.1, 2.2};
-    //printf("%f\n", (1 || 2 ? c[0] : c[1]));
+    (1 || 2 ? c[0] : c[1]);
 
     return 1;
 }
-
-// int abc (int argc, char *argv[]) { } // TODO: not recognized by grammar

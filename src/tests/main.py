@@ -76,7 +76,7 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 
     def testUnaryOperatorTypes4(self):
         self.generateOneErrorAndCompare("testfiles/unary-operators/types-4")
-    
+
     def testUnaryOperatorTypes5(self):
         self.generateNoError("testfiles/unary-operators/types-5.c")
 
@@ -91,8 +91,6 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
-    # binary operators tests: <, >, <=, >=, ==, +, +, -, *, /, %
-    # binary logic operators tests: &&, || must be same type and compatible with int
 
     def testAllBinaryOperatorTypesLiteralsCorrect(self):
         self.generateNoError("testfiles/binary-operators/types-correct-literals.c")
@@ -204,6 +202,7 @@ class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
 
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):
+
     def testFunctionCallParameterType1(self):
         self.generateOneErrorAndCompare("testfiles/function-calls/parameter-type-1")
 
@@ -233,6 +232,7 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
 
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
+
     def testVariableDeclaration1(self):
         self.generateOneErrorAndCompare("testfiles/variable-declarations/1")
 
@@ -262,6 +262,7 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
 
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
+
     def testFunctionDeclaration1(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/1")
 
@@ -350,6 +351,25 @@ class SymbolTableTests(unittest.TestCase):
         self.assertTrue(table.retrieveSymbol("b") is not None)
         self.assertTrue(table.retrieveSymbol("c") is None)
         self.assertTrue(table.retrieveSymbol("d") is None)
+
+
+class MiscellaneousTests(ASTTest, unittest.TestCase):
+
+    # expressions.c has many combinations of binary operators
+    def testExpressions(self):
+        self.generateNoError("testfiles/expressions.c")
+
+    # tests different usages of if, else, while, do while, if without else
+    def testFlowControl(self):
+        self.generateNoError("testfiles/flow_control.c")
+
+    # many scopes and many variables and some more complex initializers
+    def testVariables(self):
+        self.generateNoError("testfiles/variables.c")
+
+    # a file with some includes, functions, expressions and flow control
+    def testHelloWorld(self):
+        self.generateNoError("testfiles/hello_world.c")
 
 
 def testAll():

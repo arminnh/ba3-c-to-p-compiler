@@ -5,7 +5,7 @@ int main(void)
 {
     int a;
     int e = 1;
-    
+
     {
         float b = 1.0;
         float c = 2.7, d = 8.0;
@@ -14,7 +14,7 @@ int main(void)
         {
             const int g[] = {1, 2, 3};
             int const h = 5; // if const, variable must be initialized
-            
+
             {
                 int i[7] = {1, 2}; // {1, 2, 0, 0, 0, 0, 0}
             }
@@ -29,9 +29,8 @@ int main(void)
     // aaa and bbb are undeclared here
 
     char hello[] = "5", ccc = 'c', *str = "string";
-
     *hello = 'u';
-    
+
     int *arrint[] = {&e};
 
     return 1;

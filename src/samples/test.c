@@ -14,10 +14,7 @@ int main() {
 	char* h = hello;
 	h++;
 
-	//int j = "hello";
-
-	/*char hello2[strlen(hello)];
-	memcpy(hello2, hello, strlen(hello));*/
+	//int j = "hello"; // error
 
 	*hello = 'u';
 	// *hello = "uu"; // mag niet werken
@@ -25,29 +22,28 @@ int main() {
 	int const bb = 1;
 	int bbb = 2;
 	int const constarr[2] = {1, 2};
-	// constarr[0] = bb;
+	// constarr[0] = bb; // error
 
-	//hello;
 
 	// char* = char[]
 	h = "newst";
-	// h = 'n';
+	// h = 'n'; //error
 
 	int *aaa;
 	int aaaaa[] = {1, 2, 3};
-	//aaa = aaaaa;
+	aaa = aaaaa;
 
 	// printf("%s\n", hello);
 
-	// const int* p;
-	// int* q = p;
+	const int* p;
+	// int* q = p; // error
 
-	// const int a, *b, * const c;
-	// int const a, *b, * const c;
-	// int const * const *  a, *b, * const c;
+	const int a, *b, * const c;
+	int const aa, *ab, * const ac;
+	int const * const * abab, *aab, * const caa;
 
-	// char (*c[5])[]; // special case
-	// char *cPtr = &c;
+	// char (*acec[5])[]; // TODO: special case
+	// char cPtr = *c;
 
 	return 0;
 }
