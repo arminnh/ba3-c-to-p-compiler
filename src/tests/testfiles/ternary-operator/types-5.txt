@@ -1,0 +1,3 @@
+Error at 4:15: Ternary conditional operator alternatives should be of equal type
+(1 || 2 ? c[0] : 10);
+          ^

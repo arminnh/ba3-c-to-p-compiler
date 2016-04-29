@@ -210,6 +210,15 @@ class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
     def test3(self):
         self.generateNoError("testfiles/ternary-operator/types-3.c")
 
+    def test3(self):
+        self.generateNoError("testfiles/ternary-operator/types-4.c")
+
+    def test3(self):
+        self.generateOneErrorAndCompare("testfiles/ternary-operator/types-5")
+
+    def test6(self):
+        self.generateOneErrorAndCompare("testfiles/ternary-operator/types-6")
+
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):
 
