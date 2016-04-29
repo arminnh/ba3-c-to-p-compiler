@@ -1,0 +1,3 @@
+Error at 5:11: invalid type argument of unary '*' (have 'char')
+a == *b[0];
+      ^

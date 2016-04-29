@@ -1,0 +1,3 @@
+Error at 5:7: Comparison operator operands need to be of same type (have char and int)
+a == b[0];
+  ^

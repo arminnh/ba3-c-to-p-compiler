@@ -59,5 +59,12 @@ int main(void) {
     //"a" % "b"; error: invalid operands to binary + (have 'char *' and 'char *')
     'B' % 'b';
 
+    1 || 2;
+    0 || 0;
+    5 || 5;
+    5 || 5 || 6 && 0;
+
+    5 && 4 || 0;
+
     return 1;
 }
