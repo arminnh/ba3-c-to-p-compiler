@@ -3,9 +3,10 @@ from SymbolTable import *
 import sys
 
 class ASTSymbolTableFiller:
-    def __init__(self, ast:AbstractSyntaxTree, table:SymbolTable):
+    def __init__(self, ast:AbstractSyntaxTree, table:SymbolTable, errorHandler:CompilerErrorHandler):
         self.ast = ast
         self.table = table
+        self.errorHandler = errorHandler
 
     def fill(self, node=None): # call without arguments initially
         if node is None:
@@ -21,12 +22,15 @@ class ASTSymbolTableFiller:
 
             if symbolInfo is None:
                 if isinstance(node, ASTVariableNode):
-                    raise Exception("Variable '" + node.identifier + "' used before it was declared")
+                    line, column = node.getLineAndColumn()
+                    self.errorHandler.addError("Variable '" + node.identifier + "' used before it was declared", line, column)
                 elif isinstance(node, ASTFunctionCallNode):
-                    raise Exception("Function '" + node.identifier + "' used before it was declared")
+                    line, column = node.getLineAndColumn()
+                    self.errorHandler.addError("Function '" + node.identifier + "' used before it was declared", line, column)
             elif isinstance(node, ASTFunctionCallNode):
                 if not symbolInfo.defined:
-                    raise Exception("Function: undefined reference")
+                    line, column = node.getLineAndColumn()
+                    self.errorHandler.addError("Function: undefined reference", line, column)
                 node.type = symbolInfo.typeInfo
             elif isinstance(node, ASTVariableNode):
                 node.type = symbolInfo.typeInfo

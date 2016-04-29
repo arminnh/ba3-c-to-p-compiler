@@ -7,24 +7,32 @@ class CompilerErrorHandler:
 
     def addError(self, error, linenumber, column):
         self.errors.append((error, linenumber, column))
-        self.printError(0)
-        quit()
+        raise Exception("Error has occurred.")
     
-    def printError(self, index):
+    def errorCount(self):
+        return len(self.errors)
+
+    def errorToString(self, index):
+        msg = ""
         error = self.errors[index]
         if error[1] is not None and error[2] is not None:
             column = error[2]
-            print("Error at {line}:{column}: {error}".format(line=error[1], column=column, error=error[0]))
+            msg += "Error at {line}:{column}: {error}".format(line=error[1], column=column, error=error[0]) + "\n"
             
             line = linecache.getline(self.srcFilename, error[1])[:-1]
             while len(line) and line[0] in [" ", "\t"]: # remove whitespace in front
                 line = line[1:]
                 column -= 1
             
-            print(line)
-            print(" " * (column) + "^")
+            msg += line + "\n"
+            msg += " " * (column) + "^\n"
         else:
-            print("Error: {error}".format(error=error[0]))
+            msg += "Error: {error}".format(error=error[0]) + "\n"
+
+        return msg
+
+    def printError(self, index):
+        print(self.errorToString(index), end="")
     
     def printErrors():
         for i in range(len(self.errors)):
