@@ -55,7 +55,7 @@ class Scope:
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
                 line, column = new.astnode.getLineAndColumn()
-                new.astnode.errorHandler.addError("Identifier " + old.astnode.identifier + " already taken by variable", line, column)
+                new.astnode.errorHandler.addError("Identifier {0} already taken by variable".format(old.astnode.identifier), line, column)
 
             if type(new) is FunctionSymbolInfo:
                 if type(new.astnode) is ASTFunctionDefinitionNode:
@@ -101,7 +101,7 @@ class Scope:
 
             elif type(new) is VariableSymbolInfo:
                 line, column = old.astnode.getLineAndColumn()
-                new.astnode.errorHandler.addError("Identifier " + old.astnode.identifier + " already taken by function", line, column)
+                new.astnode.errorHandler.addError("Identifier {0} already taken by function".format(old.astnode.identifier), line, column)
                 return False
 
         else:
@@ -145,29 +145,3 @@ class SymbolTable(object):
 
     def __str__(self):
         return self.root.out(0)
-
-if __name__ == "__main__":
-    table = SymbolTable()
-    table.insertSymbol("a", int)
-    table.insertSymbol("b", float)
-    table.openScope()
-    table.insertSymbol("c", str)
-    print(table.retrieveSymbol("a"))
-    print(table.retrieveSymbol("b"))
-    print(table.retrieveSymbol("c"))
-    print(table.retrieveSymbol("d"))
-    table.closeScope()
-    table.openScope()
-    table.insertSymbol("d", float)
-    table.insertSymbol("b", int)
-    print()
-    print(table.retrieveSymbol("a"))
-    print(table.retrieveSymbol("b"))
-    print(table.retrieveSymbol("c"))
-    print(table.retrieveSymbol("d"))
-    table.closeScope()
-    print()
-    print(table.retrieveSymbol("a"))
-    print(table.retrieveSymbol("b"))
-    print(table.retrieveSymbol("c"))
-    print(table.retrieveSymbol("d"))

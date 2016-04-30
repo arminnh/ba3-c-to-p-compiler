@@ -23,10 +23,10 @@ class ASTSymbolTableFiller:
             if symbolInfo is None:
                 if isinstance(node, ASTVariableNode):
                     line, column = node.getLineAndColumn()
-                    self.errorHandler.addError("Variable '" + node.identifier + "' used before it was declared", line, column)
+                    self.errorHandler.addError("Variable '{0}' used before it was declared".format(node.identifier), line, column)
                 elif isinstance(node, ASTFunctionCallNode):
                     line, column = node.getLineAndColumn()
-                    self.errorHandler.addError("Function '" + node.identifier + "' used before it was declared", line, column)
+                    self.errorHandler.addError("Function '{0}' used before it was declared".format(node.identifier), line, column)
             elif isinstance(node, ASTFunctionCallNode):
                 if not symbolInfo.defined:
                     line, column = node.getLineAndColumn()

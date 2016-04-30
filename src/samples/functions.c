@@ -9,7 +9,7 @@ int myFunction1(int const* i, float c) {
 
 int myFunction2(int i, float *c);
 
-float myFunction3(int const i[5], int const j[]);
+float myFunction3(int const i[5 + 6], int const j[]);
 
 float myFunction4();
 

@@ -35,19 +35,15 @@ class ASTNode(object):
         return self.getFirstToken()
 
     def getFirstToken(self, node=None): # node = context node, not AST node
-        # TODO: rewrite please
         if node is None: node = self.ctx
         if node is None:
             raise Exception(str(type(self)) + "'s ctx was not set")
         if isinstance(node, TerminalNode):
             return node.getSymbol()
         for child in node.getChildren():
-            if isinstance(child, TerminalNode):
-                return child.getSymbol()
-            else:
-                result = self.getFirstToken(child)
-                if result is not None:
-                    return result
+            token = self.getFirstToken(child)
+            if token is not None:
+                return token
 
         return None
 
@@ -97,9 +93,7 @@ class ASTFunctionDeclarationNode(ASTNode):
 
     def getType(self):
         if self.type is None:
-            line, column = self.getLineAndColumn()
-            # TODO: change these kinds of errors to exceptions, because "they should never happen"
-            self.errorHandler.addError("ASTFunctionDeclarationNode type not filled in", line, column)
+            raise Exception("ASTFunctionDeclarationNode type not filled in", line, column)
         return TypeInfo(rvalue=None, basetype=self.type)
 
     def getParameters(self):
@@ -139,15 +133,13 @@ class ASTParameterNode(ASTNode):
         self.type = None
         self.identifier = None
         self.isArray = False
-        self.arrayLength = None
-        # TODO: arrayLength can be an expressionNode -> change # done i think; check if member can be removed
+        # self.arrayLength = None
         self.const = []
         self.indirections = 0
 
     def getType(self):
         if self.type is None:
-            line, column = self.getLineAndColumn()
-            self.errorHandler.addError("ASTParameterNode type not filled in", line, column)
+            raise Exception("ASTParameterNode type not filled in", line, column)
         return TypeInfo(rvalue=None, basetype=self.type, indirections=self.indirections, const=self.const)
 
     def __eq__(self, other):
@@ -156,15 +148,6 @@ class ASTParameterNode(ASTNode):
             and self.const == other.const \
             and self.indirections == other.indirections
         # and self.arrayLength == other.arrayLength # if checking arrayLength, need to check possible expression child equality
-
-    # TODO: If the following is not commented out, the error "Parameter name omitted" will be printed without any line or column number
-    '''
-    def getRelevantToken(self):
-        for child in self.ctx.getChildren():
-            if isinstance(child, CommonToken):
-                return child
-        return None
-    '''
 
     def out(self, level):
         s = offset * level + "parameter" + " - " + str(self.type)
@@ -180,8 +163,8 @@ class ASTParameterNode(ASTNode):
         if (self.isArray != False) :
             s += " - array:  " + str(self.isArray)
 
-            if (self.arrayLength != None) :
-                s += " - arrayLength: " + str(self.arrayLength)
+            # if (self.arrayLength != None) :
+            #     s += " - arrayLength: " + str(self.arrayLength)
 
         return s + "\n"
 
@@ -269,6 +252,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
         self.hasArrayLength = False
         # arrayLength will be an expressionNode child
         # TODO: dont't allow const variable declaration without initial value
+        # TODO: refactor the way this class handles its children
 
     def typeCheck(self):
         childIndex = None
@@ -289,11 +273,11 @@ class ASTDeclaratorInitializerNode(ASTNode):
             for argument in self.children[childIndex].children:
                 if not ownType.isCompatible(argument.getType(), ignoreRvalue=True, ignoreConst=True):
                     line, column = self.getLineAndColumn()
-                    self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(argument.getType()) + ")", line, column)
+                    self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(argument.getType())), line, column)
         else: # type check non-array elements
             if not ownType.isCompatible(self.children[childIndex].getType(), ignoreRvalue=True, ignoreConst=True):
                 line, column = self.getLineAndColumn()
-                self.errorHandler.addError("Variable initialization must have the same type (have " + str(ownType) + " and " + str(self.children[childIndex].getType()) + ")", line, column)
+                self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(self.children[childIndex].getType())), line, column)
 
     def getType(self):
         return TypeInfo(rvalue=None, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
@@ -412,8 +396,7 @@ class ASTVariableNode(ASTExpressionNode):
 
     def getType(self):
         if self.type is None:
-            line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Type has not been set yet for variable " + self.identifier, line, column)
+            raise Exception("Type has not been set yet for variable " + self.identifier)
         return self.type
 
     def out(self, level):
@@ -503,7 +486,7 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
 
         if not self.children[0].getType().isCompatible(self.children[1].getType(), ignoreConst=True):
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Binary operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
+            self.errorHandler.addError("Binary operator operands must have the same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
 
     def getType(self):
         return self.children[0].getType()
@@ -571,7 +554,7 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
 
         if self.children[0].getType() != self.children[1].getType():
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Logic operator operands must have the same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
+            self.errorHandler.addError("Logic operator operands must have the same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
         if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands not compatible with int", line, column)
@@ -608,7 +591,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
 
         if not self.children[0].getType().equals(self.children[1].getType(), ignoreConst=True):
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Comparison operator operands need to be of same type (have " + str(self.children[0].getType()) + " and " + str(self.children[1].getType()) + ")", line, column)
+            self.errorHandler.addError("Comparison operator operands need to be of same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
         return True
 
     def getRelevantToken(self):
@@ -651,7 +634,7 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
         ttype.indirections -= 1
         if ttype.indirections < 0:
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("invalid type argument of unary '*' (have '" + str(ttype) + "')", line, column)
+            self.errorHandler.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), line, column)
         elif ttype.indirections == 0:
             ttype.isArray = False
         return ttype
