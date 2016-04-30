@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Compilers</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<script src="report_files/ga.js" async="" type="text/javascript"></script><script src="report_files/cloudflare.js" async=""></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"4c8d3b93cec3ddd294642cedf0d94cde",petok:"1b82049df888492fee417dac6c0473002dd86727-1461966893-1800",zone:"notehub.org",rocket:"0",apps:{"ga_key":{"ua":"UA-32546723-1","ga_bs":"2"}},sha2test:0}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=e982913d31/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<style>body {
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
+	display: flex;
+	min-height: 100vh;
+}
+
+html, body {
+	padding: 0;
+	margin: 0;
+	color: #333;
+	background: #fff;
+}
+
+#hero {
+	text-align: center;
+	padding-bottom: 5em;
+	padding-top: 5em;
+}
+
+.ui-border {
+	border-radius: 3px;
+	border: 1px solid #333;
+}
+
+a {
+	border-bottom: 1px dotted;
+	text-decoration: none;
+	color: #097;
+}
+
+a:hover {
+	color: #0a8;
+}
+
+a:visited {
+	color: #054;
+}
+
+#draft {
+	margin-bottom: 3em;
+}
+
+.button {
+	cursor: pointer;
+}
+
+.ui-elem {
+	background: #fff;
+	font-size: 1em;
+	opacity: 0.8;
+	padding: 0.3em;
+	border-radius: 3px;
+	font-family: sans-serif;
+	font-weight: 300;
+	border: 1px solid #333;
+}
+
+.landing-button {
+	line-height: 200%;
+	display: inline-block;
+	width: 10em;
+	white-space: nowrap;
+	border-radius: 3px;
+	border: none;
+	margin: 0.5em;
+	background: #0a6;
+	font-size: 1.5em;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-weight: 300;
+}
+
+.landing-button.demo {
+	opacity: 0.9;
+	background: #ddd;
+	color: black !important;
+}
+
+.landing-button:hover {
+	background: #0b7;
+}
+
+.landing-button.demo:hover {
+	background: #eee;
+}
+
+footer {
+	text-align: center;
+	padding-bottom: 1em;
+	font-size: 0.8em;
+	width: 100%;
+	font-family: sans-serif;
+	font-weight: 300;
+}
+
+footer a {
+	border: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: sans-serif;
+	font-weight: 400;
+}
+
+h1 {
+	font-size: 1.8em;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+h3 {
+	font-size: 1.4em;
+}
+
+h4 {
+	font-size: 1.2em;
+}
+
+h5 {
+	font-size: 1.1em;
+}
+
+h6 {
+	font-size: 1.0em;
+}
+
+#hero h1 {
+	font-size: 2.5em;
+}
+
+#hero h2 {
+	margin: 2em;
+	font-family: sans-serif;
+	font-weight: 300;
+}
+
+#dashed-line {
+	border-bottom: 1px dashed#888;
+}
+
+article {
+	text-align: justify;
+	margin-top: 3em;
+	margin-bottom: 5em;
+	font-family: sans-serif;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+article img {
+	max-width: 100%;
+}
+
+article p {
+	line-height: 140%;
+	font-size: 1.05em;
+}
+
+article > h1:first-child {
+	margin: 2em;
+	font-size: 2.0em;
+	text-align: center;
+}
+
+.central-element {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+blockquote {
+	font-family: Georgia, Palatino, "Palatino Linotype", serif;
+	padding-left: 1em;
+	border-left: 4px solid #097;
+}
+
+.centered {
+	text-align: center;
+}
+
+.bottom-space {
+	margin-bottom: 7em;
+}
+
+code, pre {
+	font-size: 1.05em;
+	background: #efefef;
+	font-family: monospace;
+}
+
+pre {
+	border: 1px solid #aaa;
+	padding: 0.5em;
+	border-radius: 3px;
+}
+
+*:focus {
+	outline: 0px none transparent;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th {
+	background-color: #efefef;
+	line-height: 2.5em;
+	padding: 0.3em;
+}
+
+td {
+	line-height: 2.5em;
+	padding: 0.3em;
+	border-top: 1px solid #aaa;
+}
+
+.middot {
+	padding: 0.5em;
+}
+
+/* MEDIA QUERIES */ 
+
+@media screen and (min-width: 1024px) {
+	article, .central-element {
+		width: 800px;
+	}
+	#dashed-line {
+		margin-bottom: 3em;
+		margin-top: 3em;
+	}
+}
+
+@media screen and (max-width: 1023px) {
+	article, .central-element {
+		width: 90%;
+	}
+	#dashed-line {
+		margin-bottom: 0.5em;
+		margin-top: 0.5em;
+	}
+	#previewPane {
+		display: none !important;
+	}
+}
+
+#previewPane article {
+	margin: 0;
+}
+
+#editContainer {
+	display: flex;
+	height: 100%;
+}
+
+#previewPane {
+	flex: 1 0 50%;
+	display: flex;
+	height: 100%;
+	overflow-y: auto;
+	margin: 0 !important;
+	border-left: 1px solid #444;
+}
+
+#previewPane article {
+	flex: 1 0;
+	padding: 2em;
+}
+
+#previewPane article h1 {
+	margin: 0;
+}
+
+#editPane {
+	display: flex;
+	flex-direction: column;
+	flex: 1 0 50%;
+	height: 100%;
+}
+
+textarea {
+	font-size: 1em;
+	font-family: Courier;
+	border-radius: 5px;
+	flex: 1 0;
+	margin: 1em;
+}
+
+textarea, fieldset {
+	border: none;
+}
+
+fieldset {
+	padding-left: 1em;
+	padding-right: 1em;
+	font-family: sans-serif;
+}
+
+#tableau {
+	font-weight: lighter;
+	float: right;
+}</style>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-32546723-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+<style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style></head>
+<body>
+    
+	<article>
+		<h1 id="compilers">Compilers</h1>
+<h2 id="build-test">Build &amp; Test</h2>
+<p>Je kan gebruik maken van de 2 .bat bestanden om op windows eerst te 
+builden (build.bat) en vervolgens alle testen uitvoeren met test.bat</p>
+<p>Via python kan je de testen uitvoeren met <code>python main.py test</code></p>
+<h2 id="status">Status</h2>
+<ol>
+<li><strong>Types</strong> char, float, int en pointer types ondersteund</li>
+<li><strong>Import</strong> Header wordt correct geparsed, de 2 functies
+ zijn beschikbaar in de global scope van het programma indien de import 
+gegeven is. De omzetting naar P-code moet nog gebeuren.</li>
+<li><strong>Reserved words</strong> We ondersteunen: if, else, return, while, for, break, continue en void + de bovenstaande types</li>
+<li><strong>Local and global variables</strong> Klaar</li>
+<li><strong>Comments</strong> Klaar</li>
+<li><strong>Functions</strong> Worden geparsed en correct omgezet in 
+AST, forward declaration nog niet ondersteund. Parameters kunnen by 
+reference of by value worden doorgegeven.</li>
+<li><strong>Arrays</strong> Worden omgezet in AST nodes, voor de rest nog niet veel rond gedaan.</li>
+<li><strong>Conversions</strong> Optioneel, nog niet aan begonnen, nog geen concrete plannen voor.</li>
+</ol>
+<h2 id="error-analyse">Error analyse</h2>
+<p>Errors die we checken aan de hand van semantische analyse:</p>
+<ul>
+<li>Double declarations</li>
+<li>Undefined references (zowel naar functies als variables)</li>
+<li>Verkeerde return type</li>
+<li>Type incompatibiliteit in expressies</li>
+<li>Functie argumenten type check en aantal check</li>
+</ul>
+<h2 id="testen">Testen</h2>
+<p>Er zijn nogal veel test bestanden om ze elks individueel te 
+overlopen. We beschrijven ze even in groepjes van samenhangende aspecten
+ die getest zijn:</p>
+<p>De volgende 4 testen roepen functies op met verkeerde argument types 
+of verkeerde aantal argumenten. Deze zullen een exception genereren en 
+het type exception zal vergeleken worden met degene die gespecifieerd is
+ in de test. (Dit toets dus een deel van de semantische analyse af).</p>
+<pre><code>fail_argcount.c
+fail_argcount2.c
+fail_argtype.c
+fail_argtype1.c
+</code></pre><p>Deze testen telkens type mismatches tussen 2 operanden, 
+ze zouden dus de juiste exception moeten genereren en toetsen een ander 
+aspect van de semantische analyse af.</p>
+<pre><code>fail_charclass.c
+fail_charclass1.c
+</code></pre><p>Er zijn ook een paar kleine c bestanden die we van een 
+github repo hebben geplukt, deze zijn echter geschreven voor de 
+volledige C spec dus er zijn er een paar bij die onze semantische 
+analyse triggeren.</p>
+<pre><code>fail_fgets.c
+fail_gets.c
+fail_index.c
+fail_itoa.c
+fail_strcat.c
+fail_strcmp.c
+fail_strlen.c
+fail_strncat.c
+fail_strncmp.c
+fail_strnpy.c
+fail_strncpy.c
+</code></pre><p>Vervolgens zijn er een 6-tal testen om type checking bij declaraties na te gaan:</p>
+<pre><code>fail_mismatch_assign.c
+fail_mismatch_assign1.c
+fail_mismatch_assign2.c
+fail_mismatch_assign3.c
+fail_mismatch_assign4.c
+fail_mismatch_assign5.c
+fail_voidassign.c -&gt; Deze gebruikt het resultaat van een void functie voor een declaratie (dus geen waarde)
+</code></pre><p>Ook voor de main functie is er een semantische check, dat toetsen 3 test bestanden af:</p>
+<pre><code>fail_missingmain.c
+fail_missingmain2.c
+fail_missingmain3.c
+</code></pre><p>Voor undefined references zijn er 2 tests:</p>
+<pre><code>fail_undefinedreference.c
+fail_undefinedreference2.c
+</code></pre><p>Return type wordt ook semantisch gecheckt, hier is momenteel 1 specifieke faal test voor:</p>
+<pre><code>fail_wrongreturntype.c
+</code></pre><p>Voor de verschillende for loops te testen is er </p>
+<pre><code>forloop.c
+</code></pre><p>2 testen voor juiste functie oproepen:</p>
+<pre><code>functioncall1.c
+functioncall2.c
+</code></pre><p>Voor juist gebruik van returnde waarde is er de test die een functie in allerhande expressies mengt:</p>
+<pre><code>functionassign.c
+</code></pre><p>Voor alle soorten speciale characters te checken:</p>
+<pre><code>charliterals.c
+</code></pre><p>Voor de dereference operator robuust te testen:</p>
+<pre><code>dereference.c
+</code></pre><p>Een void functie kan eender welke waarde in de return 
+body hebben, dit genereert wel een warning maar zal uiteindelijk wel 
+compileren:</p>
+<pre><code>voidreturn.c
+</code></pre><p>Dan zijn er nog 2 testen specifiek aan 2 bugs die we tegen gekomen zijn:</p>
+<pre><code>issue8.c -&gt; de '-' operator werkte niet
+issue9.c -&gt; de '*' werd niet herkend
+</code></pre><p>Beiden werken ondertussen natuurlijk!</p>
+<p>De resterende test bestanden is de rest van de voorbeeld c bestanden 
+van de github repo, deze zijn ofwel aangepast zodat ze enkel dingen uit 
+de small-c spec gebruiken of zijn gewoon origineel compatibel.</p>
+
+	</article>
+
+</body></html>
