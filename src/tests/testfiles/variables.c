@@ -9,7 +9,7 @@ int main(void)
     {
         float b = 1.0;
         float c = 7.0, d = 8.0;
-        char f = 'a', *ff = "aaa";
+        char f = 'a', *ff = "aaa"; // fix
 
         {
             const int g[] = {1, 2, 3};

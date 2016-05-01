@@ -538,6 +538,7 @@ class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
         if self.children[0].getType().rvalue:
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Expression is not assignable", line, column)
+        super(ASTSimpleAssignmentOperatorNode, self).typeCheck()
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):

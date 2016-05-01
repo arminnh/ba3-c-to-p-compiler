@@ -16,6 +16,7 @@ from ASTSymbolTableFiller import *
 # import re to remove all whitespace from strings
 import re
 
+set = False
 
 class ASTTest():
     def setUp(self):
@@ -52,15 +53,22 @@ class ASTTest():
         with open(filename + ".txt", 'r') as myfile:
             correctOutput = myfile.read()
 
+        errorMessage = self.errorHandler.errorToString(0)
+
         # remove all whitespace
-        errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', self.errorHandler.errorToString(0)))
+        errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', errorMessage))
         correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
+
+        if set:
+            f = open(filename + ".txt", "w")
+            f.write(errorMessage)
+            f.close()
 
         expectedOutputFound = errorMessageNoWhitespace.find(correctOutput) != -1
 
-        if not expectedOutputFound:
-            log = logging.getLogger("ASTTest")
-            log.debug(__name__ + ": expected:\n" + correctOutput + "\ngot:\n" + errorMessageNoWhitespace)
+        # if not expectedOutputFound:
+        #     log = logging.getLogger("ASTTest")
+        #     log.debug(__name__ + ": expected:\n" + correctOutput + "\ngot:\n" + errorMessage)
 
         self.assertTrue(expectedOutputFound)
 
