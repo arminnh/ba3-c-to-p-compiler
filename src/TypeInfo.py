@@ -8,6 +8,13 @@ class TypeInfo:
 		self.const = const
 		self.isArray = isArray
 
+	def toRvalue(self):
+		if self.rvalue:
+			return self
+		cpy = copy.deepcopy(self)
+		cpy.rvalue = True
+		return cpy
+
 	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
 		if self.equals(other, ignoreRvalue = ignoreRvalue, ignoreConst = ignoreConst):
 			return True
@@ -35,7 +42,7 @@ class TypeInfo:
 	def __eq__(self, other):
 		return self.equals(other)
 		
-	def __str__(self):
+	def out(self, withRvalue=False):
 		out = self.basetype
 		for i in range(self.indirections if not self.isArray else self.indirections - 1):
 			out += " *"
@@ -43,7 +50,10 @@ class TypeInfo:
 				out += " const"
 		if self.isArray:
 			out += "[]"
-		if self.rvalue is not None:
+		if withRvalue and self.rvalue is not None:
 			out += " " + ("r" if self.rvalue else "l") + "value"
 
 		return out
+
+	def __str__(self):
+		return self.out()

@@ -1,4 +1,5 @@
 import unittest
+import logging
 
 # insert the parent directory into this path to get antlr files
 import sys
@@ -55,7 +56,13 @@ class ASTTest():
         errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', self.errorHandler.errorToString(0)))
         correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
 
-        self.assertTrue(errorMessageNoWhitespace.find(correctOutput) != -1)
+        expectedOutputFound = errorMessageNoWhitespace.find(correctOutput) != -1
+
+        if not expectedOutputFound:
+            log = logging.getLogger("ASTTest")
+            log.debug(__name__ + ": expected:\n" + correctOutput + "\ngot:\n" + errorMessageNoWhitespace)
+
+        self.assertTrue(expectedOutputFound)
 
     def generateNoError(self, filename):
         self.parseFile(filename)
@@ -404,4 +411,6 @@ def testAll():
     unittest.main()
 
 if __name__=="__main__":
+    logging.basicConfig(stream=sys.stderr)
+    logging.getLogger("ASTTest").setLevel(logging.DEBUG)
     testAll()

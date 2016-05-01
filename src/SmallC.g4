@@ -77,10 +77,6 @@ oplevel2 :
     | '&' oplevel1 // address of
     | '*' oplevel2 // dereference
     | '!' oplevel2
-    | floatLiteral
-    | integerLiteral
-    | characterLiteral
-    | stringLiteral
     | functionCall
     | LBRA typeDeclaration RBRA oplevel2
     | oplevel1
@@ -91,6 +87,10 @@ oplevel1 :
     | oplevel1 '--'
     | oplevel1 '[' expression ']'
     | variable
+    | floatLiteral
+    | integerLiteral
+    | characterLiteral
+    | stringLiteral
     | '(' expression ')'
     ;
 

@@ -36,6 +36,7 @@ int main(void)
 
     a || d && !x || !(d && x);
 
+    *(f + 1) = 4;
     a++;
     --a;
     ++a;
@@ -48,5 +49,7 @@ int main(void)
     !a && !x;
     !(a || d);
 
-    return 1;
+    3.0--; // fail
+
+    return 0;
 }

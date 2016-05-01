@@ -94,7 +94,7 @@ class ASTFunctionDeclarationNode(ASTNode):
     def getType(self):
         if self.type is None:
             raise Exception("ASTFunctionDeclarationNode type not filled in", line, column)
-        return TypeInfo(rvalue=None, basetype=self.type)
+        return TypeInfo(rvalue=True, basetype=self.type)
 
     def getParameters(self):
         for child in self.children:
@@ -140,7 +140,7 @@ class ASTParameterNode(ASTNode):
     def getType(self):
         if self.type is None:
             raise Exception("ASTParameterNode type not filled in", line, column)
-        return TypeInfo(rvalue=None, basetype=self.type, indirections=self.indirections, const=self.const)
+        return TypeInfo(rvalue=False, basetype=self.type, indirections=self.indirections, const=self.const)
 
     def __eq__(self, other):
         return self.type == other.type \
@@ -280,7 +280,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
                 self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(self.children[childIndex].getType())), line, column)
 
     def getType(self):
-        return TypeInfo(rvalue=None, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
+        return TypeInfo(rvalue=False, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
 
     def out(self, level):
         s = offset * level + "declarator initializer" + "\n"
@@ -433,7 +433,7 @@ class ASTFunctionCallNode(ASTExpressionNode):
     def getType(self):
         if self.definitionNode is None:
             raise Exception("definitionNode has not been set yet for function " + self.identifier)
-        return self.definitionNode.getType()
+        return self.definitionNode.getType().toRvalue()
 
     def getRelevantToken(self):
         if self.errorParameter is not None:
@@ -474,7 +474,7 @@ class ASTUnaryOperatorNode(ASTExpressionNode):
         return self.children[0].typeCheck()
 
     def getType(self):
-        return self.children[0].getType()
+        return NotImplementedError
 
 class ASTBinaryOperatorNode(ASTExpressionNode):
     def __init__(self, label, ctx=None):
@@ -484,12 +484,12 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
         for child in self.children:
             child.typeCheck()
 
-        if not self.children[0].getType().isCompatible(self.children[1].getType(), ignoreConst=True):
+        if not self.children[0].getType().toRvalue().isCompatible(self.children[1].getType().toRvalue(), ignoreConst=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Binary operator operands must have the same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
 
     def getType(self):
-        return self.children[0].getType()
+        return self.children[0].getType().toRvalue()
 
     def addChildNode(self, node):
         if len(self.children) >= 2: # this should never happen
@@ -514,7 +514,7 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
         for child in self.children:
             child.typeCheck()
 
-        if not self.children[0].getType().isCompatible(TypeInfo(rvalue=None, basetype="int"), ignoreRvalue=True):
+        if not self.children[0].getType().toRvalue().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             self.errorOperand = 0
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Ternary conditional operator needs int as first operand", line, column)
@@ -528,11 +528,16 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
             return self.getFirstToken(list(self.ctx.getChildren())[self.errorOperand * 2])
 
     def getType(self):
-        return self.children[1].getType()
+        return self.children[1].getType().toRvalue()
 
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
     def __init__(self, ctx=None):
         super(ASTSimpleAssignmentOperatorNode, self).__init__("=", ctx)
+
+    def typeCheck(self):
+        if self.children[0].getType().rvalue:
+            line, column = self.getLineAndColumn()
+            self.errorHandler.addError("Expression is not assignable", line, column)
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):
@@ -552,7 +557,7 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
         for child in self.children:
             child.typeCheck()
 
-        if self.children[0].getType() != self.children[1].getType():
+        if self.children[0].getType().toRvalue() != self.children[1].getType().toRvalue():
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands must have the same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
         if not self.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
@@ -589,7 +594,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         for child in self.children:
             child.typeCheck()
 
-        if not self.children[0].getType().equals(self.children[1].getType(), ignoreConst=True):
+        if not self.children[0].getType().equals(self.children[1].getType(), ignoreRvalue=True, ignoreConst=True):
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Comparison operator operands need to be of same type (have {0} and {1})".format(str(self.children[0].getType()), str(self.children[1].getType())), line, column)
         return True
@@ -598,7 +603,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         return list(self.ctx.getChildren())[1].getSymbol()
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int")
+        return TypeInfo(rvalue=True, basetype="int").toRvalue()
 
 class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     class ArithmeticType(Enum):
@@ -613,13 +618,27 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, arithmeticType, operatorType, ctx=None):
         super(ASTUnaryArithmeticOperatorNode, self).__init__(str(arithmeticType) + " - " + str(operatorType), str(operatorType), ctx)
 
+    def typeCheck(self):
+        if self.children[0].getType().rvalue:
+            line, column = self.getLineAndColumn()
+            self.errorHandler.addError("Expression is not assignable", line, column)
+
+    def getType(self):
+        return self.children[0].getType()
+
 class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
         super(ASTAddressOfOperatorNode, self).__init__("&", ASTUnaryOperatorNode.Type['prefix'], ctx)
 
+    def typeCheck(self):
+        if self.children[0].getType().rvalue:
+            line, column = self.getLineAndColumn()
+            self.errorHandler.addError("Cannot take the address of an rvalue of type '{0}'".format(str(self.children[0].getType())), line, column)
+
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections += 1
+        ttype.rvalue = True
         return ttype
 
 class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
@@ -632,6 +651,7 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
+        ttype.rvalue = False
         if ttype.indirections < 0:
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), line, column)
@@ -661,8 +681,10 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
         super(ASTArraySubscriptNode, self).__init__("[]", ASTUnaryOperatorNode.Type['postfix'], ctx)
 
     def getType(self):
+        # TODO: this is not entirely right methinks
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
+        ttype.rvalue = False
         if ttype.indirections == 0:
             ttype.isArray = False
         return ttype
