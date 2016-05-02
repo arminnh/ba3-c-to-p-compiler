@@ -205,7 +205,7 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#typeDeclaration.
     def enterTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
-        self.currentNode.basetype = ctx.getText() #TODO: rename self.type where it is used in this way to self.basetype (to prevent confusion with typeInfo type)
+        self.currentNode.basetype = ctx.getText()
 
     # Exit a parse tree produced by SmallCParser#typeDeclaration.
     def exitTypeDeclaration(self, ctx:SmallCParser.TypeDeclarationContext):
