@@ -352,19 +352,19 @@ class SymbolTableTests(unittest.TestCase):
         floattype = TypeInfo(rvalue=False, basetype="float")
         chartype = TypeInfo(rvalue=False, basetype="char")
         a = ASTVariableNode("a")
-        a.type = inttype
+        a.typeInfo = inttype
 
         b = ASTVariableNode("b")
-        b.type = floattype
+        b.typeInfo = floattype
 
         c = ASTVariableNode("c")
-        c.type = chartype
+        c.typeInfo = chartype
 
         d = ASTVariableNode("d")
-        d.type = floattype
+        d.typeInfo = floattype
 
         b_bis = ASTVariableNode("b")
-        b_bis.type = inttype
+        b_bis.typeInfo = inttype
 
         # d_bis = ASTVariableNode("d")
         # d_bis.type = floattype

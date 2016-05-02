@@ -33,7 +33,7 @@ class ASTSymbolTableFiller:
                     self.errorHandler.addError("Function: undefined reference", line, column)
                 node.definitionNode = symbolInfo.astnode
             elif isinstance(node, ASTVariableNode):
-                node.type = symbolInfo.typeInfo
+                node.typeInfo = symbolInfo.typeInfo
 
         # insert function declaration or definition into symbol table
         elif isinstance(node, ASTFunctionDeclarationNode):

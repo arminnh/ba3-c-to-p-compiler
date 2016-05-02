@@ -87,14 +87,14 @@ class ASTMainFunctionNode(ASTNode):
 class ASTFunctionDeclarationNode(ASTNode):
     def __init__(self, label="function declaration", ctx=None):
         super(ASTFunctionDeclarationNode, self).__init__(label, ctx)
-        self.type = None
+        self.basetype = None
         self.identifier = None
         # parameters are child nodes
 
     def getType(self):
-        if self.type is None:
-            raise Exception("ASTFunctionDeclarationNode type not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.type)
+        if self.basetype is None:
+            raise Exception("ASTFunctionDeclarationNode basetype not filled in", line, column)
+        return TypeInfo(rvalue=True, basetype=self.basetype)
 
     def getParameters(self):
         for child in self.children:
@@ -104,7 +104,7 @@ class ASTFunctionDeclarationNode(ASTNode):
 
     def out(self, level):
         s = offset * level + self.label + "\n"
-        s += offset * (level + 1) + "return type: " + str(self.type) + "\n"
+        s += offset * (level + 1) + "return type: " + str(self.basetype) + "\n"
         s += offset * (level + 1) + "identifier:  " + str(self.identifier) + "\n"
 
         return s if (not self.children) else self.outChildren(s, level)
@@ -130,7 +130,7 @@ class ASTParametersNode(ASTNode):
 class ASTParameterNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTParameterNode, self).__init__("parameter", ctx)
-        self.type = None
+        self.basetype = None
         self.identifier = None
         self.isArray = False
         # self.arrayLength = None
@@ -138,19 +138,19 @@ class ASTParameterNode(ASTNode):
         self.indirections = 0
 
     def getType(self):
-        if self.type is None:
-            raise Exception("ASTParameterNode type not filled in", line, column)
-        return TypeInfo(rvalue=False, basetype=self.type, indirections=self.indirections, const=self.const)
+        if self.basetype is None:
+            raise Exception("ASTParameterNode basetype not filled in", line, column)
+        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=self.const)
 
-    def __eq__(self, other):
-        return self.type == other.type \
+    def __eq__(self, other): # TODO: do self.getType() == other.getType() ???
+        return self.basetype == other.basetype \
             and self.isArray == other.isArray \
             and self.const == other.const \
             and self.indirections == other.indirections
         # and self.arrayLength == other.arrayLength # if checking arrayLength, need to check possible expression child equality
 
     def out(self, level):
-        s = offset * level + "parameter" + " - " + str(self.type)
+        s = offset * level + "parameter" + " - " + str(self.basetype)
 
         if (len(self.const) != 0) :
             s += " - const: " + str(self.const)
@@ -226,7 +226,7 @@ class ASTDoWhileNode(ASTStatementNode):
 class ASTVariableDeclarationNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTVariableDeclarationNode, self).__init__("variable declaration", ctx)
-        self.type = None
+        self.basetype = None
         self.isConstant = False
         # declaratorInitializers are children
 
@@ -236,7 +236,7 @@ class ASTVariableDeclarationNode(ASTStatementNode):
 
     def out(self, level):
         s  = offset * level + self.label + "\n"
-        s += offset * (level + 1) + "type: " + str(self.type)
+        s += offset * (level + 1) + "type: " + str(self.basetype)
         s += ", const: " + str(self.isConstant) + "\n"
 
         return s if (not self.children) else self.outChildren(s, level)
@@ -280,7 +280,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
                 self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(self.children[childIndex].getType())), line, column)
 
     def getType(self):
-        return TypeInfo(rvalue=False, basetype=self.parent.type, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
+        return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
 
     def out(self, level):
         s = offset * level + "declarator initializer" + "\n"
@@ -389,15 +389,15 @@ class ASTVariableNode(ASTExpressionNode):
     def __init__(self, identifier, ctx=None):
         super(ASTVariableNode, self).__init__("variable", ctx)
         self.identifier = identifier
-        self.type = None
+        self.typeInfo = None
 
     def typeCheck(self):
         return True
 
     def getType(self):
-        if self.type is None:
-            raise Exception("Type has not been set yet for variable " + self.identifier)
-        return self.type
+        if self.typeInfo is None:
+            raise Exception("TypeInfo has not been set yet for variable " + self.identifier)
+        return self.typeInfo
 
     def out(self, level):
         return offset * level + self.label + " - " + self.identifier + "\n"
@@ -450,7 +450,6 @@ class ASTFunctionCallNode(ASTExpressionNode):
     EXPRESISSION OPERATIONS
 '''
 
-# TODO: [] operator
 class ASTUnaryOperatorNode(ASTExpressionNode):
     class Type(Enum):
         prefix = 1
@@ -691,8 +690,9 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
         return ttype
 
     def addChildNode(self, node):
-        if len(self.children) <= 2:
-            return ASTNode.addChildNode(self, node)
+        if len(self.children) >= 2:
+            raise Exception("ASTArraySubscriptNode cannot have more than two children")
+        return ASTNode.addChildNode(self, node)
 
 class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
     class ArithmeticType(Enum):
