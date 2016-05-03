@@ -160,11 +160,6 @@ expression :
     | oplevel15
     ;
 
-arguments :
-      expression (',' expression)*
-    |
-    ;
-
 ifCond :
       IF LBRA expression RBRA statement elseCond?
     ;
@@ -196,16 +191,21 @@ cvQualifier :
     ;
 
 declaratorInitializer :
-    | pointerPart* identifier arrayPart? ('=' initializer)?
+      pointerPart* identifier arrayPart? ('=' initializer)?
     ;
 
 initializer :
-      LCBRA arguments RCBRA
+      LCBRA (expression (',' expression)*)? RCBRA
     | expression
     ;
 
 returnStmt :
       RETURN expression
+    ;
+
+arguments :
+      expression (',' expression)*
+    |
     ;
 
 functionCall:
@@ -270,7 +270,7 @@ FLOAT     : INTEGER '.' INTEGER ([eE] [+-]? INTEGER)?
           | INTEGER [eE] [+-]? INTEGER
           ;
 
-IDENTIFIER   : [a-zA-Z0-9]+;
+IDENTIFIER   : [a-zA-Z_][a-zA-Z0-9\_]*;
 CHARACTER    : ['] (. | '\n') ['];
 STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
 

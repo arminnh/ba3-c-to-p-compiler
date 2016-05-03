@@ -260,15 +260,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#arguments.
-    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#arguments.
-    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#ifCond.
     def enterIfCond(self, ctx:SmallCParser.IfCondContext):
         pass
@@ -356,6 +347,15 @@ class SmallCListener(ParseTreeListener):
 
     # Exit a parse tree produced by SmallCParser#returnStmt.
     def exitReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#arguments.
+    def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#arguments.
+    def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
         pass
 
 

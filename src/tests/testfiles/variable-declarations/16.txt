@@ -1,0 +1,3 @@
+Error at 2:11: Variable initialization must have the same type (have float and char [])
+float a = {"error", 1, 2.0, '3', "aaa"};
+      ^

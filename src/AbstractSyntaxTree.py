@@ -144,7 +144,7 @@ class ASTParameterNode(ASTNode):
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTParameterNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const)
+        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const, isArray=self.isArray)
 
     def __eq__(self, other): # TODO: do self.getType() == other.getType() ???
         return self.basetype == other.basetype \
@@ -154,21 +154,27 @@ class ASTParameterNode(ASTNode):
         # and self.arrayLength == other.arrayLength # if checking arrayLength, need to check possible expression child equality
 
     def out(self, level):
-        s = offset * level + "parameter" + " - " + str(self.basetype)
+        s = offset * level
 
-        if (len(self.const) != 0) :
-            s += " - const: " + str(self.const)
+        if self.isConstant:
+            s += "const "
 
-        if (self.indirections != 0) :
-            s += " - indirections: " + str(self.indirections)
+        s += str(self.basetype) + " "
 
-        s += " - " + str(self.identifier)
+        nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
+        for i in range(0, nrOfIndirections):
+            if i != 0:
+                s += " "
+            s += "*"
+            if i < len(self.const) and self.const[i]:
+                s += " const"
+            if i == (nrOfIndirections - 1):
+                s += " "
+
+        s += str(self.identifier)
 
         if (self.isArray != False) :
-            s += " - array:  " + str(self.isArray)
-
-            # if (self.arrayLength != None) :
-            #     s += " - arrayLength: " + str(self.arrayLength)
+            s += " []"
 
         return s + "\n"
 
@@ -176,6 +182,9 @@ class ASTArgumentsNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTArgumentsNode, self).__init__("arguments", ctx)
 
+class ASTInitializerListNode(ASTNode):
+    def __init__(self, ctx=None):
+        super(ASTInitializerListNode, self).__init__("initializer list", ctx)    
 
 '''
     STATEMENTS
@@ -250,73 +259,76 @@ class ASTDeclaratorInitializerNode(ASTNode):
         super(ASTDeclaratorInitializerNode, self).__init__("declarator initializer", ctx)
         self.identifier = None
         self.isArray = False
+        # arrayLength will be an expressionNode child
         self.indirections = 0
         self.const = []
-        # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
-        self.hasArrayLength = False
-        # arrayLength will be an expressionNode child
-        # TODO eerst!!!: flag for hasInitializerList
         # TODO: dont't allow const variable declaration without initial value
-        # TODO: refactor the way this class handles its children
 
     def typeCheck(self):
-        childIndex = None
-        if len(self.children) == 1 and not self.hasArrayLength:
-            childIndex = 0
-        elif len(self.children) == 2:
-            childIndex = 1
+        for child in self.children:
+            child.typeCheck()
 
-        if childIndex is None:
-            return
-
-        ownType = copy.deepcopy(self.getType())
-        if ownType.isArray and not isinstance(self.children[childIndex], ASTStringLiteralNode):
-            ownType.isArray = False
-            ownType.indirections -= 1
-
-        if isinstance(self.children[childIndex], ASTArgumentsNode): # type check array elements
-            for argument in self.children[childIndex].children:
-                if not ownType.isCompatible(argument.getType(), ignoreRvalue=True, ignoreConst=True):
+            # if child is expression node, it is the array length value
+            if isinstance(child, ASTExpressionNode):
+                if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True), ignoreConst=True):
                     line, column = self.getLineAndColumn()
-                    self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(argument.getType())), line, column)
-        else: # type check non-array elements
-            if not ownType.isCompatible(self.children[childIndex].getType(), ignoreRvalue=True, ignoreConst=True):
-                line, column = self.getLineAndColumn()
-                self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(self.children[childIndex].getType())), line, column)
+                    self.errorHandler.addError("Array length type must be compatible with int (have {0})".format(str(child.getType())), line, column)
+
+            elif isinstance(child, ASTInitializerListNode):
+                # if not child.children:
+                #     return
+
+                ownType = copy.deepcopy(self.getType())
+                # if basetype is array, typecheck with each elements of initializer list
+                if ownType.isArray: 
+                    for initListElement in child.children:
+                        # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
+                        if not isinstance(initListElement, ASTStringLiteralNode):
+                            ownType.isArray = False
+                            ownType.indirections -= 1
+
+                        if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
+                            line, column = self.getLineAndColumn()
+                            self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(initListElement.getType())), line, column)
+                
+                #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
+                else: 
+                    # rest doesnt matter: warning: excess elements in scalar initializer [enabled by default]
+                    if not ownType.isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
+                        line, column = self.getLineAndColumn()
+                        self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(child.children[0].getType())), line, column)
 
     def getType(self):
         return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
 
     def out(self, level):
-        s = offset * level + "declarator initializer" + "\n"
+        s = offset * level + "declarator initializer" + "\n" + (offset * (level + 1))
 
-        if (len(self.const) != 0) :
-            s += offset * (level + 1) +  "const: " + str(self.const) + "\n"
+        nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
+        for i in range(0, nrOfIndirections):
+            if i != 0:
+                s += " "
+            s += "*"
+            if i < len(self.const) and self.const[i]:
+                s += " const"
+            if i == (nrOfIndirections - 1):
+                s += " "
 
-        if (self.indirections != 0) :
-            s += offset * (level + 1) + "indirections: " + str(self.indirections) + "\n"
-
-        s += offset * (level + 1) + "identifier: " + self.identifier
+        s += self.identifier
 
         if (self.isArray != False) :
-            s += " - array: " + str(self.isArray)
+            s += " []"
 
         s += "\n"
 
-        if len(self.children) == 1:
-            if self.hasArrayLength:
+        for child in self.children:
+            if isinstance(child, ASTExpressionNode):
                 s += offset * (level + 1) + "arrayLength\n"
-                s += self.children[0].out(level + 2)
-            else:
-                s += offset * (level + 1) + "initialization value\n"
-                s += self.children[0].out(level + 2)
-        elif len(self.children) == 2:
-            s += offset * (level + 1) + "arrayLength\n"
-            s += self.children[0].out(level + 2)
-            s += offset * (level + 1) + "initialization value\n"
-            s += self.children[1].out(level + 2)
+                s += child.out(level + 2)
+            elif isinstance(child, ASTInitializerListNode):
+                s += child.out(level + 1)
 
-        return s if (not self.children) else s
+        return s
 
 
 '''

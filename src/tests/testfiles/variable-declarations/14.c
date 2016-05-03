@@ -1,3 +1,3 @@
 int main(void) {
-    float a = {1};
+    float a = {"a"};
 }

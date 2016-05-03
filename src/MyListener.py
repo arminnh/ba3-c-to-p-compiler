@@ -171,9 +171,6 @@ class MyListener(SmallCListener):
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         self.currentNode.isArray = True
         self.currentNode.indirections += 1
-        # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
-        if ctx.getChildCount() == 1:
-            self.currentNode.hasArrayLength = True
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
@@ -204,6 +201,15 @@ class MyListener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#arguments.
     def exitArguments(self, ctx:SmallCParser.ArgumentsContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#initializer.
+    def enterInitializer(self, ctx:SmallCParser.InitializerContext):
+        self.currentNode = self.currentNode.addChildNode(ASTInitializerListNode(ctx))
+
+    # Exit a parse tree produced by SmallCParser#initializer.
+    def exitInitializer(self, ctx:SmallCParser.InitializerContext):
         self.currentNode = self.currentNode.parent
 
 

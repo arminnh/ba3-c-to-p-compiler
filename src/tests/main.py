@@ -304,6 +304,18 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclarations11(self):
         self.generateNoError("testfiles/variable-declarations/11.c")
 
+    def testVariableDeclaration12(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/12")
+
+    def testVariableDeclarations13(self):
+        self.generateNoError("testfiles/variable-declarations/13.c")
+
+    def testVariableDeclaration14(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/14")
+
+    def testVariableDeclarations15(self):
+        self.generateNoError("testfiles/variable-declarations/15.c")
+
     # def testVariableDeclarations12(self):
     #     self.generateOneErrorAndCompare("testfiles/variable-declarations/12.c")
 
