@@ -26,9 +26,9 @@ class TypeInfo:
 		return False
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
-		print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
-		print ("self: " + str(self))
-		print ("other: " + str(other) + "\n")
+		# print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
+		# print ("self: " + str(self))
+		# print ("other: " + str(other) + "\n")
 
 		if not ignoreConst and self.const != other.const:
 			return False
@@ -54,8 +54,10 @@ class TypeInfo:
 			out += " *"
 			if i+1 < len(self.const) and self.const[i+1]:
 				out += " const"
+
 		if self.isArray:
 			out += "[]"
+
 		if withRvalue and self.rvalue is not None:
 			out += " " + ("r" if self.rvalue else "l") + "value"
 

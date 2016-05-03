@@ -184,7 +184,7 @@ class ASTArgumentsNode(ASTNode):
 
 class ASTInitializerListNode(ASTNode):
     def __init__(self, ctx=None):
-        super(ASTInitializerListNode, self).__init__("initializer list", ctx)    
+        super(ASTInitializerListNode, self).__init__("initializer list", ctx)
 
 '''
     STATEMENTS
@@ -278,11 +278,11 @@ class ASTDeclaratorInitializerNode(ASTNode):
                 # if not child.children:
                 #     return
 
-                ownType = copy.deepcopy(self.getType())
                 # if basetype is array, typecheck with each elements of initializer list
-                if ownType.isArray: 
+                if self.isArray:
                     for initListElement in child.children:
                         # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
+                        ownType = copy.deepcopy(self.getType())
                         if not isinstance(initListElement, ASTStringLiteralNode):
                             ownType.isArray = False
                             ownType.indirections -= 1
@@ -290,13 +290,13 @@ class ASTDeclaratorInitializerNode(ASTNode):
                         if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
                             line, column = self.getLineAndColumn()
                             self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(initListElement.getType())), line, column)
-                
+
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
-                else: 
+                else:
                     # rest doesnt matter: warning: excess elements in scalar initializer [enabled by default]
-                    if not ownType.isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
+                    if not self.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
                         line, column = self.getLineAndColumn()
-                        self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(child.children[0].getType())), line, column)
+                        self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(self.getType()), str(child.children[0].getType())), line, column)
 
     def getType(self):
         return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
@@ -318,6 +318,8 @@ class ASTDeclaratorInitializerNode(ASTNode):
 
         if (self.isArray != False) :
             s += " []"
+
+        # s += "   ind: " + str(self.indirections) + " const: " + str(self.const)
 
         s += "\n"
 

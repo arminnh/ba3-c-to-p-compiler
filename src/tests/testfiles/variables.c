@@ -1,17 +1,19 @@
 int aa = 10;
 int bb = 11;
 
+int func() { return 1; }
+
 int main(void)
 {
-    //int a[10] = {function()};
-    // int e = {1, 6}; // excess
+    int a[10] = { func() };
+    int e = {1, 6}; // warning: excess elements
 
     {
         float a = {3.0};
         float b = 1.0;
         float c = 7.0, d = 8.0;
         // char f = 'a', *ff = "aaa"; // fix
-        // float * const aeiojef = {1.0, 2.0, 3.0}; // excess
+        // float * aeiojefs = {1.0, 2.0, 3.0}; // error: incompatible types when initializing type 'float *' using type 'float'
 
         {
             const int g[] = {1, 2, 3};
@@ -23,8 +25,8 @@ int main(void)
         }
 
         int const j[1+8+9] = {1, 2, 3};
-        int k[5], l[] = {1, 2}, m[1] = {6};
-        // int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*a+4, 5}, s[5*a];
+        int k[5], l[] = {1, 2}, m[1] = {6}, mns;
+        int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*mns+4, 5}, s[j[0]];
     }
 
     int t = aa, u = bb;
@@ -36,7 +38,7 @@ int main(void)
     // char hello[] = "5", ccc = 'c', *str = "string";
     // *hello = 'u';
 
-    // int *arrint[] = {&e};
+    int *arrint[] = {&e};
 
     {
     	char helloo[] = {'5'};
