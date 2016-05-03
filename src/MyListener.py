@@ -137,18 +137,14 @@ class MyListener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode(ctx=ctx))
+        child = ctx.getChild(0, SmallCParser.IdentifierContext)
+        if child is not None and child.getText() == "main":
+            self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode(ctx=ctx))
+        else:
+            self.currentNode = self.currentNode.addChildNode(ASTFunctionDefinitionNode(ctx=ctx))
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitFunctionDefinition(self, ctx:SmallCParser.FunctionDefinitionContext):
-        # in a function definition, all parameters need to have identifiers
-        parameters = self.currentNode.getParameters()
-        for parameter in parameters.children:
-            if parameter.identifier is None: # TODO: move this to a better place
-                line, column = parameter.getLineAndColumn()
-                parameter.errorHandler.addError("Parameter name omitted", line, column)
-                #raise Exception("parameter name omitted")
-
         self.currentNode = self.currentNode.parent
 
 
@@ -178,29 +174,10 @@ class MyListener(SmallCListener):
         # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
         if ctx.getChildCount() == 1:
             self.currentNode.hasArrayLength = True
-        # child = ctx.getChild(0, SmallCParser.IntegerLiteralContext)
-        # if (child != None):
-        #     self.currentNode.arrayLength = int(child.getText())
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         pass
-
-
-    # Enter a parse tree produced by SmallCParser#mainFunction.
-    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        for child in self.currentNode.children:
-            if isinstance(child, ASTMainFunctionNode):# TODO: move this to a better place
-                mainFunctionNode = ASTMainFunctionNode(ctx)
-                line, column = mainFunctionNode.getLineAndColumn()
-                self.currentNode.errorHandler.addError("Redefinition of main", line, column)
-                #print("Error at " + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().line) + ":" + str(ctx.getToken(SmallCParser.MAIN, 0).getSymbol().column) + ": redefinition of main")
-
-        self.currentNode = self.currentNode.addChildNode(ASTMainFunctionNode(ctx))
-
-    # Exit a parse tree produced by SmallCParser#mainFunction.
-    def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        self.currentNode = self.currentNode.parent
 
 
     # Enter a parse tree produced by SmallCParser#typeDeclaration.

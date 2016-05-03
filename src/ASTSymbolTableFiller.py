@@ -45,8 +45,28 @@ class ASTSymbolTableFiller:
                 self.table.openScope(node.identifier)
 
         # put variables and parameters into the currently open scope, but not parameters of a function declaration
-        elif isinstance(node, (ASTDeclaratorInitializerNode, ASTParameterNode)) and type(node.parent.parent) is not ASTFunctionDeclarationNode:
+        elif isinstance(node, ASTDeclaratorInitializerNode) and type(node.parent.parent) is not ASTFunctionDeclarationNode:
             self.table.insertVariableSymbol(node)
+
+        # put variables and parameters into the currently open scope, but not parameters of a function declaration
+        elif isinstance(node, ASTParameterNode):
+            # in a function definition, all parameters need to have identifiers
+            parametersCount = len(node.parent.children)
+
+            if node.basetype == "void":
+                if node.identifier is None and parametersCount > 1:
+                    line, column = node.getLineAndColumn()
+                    self.errorHandler.addError("‘void’ must be the only parameter", line, column)
+                elif node.identifier is not None and node.getType().indirections == 0:
+                    line, column = node.getLineAndColumn()
+                    self.errorHandler.addError("Parameter has incomplete type", line, column)
+
+            elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
+                line, column = node.getLineAndColumn()
+                self.errorHandler.addError("Parameter name omitted", line, column)
+
+            if type(node.parent.parent) is not ASTFunctionDeclarationNode:
+                self.table.insertVariableSymbol(node)
 
         # statements node does not have to open another scope: was already opened by function definition
         elif isinstance(node, ASTStatementsNode) and not isinstance(node.parent, ASTFunctionDefinitionNode):

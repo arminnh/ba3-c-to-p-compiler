@@ -1,0 +1,3 @@
+Error at 1:14: Parameter has incomplete type
+int iojiofej(void a) {
+             ^

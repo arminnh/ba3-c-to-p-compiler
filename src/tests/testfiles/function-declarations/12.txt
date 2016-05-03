@@ -1,3 +1,3 @@
-Error at 6:1: Redefinition of main
+Error at 6:1: Redefinition of function 'main'
 int main(void) {
 ^

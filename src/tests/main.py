@@ -50,8 +50,12 @@ class ASTTest():
         #self.assertTrue(messageNoWhitespace.lower().find("errorhasoccurred") != -1)
 
         # if there is error output generated, compare with txt file
-        with open(filename + ".txt", 'r') as myfile:
-            correctOutput = myfile.read()
+        try:
+            with open(filename + ".txt", 'r') as myfile:
+                correctOutput = myfile.read()
+        except:
+            with open(filename + ".txt", 'w') as myfile:
+                correctOutput = "blabla"
 
         errorMessage = self.errorHandler.errorToString(0)
 
@@ -59,12 +63,12 @@ class ASTTest():
         errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', errorMessage))
         correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
 
-        if set:
+        expectedOutputFound = errorMessageNoWhitespace.find(correctOutput) != -1
+
+        if set and not expectedOutputFound:
             f = open(filename + ".txt", "w")
             f.write(errorMessage)
             f.close()
-
-        expectedOutputFound = errorMessageNoWhitespace.find(correctOutput) != -1
 
         # if not expectedOutputFound:
         #     log = logging.getLogger("ASTTest")
@@ -341,6 +345,21 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 
     def testFunctionDeclaration12(self):
         self.generateOneErrorAndCompare("testfiles/function-declarations/12")
+
+    def testFunctionDeclaration13(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/13")
+
+    def testFunctionDeclaration14(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/14")
+
+    def testFunctionDeclaration15(self):
+        self.generateNoError("testfiles/function-declarations/15.c")
+
+    def testFunctionDeclaration16(self):
+        self.generateOneErrorAndCompare("testfiles/function-declarations/16")
+
+    def testFunctionDeclaration17(self):
+        self.generateNoError("testfiles/function-declarations/17.c")
 
 class ASTNodeTests(unittest.TestCase):
     pass

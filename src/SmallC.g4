@@ -95,7 +95,7 @@ oplevel1 :
     ;
 
 program :
-      (include | mainFunction | functionDeclaration | functionDefinition | variableDeclaration ';')*
+      (include | functionDeclaration | functionDefinition | variableDeclaration ';')*
     ;
 
 include :
@@ -112,11 +112,11 @@ customInclude :
     ;
 
 functionDeclaration :
-      typeDeclaration identifier LBRA parameters RBRA ';'
+      declarationSpecifier+ pointerPart* identifier LBRA parameters RBRA ';'
     ;
 
 functionDefinition :
-      typeDeclaration identifier LBRA parameters RBRA statements
+      declarationSpecifier+ pointerPart* identifier LBRA parameters RBRA statements
     ;
 
 parameters :
@@ -134,7 +134,7 @@ pointerPart:
 arrayPart :
       LSBRA expression? RSBRA
     ;
-
+/*
 mainFunction :
       TYPEINT MAIN LBRA parametersMain RBRA statements
     ;
@@ -144,7 +144,7 @@ parametersMain :
     | 'int argc, char *argv[]'
     |
     ;
-
+*/
 statements :
       LCBRA statement* RCBRA
     ;
@@ -209,24 +209,6 @@ declaratorInitializer :
       pointerPart* identifier ('=' expression)?
     | pointerPart* identifier arrayPart ('=' (LCBRA arguments RCBRA | expression))?
     ;
-    
-/*
-1? (1? | 1?)?
-0 1
-1 0
-int a;
-int a = 5;
-int *a;
-int *a = 5;
-
-int a[];
-int a[3];
-int a[] = {1, 2, 3};
-int a[3] = {1, 2, 3};
-int a[] = "aaa";
-int a[5] = "aaa";
-char *a = "aaa";
-*/
 
 returnStmt :
       RETURN expression
@@ -283,7 +265,7 @@ FOR       : 'for';
 BREAK     : 'break';
 CONTINUE  : 'continue';
 RETURN    : 'return';
-MAIN      : 'main';
+//MAIN      : 'main';
 
 COMMENT   : '//'~[\r\n]* -> skip;
 MULTICOMMENT : '/*'(.)*?'*/' -> skip;

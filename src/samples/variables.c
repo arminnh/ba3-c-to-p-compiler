@@ -33,6 +33,16 @@ int main(void)
 
     int *arrint[] = {&e};
 
+    int *as;
+    int *asd = as;
+
+    // int asdf[]; //TODO error: array size missing in 'asdf'
+    int asdfa[3];
+    int asdfas[] = {1, 2, 3};
+    int aasdfad[3] = {1, 2, 3};
+    char aasdfasdf[5] = "abc";
+    char *aassfdfasdf = "aaa";
+
     return 1;
 }
 

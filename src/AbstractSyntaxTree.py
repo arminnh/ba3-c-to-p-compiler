@@ -80,21 +80,20 @@ class ASTIncludeNode(ASTNode):
         self.isStdInclude = isStdInclude
         self.name = name
 
-class ASTMainFunctionNode(ASTNode):
-    def __init__(self, ctx=None):
-        super(ASTMainFunctionNode, self).__init__("main", ctx)
-
 class ASTFunctionDeclarationNode(ASTNode):
     def __init__(self, label="function declaration", ctx=None):
         super(ASTFunctionDeclarationNode, self).__init__(label, ctx)
         self.basetype = None
         self.identifier = None
+        self.indirections = 0
+        self.isConstant = False
+        self.const = []
         # parameters are child nodes
 
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTFunctionDeclarationNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.basetype)
+        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const)
 
     def getParameters(self):
         for child in self.children:
@@ -110,9 +109,13 @@ class ASTFunctionDeclarationNode(ASTNode):
         return s if (not self.children) else self.outChildren(s, level)
 
 class ASTFunctionDefinitionNode(ASTFunctionDeclarationNode):
-    def __init__(self, ctx=None):
-        super(ASTFunctionDefinitionNode, self).__init__("function definition", ctx)
+    def __init__(self, label="function definition", ctx=None):
+        super(ASTFunctionDefinitionNode, self).__init__(label, ctx)
         # parameters and statements are child nodes
+
+class ASTMainFunctionNode(ASTFunctionDefinitionNode):
+    def __init__(self, ctx=None):
+        super(ASTMainFunctionNode, self).__init__("main", ctx)
 
 class ASTParametersNode(ASTNode):
     def __init__(self, ctx=None):
@@ -135,12 +138,13 @@ class ASTParameterNode(ASTNode):
         self.isArray = False
         # self.arrayLength = None
         self.const = []
+        self.isConstant = False
         self.indirections = 0
 
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTParameterNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=self.const)
+        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const)
 
     def __eq__(self, other): # TODO: do self.getType() == other.getType() ???
         return self.basetype == other.basetype \

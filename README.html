@@ -116,6 +116,8 @@
             <li>Variable (variableIdentifier) used before it was declared</li> <!-- done -->
             <li>Function (functionIdentifier) used before it was declared</li> <!-- done -->
             <li>Redefinition of main</li> <!-- done -->
+            <li>Function declaration/definition: ‘void’ must be the only parameter</li>
+            <li>Function definition: Parameter has incomplete type</li>
         </ul>
 
         <ul> <!--errors in type checking -->
@@ -123,8 +125,8 @@
             <li>Function call: Number of arguments to function (functionIdentifier) does not match definition (have type1, need type2)</li> <!-- done -->
             <li>Function call: Arguments to function (functionIdentifier) don't match: type1 vs type2"</li> <!-- done -->
             <li>Binary operator operands must have the same type (have type1 and type2)</li> <!-- done -->
-            <li>Ternary conditional operator needs int as first operand</li> <!-- -->
-            <li>Ternary conditional operator alternatives should be of equal type</li> <!-- -->
+            <li>Ternary conditional operator needs int as first operand</li> <!-- done -->
+            <li>Ternary conditional operator alternatives should be of equal type</li> <!-- done -->
             <li>Logic operator operands must have the same type (have type1 and type2)</li> <!-- done -->
             <li>Logic operator operands not compatible with int</li> <!-- done -->
             <li>Comparison operator operands need to be of same type (have type1 and type2)</li> <!-- done -->

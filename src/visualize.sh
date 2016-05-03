@@ -18,7 +18,7 @@ fi
 mv *.java *.class build/
 
 # create python files
-java -jar ../resources/antlr-4.5.3-complete.jar -Dlanguage=Python3 SmallC.g4 -visitor
+java -jar ../resources/antlr-4.5.3-complete.jar -Dlanguage=Python3 SmallC.g4 #-visitor
 
 # run visualisation
 (cd build && java -cp ../../resources/antlr-4.5.3-complete.jar: org.antlr.v4.gui.TestRig SmallC program -gui ../$1)

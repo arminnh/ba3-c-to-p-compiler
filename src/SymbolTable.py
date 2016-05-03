@@ -47,6 +47,8 @@ class Scope:
             self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name):
+        if name is None:
+            return None
         return self.symbols.get(name)
 
     def isInsertionOk(self, new:SymbolInfo):
@@ -58,7 +60,7 @@ class Scope:
                 new.astnode.errorHandler.addError("Identifier {0} already taken by variable".format(old.astnode.identifier), line, column)
 
             if type(new) is FunctionSymbolInfo:
-                if type(new.astnode) is ASTFunctionDefinitionNode:
+                if isinstance(new.astnode, ASTFunctionDefinitionNode):
                     if type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return True # definition can overwrite declaration
@@ -67,14 +69,14 @@ class Scope:
                             new.astnode.errorHandler.addError("Function definition parameters don't match with previous declaration", line, column)
                             return False
 
-                    elif type(old.astnode) is ASTFunctionDefinitionNode:
+                    elif isinstance(old.astnode, ASTFunctionDefinitionNode):
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
                             line, column = new.astnode.getLineAndColumn()
-                            new.astnode.errorHandler.addError("Conflicting types for function definition " + str(new.astnode.identifier), line, column)
+                            new.astnode.errorHandler.addError("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
                             return False
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            new.astnode.errorHandler.addError("Redefinition of function", line, column)
+                            new.astnode.errorHandler.addError("Redefinition of function '{0}'".format(new.astnode.identifier), line, column)
                             return False
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
@@ -111,7 +113,7 @@ class Scope:
     def out(self, level):
         out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
         for key, value in self.symbols.items():
-            out += offset * (level + 1) + key + ": " + str(value.astnode.getType()) + "\n"
+            out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType()) + "\n"
 
         for child in self.children:
             out += child.out(level + 1)

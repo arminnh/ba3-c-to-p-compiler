@@ -42,18 +42,24 @@ class TypeInfo:
 
 	def __eq__(self, other):
 		return self.equals(other)
-		
+
 	def out(self, withRvalue=False):
-		out = self.basetype
-		for i in range(self.indirections if not self.isArray else self.indirections - 1):
+		out = ""
+		if self.const[0]:
+			out += "const "
+
+		out += self.basetype
+
+		for i in range(0, (self.indirections if not self.isArray else self.indirections - 1)):
 			out += " *"
-			if i < len(self.const) and self.const[i]:
+			if i+1 < len(self.const) and self.const[i+1]:
 				out += " const"
 		if self.isArray:
 			out += "[]"
 		if withRvalue and self.rvalue is not None:
 			out += " " + ("r" if self.rvalue else "l") + "value"
 
+		# out += " ind: " + str(self.indirections) + " const: " + str(self.const)
 		return out
 
 	def __str__(self):

@@ -233,24 +233,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#mainFunction.
-    def enterMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#mainFunction.
-    def exitMainFunction(self, ctx:SmallCParser.MainFunctionContext):
-        pass
-
-
-    # Enter a parse tree produced by SmallCParser#parametersMain.
-    def enterParametersMain(self, ctx:SmallCParser.ParametersMainContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#parametersMain.
-    def exitParametersMain(self, ctx:SmallCParser.ParametersMainContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#statements.
     def enterStatements(self, ctx:SmallCParser.StatementsContext):
         pass
