@@ -19,6 +19,22 @@ class TypeInfo:
 		if self.equals(other, ignoreRvalue = ignoreRvalue, ignoreConst = ignoreConst):
 			return True
 
+		'''
+		// char* = char []
+        char *a = "please help me this is so hard";
+
+        a[] = {1, 2};
+		// int * = int []
+		int *b = a;
+
+		int *c;
+		// int * = int []
+		c = a;
+		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
+		'''
+		if self.indirections == 1 and other.indirections == 1 and not self.isArray and other.isArray:
+			return self.basetype == other.basetype
+
 		return False
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
