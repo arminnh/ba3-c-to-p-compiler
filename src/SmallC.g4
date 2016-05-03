@@ -134,17 +134,7 @@ pointerPart:
 arrayPart :
       LSBRA expression? RSBRA
     ;
-/*
-mainFunction :
-      TYPEINT MAIN LBRA parametersMain RBRA statements
-    ;
 
-parametersMain :
-      TYPEVOID
-    | 'int argc, char *argv[]'
-    |
-    ;
-*/
 statements :
       LCBRA statement* RCBRA
     ;
@@ -206,8 +196,12 @@ cvQualifier :
     ;
 
 declaratorInitializer :
-      pointerPart* identifier ('=' expression)?
-    | pointerPart* identifier arrayPart ('=' (LCBRA arguments RCBRA | expression))?
+    | pointerPart* identifier arrayPart? ('=' initializer)?
+    ;
+
+initializer :
+      LCBRA arguments RCBRA
+    | expression
     ;
 
 returnStmt :
@@ -228,7 +222,8 @@ pointer : '*';
 
 typeDeclaration : TYPECHAR | TYPEFLOAT | TYPEINT | TYPEVOID;
 
-floatLiteral     : FLOAT;
+floatLiteral     : FLOAT /*| FLOAT floatSpecifier*/;
+/*floatSpecifier   : 'f';*/
 integerLiteral   : INTEGER;
 characterLiteral : CHARACTER;
 stringLiteral    : STRING;

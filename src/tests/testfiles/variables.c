@@ -3,13 +3,14 @@ int bb = 11;
 
 int main(void)
 {
-    int a;
-    int e = 1;
+    //int a[10] = {function()};
+    int e = {1, 6};
 
     {
         float b = 1.0;
         float c = 7.0, d = 8.0;
         char f = 'a', *ff = "aaa"; // fix
+        float * const aeiojef = {1.0, 2.0, 3.0};
 
         {
             const int g[] = {1, 2, 3};
@@ -22,7 +23,7 @@ int main(void)
 
         int const j[1+8+9] = {1, 2, 3};
         int k[5], l[] = {1, 2}, m[1] = {6};
-        int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*a+4, 5}, s[5*a];
+        // int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*a+4, 5}, s[5*a];
     }
 
     int t = aa, u = bb;
@@ -60,7 +61,7 @@ int main(void)
 
     	const int* p;
     }
-    
+
     int asdfa[3];
     int asdfas[] = {1, 2, 3};
     int aasdfad[3] = {1, 2, 3};

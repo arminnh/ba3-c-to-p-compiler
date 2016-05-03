@@ -341,6 +341,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#initializer.
+    def enterInitializer(self, ctx:SmallCParser.InitializerContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#initializer.
+    def exitInitializer(self, ctx:SmallCParser.InitializerContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#returnStmt.
     def enterReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
         pass

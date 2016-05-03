@@ -255,6 +255,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # if arrayParameter hasArrayLength -> first child is array length, else it is initializationValue
         self.hasArrayLength = False
         # arrayLength will be an expressionNode child
+        # TODO eerst!!!: flag for hasInitializerList
         # TODO: dont't allow const variable declaration without initial value
         # TODO: refactor the way this class handles its children
 
