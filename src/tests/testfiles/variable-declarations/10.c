@@ -13,7 +13,7 @@ int main(void) {
     h = "newst";
 
     // char* = char
-    // h = 'n'; //error
+    h = 'n'; //error
 
     return 0;
 }

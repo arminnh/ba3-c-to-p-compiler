@@ -109,6 +109,9 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testUnaryOperatorTypes9(self):
         self.generateNoError("testfiles/unary-operators/types-9.c")
 
+    def testUnaryOperatorTypes10(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-10")
+
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 
@@ -209,7 +212,7 @@ class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
         self.generateOneErrorAndCompare("testfiles/binary-operators/types-32")
 
     def testBinaryOperatorTypes33(self):
-        self.generateOneErrorAndCompare("testfiles/binary-operators/types-33")
+        self.generateNoError("testfiles/binary-operators/types-33.c")
 
     def testBinaryOperatorTypes34(self):
         self.generateOneErrorAndCompare("testfiles/binary-operators/types-34")

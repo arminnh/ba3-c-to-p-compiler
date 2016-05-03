@@ -12,8 +12,8 @@ int main(void)
         float a = {3.0};
         float b = 1.0;
         float c = 7.0, d = 8.0;
-        // char f = 'a', *ff = "aaa"; // fix
-        // float * aeiojefs = {1.0, 2.0, 3.0}; // error: incompatible types when initializing type 'float *' using type 'float'
+        char f = 'a', *ff = "aaa"; // fix
+        // float * aeiojefs = {1.0, 2.0, 3.0}; // error for us, warning in gcc: incompatible types when initializing type 'float *' using type 'float'
 
         {
             const int g[] = {1, 2, 3};
@@ -35,32 +35,32 @@ int main(void)
 	int const ahga, *dfab, * const afc;
 	int const * const * abab, *atab, * const caa;
 
-    // char hello[] = "5", ccc = 'c', *str = "string";
-    // *hello = 'u';
+    char hello[] = "5", ccc = 'c', *str = "string";
+    *hello = 'u';
 
     int *arrint[] = {&e};
 
     {
     	char helloo[] = {'5'};
-    	// char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier hebben we aan gedacht";
+    	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier hebben we aan gedacht";
 
     	int i = 5;
     	int *arrint[1] = {&i};
 
-    	// char* h = hello;
-    	// h++;
+    	char* h = hello;
+    	h++;
 
-    	// *hello = 'u';
+    	*hello = 'u';
 
     	int const bb = 1;
     	int bbb = 2;
     	int const constarr[2] = {1, 2};
 
-    	// h = "newst";
+    	h = "newst";
 
     	int *aaa;
     	int aaaaa[] = {1, 2, 3};
-    	// aaa = aaaaa;
+    	aaa = aaaaa;
 
     	const int* p;
     }
@@ -69,7 +69,7 @@ int main(void)
     int asdfas[] = {1, 2, 3};
     int aasdfad[3] = {1, 2, 3};
     char aasdfasdf[5] = "abc";
-    // char *aassfdfasdf = "aaa";
+    char *aassfdfasdf = "aaa";
 
 	return 0;
 }

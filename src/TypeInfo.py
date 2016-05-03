@@ -19,10 +19,6 @@ class TypeInfo:
 		if self.equals(other, ignoreRvalue = ignoreRvalue, ignoreConst = ignoreConst):
 			return True
 
-		# what was this about?
-		# if self.indirections == 1 and other.indirections == 1 and not self.isArray and other.isArray:
-		# 	return self.basetype == other.basetype
-
 		return False
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):

@@ -296,10 +296,18 @@ class ASTDeclaratorInitializerNode(ASTNode):
                         self.errorHandler.addError("Empty scalar initializer", line, column)
                         return
 
+                    # char *a = "please help me this is so hard"
+                    leftType = copy.deepcopy(self.getType())
+                    rightType = child.children[0].getType()
+
+                    # if e.g.: a[] = {1, 2}; int *b = a;
+                    if leftType.indirections == 1 and rightType.indirections == 1 and not leftType.isArray and rightType.isArray:
+                        leftType.isArray = True
+
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
-                    if not self.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
+                    if not leftType.isCompatible(rightType, ignoreRvalue=True, ignoreConst=True):
                         line, column = self.getLineAndColumn()
-                        self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(self.getType()), str(child.children[0].getType())), line, column)
+                        self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(leftType), str(rightType)), line, column)
 
                     # if len(child.children) > 1:
                     #     line, column = self.getLineAndColumn()
@@ -563,7 +571,17 @@ class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
         if self.children[0].getType().rvalue:
             line, column = self.getLineAndColumn()
             self.errorHandler.addError("Expression is not assignable", line, column)
-        super(ASTSimpleAssignmentOperatorNode, self).typeCheck()
+
+        leftType = copy.deepcopy(self.children[0].getType())
+        rightType = self.children[1].getType()
+
+        # if e.g.: int *b = a;          where int a[] = {1, 2};
+        if leftType.indirections == 1 and rightType.indirections == 1 and not leftType.isArray and rightType.isArray:
+        	leftType.isArray = True
+
+        if not leftType.toRvalue().isCompatible(rightType.toRvalue(), ignoreConst=True):
+            line, column = self.getLineAndColumn()
+            self.errorHandler.addError("Incompatible types when assigning to type '{0}' from type '{1}'".format(str(leftType), str(rightType)), line, column)
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):
@@ -647,7 +665,8 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     def typeCheck(self):
         if self.children[0].getType().rvalue:
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("Expression is not assignable", line, column)
+            self.errorHandler.addError("lvalue required as unary arithmetic operand", line, column)
+            # TODO: more like gcc: lvalue required as decrement operand
 
     def getType(self):
         return self.children[0].getType()

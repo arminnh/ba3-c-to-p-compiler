@@ -1,3 +1,3 @@
-Error at 3:9: Variable initialization must have the same type (have char * and char[])
-char* h = hello;
-    ^
+Error at 16:5: Incompatible types when assigning to type 'char *' from type 'char'
+h = 'n'; //error
+^
