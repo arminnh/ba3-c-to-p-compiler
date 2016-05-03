@@ -275,9 +275,6 @@ class ASTDeclaratorInitializerNode(ASTNode):
                     self.errorHandler.addError("Array length type must be compatible with int (have {0})".format(str(child.getType())), line, column)
 
             elif isinstance(child, ASTInitializerListNode):
-                # if not child.children:
-                #     return
-
                 # if basetype is array, typecheck with each elements of initializer list
                 if self.isArray:
                     for initListElement in child.children:
@@ -293,10 +290,20 @@ class ASTDeclaratorInitializerNode(ASTNode):
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
                 else:
-                    # rest doesnt matter: warning: excess elements in scalar initializer [enabled by default]
+                    # if initializer list does not have any children (int a = {}), error
+                    if not child.children:
+                        line, column = self.getLineAndColumn()
+                        self.errorHandler.addError("Empty scalar initializer", line, column)
+                        return
+
+                    # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
                     if not self.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
                         line, column = self.getLineAndColumn()
                         self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(self.getType()), str(child.children[0].getType())), line, column)
+
+                    # if len(child.children) > 1:
+                    #     line, column = self.getLineAndColumn()
+                    #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
     def getType(self):
         return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)

@@ -45,9 +45,6 @@ class ASTTest():
             self.parseFile(filename + ".c")
 
         self.assertTrue(self.errorHandler.errorCount() == 1)
-        #messageNoWhitespace = str(re.sub('[ \t\n\r]', '', str(context.exception)))
-        #print (messageNoWhitespace.lower().find("errorhasoccurred") != -1)
-        #self.assertTrue(messageNoWhitespace.lower().find("errorhasoccurred") != -1)
 
         # if there is error output generated, compare with txt file
         try:
@@ -75,6 +72,7 @@ class ASTTest():
         #     log.debug(__name__ + ": expected:\n" + correctOutput + "\ngot:\n" + errorMessage)
 
         self.assertTrue(expectedOutputFound)
+        self.errorHandler = None
 
     def generateNoError(self, filename):
         self.parseFile(filename)
@@ -316,8 +314,14 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclarations15(self):
         self.generateNoError("testfiles/variable-declarations/15.c")
 
-    # def testVariableDeclarations12(self):
-    #     self.generateOneErrorAndCompare("testfiles/variable-declarations/12.c")
+    def testVariableDeclaration16(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/16")
+
+    def testVariableDeclarations17(self):
+        self.generateOneErrorAndCompare("testfiles/variable-declarations/17")
+
+    def testVariableDeclaration18(self):
+        self.generateNoError("testfiles/variable-declarations/18.c")
 
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):

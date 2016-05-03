@@ -9,6 +9,9 @@ class CompilerErrorHandler:
         self.errors.append((error, linenumber, column))
         raise Exception("Error has occurred.")
 
+    # def addWarning(self, error, linenumber, column):
+    #     self.errors.append((error, linenumber, column))
+
     def errorCount(self):
         return len(self.errors)
 
