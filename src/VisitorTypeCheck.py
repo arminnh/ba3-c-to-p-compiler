@@ -235,10 +235,10 @@ class VisitorTypeCheck(object):
     def visitUnaryArithmeticOperatorNode(self, node):
         self.visitChildren(node)
 
-        if node.children[0].getType().rvalue:
+        if node.children[0].getType().rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']):
             line, column = node.getLineAndColumn()
-            self.errorHandler.addError("lvalue required as unary arithmetic operand", line, column)
-            # TODO: more like gcc: lvalue required as decrement operand
+            self.errorHandler.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), line, column)
+
 
     def visitAddressOfoperatorNode(self, node):
         self.visitChildren(node)

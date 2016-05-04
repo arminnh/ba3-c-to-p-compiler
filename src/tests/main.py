@@ -17,7 +17,7 @@ from VisitorTypeCheck import *
 # import re to remove all whitespace from strings
 import re
 
-set = False
+set = True
 
 class ASTTest():
     def setUp(self):
@@ -114,6 +114,18 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 
     def testUnaryOperatorTypes10(self):
         self.generateOneErrorAndCompare("testfiles/unary-operators/types-10")
+
+    def testUnaryOperatorTypes11(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-11")
+
+    def testUnaryOperatorTypes12(self):
+        self.generateOneErrorAndCompare("testfiles/unary-operators/types-12")
+
+    def testUnaryOperatorTypes13(self):
+        self.generateNoError("testfiles/unary-operators/types-13.c")
+
+    def testUnaryOperatorTypes14(self):
+        self.generateNoError("testfiles/unary-operators/types-14.c")
 
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
