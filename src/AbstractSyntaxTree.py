@@ -423,8 +423,6 @@ class ASTVariableNode(ASTExpressionNode):
         visitor.visitVariableNode(self)
 
     def getType(self):
-        if self.typeInfo is None:
-            raise Exception("TypeInfo has not been set yet for variable " + self.identifier)
         return self.typeInfo
 
     def out(self, level):

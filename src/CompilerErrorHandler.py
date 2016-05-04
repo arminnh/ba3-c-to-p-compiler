@@ -7,7 +7,7 @@ class CompilerErrorHandler:
 
     def addError(self, error, linenumber, column):
         self.errors.append((error, linenumber, column))
-        raise Exception("Error has occurred.")
+        # raise Exception("Error has occurred.")
 
     # def addWarning(self, error, linenumber, column):
     #     self.errors.append((error, linenumber, column))
@@ -37,6 +37,6 @@ class CompilerErrorHandler:
     def printError(self, index):
         print(self.errorToString(index), end="")
 
-    def printErrors():
+    def printErrors(self):
         for i in range(len(self.errors)):
             self.printError(i)

@@ -1,3 +1,3 @@
-Error at 6:3: Number of arguments to function f does not match definition (have 1, need 0)
+Error at 8:5: Number of arguments to function f does not match definition (have 1, need 0)
 f(0.0);
 ^

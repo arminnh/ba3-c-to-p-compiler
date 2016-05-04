@@ -14,6 +14,9 @@ int main(void) {
 
     // char* = char
     h = 'n'; //error
+    h = 8; // error
+
+    h = "no error";
 
     return 0;
 }

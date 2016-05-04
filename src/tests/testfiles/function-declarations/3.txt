@@ -1,3 +1,6 @@
 Error at 6:1: Conflicting types for function definition 'f'
 float f(int a, int b) {
 ^
+Error at 10:1: Conflicting types for function definition 'f'
+char f(int a, int b) {
+^

@@ -1,3 +1,6 @@
 Error at 2:9: Variable initialization must have the same type (have int and char[])
-int j = "hello"; // error
+int j = "hello";
+    ^
+Error at 4:9: Variable initialization must have the same type (have int and char)
+int jj = {'h', 'e', 'l', 'l'};
     ^

@@ -21,6 +21,7 @@ class VisitorTypeCheck(Visitor):
                 if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True), ignoreConst=True):
                     line, column = node.getLineAndColumn()
                     self.errorHandler.addError("Array length type must be compatible with int (have {0})".format(str(child.getType())), line, column)
+                    return
 
             elif isinstance(child, ASTInitializerListNode):
                 # if basetype is array, typecheck with each elements of initializer list
@@ -35,6 +36,7 @@ class VisitorTypeCheck(Visitor):
                         if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
                             line, column = node.getLineAndColumn()
                             self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(initListElement.getType())), line, column)
+                            return
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
                 else:
@@ -48,6 +50,7 @@ class VisitorTypeCheck(Visitor):
                     if not node.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
                         line, column = node.getLineAndColumn()
                         self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(node.getType()), str(child.children[0].getType())), line, column)
+                        return
 
                     # if len(child.children) > 1:
                     #     line, column = node.getLineAndColumn()
@@ -77,6 +80,10 @@ class VisitorTypeCheck(Visitor):
     def visitFunctionCallNode(self, node):
         self.visitChildren(node)
 
+        # if no definitionNode -> error caught by VisitorFillSymbolTable
+        if node.definitionNode is None:
+            return
+
         parameterNodes = node.definitionNode.getParameters().children
         arguments = None
 
@@ -90,11 +97,14 @@ class VisitorTypeCheck(Visitor):
                 line, column = node.getLineAndColumn()
                 self.errorHandler.addError("Number of arguments to function {0} does not match definition (have {1}, need {2})" \
                     .format(node.identifier, len(arguments.children), len(parameterNodes)), line, column)
+                return
+
             for i, argument in enumerate(arguments.children):
                 if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
                     node.errorParameter = i
                     line, column = node.getLineAndColumn()
                     self.errorHandler.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(node.identifier, str(argument.getType()), str(parameterNodes[i].getType())), line, column)
+                    return
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
         #TODO check constness of arguments/parameters
@@ -103,9 +113,14 @@ class VisitorTypeCheck(Visitor):
     def typeCheckBinaryOperatorNode(self, node):
         self.visitChildren(node)
 
+        # in case of double function definition, the variables in the second function definition will not be put into the symbol table and so will not have a type
+        if node.children[0].getType() is None or node.children[1].getType() is None:
+            return
+
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Binary operator operands must have the same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), line, column)
+            return
 
 
     def visitTernaryConditionalOperatorNode(self, node):
@@ -115,11 +130,13 @@ class VisitorTypeCheck(Visitor):
             node.errorOperand = 0
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Ternary conditional operator needs int as first operand", line, column)
+            return
+
         if node.children[1].getType() != node.children[2].getType():
             node.errorOperand = 1
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Ternary conditional operator alternatives should be of equal type", line, column)
-        return True
+            return
 
 
     def visitSimpleAssignmentOperatorNode(self, node):
@@ -128,10 +145,12 @@ class VisitorTypeCheck(Visitor):
         if node.children[0].getType().rvalue:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Expression is not assignable", line, column)
+            return
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), line, column)
+            return
 
 
     def visitLogicOperatorNode(self, node):
@@ -140,9 +159,12 @@ class VisitorTypeCheck(Visitor):
         if node.children[0].getType().toRvalue() != node.children[1].getType().toRvalue():
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands must have the same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), line, column)
+            return
+
         if not node.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Logic operator operands not compatible with int", line, column)
+            return
 
 
     def visitComparisonOperatorNode(self, node):
@@ -151,7 +173,7 @@ class VisitorTypeCheck(Visitor):
         if not node.children[0].getType().equals(node.children[1].getType(), ignoreRvalue=True, ignoreConst=True):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Comparison operator operands need to be of same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), line, column)
-        return True
+            return
 
 
     def visitUnaryArithmeticOperatorNode(self, node):
@@ -160,6 +182,7 @@ class VisitorTypeCheck(Visitor):
         if node.children[0].getType().rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), line, column)
+            return
 
 
     def visitAddressOfoperatorNode(self, node):
@@ -168,6 +191,7 @@ class VisitorTypeCheck(Visitor):
         if node.children[0].getType().rvalue:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Cannot take the address of an rvalue of type '{0}'".format(str(node.children[0].getType())), line, column)
+            return
 
 
     def visitDereferenceNode(self, node):
@@ -177,6 +201,7 @@ class VisitorTypeCheck(Visitor):
         if ttype.indirections < 0:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), line, column)
+            return
 
 
     def visitLogicalNotOperatorNode(self, node):
@@ -185,6 +210,7 @@ class VisitorTypeCheck(Visitor):
         if not node.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Logical not operator operand not compatible with {0}".format(node.children[0].getType()), line, column)
+            return
 
 
     def visitArraySubscriptNode(self, node):

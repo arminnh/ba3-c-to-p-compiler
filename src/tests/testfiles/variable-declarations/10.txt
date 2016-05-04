@@ -1,3 +1,6 @@
 Error at 16:5: Incompatible types when assigning to type 'char *' from type 'char'
 h = 'n'; //error
 ^
+Error at 17:5: Incompatible types when assigning to type 'char *' from type 'int'
+h = 8; // error
+^

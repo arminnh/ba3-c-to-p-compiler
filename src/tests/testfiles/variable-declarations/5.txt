@@ -1,3 +1,6 @@
 Error at 3:7: Variable initialization must have the same type (have int * and int)
 int *b = a;
     ^
+Error at 4:8: Variable initialization must have the same type (have char * and int)
+char *c = a;
+     ^

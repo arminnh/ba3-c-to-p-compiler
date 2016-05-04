@@ -23,6 +23,7 @@ class VisitorFillSymbolTable(Visitor):
         elif result != False:
             # result is (error, line, column)
             self.errorHandler.addError(*result)
+            return False
 
 
     def visitIncludeNode(self, node):
@@ -31,14 +32,18 @@ class VisitorFillSymbolTable(Visitor):
 
     # insert function declaration into symbol table
     def visitFunctionDeclarationNode(self, node):
-        self.insertSymbol(node, isFunction=True)
+        result = self.insertSymbol(node, isFunction=True)
+        if result == False:
+            return
 
         self.visitChildren(node)
 
 
     # insert function definition into symbol table
     def visitFunctionDefinitionNode(self, node):
-        self.insertSymbol(node, isFunction=True)
+        result = self.insertSymbol(node, isFunction=True)
+        if result == False:
+            return
 
         self.table.openScope(node.identifier)
         self.visitChildren(node)
@@ -57,16 +62,22 @@ class VisitorFillSymbolTable(Visitor):
             if node.identifier is None and parametersCount > 1:
                 line, column = node.getLineAndColumn()
                 self.errorHandler.addError("‘void’ must be the only parameter", line, column)
+                return
+
             elif node.identifier is not None and node.getType().indirections == 0:
                 line, column = node.getLineAndColumn()
                 self.errorHandler.addError("Parameter has incomplete type", line, column)
+                return
 
         elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Parameter name omitted", line, column)
+            return
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.insertSymbol(node, isFunction=False)
+            result = self.insertSymbol(node, isFunction=False)
+            if result == False:
+                return
 
         self.visitChildren(node)
 
@@ -88,7 +99,9 @@ class VisitorFillSymbolTable(Visitor):
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.insertSymbol(node, isFunction=False)
+            result = self.insertSymbol(node, isFunction=False)
+            if result == False:
+                return
 
         self.visitChildren(node)
 
@@ -115,7 +128,7 @@ class VisitorFillSymbolTable(Visitor):
         if symbolInfo is None:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Variable '{0}' used before it was declared".format(node.identifier), line, column)
-            node.definitionNode = symbolInfo.astnode
+            return
         else:
             node.typeInfo = symbolInfo.typeInfo
 
@@ -127,9 +140,12 @@ class VisitorFillSymbolTable(Visitor):
         if symbolInfo is None:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Function '{0}' used before it was declared".format(node.identifier), line, column)
+            return
         elif not symbolInfo.defined:
             line, column = node.getLineAndColumn()
             self.errorHandler.addError("Function: undefined reference", line, column)
+            return
+
         node.definitionNode = symbolInfo.astnode
 
         self.visitChildren(node)
