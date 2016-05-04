@@ -638,19 +638,31 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     class ArithmeticType(Enum):
         increment = 1
         decrement = 2
+        plus = 3
+        minus = 4
 
         def __str__(self):
             if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']: return "++"
             if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']: return "--"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['plus']: return "+"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['minus']: return "-"
             return super(ASTUnaryArithmeticOperatorNode, self).__str__()
+
+        def wordStr(self):
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']: return "increment"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']: return "decrement"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['plus']: return "unary plus"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['minus']: return "unary minus"
+            return str(self)
 
     def __init__(self, arithmeticType, operatorType, ctx=None):
         super(ASTUnaryArithmeticOperatorNode, self).__init__(str(arithmeticType) + " - " + str(operatorType), str(operatorType), ctx)
+        self.arithmeticType = arithmeticType
 
     def typeCheck(self):
-        if self.children[0].getType().rvalue:
+        if self.children[0].getType().rvalue and (self.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'] or self.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']):
             line, column = self.getLineAndColumn()
-            self.errorHandler.addError("lvalue required as unary arithmetic operand", line, column)
+            self.errorHandler.addError("lvalue required as {0} operand".format(self.arithmeticType.wordStr()), line, column)
             # TODO: more like gcc: lvalue required as decrement operand
 
     def getType(self):

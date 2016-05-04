@@ -74,6 +74,8 @@ oplevel3 :
 oplevel2 :
       '++' oplevel2
     | '--' oplevel2
+    | '+' oplevel2
+    | '-' oplevel2
     | '&' oplevel1 // address of
     | '*' oplevel2 // dereference
     | '!' oplevel2
