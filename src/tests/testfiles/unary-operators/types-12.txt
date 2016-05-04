@@ -1,0 +1,3 @@
+Error at 2:2: lvalue required as increment operand
+++5;
+^
