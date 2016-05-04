@@ -158,7 +158,7 @@ class VisitorTypeCheck(object):
             if isinstance(child, ASTArgumentsNode):
                 arguments = child
                 break
-                
+
         if arguments is not None:
             if len(arguments.children) != len(parameterNodes):
                 line, column = node.getLineAndColumn()
