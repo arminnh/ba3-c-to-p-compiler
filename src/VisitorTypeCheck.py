@@ -1,17 +1,10 @@
 from antlr4 import *
 from AbstractSyntaxTree import *
+from Visitor import *
 
-
-class VisitorTypeCheck(object):
+class VisitorTypeCheck(Visitor):
     def __init__(self, errorHandler):
         self.errorHandler = errorHandler
-
-    def visitChildren(self, node):
-        for child in node.children:
-            if not self.shouldVisitNextChild(node):
-                pass
-
-            child.accept(self)
 
     def shouldVisitNextChild(self, node):
         True

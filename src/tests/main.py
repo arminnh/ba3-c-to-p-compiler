@@ -11,13 +11,14 @@ from SmallCListener import SmallCListener
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
-from ASTSymbolTableFiller import *
+from SymbolTable import *
 from VisitorTypeCheck import *
+from VisitorFillSymbolTable import *
 
 # import re to remove all whitespace from strings
 import re
 
-set = True
+set = False
 
 class ASTTest():
     def setUp(self):
@@ -37,8 +38,8 @@ class ASTTest():
         walker.walk(listener, programContext)
 
         symbolTable = SymbolTable()
-        tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, self.errorHandler)
-        tableFiller.fill()
+        tableFiller = VisitorFillSymbolTable(symbolTable, self.errorHandler)
+        tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeCheck(self.errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)

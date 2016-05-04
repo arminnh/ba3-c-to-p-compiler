@@ -4,8 +4,8 @@ from SmallCListener import SmallCListener
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
-from ASTSymbolTableFiller import *
 from VisitorTypeCheck import *
+from VisitorFillSymbolTable import *
 import traceback
 
 import sys
@@ -43,8 +43,8 @@ def main(filename):
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
-        tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, errorHandler)
-        tableFiller.fill()
+        tableFiller = VisitorFillSymbolTable(symbolTable, errorHandler)
+        tableFiller.visitProgramNode(abstractSyntaxTree.root)
         print(symbolTable)
 
         #do the type checking of the c file
@@ -60,7 +60,7 @@ def main(filename):
         # VisitorCodeGeneration()
 
     except Exception as e:
-        print (errorHandler.errorCount(), "errors")
+        print (errorHandler.errorCount(), "error" + ("s" if errorHandler.errorCount() != 1 else ""))
         if errorHandler.errorCount():
             errorHandler.printError(0)
         else:
