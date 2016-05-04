@@ -10,72 +10,8 @@ class VisitorTypeCheck(Visitor):
         True
 
 
-    def visitProgramNode(self, node):
-        self.visitChildren(node)
-
-
     def visitIncludeNode(self, node):
         pass
-
-
-    def visitFunctionDeclarationNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitFunctionDefinitionNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitMainFunctionNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitParametersNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitParameterNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitArgumentsNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitInitializerListNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitStatementsNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitStatementNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitReturnNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitIfNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitElseNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitWhileNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitDoWhileNode(self, node):
-        self.visitChildren(node)
-
-
-    def visitVariableDeclarationNode(self, node):
-        self.visitChildren(node)
 
 
     # int a[myFun(5)] = {1, 2+"a", 3}
@@ -165,10 +101,6 @@ class VisitorTypeCheck(Visitor):
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
         #TODO check constness of arguments/parameters
-
-
-    def typeCheckUnaryOperatorNode(self, node):
-        self.visitChildren(node)
 
 
     def typeCheckBinaryOperatorNode(self, node):

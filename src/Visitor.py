@@ -15,144 +15,144 @@ class Visitor:
 
 
     def visitProgramNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitIncludeNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitFunctionDeclarationNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitFunctionDefinitionNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitMainFunctionNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitParametersNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitParameterNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitArgumentsNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitInitializerListNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitStatementsNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitStatementNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitReturnNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitIfNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitElseNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitWhileNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitDoWhileNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitVariableDeclarationNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitDeclaratorInitializerNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitIntegerLiteralNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitFloatLiteralNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitCharacterLiteralNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitStringLiteralNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitVariableNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitFunctionCallNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def typeCheckUnaryOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def typeCheckBinaryOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitTernaryConditionalOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitSimpleAssignmentOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitLogicOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitComparisonOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitUnaryArithmeticOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitAddressOfoperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitDereferenceNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitLogicalNotOperatorNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitArraySubscriptNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
 
 
     def visitBinaryArithmeticNode(self, node):
-        raise NotImplementedError
+        self.visitChildren(node)
