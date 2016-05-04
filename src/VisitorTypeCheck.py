@@ -6,9 +6,6 @@ class VisitorTypeCheck(Visitor):
     def __init__(self, errorHandler):
         self.errorHandler = errorHandler
 
-    def shouldVisitNextChild(self, node):
-        True
-
 
     def visitIncludeNode(self, node):
         pass

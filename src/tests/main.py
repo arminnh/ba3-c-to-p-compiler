@@ -403,7 +403,6 @@ class ASTNodeTests(unittest.TestCase):
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):
         table = SymbolTable()
-        errorHandler = CompilerErrorHandler("")
         inttype = TypeInfo(rvalue=False, basetype="int")
         floattype = TypeInfo(rvalue=False, basetype="float")
         chartype = TypeInfo(rvalue=False, basetype="char")
@@ -425,18 +424,18 @@ class SymbolTableTests(unittest.TestCase):
         # d_bis = ASTVariableNode("d")
         # d_bis.type = floattype
 
-        table.insertVariableSymbol(a, errorHandler)
-        table.insertVariableSymbol(b, errorHandler)
+        table.insertVariableSymbol(a)
+        table.insertVariableSymbol(b)
         table.openScope()
-        table.insertVariableSymbol(c, errorHandler)
+        table.insertVariableSymbol(c)
         self.assertTrue(table.retrieveSymbol("a") is not None)
         self.assertTrue(table.retrieveSymbol("b") is not None)
         self.assertTrue(table.retrieveSymbol("c") is not None)
         self.assertTrue(table.retrieveSymbol("d") is None)
         table.closeScope()
         table.openScope()
-        table.insertVariableSymbol(d, errorHandler)
-        table.insertVariableSymbol(b_bis, errorHandler)
+        table.insertVariableSymbol(d)
+        table.insertVariableSymbol(b_bis)
         self.assertTrue(table.retrieveSymbol("a") is not None)
         self.assertTrue(table.retrieveSymbol("b") is not None)
         self.assertTrue(table.retrieveSymbol("c") is None)

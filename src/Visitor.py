@@ -1,8 +1,5 @@
 
 class Visitor:
-    def __init__(self, errorHandler):
-        self.errorHandler = errorHandler
-
     def visitChildren(self, node):
         for child in node.children:
             if not self.shouldVisitNextChild(node):

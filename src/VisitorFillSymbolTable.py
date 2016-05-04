@@ -7,8 +7,22 @@ class VisitorFillSymbolTable(Visitor):
         self.table = symbolTable
         self.errorHandler = errorHandler
 
-    def shouldVisitNextChild(self, node):
-        True
+
+    def insertSymbol(self, node, isFunction):
+        result = None
+        if isFunction:
+            result = self.table.isInsertionOk(node, isFunction=True)
+        else:
+            result = self.table.isInsertionOk(node, isFunction=False)
+
+        if result == True:
+            if isFunction:
+                self.table.insertFunctionSymbol(node)
+            else:
+                self.table.insertVariableSymbol(node)
+        elif result != False:
+            # result is (error, line, column)
+            self.errorHandler.addError(*result)
 
 
     def visitIncludeNode(self, node):
@@ -17,14 +31,14 @@ class VisitorFillSymbolTable(Visitor):
 
     # insert function declaration into symbol table
     def visitFunctionDeclarationNode(self, node):
-        self.table.insertFunctionSymbol(node, self.errorHandler)
+        self.insertSymbol(node, isFunction=True)
 
         self.visitChildren(node)
 
 
     # insert function definition into symbol table
     def visitFunctionDefinitionNode(self, node):
-        self.table.insertFunctionSymbol(node, self.errorHandler)
+        self.insertSymbol(node, isFunction=True)
 
         self.table.openScope(node.identifier)
         self.visitChildren(node)
@@ -52,7 +66,7 @@ class VisitorFillSymbolTable(Visitor):
             self.errorHandler.addError("Parameter name omitted", line, column)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.table.insertVariableSymbol(node, self.errorHandler)
+            self.insertSymbol(node, isFunction=False)
 
         self.visitChildren(node)
 
@@ -74,7 +88,7 @@ class VisitorFillSymbolTable(Visitor):
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.table.insertVariableSymbol(node, self.errorHandler)
+            self.insertSymbol(node, isFunction=False)
 
         self.visitChildren(node)
 

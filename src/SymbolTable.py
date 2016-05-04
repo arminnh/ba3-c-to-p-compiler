@@ -1,5 +1,4 @@
 from AbstractSyntaxTree import *
-from CompilerErrorHandler import *
 
 offset = "    "
 
@@ -42,24 +41,22 @@ class Scope:
         self.children.append(new)
         return new
 
-    def insertSymbol(self, info:SymbolInfo, errorHandler:CompilerErrorHandler):
-        if self.isInsertionOk(info, errorHandler):
-            #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
-            self.symbols[info.astnode.identifier] = info
+    def insertSymbol(self, info:SymbolInfo):
+        #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
+        self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name):
         if name is None:
             return None
         return self.symbols.get(name)
 
-    def isInsertionOk(self, new:SymbolInfo, errorHandler:CompilerErrorHandler):
+    def isInsertionOk(self, new:SymbolInfo):
         old = self.retrieveSymbol(new.astnode.identifier)
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
                 line, column = new.astnode.getLineAndColumn()
-                errorHandler.addError("Identifier {0} already taken by variable".format(old.astnode.identifier), line, column)
-                return False
+                return ("Identifier {0} already taken by variable".format(old.astnode.identifier), line, column)
 
             if type(new) is FunctionSymbolInfo:
                 if isinstance(new.astnode, ASTFunctionDefinitionNode):
@@ -68,45 +65,38 @@ class Scope:
                             return True # definition can overwrite declaration
                         else:
                             line, column = new.astnode.getLineAndColumn() # TODO: get line, column of old declaration as well
-                            errorHandler.addError("Function definition parameters don't match with previous declaration", line, column)
-                            return False
+                            return ("Function definition parameters don't match with previous declaration", line, column)
 
                     elif isinstance(old.astnode, ASTFunctionDefinitionNode):
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
                             line, column = new.astnode.getLineAndColumn()
-                            errorHandler.addError("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
-                            return False
+                            return ("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            errorHandler.addError("Redefinition of function '{0}'".format(new.astnode.identifier), line, column)
-                            return False
+                            return ("Redefinition of function '{0}'".format(new.astnode.identifier), line, column)
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
                     if type(old.astnode) is ASTFunctionDefinitionNode:
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
                             line, column = new.astnode.getLineAndColumn()
-                            errorHandler.addError("Conflicting types for function declaration " + str(new.astnode.identifier), line, column)
-                            return False
+                            return ("Conflicting types for function declaration " + str(new.astnode.identifier), line, column)
 
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            errorHandler.addError("Function declaration parameters don't match previous definition", line, column)
-                            return False
+                            return ("Function declaration parameters don't match previous definition", line, column)
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
                             line, column = new.astnode.getLineAndColumn()
-                            errorHandler.addError("Function declaration parameters don't match previous declaration", line, column)
-                            return False
+                            return ("Function declaration parameters don't match previous declaration", line, column)
 
             elif type(new) is VariableSymbolInfo:
                 line, column = old.astnode.getLineAndColumn()
-                errorHandler.addError("Identifier {0} already taken by function".format(old.astnode.identifier), line, column)
-                return False
+                return ("Identifier {0} already taken by function".format(old.astnode.identifier), line, column)
 
         else:
             return True
@@ -133,11 +123,17 @@ class SymbolTable(object):
     def closeScope(self):
         self.currentScope = self.currentScope.parent
 
-    def insertVariableSymbol(self, astnode, errorHandler:CompilerErrorHandler):
-        self.currentScope.insertSymbol(VariableSymbolInfo(astnode), errorHandler)
+    def insertVariableSymbol(self, astnode):
+        self.currentScope.insertSymbol(VariableSymbolInfo(astnode))
 
-    def insertFunctionSymbol(self, astnode, errorHandler:CompilerErrorHandler):
-        self.currentScope.insertSymbol(FunctionSymbolInfo(astnode), errorHandler)
+    def insertFunctionSymbol(self, astnode):
+        self.currentScope.insertSymbol(FunctionSymbolInfo(astnode))
+
+    def isInsertionOk(self, astnode, isFunction):
+        if isFunction:
+            return self.currentScope.isInsertionOk(FunctionSymbolInfo(astnode))
+        else:
+            return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 
     def retrieveSymbol(self, name):
         scope = self.currentScope
