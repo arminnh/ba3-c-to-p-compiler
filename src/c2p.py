@@ -5,6 +5,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
 from ASTSymbolTableFiller import *
+from VisitorTypeCheck import *
 import traceback
 
 import sys
@@ -48,10 +49,18 @@ def main(filename):
 
         #do the type checking of the c file
         # try:
-        abstractSyntaxTree.typeCheck()
+        # abstractSyntaxTree.typeCheck()
         # except Exception as e:
         #     print(e)
+
+        # VisitorSymbolTable()
+        typeCheck = VisitorTypeCheck(errorHandler)
+        typeCheck.visitProgramNode(abstractSyntaxTree.root)
+
+        # VisitorCodeGeneration()
+
     except Exception as e:
+        print (errorHandler.errorCount(), "errors")
         if errorHandler.errorCount():
             errorHandler.printError(0)
         else:

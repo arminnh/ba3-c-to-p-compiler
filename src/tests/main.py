@@ -12,6 +12,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
 from ASTSymbolTableFiller import *
+from VisitorTypeCheck import *
 
 # import re to remove all whitespace from strings
 import re
@@ -38,7 +39,9 @@ class ASTTest():
         symbolTable = SymbolTable()
         tableFiller = ASTSymbolTableFiller(abstractSyntaxTree, symbolTable, self.errorHandler)
         tableFiller.fill()
-        abstractSyntaxTree.typeCheck()
+
+        typeCheck = VisitorTypeCheck(self.errorHandler)
+        typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
     def generateOneErrorAndCompare(self, filename):
         with self.assertRaises(Exception) as context:
