@@ -14,6 +14,7 @@ from MyListener import *
 from SymbolTable import *
 from VisitorTypeCheck import *
 from VisitorFillSymbolTable import *
+from CompilerErrorHandler import *
 
 # import re to remove all whitespace from strings
 import re
@@ -32,8 +33,8 @@ class ASTTest():
         programContext = parser.program()
 
         walker = ParseTreeWalker()
+        abstractSyntaxTree = AbstractSyntaxTree();
         self.errorHandler = CompilerErrorHandler(filename)
-        abstractSyntaxTree = AbstractSyntaxTree(self.errorHandler);
         listener = MyListener(abstractSyntaxTree)
         walker.walk(listener, programContext)
 
@@ -402,6 +403,7 @@ class ASTNodeTests(unittest.TestCase):
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):
         table = SymbolTable()
+        errorHandler = CompilerErrorHandler("")
         inttype = TypeInfo(rvalue=False, basetype="int")
         floattype = TypeInfo(rvalue=False, basetype="float")
         chartype = TypeInfo(rvalue=False, basetype="char")
@@ -423,18 +425,18 @@ class SymbolTableTests(unittest.TestCase):
         # d_bis = ASTVariableNode("d")
         # d_bis.type = floattype
 
-        table.insertVariableSymbol(a)
-        table.insertVariableSymbol(b)
+        table.insertVariableSymbol(a, errorHandler)
+        table.insertVariableSymbol(b, errorHandler)
         table.openScope()
-        table.insertVariableSymbol(c)
+        table.insertVariableSymbol(c, errorHandler)
         self.assertTrue(table.retrieveSymbol("a") is not None)
         self.assertTrue(table.retrieveSymbol("b") is not None)
         self.assertTrue(table.retrieveSymbol("c") is not None)
         self.assertTrue(table.retrieveSymbol("d") is None)
         table.closeScope()
         table.openScope()
-        table.insertVariableSymbol(d)
-        table.insertVariableSymbol(b_bis)
+        table.insertVariableSymbol(d, errorHandler)
+        table.insertVariableSymbol(b_bis, errorHandler)
         self.assertTrue(table.retrieveSymbol("a") is not None)
         self.assertTrue(table.retrieveSymbol("b") is not None)
         self.assertTrue(table.retrieveSymbol("c") is None)

@@ -6,6 +6,8 @@ from AbstractSyntaxTree import *
 from MyListener import *
 from VisitorTypeCheck import *
 from VisitorFillSymbolTable import *
+from CompilerErrorHandler import *
+from SymbolTable import *
 import traceback
 
 import sys
@@ -28,14 +30,15 @@ def main(filename):
     # walk it and attach our listener
     walker = ParseTreeWalker()
 
-    errorHandler = CompilerErrorHandler(filename)
     # create an AST an attach it to a listener so the listener can fill in the tree
-    abstractSyntaxTree = AbstractSyntaxTree(errorHandler);
+    abstractSyntaxTree = AbstractSyntaxTree();
 
-    listener = MyListener(abstractSyntaxTree)
+    # the errorHandler which will group all of the errors
+    errorHandler = CompilerErrorHandler(filename)
 
     try:
-        # walk the parse tree and fill in the AST, this can throw exceptions (e.g. double main() definition)
+        listener = MyListener(abstractSyntaxTree)
+        # walk the parse tree and fill in the AST
         walker.walk(listener, programContext)
 
         # print the resulting AST after the walk
@@ -47,17 +50,11 @@ def main(filename):
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
         print(symbolTable)
 
-        #do the type checking of the c file
-        # try:
-        # abstractSyntaxTree.typeCheck()
-        # except Exception as e:
-        #     print(e)
-
-        # VisitorSymbolTable()
+        # do the type checking
         typeCheck = VisitorTypeCheck(errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
-        # VisitorCodeGeneration()
+        # generate code
 
     except Exception as e:
         print (errorHandler.errorCount(), "error" + ("s" if errorHandler.errorCount() != 1 else ""))

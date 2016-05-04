@@ -17,14 +17,14 @@ class VisitorFillSymbolTable(Visitor):
 
     # insert function declaration into symbol table
     def visitFunctionDeclarationNode(self, node):
-        self.table.insertFunctionSymbol(node)
+        self.table.insertFunctionSymbol(node, self.errorHandler)
 
         self.visitChildren(node)
 
 
     # insert function definition into symbol table
     def visitFunctionDefinitionNode(self, node):
-        self.table.insertFunctionSymbol(node)
+        self.table.insertFunctionSymbol(node, self.errorHandler)
 
         self.table.openScope(node.identifier)
         self.visitChildren(node)
@@ -52,7 +52,7 @@ class VisitorFillSymbolTable(Visitor):
             self.errorHandler.addError("Parameter name omitted", line, column)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.table.insertVariableSymbol(node)
+            self.table.insertVariableSymbol(node, self.errorHandler)
 
         self.visitChildren(node)
 
@@ -74,10 +74,9 @@ class VisitorFillSymbolTable(Visitor):
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            self.table.insertVariableSymbol(node)
+            self.table.insertVariableSymbol(node, self.errorHandler)
 
         self.visitChildren(node)
-
 
 
     def visitIntegerLiteralNode(self, node):
@@ -120,11 +119,3 @@ class VisitorFillSymbolTable(Visitor):
         node.definitionNode = symbolInfo.astnode
 
         self.visitChildren(node)
-
-
-    def visitArraySubscriptNode(self, node):
-        self.typeCheckUnaryOperatorNode(node)
-
-
-    def visitBinaryArithmeticNode(self, node):
-        self.typeCheckBinaryOperatorNode(node)

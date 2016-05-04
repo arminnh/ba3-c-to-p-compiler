@@ -53,7 +53,7 @@ class VisitorTypeCheck(Visitor):
                         self.errorHandler.addError("Variable initialization must have the same type (have {0} and {1})".format(str(node.getType()), str(child.children[0].getType())), line, column)
 
                     # if len(child.children) > 1:
-                    #     line, column = self.getLineAndColumn()
+                    #     line, column = node.getLineAndColumn()
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
 
@@ -176,7 +176,10 @@ class VisitorTypeCheck(Visitor):
     def visitDereferenceNode(self, node):
         self.visitChildren(node)
 
-        node.getType()
+        ttype = node.getType()
+        if ttype.indirections < 0:
+            line, column = node.getLineAndColumn()
+            self.errorHandler.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), line, column)
 
 
     def visitLogicalNotOperatorNode(self, node):

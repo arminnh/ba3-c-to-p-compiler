@@ -2,7 +2,6 @@
 import copy
 from enum import Enum
 from TypeInfo import TypeInfo
-from CompilerErrorHandler import CompilerErrorHandler
 from antlr4.Token import CommonToken
 from antlr4.tree.Tree import TerminalNode
 
@@ -23,10 +22,6 @@ class ASTNode(object):
         node.parent = self
         node.tree = self.tree
         return node
-
-    @property
-    def errorHandler(self):
-        return self.tree.errorHandler if self.tree is not None else None
 
     def accept(self, visitor):
         raise NotImplementedError
@@ -637,10 +632,7 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
         ttype.rvalue = False
-        if ttype.indirections < 0:
-            line, column = self.getLineAndColumn()
-            self.errorHandler.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), line, column)
-        elif ttype.indirections == 0:
+        if ttype.indirections == 0:
             ttype.isArray = False
         return ttype
 
@@ -672,7 +664,7 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
         if ttype.indirections == 0:
             ttype.isArray = False
         return ttype
-        
+
     def addChildNode(self, node):
         if len(self.children) >= 2:
             raise Exception("ASTArraySubscriptNode cannot have more than two children")
@@ -709,8 +701,7 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
 
 class AbstractSyntaxTree:
 
-    def __init__(self, errorHandler=None):
-        self.errorHandler = errorHandler
+    def __init__(self):
         self._root = None
 
     @property
