@@ -7,7 +7,6 @@ class CompilerErrorHandler:
 
     def addError(self, error, linenumber, column):
         self.errors.append((error, linenumber, column))
-        # raise Exception("Error has occurred.")
 
     # def addWarning(self, error, linenumber, column):
     #     self.errors.append((error, linenumber, column))
@@ -33,6 +32,14 @@ class CompilerErrorHandler:
             msg += "Error: {error}".format(error=error[0]) + "\n"
 
         return msg
+
+    def errorsToString(self):
+        s = ""
+
+        for i, error in enumerate(self.errors):
+            s += self.errorToString(i)
+
+        return s
 
     def printError(self, index):
         print(self.errorToString(index), end="")

@@ -57,13 +57,13 @@ class ASTTest():
             with open(filename + ".txt", 'w') as myfile:
                 correctOutput = "blabla"
 
-        errorMessage = self.errorHandler.errorToString(0)
+        errorMessage = self.errorHandler.errorsToString()
 
         # remove all whitespace
-        errorMessageNoWhitespace = str(re.sub('[ \t\n\r]', '', errorMessage))
+        errorMessage  = re.sub('[ \t\n\r]', '', errorMessage)
         correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
 
-        expectedOutputFound = errorMessageNoWhitespace.find(correctOutput) != -1
+        expectedOutputFound = errorMessage.find(correctOutput) != -1
 
         if set and not expectedOutputFound:
             f = open(filename + ".txt", "w")

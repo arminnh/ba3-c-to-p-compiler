@@ -57,12 +57,6 @@ def main(filename):
         # generate code
 
     except Exception as e:
-        '''print (errorHandler.errorCount(), "Exception caught: error" + ("s" if errorHandler.errorCount() != 1 else ""))
-
-        if errorHandler.errorCount():
-            errorHandler.printErrors()
-        else:
-        '''
         ex_type, ex, tb = sys.exc_info()
         traceback.print_exception(ex_type, ex, tb)
 
@@ -74,7 +68,7 @@ def main(filename):
 if __name__=="__main__":
 
     if len(sys.argv) != 2:
-        print("Usa  ge: python3 c2p.py filename\n")
+        print("Usage: python3 c2p.py filename\n")
         sys.exit()
 
     main(sys.argv[1])
