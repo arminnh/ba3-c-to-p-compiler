@@ -1,3 +1,9 @@
 Error at 1:14: Parameter has incomplete type
 int iojiofej(void a) {
              ^
+Error at 2:12: Variable 'a' used before it was declared
+return a;
+       ^
+Error at 2:5: Incompatible conversion returning 'None' from a function with result type 'int'
+return a;
+^

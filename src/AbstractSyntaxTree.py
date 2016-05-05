@@ -13,6 +13,7 @@ class ASTNode(object):
         self.tree = None
         if not hasattr(self, "parent"):
             self.parent = None
+        self.error = False
         self.label = label
         self.ctx = ctx
         self.children = [] # don't manipulate or read directly; use addChildNode and getChildren
@@ -72,7 +73,8 @@ class ASTProgramNode(ASTNode):
         super(ASTProgramNode, self).__init__("program", ctx)
 
     def accept(self, visitor):
-        visitor.visitProgramNode(self)
+        if not self.error:
+            visitor.visitProgramNode(self)
 
 class ASTIncludeNode(ASTNode):
     def __init__(self, isStdInclude=False, name="include name", ctx=None):
@@ -94,7 +96,8 @@ class ASTFunctionDeclarationNode(ASTNode):
         # parameters are child nodes
 
     def accept(self, visitor):
-        visitor.visitFunctionDeclarationNode(self)
+        if not self.error:
+            visitor.visitFunctionDeclarationNode(self)
 
     def getType(self):
         if self.basetype is None:
@@ -120,7 +123,8 @@ class ASTFunctionDefinitionNode(ASTFunctionDeclarationNode):
         # parameters and statements are child nodes
 
     def accept(self, visitor):
-        visitor.visitFunctionDefinitionNode(self)
+        if not self.error:
+            visitor.visitFunctionDefinitionNode(self)
 
 class ASTMainFunctionNode(ASTFunctionDefinitionNode):
     def __init__(self, ctx=None):
@@ -134,7 +138,8 @@ class ASTParametersNode(ASTNode):
         super(ASTParametersNode, self).__init__("parameters", ctx)
 
     def accept(self, visitor):
-        visitor.visitParametersNode(self)
+        if not self.error:
+            visitor.visitParametersNode(self)
 
     def __eq__(self, other):
         if len(self.children) != len(other.children):
@@ -157,7 +162,8 @@ class ASTParameterNode(ASTNode):
         self.indirections = 0
 
     def accept(self, visitor):
-        visitor.visitParameterNode(self)
+        if not self.error:
+            visitor.visitParameterNode(self)
 
     def getType(self):
         if self.basetype is None:
@@ -201,7 +207,8 @@ class ASTArgumentsNode(ASTNode):
         super(ASTArgumentsNode, self).__init__("arguments", ctx)
 
     def accept(self, visitor):
-        visitor.visitArgumentsNode(self)
+        if not self.error:
+            visitor.visitArgumentsNode(self)
 
 class ASTInitializerListNode(ASTNode):
     def __init__(self, ctx=None):
@@ -220,7 +227,8 @@ class ASTStatementsNode(ASTNode):
         super(ASTStatementsNode, self).__init__("statements", ctx)
 
     def accept(self, visitor):
-        visitor.visitStatementsNode(self)
+        if not self.error:
+            visitor.visitStatementsNode(self)
 
 class ASTStatementNode(ASTNode):
     def __init__(self, label="statement", ctx=None):
@@ -231,7 +239,8 @@ class ASTReturnNode(ASTStatementNode):
         super(ASTReturnNode, self).__init__("return", ctx)
 
     def accept(self, visitor):
-        visitor.visitReturnNode(self)
+        if not self.error:
+            visitor.visitReturnNode(self)
 
 class ASTIfNode(ASTStatementNode):
     def __init__(self, ctx=None):
@@ -240,7 +249,8 @@ class ASTIfNode(ASTStatementNode):
         self.elseCondNode = None # elseNode
 
     def accept(self, visitor):
-        visitor.visitIfNode(self)
+        if not self.error:
+            visitor.visitIfNode(self)
 
     def out(self, level):
         s = offset * level + self.label + "\n"
@@ -262,21 +272,24 @@ class ASTElseNode(ASTNode):
         super(ASTElseNode, self).__init__("else", ctx)
 
     def accept(self, visitor):
-        visitor.visitElseNode(self)
+        if not self.error:
+            visitor.visitElseNode(self)
 
 class ASTWhileNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTWhileNode, self).__init__("while", ctx)
 
     def accept(self, visitor):
-        visitor.visitWhileNode(self)
+        if not self.error:
+            visitor.visitWhileNode(self)
 
 class ASTDoWhileNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTDoWhileNode, self).__init__("doWhile", ctx)
 
     def accept(self, visitor):
-        visitor.visitDoWhileNode(self)
+        if not self.error:
+            visitor.visitDoWhileNode(self)
 
 class ASTVariableDeclarationNode(ASTStatementNode):
     def __init__(self, ctx=None):
@@ -286,7 +299,8 @@ class ASTVariableDeclarationNode(ASTStatementNode):
         # declaratorInitializers are children
 
     def accept(self, visitor):
-        visitor.visitVariableDeclarationNode(self)
+        if not self.error:
+            visitor.visitVariableDeclarationNode(self)
 
     def getRelevantToken(self):
         # TODO: point to specific parts of declaration node
@@ -310,7 +324,8 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # TODO: dont't allow const variable declaration without initial value
 
     def accept(self, visitor):
-        visitor.visitDeclaratorInitializerNode(self)
+        if not self.error:
+            visitor.visitDeclaratorInitializerNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
@@ -365,7 +380,8 @@ class ASTIntegerLiteralNode(ASTExpressionNode):
         self.value = value
 
     def accept(self, visitor):
-        visitor.visitIntegerLiteralNode(self)
+        if not self.error:
+            visitor.visitIntegerLiteralNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")
@@ -379,7 +395,8 @@ class ASTFloatLiteralNode(ASTExpressionNode):
         self.value = value
 
     def accept(self, visitor):
-        visitor.visitFloatLiteralNode(self)
+        if not self.error:
+            visitor.visitFloatLiteralNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="float")
@@ -393,7 +410,8 @@ class ASTCharacterLiteralNode(ASTExpressionNode):
         self.value = value
 
     def accept(self, visitor):
-        visitor.visitCharacterLiteralNode(self)
+        if not self.error:
+            visitor.visitCharacterLiteralNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="char")
@@ -407,7 +425,8 @@ class ASTStringLiteralNode(ASTExpressionNode):
         self.value = value
 
     def accept(self, visitor):
-        visitor.visitStringLiteralNode(self)
+        if not self.error:
+            visitor.visitStringLiteralNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
@@ -422,7 +441,8 @@ class ASTVariableNode(ASTExpressionNode):
         self.typeInfo = None
 
     def accept(self, visitor):
-        visitor.visitVariableNode(self)
+        if not self.error:
+            visitor.visitVariableNode(self)
 
     def getType(self):
         return self.typeInfo
@@ -438,7 +458,8 @@ class ASTFunctionCallNode(ASTExpressionNode):
         self.errorParameter = None
 
     def accept(self, visitor):
-        visitor.visitFunctionCallNode(self)
+        if not self.error:
+            visitor.visitFunctionCallNode(self)
 
     def getType(self):
         if self.definitionNode is None:
@@ -509,7 +530,8 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
         self.errorOperand = None
 
     def accept(self, visitor):
-        visitor.visitTernaryConditionalOperatorNode(self)
+        if not self.error:
+            visitor.visitTernaryConditionalOperatorNode(self)
 
     def getRelevantToken(self):
             return self.getFirstToken(list(self.ctx.getChildren())[self.errorOperand * 2])
@@ -522,7 +544,8 @@ class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
         super(ASTSimpleAssignmentOperatorNode, self).__init__("=", ctx)
 
     def accept(self, visitor):
-        visitor.visitSimpleAssignmentOperatorNode(self)
+        if not self.error:
+            visitor.visitSimpleAssignmentOperatorNode(self)
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):
@@ -539,7 +562,8 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
         self.logicOperatorType = logicOperatorType
 
     def accept(self, visitor):
-        visitor.visitLogicOperatorNode(self)
+        if not self.error:
+            visitor.visitLogicOperatorNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")
@@ -568,7 +592,8 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         self.comparisonType = comparisonType
 
     def accept(self, visitor):
-        visitor.visitComparisonOperatorNode(self)
+        if not self.error:
+            visitor.visitComparisonOperatorNode(self)
 
     def getRelevantToken(self):
         return list(self.ctx.getChildren())[1].getSymbol()
@@ -602,7 +627,8 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
         self.arithmeticType = arithmeticType
 
     def accept(self, visitor):
-        visitor.visitUnaryArithmeticOperatorNode(self)
+        if not self.error:
+            visitor.visitUnaryArithmeticOperatorNode(self)
 
     def getType(self):
         return self.children[0].getType()
@@ -612,7 +638,8 @@ class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
         super(ASTAddressOfOperatorNode, self).__init__("&", ASTUnaryOperatorNode.Type['prefix'], ctx)
 
     def accept(self, visitor):
-        visitor.visitAddressOfoperatorNode(self)
+        if not self.error:
+            visitor.visitAddressOfoperatorNode(self)
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
@@ -626,7 +653,8 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
         super(ASTDereferenceOperatorNode, self).__init__("*", ASTUnaryOperatorNode.Type['prefix'], ctx)
 
     def accept(self, visitor):
-        visitor.visitDereferenceNode(self)
+        if not self.error:
+            visitor.visitDereferenceNode(self)
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
@@ -644,7 +672,8 @@ class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
         super(ASTLogicalNotOperatorNode, self).__init__("!", ASTUnaryOperatorNode.Type['prefix'], ctx)
 
     def accept(self, visitor):
-        visitor.visitLogicalNotOperatorNode(self)
+        if not self.error:
+            visitor.visitLogicalNotOperatorNode(self)
 
     def getType(self):
         return TypeInfo(rvalue=True, basetype="int")
@@ -654,7 +683,8 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
         super(ASTArraySubscriptNode, self).__init__("[]", ASTUnaryOperatorNode.Type['postfix'], ctx)
 
     def accept(self, visitor):
-        visitor.visitArraySubscriptNode(self)
+        if not self.error:
+            visitor.visitArraySubscriptNode(self)
 
     def getType(self):
         # TODO: this is not entirely right methinks
@@ -692,7 +722,8 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
         self.arithmeticType = arithmeticType
 
     def accept(self, visitor):
-        visitor.visitBinaryArithmeticNode(self)
+        if not self.error:
+            visitor.visitBinaryArithmeticNode(self)
 
 
 '''

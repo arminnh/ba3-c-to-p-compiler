@@ -1,0 +1,3 @@
+Error at 2:5: Incompatible conversion returning 'int' from a function with result type 'const int * * * * * const * * * * * const *'
+return 0;
+^

@@ -1,3 +1,6 @@
-Error at 2:11: Variable initialization must have the same type (have float and char [])
+Error at 2:11: Variable initialization must have the same type (have float and char[])
 float a = {"error", 1, 2.0, '3', "aaa"};
       ^
+Error at 4:5: Incompatible conversion returning 'float' from a function with result type 'int'
+return a;
+^

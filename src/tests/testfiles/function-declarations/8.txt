@@ -1,3 +1,6 @@
 Error at 1:10: Parameter name omitted
 int sum (int, int) {
          ^
+Error at 1:15: Parameter name omitted
+int sum (int, int) {
+              ^

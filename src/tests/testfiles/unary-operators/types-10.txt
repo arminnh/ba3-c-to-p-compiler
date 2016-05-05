@@ -1,3 +1,6 @@
 Error at 5:10: invalid type argument of unary '*' (have 'char')
 a = *b[0];
      ^
+Error at 5:5: Incompatible types when assigning to type 'char' from type 'char'
+a = *b[0];
+^

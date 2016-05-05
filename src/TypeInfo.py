@@ -16,6 +16,8 @@ class TypeInfo:
 		return cpy
 
 	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
+		if self is None or other is None:
+			return False
 		if self.equals(other, ignoreRvalue = ignoreRvalue, ignoreConst = ignoreConst):
 			return True
 
@@ -38,6 +40,8 @@ class TypeInfo:
 		return False
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
+		if self is None or other is None:
+			return False
 		# print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
 		# print ("self: " + str(self))
 		# print ("other: " + str(other) + "\n")

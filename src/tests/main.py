@@ -44,8 +44,7 @@ class ASTTest():
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeCheck(self.errorHandler)
-        if self.errorHandler.errorCount() == 0:
-            typeCheck.visitProgramNode(abstractSyntaxTree.root)
+        typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")
@@ -199,26 +198,29 @@ class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     def testBinaryOperatorTypes21(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-21")
 
-    def testBinaryOperatorTypes23(self):
+    def testBinaryOperatorTypes22(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-22")
 
-    def testBinaryOperatorTypes24(self):
+    def testBinaryOperatorTypes23(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-23")
 
-    def testBinaryOperatorTypes25(self):
+    def testBinaryOperatorTypes24(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-24")
 
-    def testBinaryOperatorTypes26(self):
+    def testBinaryOperatorTypes25(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-25")
 
-    def testBinaryOperatorTypes27(self):
+    def testBinaryOperatorTypes26(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-26")
 
-    def testBinaryOperatorTypes28(self):
+    def testBinaryOperatorTypes27(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-27")
 
-    def testBinaryOperatorTypes29(self):
+    def testBinaryOperatorTypes28(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-28")
+
+    def testBinaryOperatorTypes29(self):
+        self.generateErrorsAndCompare("testfiles/binary-operators/types-29")
 
     def testBinaryOperatorTypes30(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/types-30")

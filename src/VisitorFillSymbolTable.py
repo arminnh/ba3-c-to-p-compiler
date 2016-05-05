@@ -22,6 +22,7 @@ class VisitorFillSymbolTable(Visitor):
                 self.table.insertVariableSymbol(node)
         elif result != False:
             # result is (error, line, column)
+            node.error = True
             self.errorHandler.addError(*result)
             return False
 
@@ -61,16 +62,19 @@ class VisitorFillSymbolTable(Visitor):
         if node.basetype == "void":
             if node.identifier is None and parametersCount > 1:
                 line, column = node.getLineAndColumn()
+                node.error = True
                 self.errorHandler.addError("‘void’ must be the only parameter", line, column)
                 return
 
             elif node.identifier is not None and node.getType().indirections == 0:
                 line, column = node.getLineAndColumn()
+                node.error = True
                 self.errorHandler.addError("Parameter has incomplete type", line, column)
                 return
 
         elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Parameter name omitted", line, column)
             return
 
@@ -127,6 +131,7 @@ class VisitorFillSymbolTable(Visitor):
 
         if symbolInfo is None:
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Variable '{0}' used before it was declared".format(node.identifier), line, column)
             return
         else:
@@ -139,10 +144,12 @@ class VisitorFillSymbolTable(Visitor):
 
         if symbolInfo is None:
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Function '{0}' used before it was declared".format(node.identifier), line, column)
             return
         elif not symbolInfo.defined:
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Function: undefined reference", line, column)
             return
 
