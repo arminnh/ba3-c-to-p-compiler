@@ -15,6 +15,7 @@ from SymbolTable import *
 from VisitorTypeCheck import *
 from VisitorFillSymbolTable import *
 from CompilerErrorHandler import *
+import copy
 
 # import re to remove all whitespace from strings
 import re
@@ -43,7 +44,8 @@ class ASTTest():
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeCheck(self.errorHandler)
-        typeCheck.visitProgramNode(abstractSyntaxTree.root)
+        if self.errorHandler.errorCount() == 0:
+            typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")
@@ -58,6 +60,7 @@ class ASTTest():
                 correctOutput = "blabla"
 
         errorMessage = self.errorHandler.errorsToString()
+        errorMessageWithWhitespace = copy.copy(errorMessage)
 
         # remove all whitespace
         errorMessage  = re.sub('[ \t\n\r]', '', errorMessage)
@@ -67,7 +70,7 @@ class ASTTest():
 
         if set and not expectedOutputFound:
             f = open(filename + ".txt", "w")
-            f.write(errorMessage)
+            f.write(errorMessageWithWhitespace)
             f.close()
 
         # if not expectedOutputFound:
@@ -387,13 +390,16 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/function-declarations/14")
 
     def testFunctionDeclaration15(self):
-        self.generateNoError("testfiles/function-declarations/15.c")
+        self.generateErrorsAndCompare("testfiles/function-declarations/15")
 
     def testFunctionDeclaration16(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/16")
 
     def testFunctionDeclaration17(self):
-        self.generateNoError("testfiles/function-declarations/17.c")
+        self.generateErrorsAndCompare("testfiles/function-declarations/17")
+
+    def testFunctionDeclaration18(self):
+        self.generateErrorsAndCompare("testfiles/function-declarations/18")
 
 class ASTNodeTests(unittest.TestCase):
     pass

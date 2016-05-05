@@ -52,7 +52,8 @@ def main(filename):
 
         # do the type checking
         typeCheck = VisitorTypeCheck(errorHandler)
-        typeCheck.visitProgramNode(abstractSyntaxTree.root)
+        if errorHandler.errorCount() == 0:
+            typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
         # generate code
 

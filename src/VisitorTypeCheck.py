@@ -11,6 +11,20 @@ class VisitorTypeCheck(Visitor):
         pass
 
 
+    def visitReturnNode(self, node):
+        functionDefinition = node
+        while functionDefinition is not None and not isinstance(functionDefinition, ASTFunctionDefinitionNode):
+            functionDefinition = functionDefinition.parent
+        if functionDefinition is None:
+            line, column = node.getLineAndColumn()
+            self.errorHandler.addError("Return statement outside of function definition", line, column) # this should never happen: grammar prevents it
+            return
+
+        if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
+            line, column = node.getLineAndColumn()
+            self.errorHandler.addError("Incompatible conversion returning '{0}' from a function with result type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), line, column)
+
+
     # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
         self.visitChildren(node)

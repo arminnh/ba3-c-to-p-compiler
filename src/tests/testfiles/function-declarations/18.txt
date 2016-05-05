@@ -1,0 +1,6 @@
+Error at 2:2: Incompatible conversion returning 'char' from a function with result type 'float *'
+return 'a';
+^
+Error at 6:2: Incompatible conversion returning 'float' from a function with result type 'int'
+return 0.0;
+^

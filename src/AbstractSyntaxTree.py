@@ -11,6 +11,7 @@ class ASTNode(object):
 
     def __init__(self, label="no label", ctx=None):
         self.tree = None
+        self.parent = None
         self.label = label
         self.ctx = ctx
         self.children = [] # don't manipulate or read directly; use addChildNode and getChildren

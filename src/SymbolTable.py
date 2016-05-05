@@ -68,10 +68,11 @@ class Scope:
                             return ("Function definition parameters don't match with previous declaration", line, column)
 
                     elif isinstance(old.astnode, ASTFunctionDefinitionNode):
-                        if not old.astnode.getType().isCompatible(new.astnode.getType()):
-                            line, column = new.astnode.getLineAndColumn()
-                            return ("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
-                        else:
+                        # if definition for identifier already present, don't have to check param/return types at all?
+                        # if not old.astnode.getType().isCompatible(new.astnode.getType()):
+                        #     line, column = new.astnode.getLineAndColumn()
+                        #     return ("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
+                        # else:
                             line, column = new.astnode.getLineAndColumn()
                             return ("Redefinition of function '{0}'".format(new.astnode.identifier), line, column)
 
