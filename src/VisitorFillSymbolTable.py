@@ -28,7 +28,23 @@ class VisitorFillSymbolTable(Visitor):
 
 
     def visitIncludeNode(self, node):
-        pass
+        if node.isStdInclude and node.name == "stdio.h":
+            printf = ASTFunctionDefinitionNode()
+            printf.identifier = "printf"
+            printf.basetype = "void"
+            printf.isStdPrintf = True
+            scanf = ASTFunctionDefinitionNode()
+            scanf.identifier = "scanf"
+            scanf.basetype = "void"
+            scanf.isStdScanf =  True
+
+            printfOk = self.table.isInsertionOk(printf, isFunction=True)
+            scanfOk = self.table.isInsertionOk(scanf, isFunction=False)
+            
+            if printfOk:
+                self.table.insertFunctionSymbol(printf)
+            if scanfOk:
+                self.table.insertFunctionSymbol(scanf)
 
 
     # insert function declaration into symbol table
