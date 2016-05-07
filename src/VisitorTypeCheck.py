@@ -13,8 +13,10 @@ class VisitorTypeCheck(Visitor):
 
     def visitReturnNode(self, node):
         functionDefinition = node
+
         while functionDefinition is not None and not isinstance(functionDefinition, ASTFunctionDefinitionNode):
             functionDefinition = functionDefinition.parent
+
         if functionDefinition is None:
             line, column = node.getLineAndColumn()
             node.error = True
@@ -96,22 +98,23 @@ class VisitorTypeCheck(Visitor):
     def visitVariableNode(self, node):
         pass
 
+    def checkStdioFunction(self, node):
+        raise Exception("PLS Implement stdio type check")
 
+    #TODO check constness of arguments/parameters
     def visitFunctionCallNode(self, node):
         self.visitChildren(node)
 
-        # if no definitionNode -> error caught by VisitorFillSymbolTable
-        if node.definitionNode is None:
-            return
+        if node.identifier in ["printf", "scanf"]:
+            return self.checkStdioFunction(node)
 
-        parameterNodes = node.definitionNode.getParameters().children
         arguments = None
-
         for child in node.children:
             if isinstance(child, ASTArgumentsNode):
                 arguments = child
                 break
 
+        parameterNodes = node.definitionNode.getParameters().children
         if arguments is not None:
             if len(arguments.children) != len(parameterNodes):
                 line, column = node.getLineAndColumn()
@@ -129,15 +132,10 @@ class VisitorTypeCheck(Visitor):
                     return
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
-        #TODO check constness of arguments/parameters
 
 
     def typeCheckBinaryOperatorNode(self, node):
         self.visitChildren(node)
-
-        # in case of double function definition, the variables in the second function definition will not be put into the symbol table and so will not have a type
-        if node.children[0].getType() is None or node.children[1].getType() is None:
-            return
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
             line, column = node.getLineAndColumn()
@@ -152,6 +150,7 @@ class VisitorTypeCheck(Visitor):
         if not node.children[0].getType().toRvalue().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             node.errorOperand = 0
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Ternary conditional operator needs int as first operand", line, column)
             return
 
@@ -174,6 +173,7 @@ class VisitorTypeCheck(Visitor):
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
             line, column = node.getLineAndColumn()
+            node.error = True
             self.errorHandler.addError("Incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), line, column)
             return
 

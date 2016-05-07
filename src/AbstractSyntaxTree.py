@@ -1,4 +1,3 @@
-
 import copy
 from enum import Enum
 from TypeInfo import TypeInfo

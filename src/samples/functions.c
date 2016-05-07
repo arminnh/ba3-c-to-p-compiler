@@ -9,11 +9,11 @@ int myFunction1(int const* i, float c) {
 
 int myFunction2(int i, float *c);
 
-float myFunction3(int const i[5 + 6], int const j[]);
+const int myFunction3(int const i[5 + 6], int const j[]);
 
 float myFunction4();
 
-float myFunction3(int const i[5], int const j[]) {
+const int myFunction3(int const i[5], int const j[]) {
     if (i[3] == 0)
         return j[5];
     else  {
@@ -33,8 +33,9 @@ int main(void)
     float e;
     const char f;
 
-    myFunction1(&d, 6.0);
+    // myFunction1(&d, 6.0);
 
+    printf("%d\n", 1);
     // printf("%d\n", myFunction1(a, &e));
     // printf("%f\n", myFunction3(b, c));
     // printf("%f\n", myFunction3(h, c));

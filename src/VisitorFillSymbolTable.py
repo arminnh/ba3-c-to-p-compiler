@@ -8,6 +8,7 @@ class VisitorFillSymbolTable(Visitor):
         self.errorHandler = errorHandler
 
 
+    # checks if it is ok to enter a symbol into the symbol table, otherwise it puts an error in errorhandler
     def insertSymbol(self, node, isFunction):
         result = None
         if isFunction:
@@ -21,8 +22,8 @@ class VisitorFillSymbolTable(Visitor):
             else:
                 self.table.insertVariableSymbol(node)
         elif result != False:
-            # result is (error, line, column)
             node.error = True
+            # result is (error, line, column)
             self.errorHandler.addError(*result)
             return False
 
@@ -33,6 +34,7 @@ class VisitorFillSymbolTable(Visitor):
             printf.identifier = "printf"
             printf.basetype = "void"
             printf.isStdPrintf = True
+
             scanf = ASTFunctionDefinitionNode()
             scanf.identifier = "scanf"
             scanf.basetype = "void"
@@ -40,7 +42,7 @@ class VisitorFillSymbolTable(Visitor):
 
             printfOk = self.table.isInsertionOk(printf, isFunction=True)
             scanfOk = self.table.isInsertionOk(scanf, isFunction=False)
-            
+
             if printfOk:
                 self.table.insertFunctionSymbol(printf)
             if scanfOk:
