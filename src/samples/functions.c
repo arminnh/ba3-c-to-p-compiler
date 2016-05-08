@@ -35,7 +35,12 @@ int main(void)
 
     // myFunction1(&d, 6.0);
 
-    printf("%d\n", 1);
+    printf("aaa \n");
+    printf("test %c, %f \n", '1', 1.0);
+    printf("test %c, %5f \n", '2', 23.948984);
+    printf("test %c, %i, %7f \n", '3', 528439789, 353332.53523);
+    printf("test %37d, %c, %i, %5f \n", 1257, '4', 4, 4.9);
+    printf("test %37d, %c, %i, %5f, %7s \n", 342347, '5', 4534, 4535.7, "oiejfoijfjeoairjeoi");
     // printf("%d\n", myFunction1(a, &e));
     // printf("%f\n", myFunction3(b, c));
     // printf("%f\n", myFunction3(h, c));

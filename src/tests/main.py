@@ -289,6 +289,21 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterTypeCorrect(self):
         self.generateNoError("testfiles/function-calls/parameter-type-correct.c")
 
+    def testFunctionCallParameterType9(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-9")
+
+    def testFunctionCallParameterType10(self):
+        self.generateNoError("testfiles/function-calls/parameter-type-10.c")
+
+    def testFunctionCallParameterType11(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-11")
+
+    def testFunctionCallParameterType12(self):
+        self.generateNoError("testfiles/function-calls/parameter-type-12.c")
+
+    def testFunctionCallParameterType13(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-13")
+
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
 

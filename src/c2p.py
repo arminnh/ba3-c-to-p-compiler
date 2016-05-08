@@ -60,8 +60,8 @@ def main(filename):
         ex_type, ex, tb = sys.exc_info()
         traceback.print_exception(ex_type, ex, tb)
 
-    print (errorHandler.errorCount(), "error" + ("s" if errorHandler.errorCount() != 1 else ""))
     if errorHandler.errorCount():
+        print (errorHandler.errorCount(), "error" + ("s" if errorHandler.errorCount() != 1 else ""))
         errorHandler.printErrors()
 
 

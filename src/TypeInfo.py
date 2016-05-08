@@ -34,7 +34,9 @@ class TypeInfo:
 		c = a;
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
-		if self.indirections == 1 and other.indirections == 1 and not self.isArray and other.isArray:
+
+		#TODO: review this part: (not self.isArray and other.isArray or self.isArray and not other.isArray)
+		if self.indirections == 1 and other.indirections == 1 and (not self.isArray and other.isArray or self.isArray and not other.isArray):
 			return self.basetype == other.basetype
 
 		return False
@@ -72,7 +74,7 @@ class TypeInfo:
 				out += " const"
 
 		if self.isArray:
-			out += "[]"
+			out += " []"
 
 		if withRvalue and self.rvalue is not None:
 			out += " " + ("r" if self.rvalue else "l") + "value"

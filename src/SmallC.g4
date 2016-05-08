@@ -3,7 +3,6 @@ grammar SmallC;
 
 // parser rules (rule names start with lower case character)
 
-
 oplevel15 :
       oplevel14
     ;
@@ -188,8 +187,7 @@ declarationSpecifier :
     ;
 
 cvQualifier :
-      CONST
-//  | VOLATILE | MUTABLE
+      CONST //| VOLATILE | MUTABLE
     ;
 
 declaratorInitializer :
@@ -211,7 +209,7 @@ arguments :
     ;
 
 functionCall:
-      identifier LBRA arguments RBRA // identifier is not completely correct, IDENTIFIER   : [a-zA-Z]+;
+      identifier LBRA arguments RBRA
     ;
 
 variable :

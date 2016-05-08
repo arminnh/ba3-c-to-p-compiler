@@ -1,10 +1,21 @@
 from antlr4 import *
 from AbstractSyntaxTree import *
 from Visitor import *
+import re
+import sys
+
 
 class VisitorTypeCheck(Visitor):
     def __init__(self, errorHandler):
         self.errorHandler = errorHandler
+
+        self.stdioCodes = {
+            'd' : TypeInfo(rvalue=True, basetype="int"),
+            'i' : TypeInfo(rvalue=True, basetype="int"),
+            'f' : TypeInfo(rvalue=True, basetype="float"),
+            'c' : TypeInfo(rvalue=True, basetype="char"),
+            's' : TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
+        }
 
 
     def visitIncludeNode(self, node):
@@ -98,8 +109,48 @@ class VisitorTypeCheck(Visitor):
     def visitVariableNode(self, node):
         pass
 
+
+    # the format string allows interpretation of sequences of the form %[width][code] (width only in case of output).
+    # Provide support for at least for the type codes d(int), i(int), s(char *) and c(char), f(float). You may consider the char* types to be char arrays.
     def checkStdioFunction(self, node):
-        raise Exception("PLS Implement stdio type check")
+        arguments = None
+        for child in node.children:
+            if isinstance(child, ASTArgumentsNode):
+                arguments = child
+                break
+
+        if arguments is None:
+            raise Exception("Did not find arguments node in ASTFunctionCallNode")
+
+        formatArgument = arguments.children[0]
+        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
+
+        if not formatArgument.getType().isCompatible(stringLiteralType):
+            line, column = node.getLineAndColumn()
+            node.error = True
+            self.errorHandler.addError("Argument 1 of function '{0}' should be of type {1} but is of type {2}".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), line, column)
+
+        codes = re.findall(r'%([0-9]*)([a-z])', formatArgument.value)
+
+        if len(codes) < len(arguments.children) - 1:
+            print("warning: too many arguments for format")
+
+        for i, (width, code) in enumerate(codes):
+            if i+1 > len(arguments.children): #ex: printf("%i %i", 1)
+                print("warning: format ‘%i’ expects a matching ‘int’ argument")
+                continue
+
+            if code not in self.stdioCodes:
+                line, column = node.getLineAndColumn()
+                node.error = True
+                self.errorHandler.addError("Unknown code {0}".format(code), line, column)
+
+            elif not self.stdioCodes[code].isCompatible(arguments.children[i+1].getType(), ignoreConst=True):
+                line, column = node.getLineAndColumn()
+                node.error = True
+                self.errorHandler.addError("Format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), line, column)
+
+        # print (codes)
 
     #TODO check constness of arguments/parameters
     def visitFunctionCallNode(self, node):
