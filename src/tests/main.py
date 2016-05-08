@@ -14,6 +14,7 @@ from MyListener import *
 from SymbolTable import *
 from VisitorTypeCheck import *
 from VisitorFillSymbolTable import *
+from VisitorDeclarationProcessing import *
 from CompilerErrorHandler import *
 import copy
 
@@ -40,7 +41,11 @@ class ASTTest():
         walker.walk(listener, programContext)
 
         symbolTable = SymbolTable()
-        tableFiller = VisitorFillSymbolTable(symbolTable, self.errorHandler)
+        functionFiller = VisitorFillSymbolTable(symbolTable, self.errorHandler)
+        functionFiller.visitProgramNode(abstractSyntaxTree.root)
+        symbolTable.traverseOn()
+        symbolTable.resetToRoot()
+        tableFiller = VisitorDeclarationProcessing(symbolTable, self.errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeCheck(self.errorHandler)
@@ -449,27 +454,27 @@ class SymbolTableTests(unittest.TestCase):
         table.insertVariableSymbol(b)
         table.openScope()
         table.insertVariableSymbol(c)
-        self.assertTrue(table.retrieveSymbol("a") is not None)
-        self.assertTrue(table.retrieveSymbol("b") is not None)
-        self.assertTrue(table.retrieveSymbol("c") is not None)
-        self.assertTrue(table.retrieveSymbol("d") is None)
+        self.assertTrue(table.retrieveSymbol("a", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("d", requireSeen=False) is None)
         table.closeScope()
         table.openScope()
         table.insertVariableSymbol(d)
         table.insertVariableSymbol(b_bis)
-        self.assertTrue(table.retrieveSymbol("a") is not None)
-        self.assertTrue(table.retrieveSymbol("b") is not None)
-        self.assertTrue(table.retrieveSymbol("c") is None)
-        self.assertTrue(table.retrieveSymbol("d") is not None)
-        self.assertTrue(table.retrieveSymbol("b").typeInfo.basetype == "int")
+        self.assertTrue(table.retrieveSymbol("a", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is None)
+        self.assertTrue(table.retrieveSymbol("d", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.basetype == "int")
 
         table.closeScope()
 
-        self.assertTrue(table.retrieveSymbol("b").typeInfo.basetype == "float")
-        self.assertTrue(table.retrieveSymbol("a") is not None)
-        self.assertTrue(table.retrieveSymbol("b") is not None)
-        self.assertTrue(table.retrieveSymbol("c") is None)
-        self.assertTrue(table.retrieveSymbol("d") is None)
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.basetype == "float")
+        self.assertTrue(table.retrieveSymbol("a", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
+        self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is None)
+        self.assertTrue(table.retrieveSymbol("d", requireSeen=False) is None)
 
 
 class MiscellaneousTests(ASTTest, unittest.TestCase):

@@ -6,6 +6,7 @@ from AbstractSyntaxTree import *
 from MyListener import *
 from VisitorTypeCheck import *
 from VisitorFillSymbolTable import *
+from VisitorDeclarationProcessing import *
 from CompilerErrorHandler import *
 from SymbolTable import *
 import traceback
@@ -46,7 +47,11 @@ def main(filename):
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
-        tableFiller = VisitorFillSymbolTable(symbolTable, errorHandler)
+        functionFiller = VisitorFillSymbolTable(symbolTable, errorHandler)
+        functionFiller.visitProgramNode(abstractSyntaxTree.root)
+        symbolTable.traverseOn()
+        symbolTable.resetToRoot()
+        tableFiller = VisitorDeclarationProcessing(symbolTable, errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
         print(symbolTable)
 

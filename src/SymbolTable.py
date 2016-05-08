@@ -10,6 +10,7 @@ class SymbolInfo:
 class VariableSymbolInfo(SymbolInfo):
     def __init__(self, astnode):
         # astnode is ASTDeclaratorInitializerNode
+        self.seen = False
         super(VariableSymbolInfo, self).__init__(astnode)
 
     @property
@@ -33,6 +34,7 @@ class Scope:
     def __init__(self, parent=None, name=None):
         self.name = name
         self.parent = parent
+        self.currentChild = 0
         self.children = []
         self.symbols = {}
 
@@ -45,13 +47,19 @@ class Scope:
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
         self.symbols[info.astnode.identifier] = info
 
-    def retrieveSymbol(self, name):
+    def retrieveSymbol(self, name, requireSeen):
         if name is None:
             return None
-        return self.symbols.get(name)
+
+        symbolInfo = self.symbols.get(name)
+
+        if symbolInfo is not None and requireSeen:
+            if isinstance(symbolInfo, VariableSymbolInfo) and symbolInfo.seen == False:
+                return None
+        return symbolInfo
 
     def isInsertionOk(self, new:SymbolInfo):
-        old = self.retrieveSymbol(new.astnode.identifier)
+        old = self.retrieveSymbol(new.astnode.identifier, requireSeen=False)
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
@@ -115,11 +123,20 @@ class Scope:
 
 class SymbolTable(object):
     def __init__(self):
+        self.traverse = False
         self.root = Scope()
         self.currentScope = self.root
 
     def openScope(self, name=None):
-        self.currentScope = self.currentScope.addChild(name)
+        if self.traverse:
+            if self.currentScope.currentChild >= len(self.currentScope.children):
+                raise Exception("Trying to open nonexisting scope; current scope:\n" + self.currentScope.out(0) + "am at child " + str(self.currentScope.currentChild))
+            self.currentScope.currentChild += 1
+            self.currentScope = self.currentScope.children[self.currentScope.currentChild - 1]
+            self.currentScope.currentChild = 0
+        else:
+            scope = self.currentScope
+            self.currentScope = self.currentScope.addChild(name)
 
     def closeScope(self):
         self.currentScope = self.currentScope.parent
@@ -136,13 +153,23 @@ class SymbolTable(object):
         else:
             return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 
-    def retrieveSymbol(self, name):
+    def retrieveSymbol(self, name, requireSeen=True):
         scope = self.currentScope
         while scope is not None:
-            nametype = scope.retrieveSymbol(name)
+            nametype = scope.retrieveSymbol(name, requireSeen)
             if nametype is not None:
                 return nametype
             scope = scope.parent
 
     def __str__(self):
         return self.root.out(0)
+
+    def traverseOn(self):
+        self.traverse = True
+        self.resetToRoot()
+
+    def traverseOff(self):
+        self.traverse = False
+
+    def resetToRoot(self):
+        self.currentScope = self.root
