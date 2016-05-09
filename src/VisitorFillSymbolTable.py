@@ -28,7 +28,6 @@ class VisitorFillSymbolTable(VisitorSymbolTable):
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return
-        # print("function visitor: opening scope for " + node.identifier)
         self.table.openScope(node.identifier)
         self.visitChildren(node)
         self.table.closeScope()

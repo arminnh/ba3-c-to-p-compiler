@@ -76,7 +76,6 @@ class VisitorDeclarationProcessing(VisitorSymbolTable):
             node.typeInfo = symbolInfo.typeInfo
 
     def visitFunctionDefinitionNode(self, node):
-        # print("variable visitor: entering scope for " + node.identifier)
         self.table.openScope(node.identifier)
         self.visitChildren(node)
         self.table.closeScope()

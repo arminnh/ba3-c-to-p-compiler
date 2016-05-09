@@ -130,7 +130,8 @@ class ASTMainFunctionNode(ASTFunctionDefinitionNode):
         super(ASTMainFunctionNode, self).__init__("main", ctx)
 
     def accept(self, visitor):
-        visitor.visitMainFunctionNode(self)
+        if not self.error:
+            visitor.visitMainFunctionNode(self)
 
 class ASTParametersNode(ASTNode):
     def __init__(self, ctx=None):
