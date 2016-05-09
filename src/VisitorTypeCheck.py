@@ -130,14 +130,19 @@ class VisitorTypeCheck(Visitor):
             node.error = True
             self.errorHandler.addError("Argument 1 of function '{0}' should be of type {1} but is of type {2}".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), line, column)
 
-        codes = re.findall(r'%([0-9]*)([a-z])', formatArgument.value)
+        codes = re.findall(r'%([0-9]*)([a-z%])', formatArgument.value)
 
         if len(codes) < len(arguments.children) - 1:
-            print("warning: too many arguments for format")
+            # print("warning: too many arguments for format")
+            pass
 
+        # print (codes, len(arguments.children))
         for i, (width, code) in enumerate(codes):
             if i+1 > len(arguments.children): #ex: printf("%i %i", 1)
-                print("warning: format ‘%i’ expects a matching ‘int’ argument")
+                # print("warning: format ‘%i’ expects a matching ‘int’ argument")
+                continue
+
+            if code == "%":
                 continue
 
             if code not in self.stdioCodes:
