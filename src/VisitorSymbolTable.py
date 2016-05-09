@@ -26,38 +26,10 @@ class VisitorSymbolTable(Visitor):
             self.errorHandler.addError(*result)
             return False
 
-    def visitParameterNode(self, node):
-        # in a function definition, all parameters need to have identifiers
-        parametersCount = len(node.parent.children)
-
-        if node.basetype == "void":
-            if node.identifier is None and parametersCount > 1:
-                line, column = node.getLineAndColumn()
-                node.error = True
-                self.errorHandler.addError("‘void’ must be the only parameter", line, column)
-                return
-
-            elif node.identifier is not None and node.getType().indirections == 0:
-                line, column = node.getLineAndColumn()
-                node.error = True
-                self.errorHandler.addError("Parameter has incomplete type", line, column)
-                return
-
-        elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
-            line, column = node.getLineAndColumn()
-            node.error = True
-            self.errorHandler.addError("Parameter name omitted", line, column)
-            return
-
-        if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            result = self.insertSymbol(node, isFunction=False)
-            if result == False:
-                return
-
-        self.visitChildren(node)
 
     def visitMainFunctionNode(self, node):
         self.visitFunctionDefinitionNode(node)
+
 
     def visitStatementsNode(self, node):
         openedScope = False

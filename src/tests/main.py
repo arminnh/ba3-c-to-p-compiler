@@ -13,8 +13,8 @@ from AbstractSyntaxTree import *
 from MyListener import *
 from SymbolTable import *
 from VisitorTypeCheck import *
-from VisitorFillSymbolTable import *
-from VisitorDeclarationProcessing import *
+from VisitorDefinitionProcessor import *
+from VisitorDeclarationProcessor import *
 from CompilerErrorHandler import *
 import copy
 
@@ -41,11 +41,11 @@ class ASTTest():
         walker.walk(listener, programContext)
 
         symbolTable = SymbolTable()
-        functionFiller = VisitorFillSymbolTable(symbolTable, self.errorHandler)
+        functionFiller = VisitorDefinitionProcessor(symbolTable, self.errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
         symbolTable.traverseOn()
         symbolTable.resetToRoot()
-        tableFiller = VisitorDeclarationProcessing(symbolTable, self.errorHandler)
+        tableFiller = VisitorDeclarationProcessor(symbolTable, self.errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeCheck(self.errorHandler)

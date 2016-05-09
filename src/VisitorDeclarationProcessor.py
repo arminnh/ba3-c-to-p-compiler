@@ -2,7 +2,7 @@ from antlr4 import *
 from AbstractSyntaxTree import *
 from VisitorSymbolTable import *
 
-class VisitorDeclarationProcessing(VisitorSymbolTable):
+class VisitorDeclarationProcessor(VisitorSymbolTable):
 
     def visitIncludeNode(self, node):
         if node.isStdInclude and node.name == "stdio.h":
@@ -46,22 +46,6 @@ class VisitorDeclarationProcessing(VisitorSymbolTable):
         symbol.seen = True
 
         self.visitChildren(node)
-
-
-    def visitIntegerLiteralNode(self, node):
-        pass
-
-
-    def visitFloatLiteralNode(self, node):
-        pass
-
-
-    def visitCharacterLiteralNode(self, node):
-        pass
-
-
-    def visitStringLiteralNode(self, node):
-        pass
 
 
     def visitVariableNode(self, node):

@@ -5,8 +5,9 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
 from VisitorTypeCheck import *
-from VisitorFillSymbolTable import *
-from VisitorDeclarationProcessing import *
+from VisitorDefinitionProcessor import *
+from VisitorDeclarationProcessor import *
+from VisitorCodeGenerator import *
 from CompilerErrorHandler import *
 from SymbolTable import *
 import traceback
@@ -47,11 +48,11 @@ def main(filename):
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
-        functionFiller = VisitorFillSymbolTable(symbolTable, errorHandler)
+        functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
         symbolTable.traverseOn()
         symbolTable.resetToRoot()
-        tableFiller = VisitorDeclarationProcessing(symbolTable, errorHandler)
+        tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
         print(symbolTable)
 
@@ -60,6 +61,8 @@ def main(filename):
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
         # generate code
+        codeGenerator = VisitorCodeGenerator()
+        codeGenerator.visitProgramNode(abstractSyntaxTree.root)
 
     except Exception as e:
         ex_type, ex, tb = sys.exc_info()

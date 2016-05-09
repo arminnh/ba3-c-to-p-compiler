@@ -1,5 +1,17 @@
-recognize printf/scanf after import stdio
-fix very long nested expressions
-
-
 code generation
+
+
+
+
+DONE:
+*) recognize printf/scanf after import stdio
+*) fix very long nested expressions
+
+
+
+
+
+EXTRAS:
+
+int myfun(int a, char b = 'c') {
+}
