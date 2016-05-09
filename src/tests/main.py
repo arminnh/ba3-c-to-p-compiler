@@ -495,6 +495,22 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testHelloWorld(self):
         self.generateNoError("testfiles/hello_world.c")
 
+class EvalutationTests(ASTTest, unittest.TestCase):
+
+    def testTypes(self):
+        self.generateNoError("testfiles/mandatory.good/1types2.c")
+
+    def testIO(self):
+        self.generateNoError("testfiles/mandatory.good/2io1.c")
+
+    def testExpressions(self):
+        self.generateNoError("testfiles/mandatory.good/3expressions3.c")
+
+    def testFunction(self):
+        self.generateNoError("testfiles/mandatory.good/7function2.c")
+
+    def testArrays(self):
+        self.generateNoError("testfiles/mandatory.good/8arrays2.c")
 
 def testAll():
     unittest.main()
