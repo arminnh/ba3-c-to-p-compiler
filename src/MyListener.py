@@ -520,9 +520,11 @@ class MyListener(SmallCListener):
             symbol = children[0].getText()
             if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['prefix'], ctx))
             elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['prefix'], ctx))
+            elif symbol == "+":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['plus'], ASTUnaryOperatorNode.Type['prefix'], ctx))
+            elif symbol == "-":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['minus'], ASTUnaryOperatorNode.Type['prefix'], ctx))
             elif symbol == "&":  self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode(ctx))
             elif symbol == "*":  self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode(ctx))
-            elif symbol == "!": self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode(ctx))
+            elif symbol == "!":  self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode(ctx))
             else:
                 self.createdNode.append(False)
                 return;
