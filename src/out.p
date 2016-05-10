@@ -1,4 +1,4 @@
-code variable decl 
-code decl initializer 
-code initializer list 
-code int literal 
+ldc i 1
+ldc i 1
+add i
+hlt
