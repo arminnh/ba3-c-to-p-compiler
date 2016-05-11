@@ -21,9 +21,8 @@ class VisitorSymbolTable(Visitor):
             else:
                 self.table.insertVariableSymbol(node)
         elif result != False:
-            node.error = True
-            # result is (error, line, column)
-            self.errorHandler.addError(*result)
+            # result is (error, node)
+            self.addError(result[0], result[1])
             return False
 
 

@@ -497,6 +497,10 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testVariables(self):
         self.generateNoError("testfiles/variables.c")
 
+    # functions, forward declarations, weird parameters to functions and printf
+    def testFunctions(self):
+        self.generateNoError("testfiles/functions.c")
+
     # a file with some includes, functions, expressions and flow control
     def testHelloWorld(self):
         self.generateNoError("testfiles/hello_world.c")
@@ -504,19 +508,19 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
 class EvalutationTests(ASTTest, unittest.TestCase):
 
     def testTypes(self):
-        self.generateNoError("testfiles/mandatory.good/1types2.c")
+        self.generateNoError("testfiles/assistant-tests/1types2.c")
 
     def testIO(self):
-        self.generateNoError("testfiles/mandatory.good/2io1.c")
+        self.generateNoError("testfiles/assistant-tests/2io1.c")
 
     def testExpressions(self):
-        self.generateNoError("testfiles/mandatory.good/3expressions3.c")
+        self.generateNoError("testfiles/assistant-tests/3expressions3.c")
 
     def testFunction(self):
-        self.generateNoError("testfiles/mandatory.good/7function2.c")
+        self.generateNoError("testfiles/assistant-tests/7function2.c")
 
     def testArrays(self):
-        self.generateNoError("testfiles/mandatory.good/8arrays2.c")
+        self.generateNoError("testfiles/assistant-tests/8arrays2.c")
 
 def testAll():
     unittest.main()

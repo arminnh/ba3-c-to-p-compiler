@@ -170,12 +170,9 @@ class ASTParameterNode(ASTNode):
             raise Exception("ASTParameterNode basetype not filled in", line, column)
         return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const, isArray=self.isArray)
 
-    def __eq__(self, other): # TODO: do self.getType() == other.getType() ???
-        return self.basetype == other.basetype \
-            and self.isArray == other.isArray \
-            and self.const == other.const \
-            and self.indirections == other.indirections
-        # and self.arrayLength == other.arrayLength # if checking arrayLength, need to check possible expression child equality
+    def __eq__(self, other):
+        # TODO: if checking arrayLength, need to check possible expression child equality. (somehow do self.arrayLength == other.arrayLength)
+        return self.getType() == other.getType()
 
     def out(self, level):
         s = offset * level
@@ -321,7 +318,6 @@ class ASTDeclaratorInitializerNode(ASTNode):
         # arrayLength will be an expressionNode child
         self.indirections = 0
         self.const = []
-        # TODO: dont't allow const variable declaration without initial value
 
     def accept(self, visitor):
         if not self.error:
@@ -687,7 +683,6 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
             visitor.visitArraySubscriptNode(self)
 
     def getType(self):
-        # TODO: this is not entirely right methinks
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
         ttype.rvalue = False

@@ -35,7 +35,6 @@ class TypeInfo:
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
 
-		#TODO: review this part: (not self.isArray and other.isArray or self.isArray and not other.isArray)
 		if self.indirections == 1 and other.indirections == 1 and (not self.isArray and other.isArray or self.isArray and not other.isArray):
 			return self.basetype == other.basetype
 

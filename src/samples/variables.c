@@ -13,7 +13,7 @@ int main(void)
 
         {
             const int g[] = {1, 2, 3};
-            int const h = 5; // TODO for extras: if const, variable must be initialized
+            int const h = 5; // TODO for extras: dont't allow const variable declaration without initial value
 
             {
                 int i[7] = {1, 2}; // {1, 2, 0, 0, 0, 0, 0}
@@ -36,7 +36,7 @@ int main(void)
     int *as;
     int *asd = as;
 
-    int asdf[]; //TODO error: array size missing in 'asdf'
+    // int asdf[]; // error: array size missing in 'asdf'
     int asdfa[3];
     int asdfas[] = {1, 2, 3};
     int aasdfad[3] = {1, 2, 3};

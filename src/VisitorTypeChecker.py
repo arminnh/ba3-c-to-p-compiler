@@ -144,7 +144,7 @@ class VisitorTypeChecker(Visitor):
 
         # print (codes)
 
-    #TODO check constness of arguments/parameters
+    #TODO for extras: check constness of arguments/parameters
     def visitFunctionCallNode(self, node):
         self.visitChildren(node)
 

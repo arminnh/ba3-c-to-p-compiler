@@ -49,4 +49,6 @@ int main(int argc, char *argv[])
     return 1;
 }
 
-// int abc (int argc, char *argv[]) { } // TODO: not recognized by grammar
+int abc (int argc, char *argv[]) {
+
+}

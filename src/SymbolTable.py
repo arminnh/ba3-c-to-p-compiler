@@ -63,8 +63,7 @@ class Scope:
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
-                line, column = new.astnode.getLineAndColumn()
-                return ("Identifier {0} already taken by variable".format(old.astnode.identifier), line, column)
+                return ("Identifier {0} already taken by variable".format(old.astnode.identifier), new.astnode)
 
             if type(new) is FunctionSymbolInfo:
                 if isinstance(new.astnode, ASTFunctionDefinitionNode):
@@ -72,40 +71,29 @@ class Scope:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return True # definition can overwrite declaration
                         else:
-                            line, column = new.astnode.getLineAndColumn() # TODO: get line, column of old declaration as well
-                            return ("Function definition parameters don't match with previous declaration", line, column)
+                            return ("Function definition parameters don't match with previous declaration", new.astnode)
 
                     elif isinstance(old.astnode, ASTFunctionDefinitionNode):
-                        # if definition for identifier already present, don't have to check param/return types at all?
-                        # if not old.astnode.getType().isCompatible(new.astnode.getType()):
-                        #     line, column = new.astnode.getLineAndColumn()
-                        #     return ("Conflicting types for function definition '{0}'".format(str(new.astnode.identifier)), line, column)
-                        # else:
-                            line, column = new.astnode.getLineAndColumn()
-                            return ("Redefinition of function '{0}'".format(new.astnode.identifier), line, column)
+                        return ("Redefinition of function '{0}'".format(new.astnode.identifier), new.astnode)
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
                     if type(old.astnode) is ASTFunctionDefinitionNode:
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
-                            line, column = new.astnode.getLineAndColumn()
-                            return ("Conflicting types for function declaration " + str(new.astnode.identifier), line, column)
+                            return ("Conflicting types for function declaration " + str(new.astnode.identifier), new.astnode)
 
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
-                            line, column = new.astnode.getLineAndColumn()
-                            return ("Function declaration parameters don't match previous definition", line, column)
+                            return ("Function declaration parameters don't match previous definition", new.astnode)
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
-                            line, column = new.astnode.getLineAndColumn()
-                            return ("Function declaration parameters don't match previous declaration", line, column)
+                            return ("Function declaration parameters don't match previous declaration", new.astnode)
 
             elif type(new) is VariableSymbolInfo:
-                line, column = old.astnode.getLineAndColumn()
-                return ("Identifier {0} already taken by function".format(old.astnode.identifier), line, column)
+                return ("Identifier {0} already taken by function".format(old.astnode.identifier), old.astnode)
 
         else:
             return True
