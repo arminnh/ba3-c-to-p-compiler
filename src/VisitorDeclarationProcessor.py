@@ -52,9 +52,7 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         symbolInfo = self.table.retrieveSymbol(node.identifier)
 
         if symbolInfo is None or symbolInfo.seen == False:
-            line, column = node.getLineAndColumn()
-            node.error = True
-            self.errorHandler.addError("Variable '{0}' used before it was declared".format(node.identifier), line, column)
+            self.addError("Variable '{0}' used before it was declared".format(node.identifier), node)
             return
         else:
             node.typeInfo = symbolInfo.typeInfo
@@ -69,14 +67,10 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         symbolInfo = self.table.retrieveSymbol(node.identifier)
 
         if symbolInfo is None:
-            line, column = node.getLineAndColumn()
-            node.error = True
-            self.errorHandler.addError("Function '{0}' used before it was declared".format(node.identifier), line, column)
+            self.addError("Function '{0}' used before it was declared".format(node.identifier), node)
             return
         elif not symbolInfo.defined:
-            line, column = node.getLineAndColumn()
-            node.error = True
-            self.errorHandler.addError("Function: undefined reference", line, column)
+            self.addError("Function: undefined reference", node)
             return
 
         node.definitionNode = symbolInfo.astnode

@@ -40,21 +40,15 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         if node.basetype == "void":
             if node.identifier is None and parametersCount > 1:
-                line, column = node.getLineAndColumn()
-                node.error = True
-                self.errorHandler.addError("‘void’ must be the only parameter", line, column)
+                self.addError("‘void’ must be the only parameter", node)
                 return
 
             elif node.identifier is not None and node.getType().indirections == 0:
-                line, column = node.getLineAndColumn()
-                node.error = True
-                self.errorHandler.addError("Parameter has incomplete type", line, column)
+                self.addError("Parameter has incomplete type", node)
                 return
 
         elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
-            line, column = node.getLineAndColumn()
-            node.error = True
-            self.errorHandler.addError("Parameter name omitted", line, column)
+            self.addError("Parameter name omitted", node)
             return
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:

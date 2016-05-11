@@ -193,7 +193,7 @@ class VisitorCodeGenerator(Visitor):
 
             # self.outFile.write("ldc i 1 \n")
             # self.outFile.write("add i\n")
-            raise NotImplementedError
+            pass
         elif op == "--":
             self.outFile.write("UNARY ARITHMETIC" + op + "\n")
 

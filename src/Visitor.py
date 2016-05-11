@@ -1,5 +1,8 @@
 
 class Visitor:
+    def __init__(self, errorHandler=None):
+        self.errorHandler = errorHandler
+
     def visitChildren(self, node):
         for child in node.children:
             if not self.shouldVisitNextChild(node):
@@ -10,6 +13,12 @@ class Visitor:
 
     def shouldVisitNextChild(self, node):
         True
+
+
+    def addError(self, error, node):
+        line, column = node.getLineAndColumn()
+        node.error = True
+        self.errorHandler.addError(error, line, column)
 
 
     def visitProgramNode(self, node):

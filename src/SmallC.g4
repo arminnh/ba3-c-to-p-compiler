@@ -23,8 +23,8 @@ oplevel12 :
     ;
 
 oplevel11 :
-      oplevel11 '&&' oplevel10
-    | oplevel10
+      oplevel11 '&&' oplevel7
+    | oplevel7
     ;
 
 oplevel10 :
@@ -46,11 +46,11 @@ oplevel7 :
     ;
 
 oplevel6 :
-      oplevel6 '<' oplevel5
-    | oplevel6 '<=' oplevel5
-    | oplevel6 '>' oplevel5
-    | oplevel6 '>=' oplevel5
-    | oplevel5
+      oplevel6 '<' oplevel4
+    | oplevel6 '<=' oplevel4
+    | oplevel6 '>' oplevel4
+    | oplevel6 '>=' oplevel4
+    | oplevel4
     ;
 
 oplevel5 :
@@ -158,7 +158,7 @@ expression :
     | characterLiteral
     | stringLiteral
     | functionCall
-    | oplevel15
+    | oplevel14
     ;
 
 ifCond :
@@ -191,7 +191,19 @@ cvQualifier :
     ;
 
 declaratorInitializer :
-      pointerPart* identifier arrayPart? ('=' initializer)?
+      '(' declarator1 ')' ('=' initializer)?
+    | declarator1 ('=' initializer)?
+    ;
+
+declarator1 :
+      '(' declarator1 ')'
+    | declarator2 arrayPart?
+    ;
+
+declarator2 :
+      '(' declarator2 ')'
+    | pointerPart* identifier
+    | pointerPart+ declarator1
     ;
 
 initializer :

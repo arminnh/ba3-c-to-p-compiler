@@ -1,6 +1,6 @@
 int main(void) {
     int a;
-    
+
     a = a + 1;
     -4;
     +4;

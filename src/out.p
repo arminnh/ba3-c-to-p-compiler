@@ -1,6 +1,4 @@
-ldc a 0
-ldc a 0
-ind a
-ldc i 1
-add i
+ldc i 0
+code decl initializer 
+code decl initializer 
 hlt

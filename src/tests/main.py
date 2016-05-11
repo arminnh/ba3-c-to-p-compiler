@@ -12,7 +12,7 @@ from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
 from SymbolTable import *
-from VisitorTypeCheck import *
+from VisitorTypeChecker import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
 from CompilerErrorHandler import *
@@ -48,7 +48,7 @@ class ASTTest():
         tableFiller = VisitorDeclarationProcessor(symbolTable, self.errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
-        typeCheck = VisitorTypeCheck(self.errorHandler)
+        typeCheck = VisitorTypeChecker(self.errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
@@ -311,6 +311,9 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
 
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
+
+    def testStrangeBrackets(self):
+        self.generateNoError("testfiles/variable-declarations/strange-brackets.c")
 
     def testVariableDeclaration1(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/1")

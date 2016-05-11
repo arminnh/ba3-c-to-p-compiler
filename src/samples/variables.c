@@ -13,7 +13,7 @@ int main(void)
 
         {
             const int g[] = {1, 2, 3};
-            int const h = 5; // if const, variable must be initialized
+            int const h = 5; // TODO for extras: if const, variable must be initialized
 
             {
                 int i[7] = {1, 2}; // {1, 2, 0, 0, 0, 0, 0}

@@ -4,7 +4,7 @@ from SmallCListener import SmallCListener
 from SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from MyListener import *
-from VisitorTypeCheck import *
+from VisitorTypeChecker import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
 from VisitorCodeGenerator import *
@@ -57,7 +57,7 @@ def main(filename):
         print(symbolTable)
 
         # do the type checking
-        typeCheck = VisitorTypeCheck(errorHandler)
+        typeCheck = VisitorTypeChecker(errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
         # generate code
