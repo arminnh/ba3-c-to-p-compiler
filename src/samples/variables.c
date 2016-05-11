@@ -36,7 +36,7 @@ int main(void)
     int *as;
     int *asd = as;
 
-    // int asdf[]; //TODO error: array size missing in 'asdf'
+    int asdf[]; //TODO error: array size missing in 'asdf'
     int asdfa[3];
     int asdfas[] = {1, 2, 3};
     int aasdfad[3] = {1, 2, 3};

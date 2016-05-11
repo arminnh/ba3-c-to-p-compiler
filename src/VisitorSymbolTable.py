@@ -4,8 +4,8 @@ from Visitor import *
 
 class VisitorSymbolTable(Visitor):
     def __init__(self, symbolTable, errorHandler):
+        super(VisitorSymbolTable, self).__init__(errorHandler)
         self.table = symbolTable
-        self.errorHandler = errorHandler
 
     # checks if it is ok to enter a symbol into the symbol table, otherwise it puts an error in errorhandler
     def insertSymbol(self, node, isFunction):

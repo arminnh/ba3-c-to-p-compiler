@@ -1,0 +1,12 @@
+Error at 3:10: Array size missing in 'y6'
+char (y6)[];
+     ^
+Error at 9:10: Array size missing in 'y'
+char *y[];
+     ^
+Error at 12:10: Array size missing in 'y4'
+char ((((*((y4[]))))));
+     ^
+Error at 13:10: Array size missing in 'y10'
+char *(*y10[]);
+     ^

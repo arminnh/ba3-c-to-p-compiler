@@ -40,9 +40,6 @@ class VisitorTypeChecker(Visitor):
     def visitDeclaratorInitializerNode(self, node):
         self.visitChildren(node)
 
-        arrayLengthExpression = None
-        initializerList = False
-
         for child in node.children:
             # if child is expression node, it is the array length value
             if isinstance(child, ASTExpressionNode):
@@ -54,9 +51,6 @@ class VisitorTypeChecker(Visitor):
             elif isinstance(child, ASTInitializerListNode):
                 # if basetype is array, typecheck with each elements of initializer list
                 if node.isArray:
-                    # if not child.children:
-
-
                     for initListElement in child.children:
                         # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
                         ownType = copy.deepcopy(node.getType())
@@ -83,6 +77,10 @@ class VisitorTypeChecker(Visitor):
                     # if len(child.children) > 1:
                     #     line, column = node.getLineAndColumn()
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
+
+        if not node.children and node.isArray:
+            self.addError("Array size missing in '{0}'".format(node.identifier), node)
+            return
 
 
     def visitIntegerLiteralNode(self, node):
