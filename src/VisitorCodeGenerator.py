@@ -4,9 +4,9 @@ from Visitor import *
 
 class VisitorCodeGenerator(Visitor):
 
-    def __init__(self, outfile="out.p"):
+    def __init__(self, outFile="out.p"):
         self.lvalue = []
-        self.outFile = open(outfile, 'w')
+        self.outFile = open(outFile, 'w')
 
         self.p_types = {
             "address" : "a",
@@ -16,6 +16,13 @@ class VisitorCodeGenerator(Visitor):
             "numeric" : "N",
             "type"    : "T",
             "boolean" : "b"
+        }
+
+        self.initializers = {
+            "int"     : 0,
+            "float"   : 0.0,
+            "char"    : 'c',
+            "boolean" : 0
         }
 
         self.bin_arithm_op = {
@@ -41,9 +48,13 @@ class VisitorCodeGenerator(Visitor):
         # or -> or
         # ! -> not
 
+    def __del__(self):
+        self.outFile.close()
+
 
     def visitProgramNode(self, node):
         # self.outFile.write("code \n")
+        # self.outFile.write("ujp  lmain\n")
         self.visitChildren(node)
         self.outFile.write("hlt\n")
 
@@ -64,7 +75,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitMainFunctionNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("\nlmain: \n")
         self.visitChildren(node)
 
 
@@ -80,11 +91,6 @@ class VisitorCodeGenerator(Visitor):
 
     def visitArgumentsNode(self, node):
         # self.outFile.write("code \n")
-        self.visitChildren(node)
-
-
-    def visitInitializerListNode(self, node):
-        self.outFile.write("code initializer list \n")
         self.visitChildren(node)
 
 
@@ -119,12 +125,24 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitVariableDeclarationNode(self, node):
-        # self.outFile.write("code variable decl \n")
+        # nothing here, handled by declaratorInitializer
         self.visitChildren(node)
 
 
     def visitDeclaratorInitializerNode(self, node):
-        self.outFile.write("code decl initializer \n")
+        hasInitializer = False
+        for child in node.children:
+            if isinstance(child, ASTInitializerListNode):
+                hasInitializer = True
+
+        if hasInitializer:
+            self.visitChildren(node)
+        else:
+            self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
+
+
+    def visitInitializerListNode(self, node):
+        # children will cause data to be loaded onto the stack
         self.visitChildren(node)
 
 
@@ -149,7 +167,7 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("ldc a 0\n") # TODO
         else:
             self.outFile.write("ldc a 0\n") # TODO
-            self.outFile.write("ind a\n") # TODO
+            self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
             # self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
 
         self.visitChildren(node)
