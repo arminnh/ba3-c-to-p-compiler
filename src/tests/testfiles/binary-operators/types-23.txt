@@ -1,3 +1,0 @@
-testfiles/binary-operators/types-23.c:2:5: error: invalid operands to logical 'or' (have 'float' and 'int')
-1.0 || 0;
-^

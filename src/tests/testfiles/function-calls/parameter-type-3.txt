@@ -1,3 +1,0 @@
-testfiles/function-calls/parameter-type-3.c:6:5: error: expected 'float' but argument is of type 'int'
-f(0);
-  ^

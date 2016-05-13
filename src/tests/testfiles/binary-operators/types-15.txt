@@ -1,3 +1,0 @@
-testfiles/binary-operators/types-15.c:2:5: error: invalid operands to binary '-' (have 'float' and 'char')
-5.0 - '5';
-^

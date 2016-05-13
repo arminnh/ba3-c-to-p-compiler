@@ -1,0 +1,3 @@
+testfiles/binary-operators/11.c:2:9: error: invalid operands to comparison '<' (have 'char' and 'int')
+'a' < 1;
+    ^

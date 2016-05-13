@@ -1,3 +1,0 @@
-testfiles/ternary-operator/types-2.c:3:15: error: invalid operands to ternary '?:', alternatives should be of equal type (have 'int' and 'char')
-(1 || 2 ? 0 : 'a');
-          ^

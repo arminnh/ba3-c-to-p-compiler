@@ -1,3 +1,0 @@
-testfiles/function-calls/parameter-type-6.c:6:3: error: number of arguments to function 'f' does not match definition (have 3, need 2)
-f(0.0, 'a', 9);
-^

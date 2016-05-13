@@ -1,3 +1,0 @@
-testfiles/binary-operators/types-10.c:2:7: error: invalid operands to comparison '>' (have 'int' and 'char []')
-4 > "a";
-  ^

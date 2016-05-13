@@ -1,6 +1,0 @@
-testfiles/binary-operators/types-31.c:3:11: error: array size missing in 'b'
-float b[];
-      ^
-testfiles/binary-operators/types-31.c:5:7: error: invalid operands to comparison '==' (have 'int *' and 'float []')
-a == b;
-  ^

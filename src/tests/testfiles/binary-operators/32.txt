@@ -1,0 +1,3 @@
+testfiles/binary-operators/32.c:5:7: error: invalid operands to comparison '==' (have 'char' and 'int')
+a == b[0];
+  ^

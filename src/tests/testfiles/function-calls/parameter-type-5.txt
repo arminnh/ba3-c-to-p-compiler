@@ -1,3 +1,0 @@
-testfiles/function-calls/parameter-type-5.c:8:25: error: expected 'int' but argument is of type 'float *'
-f('z', a, *b, &a, &b, b);
-                      ^

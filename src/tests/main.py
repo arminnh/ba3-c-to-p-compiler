@@ -94,221 +94,221 @@ class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
     # unary operators: ++, --, *, &, !, [], can be prefix or postfix
     # unary logic operator: ! only works with type int
     def testUnaryOperatorTypes1(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-1")
+        self.generateErrorsAndCompare("testfiles/unary-operators/1")
 
     def testUnaryOperatorTypes2(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-2")
+        self.generateErrorsAndCompare("testfiles/unary-operators/2")
 
     def testUnaryOperatorTypes3(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-3")
+        self.generateErrorsAndCompare("testfiles/unary-operators/3")
 
     def testUnaryOperatorTypes4(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-4")
+        self.generateErrorsAndCompare("testfiles/unary-operators/4")
 
     def testUnaryOperatorTypes5(self):
-        self.generateNoError("testfiles/unary-operators/types-5.c")
+        self.generateNoError("testfiles/unary-operators/5.c")
 
     def testUnaryOperatorTypes6(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-6")
+        self.generateErrorsAndCompare("testfiles/unary-operators/6")
 
     def testUnaryOperatorTypes7(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-7")
+        self.generateErrorsAndCompare("testfiles/unary-operators/7")
 
     def testUnaryOperatorTypes8(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-8")
+        self.generateErrorsAndCompare("testfiles/unary-operators/8")
 
     def testUnaryOperatorTypes9(self):
-        self.generateNoError("testfiles/unary-operators/types-9.c")
+        self.generateNoError("testfiles/unary-operators/9.c")
 
     def testUnaryOperatorTypes10(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-10")
+        self.generateErrorsAndCompare("testfiles/unary-operators/10")
 
     def testUnaryOperatorTypes11(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-11")
+        self.generateErrorsAndCompare("testfiles/unary-operators/11")
 
     def testUnaryOperatorTypes12(self):
-        self.generateErrorsAndCompare("testfiles/unary-operators/types-12")
+        self.generateErrorsAndCompare("testfiles/unary-operators/12")
 
     def testUnaryOperatorTypes13(self):
-        self.generateNoError("testfiles/unary-operators/types-13.c")
+        self.generateNoError("testfiles/unary-operators/13.c")
 
     def testUnaryOperatorTypes14(self):
-        self.generateNoError("testfiles/unary-operators/types-14.c")
+        self.generateNoError("testfiles/unary-operators/14.c")
 
 
 class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
 
     def testAllBinaryOperatorTypesLiteralsCorrect(self):
-        self.generateNoError("testfiles/binary-operators/types-correct-literals.c")
+        self.generateNoError("testfiles/binary-operators/correct-literals.c")
 
     def testBinaryOperatorTypes1(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-1")
+        self.generateErrorsAndCompare("testfiles/binary-operators/1")
 
     def testBinaryOperatorTypes2(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-2")
+        self.generateErrorsAndCompare("testfiles/binary-operators/2")
 
     def testBinaryOperatorTypes3(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-3")
+        self.generateErrorsAndCompare("testfiles/binary-operators/3")
 
     def testBinaryOperatorTypes4(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-4")
+        self.generateErrorsAndCompare("testfiles/binary-operators/4")
 
     def testBinaryOperatorTypes5(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-5")
+        self.generateErrorsAndCompare("testfiles/binary-operators/5")
 
     def testBinaryOperatorTypes6(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-6")
+        self.generateErrorsAndCompare("testfiles/binary-operators/6")
 
     def testBinaryOperatorTypes7(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-7")
+        self.generateErrorsAndCompare("testfiles/binary-operators/7")
 
     def testBinaryOperatorTypes8(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-8")
+        self.generateErrorsAndCompare("testfiles/binary-operators/8")
 
     def testBinaryOperatorTypes9(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-9")
+        self.generateErrorsAndCompare("testfiles/binary-operators/9")
 
     def testBinaryOperatorTypes10(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-10")
+        self.generateErrorsAndCompare("testfiles/binary-operators/10")
 
     def testBinaryOperatorTypes11(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-11")
+        self.generateErrorsAndCompare("testfiles/binary-operators/11")
 
     def testBinaryOperatorTypes12(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-12")
+        self.generateErrorsAndCompare("testfiles/binary-operators/12")
 
     def testBinaryOperatorTypes13(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-13")
+        self.generateErrorsAndCompare("testfiles/binary-operators/13")
 
     def testBinaryOperatorTypes14(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-14")
+        self.generateErrorsAndCompare("testfiles/binary-operators/14")
 
     def testBinaryOperatorTypes15(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-15")
+        self.generateErrorsAndCompare("testfiles/binary-operators/15")
 
     def testBinaryOperatorTypes16(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-16")
+        self.generateErrorsAndCompare("testfiles/binary-operators/16")
 
     def testBinaryOperatorTypes17(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-17")
+        self.generateErrorsAndCompare("testfiles/binary-operators/17")
 
     def testBinaryOperatorTypes18(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-18")
+        self.generateErrorsAndCompare("testfiles/binary-operators/18")
 
     def testBinaryOperatorTypes19(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-19")
+        self.generateErrorsAndCompare("testfiles/binary-operators/19")
 
     def testBinaryOperatorTypes20(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-20")
+        self.generateErrorsAndCompare("testfiles/binary-operators/20")
 
     def testBinaryOperatorTypes21(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-21")
+        self.generateErrorsAndCompare("testfiles/binary-operators/21")
 
     def testBinaryOperatorTypes22(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-22")
+        self.generateErrorsAndCompare("testfiles/binary-operators/22")
 
     def testBinaryOperatorTypes23(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-23")
+        self.generateErrorsAndCompare("testfiles/binary-operators/23")
 
     def testBinaryOperatorTypes24(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-24")
+        self.generateErrorsAndCompare("testfiles/binary-operators/24")
 
     def testBinaryOperatorTypes25(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-25")
+        self.generateErrorsAndCompare("testfiles/binary-operators/25")
 
     def testBinaryOperatorTypes26(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-26")
+        self.generateErrorsAndCompare("testfiles/binary-operators/26")
 
     def testBinaryOperatorTypes27(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-27")
+        self.generateErrorsAndCompare("testfiles/binary-operators/27")
 
     def testBinaryOperatorTypes28(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-28")
+        self.generateErrorsAndCompare("testfiles/binary-operators/28")
 
     def testBinaryOperatorTypes29(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-29")
+        self.generateErrorsAndCompare("testfiles/binary-operators/29")
 
     def testBinaryOperatorTypes30(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-30")
+        self.generateErrorsAndCompare("testfiles/binary-operators/30")
 
     def testBinaryOperatorTypes31(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-31")
+        self.generateErrorsAndCompare("testfiles/binary-operators/31")
 
     def testBinaryOperatorTypes32(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-32")
+        self.generateErrorsAndCompare("testfiles/binary-operators/32")
 
     def testBinaryOperatorTypes33(self):
-        self.generateNoError("testfiles/binary-operators/types-33.c")
+        self.generateNoError("testfiles/binary-operators/33.c")
 
     def testBinaryOperatorTypes34(self):
-        self.generateErrorsAndCompare("testfiles/binary-operators/types-34")
+        self.generateErrorsAndCompare("testfiles/binary-operators/34")
 
 
 class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
     # ternary operator test: needs int as first operator and alternatives should be of same type
     # (expression with type int) ? (expression with type T) : (expression with same type T);
     def test1(self):
-        self.generateErrorsAndCompare("testfiles/ternary-operator/types-1")
+        self.generateErrorsAndCompare("testfiles/ternary-operator/1")
 
     def test2(self):
-        self.generateErrorsAndCompare("testfiles/ternary-operator/types-2")
+        self.generateErrorsAndCompare("testfiles/ternary-operator/2")
 
     def test3(self):
-        self.generateNoError("testfiles/ternary-operator/types-3.c")
+        self.generateNoError("testfiles/ternary-operator/3.c")
 
     def test3(self):
-        self.generateNoError("testfiles/ternary-operator/types-4.c")
+        self.generateNoError("testfiles/ternary-operator/4.c")
 
     def test3(self):
-        self.generateErrorsAndCompare("testfiles/ternary-operator/types-5")
+        self.generateErrorsAndCompare("testfiles/ternary-operator/5")
 
     def test6(self):
-        self.generateErrorsAndCompare("testfiles/ternary-operator/types-6")
+        self.generateErrorsAndCompare("testfiles/ternary-operator/6")
 
 
 class FunctionCallTypeTests(ASTTest, unittest.TestCase):
 
     def testFunctionCallParameterType1(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-1")
+        self.generateErrorsAndCompare("testfiles/function-calls/1")
 
     def testFunctionCallParameterType2(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-2")
+        self.generateErrorsAndCompare("testfiles/function-calls/2")
 
     def testFunctionCallParameterType3(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-3")
+        self.generateErrorsAndCompare("testfiles/function-calls/3")
 
     def testFunctionCallParameterType4(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-4")
+        self.generateErrorsAndCompare("testfiles/function-calls/4")
 
     def testFunctionCallParameterType5(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-5")
+        self.generateErrorsAndCompare("testfiles/function-calls/5")
 
     def testFunctionCallParameterType6(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-6")
+        self.generateErrorsAndCompare("testfiles/function-calls/6")
 
     def testFunctionCallParameterType7(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-7")
+        self.generateErrorsAndCompare("testfiles/function-calls/7")
 
     def testFunctionCallParameterType8(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-8")
+        self.generateErrorsAndCompare("testfiles/function-calls/8")
 
     def testFunctionCallParameterTypeCorrect(self):
-        self.generateNoError("testfiles/function-calls/parameter-type-correct.c")
+        self.generateNoError("testfiles/function-calls/correct.c")
 
     def testFunctionCallParameterType9(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-9")
+        self.generateErrorsAndCompare("testfiles/function-calls/9")
 
     def testFunctionCallParameterType10(self):
-        self.generateNoError("testfiles/function-calls/parameter-type-10.c")
+        self.generateNoError("testfiles/function-calls/10.c")
 
     def testFunctionCallParameterType11(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-11")
+        self.generateErrorsAndCompare("testfiles/function-calls/11")
 
     def testFunctionCallParameterType12(self):
-        self.generateNoError("testfiles/function-calls/parameter-type-12.c")
+        self.generateNoError("testfiles/function-calls/12.c")
 
     def testFunctionCallParameterType13(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/parameter-type-13")
+        self.generateErrorsAndCompare("testfiles/function-calls/13")
 
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):

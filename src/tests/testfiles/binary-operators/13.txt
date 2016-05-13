@@ -1,0 +1,3 @@
+testfiles/binary-operators/13.c:2:5: error: invalid operands to binary '+' (have 'int' and 'float')
+5 + 5.0;
+^

@@ -1,3 +1,0 @@
-testfiles/unary-operators/types-4.c:4:5: error: invalid operands to logical '!' (have 'float *', need 'int')
-!ff;
-^

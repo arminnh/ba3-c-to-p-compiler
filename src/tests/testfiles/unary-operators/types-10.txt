@@ -1,6 +1,0 @@
-testfiles/unary-operators/types-10.c:5:10: error: invalid type argument of unary '*' (have 'char')
-a = *b[0];
-     ^
-testfiles/unary-operators/types-10.c:5:5: error: incompatible types when assigning to type 'char' from type 'char'
-a = *b[0];
-^

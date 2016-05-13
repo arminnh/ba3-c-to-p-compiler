@@ -1,0 +1,3 @@
+testfiles/unary-operators/7.c:5:5: error: incompatible types when assigning to type 'float' from type 'float *'
+f = ff;
+^
