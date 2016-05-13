@@ -5,19 +5,19 @@ import logging
 import sys
 sys.path.insert(0, '..')
 
-from antlr4 import *
-from SmallCLexer import SmallCLexer
-from SmallCListener import SmallCListener
-from SmallCParser import SmallCParser
+from antlr4_generated.SmallCLexer import SmallCLexer
+from antlr4_generated.SmallCParser import SmallCParser
+
 from AbstractSyntaxTree import *
-from MyListener import *
+from Listener import *
+from CompilerErrorHandler import *
 from SymbolTable import *
-from VisitorTypeChecker import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
-from CompilerErrorHandler import *
-import copy
+from VisitorTypeChecker import *
+from VisitorCodeGenerator import *
 
+import copy
 # import re to remove all whitespace from strings
 import re
 
@@ -38,7 +38,7 @@ class ASTTest():
         walker = ParseTreeWalker()
         abstractSyntaxTree = AbstractSyntaxTree();
         self.errorHandler = CompilerErrorHandler(filename)
-        listener = MyListener(abstractSyntaxTree)
+        listener = Listener(abstractSyntaxTree)
         walker.walk(listener, programContext)
 
         symbolTable = SymbolTable()

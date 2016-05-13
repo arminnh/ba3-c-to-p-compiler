@@ -1,16 +1,18 @@
 @echo off
 
-echo Running Python3 tests with file tests.py
+echo Running Python3 tests with file /src/tests/main.py
 
-if not exist "./SmallCParser.py" GOTO build
-if not exist "./SmallCLexer.py" GOTO build
-if not exist "./SmallCLexer.tokens" GOTO build
-if not exist "./SmallCListener.py" GOTO build
-if not exist "./SmallCParser.py" GOTO build
-if not exist "./SmallC.tokens" GOTO build
+if not exist "antlr4_generated\SmallCParser.py" GOTO build
+if not exist "antlr4_generated\SmallCLexer.py" GOTO build
+if not exist "antlr4_generated\SmallCLexer.tokens" GOTO build
+if not exist "antlr4_generated\SmallCListener.py" GOTO build
+if not exist "antlr4_generated\SmallCParser.py" GOTO build
+if not exist "antlr4_generated\SmallC.tokens" GOTO build
 
 :test
-python3 tests.py
+cd tests/
+python3 main.py
+cd ..
 GOTO end
 
 echo Tests Done

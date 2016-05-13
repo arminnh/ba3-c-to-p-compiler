@@ -80,24 +80,24 @@ def serializedATN():
         buf.write("\5\1\2yz\5\n\6\2z\u0080\3\2\2\2{|\f\4\2\2|}\7\6\2\2}\177")
         buf.write("\5\n\6\2~{\3\2\2\2\177\u0082\3\2\2\2\u0080~\3\2\2\2\u0080")
         buf.write("\u0081\3\2\2\2\u0081\t\3\2\2\2\u0082\u0080\3\2\2\2\u0083")
-        buf.write("\u0084\b\6\1\2\u0084\u0085\5\f\7\2\u0085\u008b\3\2\2\2")
-        buf.write("\u0086\u0087\f\4\2\2\u0087\u0088\7\7\2\2\u0088\u008a\5")
-        buf.write("\f\7\2\u0089\u0086\3\2\2\2\u008a\u008d\3\2\2\2\u008b\u0089")
-        buf.write("\3\2\2\2\u008b\u008c\3\2\2\2\u008c\13\3\2\2\2\u008d\u008b")
-        buf.write("\3\2\2\2\u008e\u008f\5\16\b\2\u008f\r\3\2\2\2\u0090\u0091")
-        buf.write("\5\20\t\2\u0091\17\3\2\2\2\u0092\u0093\5\22\n\2\u0093")
-        buf.write("\21\3\2\2\2\u0094\u0095\b\n\1\2\u0095\u0096\5\24\13\2")
-        buf.write("\u0096\u009f\3\2\2\2\u0097\u0098\f\5\2\2\u0098\u0099\7")
-        buf.write("\b\2\2\u0099\u009e\5\24\13\2\u009a\u009b\f\4\2\2\u009b")
+        buf.write("\u0084\b\6\1\2\u0084\u0085\5\22\n\2\u0085\u008b\3\2\2")
+        buf.write("\2\u0086\u0087\f\4\2\2\u0087\u0088\7\7\2\2\u0088\u008a")
+        buf.write("\5\22\n\2\u0089\u0086\3\2\2\2\u008a\u008d\3\2\2\2\u008b")
+        buf.write("\u0089\3\2\2\2\u008b\u008c\3\2\2\2\u008c\13\3\2\2\2\u008d")
+        buf.write("\u008b\3\2\2\2\u008e\u008f\5\16\b\2\u008f\r\3\2\2\2\u0090")
+        buf.write("\u0091\5\20\t\2\u0091\17\3\2\2\2\u0092\u0093\5\22\n\2")
+        buf.write("\u0093\21\3\2\2\2\u0094\u0095\b\n\1\2\u0095\u0096\5\24")
+        buf.write("\13\2\u0096\u009f\3\2\2\2\u0097\u0098\f\5\2\2\u0098\u0099")
+        buf.write("\7\b\2\2\u0099\u009e\5\24\13\2\u009a\u009b\f\4\2\2\u009b")
         buf.write("\u009c\7\t\2\2\u009c\u009e\5\24\13\2\u009d\u0097\3\2\2")
         buf.write("\2\u009d\u009a\3\2\2\2\u009e\u00a1\3\2\2\2\u009f\u009d")
         buf.write("\3\2\2\2\u009f\u00a0\3\2\2\2\u00a0\23\3\2\2\2\u00a1\u009f")
-        buf.write("\3\2\2\2\u00a2\u00a3\b\13\1\2\u00a3\u00a4\5\26\f\2\u00a4")
+        buf.write("\3\2\2\2\u00a2\u00a3\b\13\1\2\u00a3\u00a4\5\30\r\2\u00a4")
         buf.write("\u00b3\3\2\2\2\u00a5\u00a6\f\7\2\2\u00a6\u00a7\7\33\2")
-        buf.write("\2\u00a7\u00b2\5\26\f\2\u00a8\u00a9\f\6\2\2\u00a9\u00aa")
-        buf.write("\7\n\2\2\u00aa\u00b2\5\26\f\2\u00ab\u00ac\f\5\2\2\u00ac")
-        buf.write("\u00ad\7\34\2\2\u00ad\u00b2\5\26\f\2\u00ae\u00af\f\4\2")
-        buf.write("\2\u00af\u00b0\7\13\2\2\u00b0\u00b2\5\26\f\2\u00b1\u00a5")
+        buf.write("\2\u00a7\u00b2\5\30\r\2\u00a8\u00a9\f\6\2\2\u00a9\u00aa")
+        buf.write("\7\n\2\2\u00aa\u00b2\5\30\r\2\u00ab\u00ac\f\5\2\2\u00ac")
+        buf.write("\u00ad\7\34\2\2\u00ad\u00b2\5\30\r\2\u00ae\u00af\f\4\2")
+        buf.write("\2\u00af\u00b0\7\13\2\2\u00b0\u00b2\5\30\r\2\u00b1\u00a5")
         buf.write("\3\2\2\2\u00b1\u00a8\3\2\2\2\u00b1\u00ab\3\2\2\2\u00b1")
         buf.write("\u00ae\3\2\2\2\u00b2\u00b5\3\2\2\2\u00b3\u00b1\3\2\2\2")
         buf.write("\u00b3\u00b4\3\2\2\2\u00b4\25\3\2\2\2\u00b5\u00b3\3\2")
@@ -196,7 +196,7 @@ def serializedATN():
         buf.write("\u0182\u0181\3\2\2\2\u0183\67\3\2\2\2\u0184\u018c\5V,")
         buf.write("\2\u0185\u018c\5^\60\2\u0186\u018c\5`\61\2\u0187\u018c")
         buf.write("\5b\62\2\u0188\u018c\5d\63\2\u0189\u018c\5T+\2\u018a\u018c")
-        buf.write("\5\2\2\2\u018b\u0184\3\2\2\2\u018b\u0185\3\2\2\2\u018b")
+        buf.write("\5\4\3\2\u018b\u0184\3\2\2\2\u018b\u0185\3\2\2\2\u018b")
         buf.write("\u0186\3\2\2\2\u018b\u0187\3\2\2\2\u018b\u0188\3\2\2\2")
         buf.write("\u018b\u0189\3\2\2\2\u018b\u018a\3\2\2\2\u018c9\3\2\2")
         buf.write("\2\u018d\u018e\7)\2\2\u018e\u018f\7\31\2\2\u018f\u0190")
@@ -668,8 +668,8 @@ class SmallCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def oplevel10(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel10Context,0)
+        def oplevel7(self):
+            return self.getTypedRuleContext(SmallCParser.Oplevel7Context,0)
 
 
         def oplevel11(self):
@@ -699,7 +699,7 @@ class SmallCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 130
-            self.oplevel10()
+            self.oplevel7(0)
             self._ctx.stop = self._input.LT(-1)
             self.state = 137
             self._errHandler.sync(self)
@@ -718,7 +718,7 @@ class SmallCParser ( Parser ):
                     self.state = 133
                     self.match(SmallCParser.T__4)
                     self.state = 134
-                    self.oplevel10() 
+                    self.oplevel7(0) 
                 self.state = 139
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
@@ -946,8 +946,8 @@ class SmallCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def oplevel5(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel5Context,0)
+        def oplevel4(self):
+            return self.getTypedRuleContext(SmallCParser.Oplevel4Context,0)
 
 
         def oplevel6(self):
@@ -977,7 +977,7 @@ class SmallCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 161
-            self.oplevel5()
+            self.oplevel4(0)
             self._ctx.stop = self._input.LT(-1)
             self.state = 177
             self._errHandler.sync(self)
@@ -1000,7 +1000,7 @@ class SmallCParser ( Parser ):
                         self.state = 164
                         self.match(SmallCParser.LABRA)
                         self.state = 165
-                        self.oplevel5()
+                        self.oplevel4(0)
                         pass
 
                     elif la_ == 2:
@@ -1013,7 +1013,7 @@ class SmallCParser ( Parser ):
                         self.state = 167
                         self.match(SmallCParser.T__7)
                         self.state = 168
-                        self.oplevel5()
+                        self.oplevel4(0)
                         pass
 
                     elif la_ == 3:
@@ -1026,7 +1026,7 @@ class SmallCParser ( Parser ):
                         self.state = 170
                         self.match(SmallCParser.RABRA)
                         self.state = 171
-                        self.oplevel5()
+                        self.oplevel4(0)
                         pass
 
                     elif la_ == 4:
@@ -1039,7 +1039,7 @@ class SmallCParser ( Parser ):
                         self.state = 173
                         self.match(SmallCParser.T__8)
                         self.state = 174
-                        self.oplevel5()
+                        self.oplevel4(0)
                         pass
 
              
@@ -2503,8 +2503,8 @@ class SmallCParser ( Parser ):
             return self.getTypedRuleContext(SmallCParser.FunctionCallContext,0)
 
 
-        def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+        def oplevel14(self):
+            return self.getTypedRuleContext(SmallCParser.Oplevel14Context,0)
 
 
         def getRuleIndex(self):
@@ -2568,7 +2568,7 @@ class SmallCParser ( Parser ):
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 392
-                self.oplevel15()
+                self.oplevel14()
                 pass
 
 

@@ -1,17 +1,16 @@
-from antlr4 import *
-from SmallCLexer import SmallCLexer
-from SmallCListener import SmallCListener
-from SmallCParser import SmallCParser
+from antlr4_generated.SmallCLexer import SmallCLexer
+from antlr4_generated.SmallCParser import SmallCParser
+
 from AbstractSyntaxTree import *
-from MyListener import *
-from VisitorTypeChecker import *
-from VisitorDefinitionProcessor import *
-from VisitorDeclarationProcessor import *
-from VisitorCodeGenerator import *
+from Listener import *
 from CompilerErrorHandler import *
 from SymbolTable import *
-import traceback
+from VisitorDefinitionProcessor import *
+from VisitorDeclarationProcessor import *
+from VisitorTypeChecker import *
+from VisitorCodeGenerator import *
 
+import traceback
 import sys
 
 def main(filename):
@@ -39,7 +38,7 @@ def main(filename):
     errorHandler = CompilerErrorHandler(filename)
 
     try:
-        listener = MyListener(abstractSyntaxTree)
+        listener = Listener(abstractSyntaxTree)
         # walk the parse tree and fill in the AST
         walker.walk(listener, programContext)
 

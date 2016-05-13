@@ -4,6 +4,7 @@ a.out
 *.class
 .DS_Store
 .tm_properties
+visualisation_java/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

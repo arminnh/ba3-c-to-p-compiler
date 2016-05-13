@@ -1,17 +1,18 @@
-from SmallCListener import SmallCListener
-from SmallCParser import SmallCParser
+from antlr4_generated.SmallCListener import SmallCListener
+from antlr4_generated.SmallCParser import SmallCParser
 from AbstractSyntaxTree import *
 from antlr4 import tree
 from antlr4 import ParserRuleContext
 import sys
 
 
-class MyListener(SmallCListener):
+class Listener(SmallCListener):
     def __init__(self, tree):
-        super(MyListener, self).__init__()
+        super(Listener, self).__init__()
         self.ast = tree
         self.currentNode = self.ast.root
         self.createdNode = []
+
 
     def enterProgram(self, ctx:SmallCParser.ProgramContext):
         self.ast.root = ASTProgramNode()
