@@ -1,12 +1,12 @@
-Error at 3:10: Array size missing in 'y6'
+testfiles/variable-declarations/19.c:3:10: error: array size missing in 'y6'
 char (y6)[];
      ^
-Error at 9:10: Array size missing in 'y'
+testfiles/variable-declarations/19.c:9:10: error: array size missing in 'y'
 char *y[];
      ^
-Error at 12:10: Array size missing in 'y4'
+testfiles/variable-declarations/19.c:12:10: error: array size missing in 'y4'
 char ((((*((y4[]))))));
      ^
-Error at 13:10: Array size missing in 'y10'
+testfiles/variable-declarations/19.c:13:10: error: array size missing in 'y10'
 char *(*y10[]);
      ^

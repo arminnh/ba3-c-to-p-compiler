@@ -1,3 +1,3 @@
-Error at 2:5: Binary operator operands must have the same type (have char and float)
+testfiles/binary-operators/types-18.c:2:5: error: invalid operands to binary '*' (have 'char' and 'float')
 'c' * 5.9;
 ^

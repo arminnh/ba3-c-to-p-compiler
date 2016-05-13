@@ -1,9 +1,9 @@
-Error at 1:14: Parameter has incomplete type
+testfiles/function-declarations/13.c:1:14: error: parameter 'a' has incomplete type
 int iojiofej(void a) {
              ^
-Error at 2:12: Variable 'a' used before it was declared
+testfiles/function-declarations/13.c:2:12: error: variable 'a' undeclared
 return a;
        ^
-Error at 2:5: Incompatible conversion returning 'None' from a function with result type 'int'
+testfiles/function-declarations/13.c:2:5: error: incompatible conversion returning 'None' from a function with return type 'int'
 return a;
 ^

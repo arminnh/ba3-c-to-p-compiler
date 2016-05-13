@@ -1,3 +1,3 @@
-Error at 2:5: Incompatible conversion returning 'void *' from a function with result type 'void'
+testfiles/function-declarations/17.c:2:5: error: incompatible conversion returning 'void *' from a function with return type 'void'
 return a;
 ^

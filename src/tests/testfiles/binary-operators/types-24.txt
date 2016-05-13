@@ -1,3 +1,3 @@
-Error at 2:5: Logic operator operands not compatible with int
+testfiles/binary-operators/types-24.c:2:5: error: invalid operands to logical 'and' (have 'float' and 'float', need 'int' and 'int')
 1.6 && 0.6;
 ^

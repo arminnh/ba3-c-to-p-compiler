@@ -451,7 +451,7 @@ class MyListener(SmallCListener):
                 if symbol == "<": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
                 elif symbol == ">": comparisonType = ASTComparisonOperatorNode.ComparisonType['gt']
                 elif symbol == "<=": comparisonType = ASTComparisonOperatorNode.ComparisonType['le']
-                elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
+                elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType['ge']
                 self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode(comparisonType, ctx))
                 self.createdNode.append(True)
                 return

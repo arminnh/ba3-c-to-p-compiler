@@ -21,6 +21,7 @@ import copy
 # import re to remove all whitespace from strings
 import re
 
+# set this to True to overwrite ALL test .txt files with output from c2p.py
 set = False
 
 class ASTTest():

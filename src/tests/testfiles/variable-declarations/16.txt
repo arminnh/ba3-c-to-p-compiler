@@ -1,6 +1,6 @@
-Error at 2:11: Variable initialization must have the same type (have float and char[])
+testfiles/variable-declarations/16.c:2:11: error: incompatible types when initializing type 'float' using type 'char []'
 float a = {"error", 1, 2.0, '3', "aaa"};
       ^
-Error at 4:5: Incompatible conversion returning 'float' from a function with result type 'int'
+testfiles/variable-declarations/16.c:4:5: error: incompatible conversion returning 'float' from a function with return type 'int'
 return a;
 ^

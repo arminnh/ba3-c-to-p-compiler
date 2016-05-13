@@ -19,7 +19,7 @@ class CompilerErrorHandler:
         error = self.errors[index]
         if error[1] is not None and error[2] is not None:
             column = error[2]
-            msg += "Error at {line}:{column}: {error}".format(line=error[1], column=column + 1, error=error[0]) + "\n"
+            msg += "{filename}:{line}:{column}: error: {error}".format(filename=self.srcFilename, line=error[1], column=column + 1, error=error[0]) + "\n"
 
             line = linecache.getline(self.srcFilename, error[1])[:-1]
             while len(line) and line[0] in [" ", "\t"]: # remove whitespace in front

@@ -1,3 +1,3 @@
-Error at 6:1: Conflicting types for function declaration f
+testfiles/function-declarations/4.c:6:1: error: Conflicting types for function declaration f
 float f(int a, int b);
 ^

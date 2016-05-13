@@ -29,11 +29,13 @@ class VisitorTypeChecker(Visitor):
             functionDefinition = functionDefinition.parent
 
         if functionDefinition is None:
-            self.addError("Return statement outside of function definition", node)
+            #TODO: test this
+            self.addError("return statement outside of function definition", node)
             return
 
         if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
-            self.addError("Incompatible conversion returning '{0}' from a function with result type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)
+            #TODO: warning: ‘return’ with a value, in function returning void [enabled by default]
+            self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)
 
 
     # int a[myFun(5)] = {1, 2+"a", 3}
@@ -45,7 +47,8 @@ class VisitorTypeChecker(Visitor):
             if isinstance(child, ASTExpressionNode):
                 arrayLengthExpression = True
                 if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True), ignoreConst=True):
-                    self.addError("Array length type must be compatible with int (have {0})".format(str(child.getType())), node)
+                    #TODO: test this
+                    self.addError("array length type must be compatible with 'int' (have '{0}')".format(str(child.getType())), node)
                     continue
 
             elif isinstance(child, ASTInitializerListNode):
@@ -59,19 +62,19 @@ class VisitorTypeChecker(Visitor):
                             ownType.indirections -= 1
 
                         if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
-                            self.addError("Variable initialization must have the same type (have {0} and {1})".format(str(ownType), str(initListElement.getType())), node)
+                            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(str(ownType), str(initListElement.getType())), node)
                             continue
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
                 else:
                     # if initializer list does not have any children (int a = {}), error
                     if not child.children:
-                        self.addError("Empty scalar initializer", node)
+                        self.addError("empty scalar initializer", node)
                         continue
 
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
                     if not node.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
-                        self.addError("Variable initialization must have the same type (have {0} and {1})".format(str(node.getType()), str(child.children[0].getType())), node)
+                        self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(str(node.getType()), str(child.children[0].getType())), node)
                         continue
 
                     # if len(child.children) > 1:
@@ -79,7 +82,7 @@ class VisitorTypeChecker(Visitor):
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
         if not node.children and node.isArray:
-            self.addError("Array size missing in '{0}'".format(node.identifier), node)
+            self.addError("array size missing in '{0}'".format(node.identifier), node)
             return
 
 
@@ -119,7 +122,8 @@ class VisitorTypeChecker(Visitor):
         stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
 
         if not formatArgument.getType().isCompatible(stringLiteralType):
-            self.addError("Argument 1 of function '{0}' should be of type {1} but is of type {2}".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
+            #TODO: test this
+            self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
 
         codes = re.findall(r'%([0-9]*)([a-z%])', formatArgument.value)
 
@@ -137,10 +141,11 @@ class VisitorTypeChecker(Visitor):
                 continue
 
             if code not in self.stdioCodes:
-                self.addError("Unknown code {0}".format(code), node)
+                #TODO: test this
+                self.addError("unknown format code '{0}'".format(code), node)
 
             elif not self.stdioCodes[code].isCompatible(arguments.children[i+1].getType(), ignoreConst=True):
-                self.addError("Format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), node)
+                self.addError("format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), node)
 
         # print (codes)
 
@@ -160,13 +165,13 @@ class VisitorTypeChecker(Visitor):
         parameterNodes = node.definitionNode.getParameters().children
         if arguments is not None:
             if len(arguments.children) != len(parameterNodes):
-                self.addError("Number of arguments to function {0} does not match definition (have {1}, need {2})".format(node.identifier, len(arguments.children), len(parameterNodes)), node)
+                self.addError("number of arguments to function '{0}' does not match definition (have {1}, need {2})".format(node.identifier, len(arguments.children), len(parameterNodes)), node)
                 return
 
             for i, argument in enumerate(arguments.children):
                 if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
                     node.errorParameter = i
-                    self.addError("Arguments to function '{0}' don't match: {1} vs {2}".format(node.identifier, str(argument.getType()), str(parameterNodes[i].getType())), node)
+                    self.addError("expected '{0}' but argument is of type '{1}'".format(str(parameterNodes[i].getType()), str(argument.getType())), node)
                     return
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
@@ -176,7 +181,7 @@ class VisitorTypeChecker(Visitor):
         self.visitChildren(node)
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
-            self.addError("Binary operator operands must have the same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
+            self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), node.label), node)
             return
 
 
@@ -185,12 +190,12 @@ class VisitorTypeChecker(Visitor):
 
         if not node.children[0].getType().toRvalue().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             node.errorOperand = 0
-            self.addError("Ternary conditional operator needs int as first operand", node)
+            self.addError("invalid first operand to ternary '?:' (have '{0}', need 'int')".format(node.children[0].getType()), node)
             return
 
         if node.children[1].getType() != node.children[2].getType():
             node.errorOperand = 1
-            self.addError("Ternary conditional operator alternatives should be of equal type", node)
+            self.addError("invalid operands to ternary '?:', alternatives should be of equal type (have '{0}' and '{1}')".format(node.children[1].getType(), node.children[2].getType()), node)
             return
 
 
@@ -198,11 +203,12 @@ class VisitorTypeChecker(Visitor):
         self.visitChildren(node)
 
         if node.children[0].getType().rvalue:
-            self.addError("Expression is not assignable", node)
+            #TODO: test this
+            self.addError("expression is not assignable", node)
             return
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
-            self.addError("Incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
+            self.addError("incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
             return
 
 
@@ -210,11 +216,11 @@ class VisitorTypeChecker(Visitor):
         self.visitChildren(node)
 
         if node.children[0].getType().toRvalue() != node.children[1].getType().toRvalue():
-            self.addError("Logic operator operands must have the same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
+            self.addError("invalid operands to logical '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.logicOperatorType)), node)
             return
 
         if not node.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
-            self.addError("Logic operator operands not compatible with int", node)
+            self.addError("invalid operands to logical '{2}' (have '{0}' and '{1}', need 'int' and 'int')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.logicOperatorType)), node)
             return
 
 
@@ -222,7 +228,7 @@ class VisitorTypeChecker(Visitor):
         self.visitChildren(node)
 
         if not node.children[0].getType().equals(node.children[1].getType(), ignoreRvalue=True, ignoreConst=True):
-            self.addError("Comparison operator operands need to be of same type (have {0} and {1})".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
+            self.addError("invalid operands to comparison '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.comparisonType)), node)
             return
 
 
@@ -231,14 +237,15 @@ class VisitorTypeChecker(Visitor):
 
         if node.children[0].getType().rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']):
             self.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), node)
-            return
+            return False
 
 
     def visitAddressOfoperatorNode(self, node):
         self.visitChildren(node)
 
         if node.children[0].getType().rvalue:
-            self.addError("Cannot take the address of an rvalue of type '{0}'".format(str(node.children[0].getType())), node)
+            #TODO: test this
+            self.addError("cannot take the address of an rvalue of type '{0}'".format(str(node.children[0].getType())), node)
             return
 
 
@@ -255,7 +262,7 @@ class VisitorTypeChecker(Visitor):
         self.visitChildren(node)
 
         if not node.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
-            self.addError("Logical not operator operand not compatible with {0}".format(node.children[0].getType()), node)
+            self.addError("invalid operands to logical '!' (have '{0}', need 'int')".format(node.children[0].getType()), node)
             return
 
 

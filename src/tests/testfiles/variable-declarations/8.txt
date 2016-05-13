@@ -1,6 +1,6 @@
-Error at 2:9: Variable initialization must have the same type (have int and char[])
+testfiles/variable-declarations/8.c:2:9: error: incompatible types when initializing type 'int' using type 'char []'
 int j = "hello";
     ^
-Error at 4:9: Variable initialization must have the same type (have int and char)
+testfiles/variable-declarations/8.c:4:9: error: incompatible types when initializing type 'int' using type 'char'
 int jj = {'h', 'e', 'l', 'l'};
     ^

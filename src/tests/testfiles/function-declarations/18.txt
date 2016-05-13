@@ -1,6 +1,6 @@
-Error at 2:2: Incompatible conversion returning 'char' from a function with result type 'float *'
+testfiles/function-declarations/18.c:2:2: error: incompatible conversion returning 'char' from a function with return type 'float *'
 return 'a';
 ^
-Error at 6:2: Incompatible conversion returning 'float' from a function with result type 'int'
+testfiles/function-declarations/18.c:6:2: error: incompatible conversion returning 'float' from a function with return type 'int'
 return 0.0;
 ^

@@ -1,3 +1,6 @@
-Error at 5:7: Comparison operator operands need to be of same type (have int * and float[])
+testfiles/binary-operators/types-31.c:3:11: error: array size missing in 'b'
+float b[];
+      ^
+testfiles/binary-operators/types-31.c:5:7: error: invalid operands to comparison '==' (have 'int *' and 'float []')
 a == b;
   ^

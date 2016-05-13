@@ -1,6 +1,6 @@
-Error at 6:1: Redefinition of function 'f'
+testfiles/function-declarations/3.c:6:1: error: Redefinition of function 'f'
 float f(int a, int b) {
 ^
-Error at 10:1: Redefinition of function 'f'
+testfiles/function-declarations/3.c:10:1: error: Redefinition of function 'f'
 char f(int a, int b) {
 ^

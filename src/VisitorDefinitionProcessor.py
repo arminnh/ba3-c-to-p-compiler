@@ -44,11 +44,11 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
                 return
 
             elif node.identifier is not None and node.getType().indirections == 0:
-                self.addError("Parameter has incomplete type", node)
+                self.addError("parameter '{0}' has incomplete type".format(node.identifier), node)
                 return
 
         elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
-            self.addError("Parameter name omitted", node)
+            self.addError("parameter name omitted", node)
             return
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:

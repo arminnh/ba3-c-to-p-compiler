@@ -1,3 +1,3 @@
-Error at 2:10: Comparison operator operands need to be of same type (have float and int)
+testfiles/binary-operators/types-9.c:2:10: error: invalid operands to comparison '>' (have 'float' and 'int')
 10.5 > 10;
      ^

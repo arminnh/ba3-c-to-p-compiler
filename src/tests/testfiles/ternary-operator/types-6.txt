@@ -1,6 +1,6 @@
-Error at 4:6: Logic operator operands must have the same type (have int and float)
+testfiles/ternary-operator/types-6.c:4:6: error: invalid operands to logical 'or' (have 'int' and 'float')
 (1 || 2.0 ? c[0] : 0);
  ^
-Error at 4:17: Ternary conditional operator alternatives should be of equal type
+testfiles/ternary-operator/types-6.c:4:17: error: invalid operands to ternary '?:', alternatives should be of equal type (have 'float' and 'int')
 (1 || 2.0 ? c[0] : 0);
             ^
