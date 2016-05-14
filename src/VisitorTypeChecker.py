@@ -40,7 +40,8 @@ class VisitorTypeChecker(Visitor):
 
     # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         for child in node.children:
             # if child is expression node, it is the array length value
@@ -151,7 +152,8 @@ class VisitorTypeChecker(Visitor):
 
     #TODO for extras: check constness of arguments/parameters
     def visitFunctionCallNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if node.identifier in ["printf", "scanf"]:
             return self.checkStdioFunction(node)
@@ -178,7 +180,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def typeCheckBinaryOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
             self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), node.label), node)
@@ -186,7 +189,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitTernaryConditionalOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if not node.children[0].getType().toRvalue().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             node.errorOperand = 0
@@ -200,7 +204,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitSimpleAssignmentOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if node.children[0].getType().rvalue:
             #TODO: test this
@@ -213,7 +218,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitLogicOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if node.children[0].getType().toRvalue() != node.children[1].getType().toRvalue():
             self.addError("invalid operands to logical '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.logicOperatorType)), node)
@@ -225,7 +231,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitComparisonOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if not node.children[0].getType().equals(node.children[1].getType(), ignoreRvalue=True, ignoreConst=True):
             self.addError("invalid operands to comparison '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.comparisonType)), node)
@@ -233,7 +240,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitUnaryArithmeticOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if node.children[0].getType().rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']):
             self.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), node)
@@ -241,7 +249,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitAddressOfoperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if node.children[0].getType().rvalue:
             #TODO: test this
@@ -250,7 +259,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitDereferenceNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         ttype = node.getType()
         if ttype.indirections < 0:
@@ -259,7 +269,8 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitLogicalNotOperatorNode(self, node):
-        self.visitChildren(node)
+        if self.visitChildren(node) == "error":
+            return
 
         if not node.children[0].getType().isCompatible(TypeInfo(rvalue=True, basetype="int"), ignoreRvalue=True):
             self.addError("invalid operands to logical '!' (have '{0}', need 'int')".format(node.children[0].getType()), node)

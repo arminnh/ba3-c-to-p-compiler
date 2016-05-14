@@ -4,11 +4,18 @@ class Visitor:
         self.errorHandler = errorHandler
 
     def visitChildren(self, node):
+        error = False
+
         for child in node.children:
             if not self.shouldVisitNextChild(node):
                 pass
 
             child.accept(self)
+            if child.error:
+                error = True
+
+        if error:
+            return "error"
 
 
     def shouldVisitNextChild(self, node):
