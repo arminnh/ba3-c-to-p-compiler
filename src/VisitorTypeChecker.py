@@ -33,6 +33,9 @@ class VisitorTypeChecker(Visitor):
             self.addError("return statement outside of function definition", node)
             return
 
+        if not node.children:
+            return
+
         if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
             #TODO: warning: ‘return’ with a value, in function returning void [enabled by default]
             self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)

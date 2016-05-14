@@ -296,6 +296,15 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#forLoop.
+    def enterForLoop(self, ctx:SmallCParser.ForLoopContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#forLoop.
+    def exitForLoop(self, ctx:SmallCParser.ForLoopContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#variableDeclaration.
     def enterVariableDeclaration(self, ctx:SmallCParser.VariableDeclarationContext):
         pass

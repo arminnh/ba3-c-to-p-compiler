@@ -145,6 +145,7 @@ statement :
     | ifCond
     | whileCond
     | doWhileCond
+    | forLoop
     | expression ';'
     | variableDeclaration ';'
     | returnStmt ';'
@@ -175,6 +176,11 @@ whileCond :
 
 doWhileCond :
       DO statements WHILE LBRA expression RBRA ';'
+    ;
+
+// TODO: add forLoopNode and all the rest for scope and type checking
+forLoop:
+      FOR LBRA (variableDeclaration | variable) ';' expression ';' expression RBRA statements
     ;
 
 variableDeclaration :
@@ -212,7 +218,7 @@ initializer :
     ;
 
 returnStmt :
-      RETURN expression
+      RETURN expression?
     ;
 
 arguments :
