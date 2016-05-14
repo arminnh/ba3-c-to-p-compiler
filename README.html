@@ -67,14 +67,14 @@
 
         <h3>Compilation Steps</h3>
         <p>
-            The order of precedence of operators is respected by the grammar.
-        </p>
-        <p>
             After the parsing of a .c file, an AST gets built using a listener. <br>
-            Then, the AST is visited in-order and a symbol table is filled (this is the first pass).
-            This table is used for scoping and type checking.
+            Visitors are used for the filling of a symbol table, and for typechecking and code generation. <br>
+            In the first pass, the AST is visited and the symbol table is filled. This table is used for scoping and type checking. <br>
+            A second pass is done over the AST to check if all functions and variables are declared before use.
             If a variable or a function is used in a scope where it doesn't exist, an error is displayed. <br>
-            In the second pass over the AST, type checking is performed:
+            If an error is found in one of these steps, the program will not stop already.
+            Typechecking will still be done, but only code which generated no errors will be checked.
+            In the third pass over the AST, type checking is performed:
         </p>
         <ul>
             <li>For function calls, the types of the arguments must comply with the types of the parameters in the function's definition/declaration.</li>
@@ -82,60 +82,74 @@
             <li>For logic operators, the type of the operands must equate to "int". <br> The return type of these operators is "int".</li>
             <li>For the ternary conditional, the type first operand (which is the conditional) must equate to "int", and both alternatives should be of equal type.</li>
             <li>For variable definitions, the type of the initializer must be compatible.</li>
+            <li>For more details, check out all of the <a href="#errors">error messages</a> which can be generated.</li>
         </ul>
+        <p>
+            Finally, in the fourth pass, the p machine code generation is done.
+        </p>
+        <p>
+            The order of precedence of operators is respected by the <a href="src/SmallC.g4">grammar</a>.
         </p>
 
         <h3>Optional Features</h3>
-        <p>
-            The <a href="src/SmallC.g4">grammar</a> recognizes all mandatory features, and some more:
-        </p>
         <ul>
+            <li>basic type conversions</li>
+            <li>const correctness</li>
+            <li>multiple error output, instead of stopping after 1 error</li>
             <li>const variables/parameters</li>
             <li>binary operators <=, >=</li>
             <li>unary operators ++, --, [ ]</li>
             <li>array aggregate initialization</li>
-            <li>do while</li>
+            <li>do while loops</li>
             <li>multi-line comments</li>
+            <li><a href="src/tests/testfiles/variable-declarations/strange-brackets.c">initialization with strange bracket use</a></li>
         </ul>
 
-        <h3>Error messages</h3>
+        <h3 id="errors">Error messages</h3>
         <p>
             These messages can be generated during the filling of the symbol table or during type checking.
         </p>
         <ul> <!--errors in symbol table -->
-            <li>Function: Undefined reference</li> <!-- done -->
-            <li>Function Definition: Parameter name omitted</li> <!-- done -->
-            <li>Redefinition of function</li> <!-- done -->
-            <li>Conflicting types for function definition (functionIdentifier)</li> <!-- done -->
-            <li>Conflicting types for function declaration (functionIdentifier)</li> <!-- done -->
-            <li>Function definition parameters don't match with previous declaration</li> <!-- done -->
-            <li>Function declaration parameters don't match previous definition</li> <!-- done -->
-            <li>Function declaration parameters don't match previous declaration</li> <!-- done -->
-            <li>Variable/Function Declaration/Definition: Identifier (identifier) already taken by variable</li> <!-- done -->
-            <li>Variable Declaration/Definition: Identifier (identifier) already taken by function</li> <!-- done -->
-            <li>Variable (variableIdentifier) used before it was declared</li> <!-- done -->
-            <li>Function (functionIdentifier) used before it was declared</li> <!-- done -->
-            <li>Function declaration/definition: ‘void’ must be the only parameter</li> <!-- done -->
-            <li>Function definition: Parameter has incomplete type</li> <!-- done -->
-            <li>Variable definition with empty initializer list: Empty scalar initializer (e.g. <pre style="display: inline">int a = {};</pre>)</li> <!-- done -->
-            <li>Array length type must be compatible with int (have type1)</li>
+            <li>Identifier {0} already taken by variable</li>
+            <li>Function definition parameters don't match with previous declaration</li>
+            <li>Redefinition of function '{0}'</li>
+            <li>Conflicting types for function declaration </li>
+            <li>Function declaration parameters don't match previous definition</li>
+            <li>Function declaration parameters don't match previous declaration</li>
+            <li>Identifier {0} already taken by function</li>
+            <li>‘void’ must be the only parameter</li>
+            <li>parameter '{0}' has incomplete type</li>
+            <li>parameter name omitted</li>
+            <li>variable '{0}' undeclared</li>
+            <li>function '{0}' undeclared</li>
+            <li>function: undefined reference to '{0}'</li>
         </ul>
 
         <ul> <!--errors in type checking -->
-            <li>Variable initialization must have the same type (have type1 and type2)</li> <!-- done -->
-            <li>Incompatible types when assigning to type type2 from type type1</li>
-            <li>Function call: Number of arguments to function (functionIdentifier) does not match definition (have type1, need type2)</li> <!-- done -->
-            <li>Function call: Arguments to function (functionIdentifier) don't match: type1 vs type2"</li> <!-- done -->
-            <li>Binary operator operands must have the same type (have type1 and type2)</li> <!-- done -->
-            <li>Ternary conditional operator needs int as first operand</li> <!-- done -->
-            <li>Ternary conditional operator alternatives should be of equal type</li> <!-- done -->
-            <li>Logic operator operands must have the same type (have type1 and type2)</li> <!-- done -->
-            <li>Logic operator operands not compatible with int</li> <!-- done -->
-            <li>Comparison operator operands need to be of same type (have type1 and type2)</li> <!-- done -->
-            <li>invalid type argument of unary '*' (have type1)</li> <!-- done -->
-            <li>Logical not operator operand not compatible with int</li> <!-- done -->
-            <li>lvalue required as imcrement/decrement operand</li>
-            <li>Expression is not assignable</li>
+            <li>return statement outside of function definition</li>
+            <li>incompatible conversion returning '{0}' from a function with return type '{1}'</li><!-- done -->
+            <li>array length type must be compatible with 'int' (have '{0}')"</li>
+            <li>incompatible types when initializing type '{0}' using type '{1}'</li><!-- done -->
+            <li>empty scalar initializer(e.g. <pre style="display: inline">int a = {};</pre>)</li><!-- done -->
+            <li>incompatible types when initializing type '{0}' using type '{1}'</li><!-- done -->
+            <li>array size missing in '{0}'</li><!-- done -->
+            <li>argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'</li>
+            <li>unknown format code '{0}'</li>
+            <li>format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'</li><!-- done -->
+            <li>number of arguments to function '{0}' does not match definition (have {1}, need {2})</li><!-- done -->
+            <li>expected '{0}' but argument is of type '{1}'</li><!-- done -->
+            <li>invalid operands to binary '{2}' (have '{0}' and '{1}')</li><!-- done -->
+            <li>invalid first operand to ternary '?:' (have '{0}', need 'int')</li><!-- done -->
+            <li>invalid operands to ternary '?:', alternatives should be of equal type (have '{0}' and '{1}')</li><!-- done -->
+            <li>expression is not assignable</li>
+            <li>incompatible types when assigning to type '{0}' from type '{1}'</li><!-- done -->
+            <li>invalid operands to logical '{2}' (have '{0}' and '{1}')</li><!-- done -->
+            <li>invalid operands to logical '{2}' (have '{0}' and '{1}', need 'int' and 'int')</li><!-- done -->
+            <li>invalid operands to comparison '{2}' (have '{0}' and '{1}')</li><!-- done -->
+            <li>lvalue required as {0} operand</li><!-- done -->
+            <li>cannot take the address of an rvalue of type '{0}'</li>
+            <li>invalid type argument of unary '*' (have '{0}')</li><!-- done -->
+            <li>invalid operands to logical '!' (have '{0}', need 'int')</li><!-- done -->
         </ul>
 
         <h3>Classes</h3>
@@ -143,10 +157,15 @@
         <!-- installed pyreverse with pip3 install pylint -->
         <ul>
             <li><a href="images/AST-and-nodes.png">AbstracSyntaxTree.py</a> (large image): AbstracSyntaxTree and tree node classes, these build the AST we use.</li>
-            <li><a href="images/MyListener.png">MyListener.py</a>: A listener which can build an AST when walking over a parse tree generated by SmallCParser.</li>
+            <li><a href="images/MyListener.png">Listener.py</a>: A listener which can build an AST when walking over a parse tree generated by SmallCParser.</li>
             <li><a href="images/TypeInfo.png">TypeInfo.py</a>: A class that contains information about the type of a variable or function.</li>
             <li><a href="images/SymbolTable.png">SymbolTable.py</a>: Our symbol table class which is used for scope and type checking.</li>
-            <li><a href="images/ASTSymbolTableFiller.png">ASTSymbolTableFiller.py</a>: A class that fills in a symbol table</li>
+            <li>Visitor</li>
+            <li>VisitorSymbolTable</li>
+            <li><a href="images/ASTSymbolTableFiller.png">VisitorDefinitionProcessor.py</a>: A class that fills in a symbol table</li>
+            <li>ViditorDeclarationProcessor</li>
+            <li>VisitorTypeChecker</li>
+            <li>VisitorCodeGenerator</li>
             <li><a href="images/CompilerErrorHandler.png">CompilerErrorHandler.py</a>: A class in which errors generated in tree nodes, MyListener, ASTSymbolTableFiller or SymbolTable are collected. We use this to collect error and display them after/during compilation. It is also used to check errors in testing</li>
             <li><a href="images/testfiles-main.png">testfiles/main.py</a>: ASTTest and test classes, ASTTest provides the test classes with functions to test functionality easily</li>
         </ul>
