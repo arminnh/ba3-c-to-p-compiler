@@ -105,23 +105,41 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitIfNode(self, node):
-        self.outFile.write("code if \n")
-        self.visitChildren(node)
+        node.children[0].accept(self)        # condition
+        self.outFile.write("fjp l1 \n")      # if top == false, jump over the 'then' code
+        node.children[1].accept(self)        # 'then'
+
+        if len(node.children) == 3:          # optional else
+            self.outFile.write("ujp l2 \n")  # jump over the 'else' code if coming from 'then'
+            self.outFile.write("l1: \n")
+            node.children[2].accept(self)    # else
+            self.outFile.write("l2: \n")
+        else:
+            self.outFile.write("l1: \n")
 
 
     def visitElseNode(self, node):
-        self.outFile.write("code else \n")
         self.visitChildren(node)
 
 
     def visitWhileNode(self, node):
-        self.outFile.write("code while \n")
-        self.visitChildren(node)
+        self.outFile.write("l1: \n")
+        node.children[0].accept(self)   # condition
+        self.outFile.write("fjp l2 \n") # if top == false, jump over the loop code
+        node.children[1].accept(self)   # loop code
+        self.outFile.write("ujp l1 \n") # jump back to the condition
+        self.outFile.write("l2: \n")
 
 
-    def visitDoWhileNode(self, node):
-        self.outFile.write("code do while \n")
-        self.visitChildren(node)
+    def visitDoWhileNode(self, node): #TODO: test this
+        node.children[1].accept(self)   # loop code
+
+        self.outFile.write("l1: \n")
+        node.children[0].accept(self)   # condition
+        self.outFile.write("fjp l2 \n") # if top == false, jump over the loop code
+        node.children[1].accept(self)   # loop code
+        self.outFile.write("ujp l1 \n") # jump back to the condition
+        self.outFile.write("l2: \n")
 
 
     def visitVariableDeclarationNode(self, node):
