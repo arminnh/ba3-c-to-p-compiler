@@ -6,6 +6,7 @@ current = 0
 
 class SymbolInfo:
     def __init__(self, astnode):
+        astnode.symbolInfo = self
         self.address = None
         self.astnode = astnode
         self.typeInfo = astnode.getType()

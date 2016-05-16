@@ -166,10 +166,14 @@ class VisitorCodeGenerator(Visitor):
             if isinstance(child, ASTInitializerListNode):
                 hasInitializer = True
 
+        self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
+
         if hasInitializer:
             self.visitChildren(node)
         else:
             self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
+
+        self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
 
 
     def visitInitializerListNode(self, node):
@@ -195,9 +199,9 @@ class VisitorCodeGenerator(Visitor):
 
     def visitVariableNode(self, node):
         if self.lvalue and self.lvalue.pop():
-            self.outFile.write("ldc a 0\n") # TODO
+            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address)) # TODO
         else:
-            self.outFile.write("ldc a 0\n") # TODO
+            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address)) # TODO
             self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
             # self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
 
