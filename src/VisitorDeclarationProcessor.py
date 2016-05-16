@@ -58,7 +58,7 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
             node.typeInfo = symbolInfo.typeInfo
 
     def visitFunctionDefinitionNode(self, node):
-        self.table.openScope(node.identifier)
+        self.table.openScope(True, node.identifier)
         self.visitChildren(node)
         self.table.closeScope()
 

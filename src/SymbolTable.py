@@ -1,9 +1,11 @@
 from AbstractSyntaxTree import *
 
 offset = "    "
+start = 0
 
 class SymbolInfo:
     def __init__(self, astnode):
+        self.label = None
         self.astnode = astnode
         self.typeInfo = astnode.getType()
 
@@ -31,20 +33,31 @@ class FunctionSymbolInfo(SymbolInfo):
 
 
 class Scope:
-    def __init__(self, parent=None, name=None):
+    def __init__(self, parent=None, isFunctionScope=False, name=None):
+        self.isFunctionScope = isFunctionScope
+        self.current = None
         self.name = name
         self.parent = parent
         self.currentChild = 0
         self.children = []
         self.symbols = {}
 
-    def addChild(self, name=None):
-        new = Scope(self, name)
-        self.children.append(new)
-        return new
+    def getLabel(self):
+        if self.parent is None or self.isFunctionScope:
+            if self.current is None:
+                self.current = start - 1 # initialize
+            self.current += 1
+            return "l" + str(self.current)
+        return self.parent.getLabel()
+
+    def addChild(self, scope):
+        scope.parent = self
+        self.children.append(scope)
+        return scope
 
     def insertSymbol(self, info:SymbolInfo):
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
+        info.label = self.getLabel()
         self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name, requireSeen):
@@ -102,7 +115,10 @@ class Scope:
     def out(self, level):
         out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
         for key, value in self.symbols.items():
-            out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType()) + "\n"
+            out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType())
+            if value.label is not None:
+                out += " | " + value.label
+            out += "\n"
 
         for child in self.children:
             out += child.out(level + 1)
@@ -115,7 +131,7 @@ class SymbolTable(object):
         self.root = Scope()
         self.currentScope = self.root
 
-    def openScope(self, name=None):
+    def openScope(self, isFunctionScope=False, name=None):
         if self.traverse:
             if self.currentScope.currentChild >= len(self.currentScope.children):
                 raise Exception("Trying to open nonexisting scope; current scope:\n" + self.currentScope.out(0) + "am at child " + str(self.currentScope.currentChild))
@@ -124,7 +140,7 @@ class SymbolTable(object):
             self.currentScope.currentChild = 0
         else:
             scope = self.currentScope
-            self.currentScope = self.currentScope.addChild(name)
+            self.currentScope = self.currentScope.addChild(Scope(isFunctionScope=isFunctionScope, name=name))
 
     def closeScope(self):
         self.currentScope = self.currentScope.parent

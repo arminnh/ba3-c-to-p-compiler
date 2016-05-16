@@ -29,7 +29,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return
-        self.table.openScope(node.identifier)
+        self.table.openScope(True, node.identifier)
         self.visitChildren(node)
         self.table.closeScope()
 
