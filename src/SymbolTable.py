@@ -2,10 +2,11 @@ from AbstractSyntaxTree import *
 
 offset = "    "
 start = 0
+current = 0
 
 class SymbolInfo:
     def __init__(self, astnode):
-        self.label = None
+        self.address = None
         self.astnode = astnode
         self.typeInfo = astnode.getType()
 
@@ -42,13 +43,13 @@ class Scope:
         self.children = []
         self.symbols = {}
 
-    def getLabel(self):
+    def getAddress(self):
         if self.parent is None or self.isFunctionScope:
             if self.current is None:
                 self.current = start - 1 # initialize
             self.current += 1
-            return "l" + str(self.current)
-        return self.parent.getLabel()
+            return self.current
+        return self.parent.getAddress()
 
     def addChild(self, scope):
         scope.parent = self
@@ -57,7 +58,7 @@ class Scope:
 
     def insertSymbol(self, info:SymbolInfo):
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
-        info.label = self.getLabel()
+        info.address = self.getAddress()
         self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name, requireSeen):
@@ -116,8 +117,8 @@ class Scope:
         out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
         for key, value in self.symbols.items():
             out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType())
-            if value.label is not None:
-                out += " | " + value.label
+            if value.address is not None:
+                out += " | " + str(value.address)
             out += "\n"
 
         for child in self.children:

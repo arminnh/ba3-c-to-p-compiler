@@ -5,6 +5,7 @@ from Visitor import *
 class VisitorCodeGenerator(Visitor):
 
     def __init__(self, outFile="out.p"):
+        self.current = 0
         self.lvalue = []
         self.outFile = open(outFile, 'w')
 
@@ -47,6 +48,10 @@ class VisitorCodeGenerator(Visitor):
         # and -> and
         # or -> or
         # ! -> not
+
+    def getLabel(self):
+        self.current += 1
+        return "l" + str(self.current)
 
     def __del__(self):
         self.outFile.close()
@@ -105,17 +110,20 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitIfNode(self, node):
-        node.children[0].accept(self)        # condition
-        self.outFile.write("fjp l1 \n")      # if top == false, jump over the 'then' code
-        node.children[1].accept(self)        # 'then'
+        elseLabel = self.getLabel()
+        afterLabel = self.getLabel()
 
-        if len(node.children) == 3:          # optional else
-            self.outFile.write("ujp l2 \n")  # jump over the 'else' code if coming from 'then'
-            self.outFile.write("l1: \n")
-            node.children[2].accept(self)    # else
-            self.outFile.write("l2: \n")
+        node.children[0].accept(self)                                 # condition
+        self.outFile.write("fjp {0} \n".format(elseLabel))            # if top == false, jump over the 'then' code
+        node.children[1].accept(self)                                 # 'then'
+
+        if len(node.children) == 3:                                   # optional else
+            self.outFile.write("ujp {0} \n".format(afterLabel))       # jump over the 'else' code if coming from 'then'
+            self.outFile.write("{0}: \n".format(elseLabel))
+            node.children[2].accept(self)                             # else
+            self.outFile.write("{0}: \n".format(afterLabel))
         else:
-            self.outFile.write("l1: \n")
+            self.outFile.write("{0}: \n".format(elseLabel))
 
 
     def visitElseNode(self, node):
@@ -123,23 +131,28 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitWhileNode(self, node):
-        self.outFile.write("l1: \n")
+        conditionLabel = self.getLabel()
+        afterLabel = self.getLabel()
+        self.outFile.write("{0}: \n".format(conditionLabel))
         node.children[0].accept(self)   # condition
-        self.outFile.write("fjp l2 \n") # if top == false, jump over the loop code
+        self.outFile.write("fjp {0} \n".format(afterLabel)) # if top == false, jump over the loop code
         node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp l1 \n") # jump back to the condition
-        self.outFile.write("l2: \n")
+        self.outFile.write("ujp {0} \n".format(conditionLabel)) # jump back to the condition
+        self.outFile.write("{0}: \n".format(afterLabel))
 
 
     def visitDoWhileNode(self, node): #TODO: test this
+        conditionLabel = self.getLabel()
+        afterLabel = self.getLabel()
+
         node.children[1].accept(self)   # loop code
 
-        self.outFile.write("l1: \n")
+        self.outFile.write("{0}: \n".format(conditionLabel))
         node.children[0].accept(self)   # condition
-        self.outFile.write("fjp l2 \n") # if top == false, jump over the loop code
+        self.outFile.write("fjp {0} \n".format(afterLabel)) # if top == false, jump over the loop code
         node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp l1 \n") # jump back to the condition
-        self.outFile.write("l2: \n")
+        self.outFile.write("ujp {0} \n".format(conditionLabel)) # jump back to the condition
+        self.outFile.write("{0}: \n".format(afterLabel))
 
 
     def visitVariableDeclarationNode(self, node):
