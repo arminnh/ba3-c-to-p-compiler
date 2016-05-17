@@ -4,7 +4,8 @@ from Visitor import *
 
 class VisitorCodeGenerator(Visitor):
 
-    def __init__(self, outFile="out.p"):
+    def __init__(self, symbolTable, outFile="out.p"):
+        self.symbolTable = symbolTable
         self.current = 0
         self.lvalue = []
         self.outFile = open(outFile, 'w')
@@ -76,12 +77,17 @@ class VisitorCodeGenerator(Visitor):
 
     def visitFunctionDefinitionNode(self, node):
         # self.outFile.write("code \n")
+        self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
+        scope = self.symbolTable.currentScope
+        for variable in scope.addressedVariables:
+            self.outFile.write("ldc {0} 0".format(self.p_types[variable.typeInfo.basetype]))
         self.visitChildren(node)
+        self.symbolTable.closeScope()
 
 
     def visitMainFunctionNode(self, node):
         # self.outFile.write("\nlmain: \n")
-        self.visitChildren(node)
+        self.visitFunctionDefinitionNode(node)
 
 
     def visitParametersNode(self, node):
@@ -101,7 +107,13 @@ class VisitorCodeGenerator(Visitor):
 
     def visitStatementsNode(self, node):
         # self.outFile.write("code \n")
+        openedScope = False
+        if not isinstance(node.parent, ASTFunctionDefinitionNode):
+            self.symbolTable.openScope()
+            openedScope = True
         self.visitChildren(node)
+        if openedScope:
+            self.symbolTable.closeScope()
         # for ttype in self.symbolTable.getVariables(node):
         #     self.outFile.write("ldc {0} {1}".format(self.p_type[ttype], self.initializers[ttype]))
 

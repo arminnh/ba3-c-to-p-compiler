@@ -36,19 +36,22 @@ class Scope:
     def __init__(self, parent=None, isFunctionScope=False, name=None):
         self.isFunctionScope = isFunctionScope
         self.addressCounter = None
+        self.addressedVariables = []
         self.name = name
         self.parent = parent
         self.currentChild = 0
         self.children = []
         self.symbols = {}
 
-    def getAddress(self):
+    def assignAddress(self, variable):
         if self.parent is None or self.isFunctionScope:
             if self.addressCounter is None:
                 self.addressCounter = -1 # initialize
-            self.addressCounter += 1
+            self.addressedVariables.append(variable) # put variable into function scope variable address list
+            self.addressCounter += 1 # increment counter
+            variable.address = self.addressCounter # set variable's address
             return self.addressCounter
-        return self.parent.getAddress()
+        return self.parent.assignAddress(variable)
 
     def addChild(self, scope):
         scope.parent = self
@@ -57,7 +60,8 @@ class Scope:
 
     def insertSymbol(self, info:SymbolInfo):
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
-        info.address = self.getAddress()
+        if (info.typeInfo.basetype != "void" or info.typeInfo.indirections != 0) and isinstance(info, VariableSymbolInfo):
+            self.assignAddress(info)
         self.symbols[info.astnode.identifier] = info
 
     def retrieveSymbol(self, name, requireSeen):
@@ -114,6 +118,8 @@ class Scope:
 
     def out(self, level):
         out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
+        if self.isFunctionScope:
+            out += offset * (level + 1) + str([info.typeInfo.basetype for info in self.addressedVariables]) + "\n"
         for key, value in self.symbols.items():
             out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType())
             if value.address is not None:
@@ -137,6 +143,8 @@ class SymbolTable(object):
                 raise Exception("Trying to open nonexisting scope; current scope:\n" + self.currentScope.out(0) + "am at child " + str(self.currentScope.currentChild))
             self.currentScope.currentChild += 1
             self.currentScope = self.currentScope.children[self.currentScope.currentChild - 1]
+            if name != self.currentScope.name:
+                print("Warning: Symbol table open scope traverse: expected {0}, got {1}".format(self.currentScope.name, name))
             self.currentScope.currentChild = 0
         else:
             scope = self.currentScope
@@ -177,3 +185,4 @@ class SymbolTable(object):
 
     def resetToRoot(self):
         self.currentScope = self.root
+        self.root.currentChild = 0

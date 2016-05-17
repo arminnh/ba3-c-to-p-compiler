@@ -180,7 +180,7 @@ doWhileCond :
 
 // TODO: add forLoopNode and all the rest for scope and type checking
 forLoop:
-      FOR LBRA (variableDeclaration | variable) ';' expression ';' expression RBRA statements
+      FOR LBRA (variableDeclaration | variable) ';' expression ';' expression RBRA statement
     ;
 
 variableDeclaration :

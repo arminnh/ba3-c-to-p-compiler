@@ -60,7 +60,8 @@ def main(filename):
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
         # generate code
-        codeGenerator = VisitorCodeGenerator()
+        symbolTable.resetToRoot()
+        codeGenerator = VisitorCodeGenerator(symbolTable)
         codeGenerator.visitProgramNode(abstractSyntaxTree.root)
 
     except Exception as e:
