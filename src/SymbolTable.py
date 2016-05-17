@@ -43,6 +43,12 @@ class Scope:
         self.children = []
         self.symbols = {}
 
+    def getAddressCounter(self):
+        if self.parent is None or self.isFunctionScope:
+            return self.addressCounter
+        return self.parent.getAddressCounter()
+
+
     def assignAddress(self, variable):
         if self.parent is None or self.isFunctionScope:
             if self.addressCounter is None:

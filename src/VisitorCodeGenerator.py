@@ -59,54 +59,57 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitProgramNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         # self.outFile.write("ujp  lmain\n")
         self.visitChildren(node)
         self.outFile.write("hlt\n")
 
 
     def visitIncludeNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitFunctionDeclarationNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitFunctionDefinitionNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
+
         scope = self.symbolTable.currentScope
         for variable in scope.addressedVariables:
-            self.outFile.write("ldc {0} 0".format(self.p_types[variable.typeInfo.basetype]))
+            self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
         self.visitChildren(node)
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1))
+
         self.symbolTable.closeScope()
 
 
     def visitMainFunctionNode(self, node):
-        # self.outFile.write("\nlmain: \n")
+        # self.outFile.write("\nlmain:\n")
         self.visitFunctionDefinitionNode(node)
 
 
     def visitParametersNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitParameterNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitArgumentsNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitStatementsNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         openedScope = False
         if not isinstance(node.parent, ASTFunctionDefinitionNode):
             self.symbolTable.openScope()
@@ -118,7 +121,7 @@ class VisitorCodeGenerator(Visitor):
         #     self.outFile.write("ldc {0} {1}".format(self.p_type[ttype], self.initializers[ttype]))
 
     def visitReturnNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
@@ -127,16 +130,16 @@ class VisitorCodeGenerator(Visitor):
         afterLabel = self.getLabel()
 
         node.children[0].accept(self)                                 # condition
-        self.outFile.write("fjp {0} \n".format(elseLabel))            # if top == false, jump over the 'then' code
+        self.outFile.write("fjp {0}\n".format(elseLabel))            # if top == false, jump over the 'then' code
         node.children[1].accept(self)                                 # 'then'
 
         if len(node.children) == 3:                                   # optional else
-            self.outFile.write("ujp {0} \n".format(afterLabel))       # jump over the 'else' code if coming from 'then'
-            self.outFile.write("{0}: \n".format(elseLabel))
+            self.outFile.write("ujp {0}\n".format(afterLabel))       # jump over the 'else' code if coming from 'then'
+            self.outFile.write("{0}:\n".format(elseLabel))
             node.children[2].accept(self)                             # else
-            self.outFile.write("{0}: \n".format(afterLabel))
+            self.outFile.write("{0}:\n".format(afterLabel))
         else:
-            self.outFile.write("{0}: \n".format(elseLabel))
+            self.outFile.write("{0}:\n".format(elseLabel))
 
 
     def visitElseNode(self, node):
@@ -146,12 +149,12 @@ class VisitorCodeGenerator(Visitor):
     def visitWhileNode(self, node):
         conditionLabel = self.getLabel()
         afterLabel = self.getLabel()
-        self.outFile.write("{0}: \n".format(conditionLabel))
+        self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)   # condition
-        self.outFile.write("fjp {0} \n".format(afterLabel)) # if top == false, jump over the loop code
+        self.outFile.write("fjp {0}\n".format(afterLabel)) # if top == false, jump over the loop code
         node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp {0} \n".format(conditionLabel)) # jump back to the condition
-        self.outFile.write("{0}: \n".format(afterLabel))
+        self.outFile.write("ujp {0}\n".format(conditionLabel)) # jump back to the condition
+        self.outFile.write("{0}:\n".format(afterLabel))
 
 
     def visitDoWhileNode(self, node): #TODO: test this
@@ -160,12 +163,12 @@ class VisitorCodeGenerator(Visitor):
 
         node.children[1].accept(self)   # loop code
 
-        self.outFile.write("{0}: \n".format(conditionLabel))
+        self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)   # condition
-        self.outFile.write("fjp {0} \n".format(afterLabel)) # if top == false, jump over the loop code
+        self.outFile.write("fjp {0}\n".format(afterLabel)) # if top == false, jump over the loop code
         node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp {0} \n".format(conditionLabel)) # jump back to the condition
-        self.outFile.write("{0}: \n".format(afterLabel))
+        self.outFile.write("ujp {0}\n".format(conditionLabel)) # jump back to the condition
+        self.outFile.write("{0}:\n".format(afterLabel))
 
 
     def visitVariableDeclarationNode(self, node):
@@ -179,14 +182,14 @@ class VisitorCodeGenerator(Visitor):
             if isinstance(child, ASTInitializerListNode):
                 hasInitializer = True
 
-        # self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
+        self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
 
         if hasInitializer:
             self.visitChildren(node)
         else:
             self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
 
-        # self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
+        self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
 
 
     def visitInitializerListNode(self, node):
@@ -207,7 +210,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitStringLiteralNode(self, node):
-        self.outFile.write("code string literal \n")
+        self.outFile.write("code string literal\n")
 
 
     def visitVariableNode(self, node):
@@ -222,20 +225,24 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFunctionCallNode(self, node):
-        # self.outFile.write("code \n")
+        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
     def visitTernaryConditionalOperatorNode(self, node):
-        self.outFile.write("code ternary cond \n")
+        self.outFile.write("code ternary cond\n")
         self.visitChildren(node)
 
 
     def visitSimpleAssignmentOperatorNode(self, node):
+        # children of a = b: [ASTVariableNode, ExpressionNode]
+
         self.lvalue.append(True)
-        # node.children[0].accept(self)
-        self.visitChildren(node)
-        self.outFile.write("sto " + self.p_types[node.children[0].getType().basetype] + "\n")
+        node.children[0].accept(self)
+        self.outFile.write("dpl a\n")
+        node.children[1].accept(self) # put expression result on stack as the "return value" of this operation
+        self.outFile.write("sto {0}\n".format(self.p_types[node.children[0].getType().basetype]))
+        self.outFile.write("ind {0}\n".format(self.p_types[node.children[0].getType().basetype]))
 
 
     def visitLogicOperatorNode(self, node):
@@ -257,30 +264,30 @@ class VisitorCodeGenerator(Visitor):
             pass
         elif op == "++":
 
-            # self.outFile.write("ldc i 1 \n")
+            # self.outFile.write("ldc i 1\n")
             # self.outFile.write("add i\n")
             pass
         elif op == "--":
             self.outFile.write("UNARY ARITHMETIC" + op + "\n")
 
     def visitAddressOfoperatorNode(self, node):
-        self.outFile.write("code address of op \n")
+        self.outFile.write("code address of op\n")
         self.visitChildren(node)
 
 
     def visitDereferenceNode(self, node):
-        self.outFile.write("code dereference op \n")
+        self.outFile.write("code dereference op\n")
         self.visitChildren(node)
 
 
     def visitLogicalNotOperatorNode(self, node):
-        self.outFile.write("code logical not op \n")
+        self.outFile.write("code logical not op\n")
         self.visitChildren(node)
         self.outFile.write("not " + self.p_types[node.children[0].getType().basetype] + "\n")
 
 
     def visitArraySubscriptNode(self, node):
-        self.outFile.write("code array subscript op \n")
+        self.outFile.write("code array subscript op\n")
         self.visitChildren(node)
 
 
