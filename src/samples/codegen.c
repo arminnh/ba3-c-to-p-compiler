@@ -1,9 +1,24 @@
-int main(void) {
-    // int a;
-    //
-    // a = 2;
-    // a + 1;
-    // a = a + 6;
+int main() {
+    int a;
+
+    a = 2;
+    a + 1;
+    a = a + 6;
+
+    int b = 6;
+
+    char c = '6';
+
+    a = a + b;
+
+    while (b < a) {
+      if (c != '6') {
+        a = a - 1;
+      }
+      else {
+        b = b+1;
+      }
+    }
 
     // if (1 != 1) {
     //     10;
@@ -15,10 +30,10 @@ int main(void) {
     //     30;
     // }
 
-    int a = 0;
-    while (a != 3) {
-        a = a + 1;
-    }
+    // int a = 5;
+    // while (a != 3) {
+    //     a = a + 1;
+    // }
 
     // a = a + 1;
     // -4;

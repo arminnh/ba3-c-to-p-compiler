@@ -1,8 +1,6 @@
 from AbstractSyntaxTree import *
 
 offset = "    "
-start = 0
-current = 0
 
 class SymbolInfo:
     def __init__(self, astnode):
@@ -37,7 +35,7 @@ class FunctionSymbolInfo(SymbolInfo):
 class Scope:
     def __init__(self, parent=None, isFunctionScope=False, name=None):
         self.isFunctionScope = isFunctionScope
-        self.current = None
+        self.addressCounter = None
         self.name = name
         self.parent = parent
         self.currentChild = 0
@@ -46,10 +44,10 @@ class Scope:
 
     def getAddress(self):
         if self.parent is None or self.isFunctionScope:
-            if self.current is None:
-                self.current = start - 1 # initialize
-            self.current += 1
-            return self.current
+            if self.addressCounter is None:
+                self.addressCounter = -1 # initialize
+            self.addressCounter += 1
+            return self.addressCounter
         return self.parent.getAddress()
 
     def addChild(self, scope):

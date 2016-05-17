@@ -102,7 +102,8 @@ class VisitorCodeGenerator(Visitor):
     def visitStatementsNode(self, node):
         # self.outFile.write("code \n")
         self.visitChildren(node)
-
+        # for ttype in self.symbolTable.getVariables(node):
+        #     self.outFile.write("ldc {0} {1}".format(self.p_type[ttype], self.initializers[ttype]))
 
     def visitReturnNode(self, node):
         # self.outFile.write("code \n")
@@ -166,14 +167,14 @@ class VisitorCodeGenerator(Visitor):
             if isinstance(child, ASTInitializerListNode):
                 hasInitializer = True
 
-        self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
+        # self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
 
         if hasInitializer:
             self.visitChildren(node)
         else:
             self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
 
-        self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
+        # self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
 
 
     def visitInitializerListNode(self, node):
