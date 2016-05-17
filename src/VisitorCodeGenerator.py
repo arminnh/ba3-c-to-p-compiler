@@ -129,14 +129,14 @@ class VisitorCodeGenerator(Visitor):
         elseLabel = self.getLabel()
         afterLabel = self.getLabel()
 
-        node.children[0].accept(self)                                 # condition
-        self.outFile.write("fjp {0}\n".format(elseLabel))            # if top == false, jump over the 'then' code
-        node.children[1].accept(self)                                 # 'then'
+        node.children[0].accept(self)                            # condition
+        self.outFile.write("fjp {0}\n".format(elseLabel))        # if top == false, jump over the 'then' code
+        node.children[1].accept(self)                            # 'then'
 
-        if len(node.children) == 3:                                   # optional else
-            self.outFile.write("ujp {0}\n".format(afterLabel))       # jump over the 'else' code if coming from 'then'
+        if len(node.children) == 3:                              # optional else
+            self.outFile.write("ujp {0}\n".format(afterLabel))   # jump over the 'else' code if coming from 'then'
             self.outFile.write("{0}:\n".format(elseLabel))
-            node.children[2].accept(self)                             # else
+            node.children[2].accept(self)                        # else
             self.outFile.write("{0}:\n".format(afterLabel))
         else:
             self.outFile.write("{0}:\n".format(elseLabel))
@@ -150,10 +150,10 @@ class VisitorCodeGenerator(Visitor):
         conditionLabel = self.getLabel()
         afterLabel = self.getLabel()
         self.outFile.write("{0}:\n".format(conditionLabel))
-        node.children[0].accept(self)   # condition
-        self.outFile.write("fjp {0}\n".format(afterLabel)) # if top == false, jump over the loop code
-        node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp {0}\n".format(conditionLabel)) # jump back to the condition
+        node.children[0].accept(self)                            # condition
+        self.outFile.write("fjp {0}\n".format(afterLabel))       # if top == false, jump over the loop code
+        node.children[1].accept(self)                            # loop code
+        self.outFile.write("ujp {0}\n".format(conditionLabel))   # jump back to the condition
         self.outFile.write("{0}:\n".format(afterLabel))
 
 
@@ -161,13 +161,13 @@ class VisitorCodeGenerator(Visitor):
         conditionLabel = self.getLabel()
         afterLabel = self.getLabel()
 
-        node.children[1].accept(self)   # loop code
+        node.children[1].accept(self)                            # loop code
 
         self.outFile.write("{0}:\n".format(conditionLabel))
-        node.children[0].accept(self)   # condition
-        self.outFile.write("fjp {0}\n".format(afterLabel)) # if top == false, jump over the loop code
-        node.children[1].accept(self)   # loop code
-        self.outFile.write("ujp {0}\n".format(conditionLabel)) # jump back to the condition
+        node.children[0].accept(self)                            # condition
+        self.outFile.write("fjp {0}\n".format(afterLabel))       # if top == false, jump over the loop code
+        node.children[1].accept(self)                            # loop code
+        self.outFile.write("ujp {0}\n".format(conditionLabel))   # jump back to the condition
         self.outFile.write("{0}:\n".format(afterLabel))
 
 
