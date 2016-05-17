@@ -153,7 +153,8 @@ class VisitorTypeChecker(Visitor):
 
         # print (codes)
 
-    #TODO for extras: check constness of arguments/parameters
+    # TODO for extras: check constness of arguments/parameters
+    # TODO: prevent function call with void return type from appearing in a subexpression
     def visitFunctionCallNode(self, node):
         if self.visitChildren(node) == "error":
             return

@@ -76,14 +76,16 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFunctionDefinitionNode(self, node):
-        # self.outFile.write("code\n")
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
 
         scope = self.symbolTable.currentScope
         for variable in scope.addressedVariables:
+            # distinguish arguments from local variables: arguments already placed on stack by caller
             self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
-        self.visitChildren(node)
+        self.visitChildren(node) # exclude parameters node
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1))
+
+        # retf / retp
 
         self.symbolTable.closeScope()
 
@@ -225,8 +227,9 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFunctionCallNode(self, node):
-        # self.outFile.write("code\n")
-        self.visitChildren(node)
+        # mst 0 # organizational block
+        self.visitChildren() # evaluate arguments
+        # cup p q # call user procedure
 
 
     def visitTernaryConditionalOperatorNode(self, node):
