@@ -1,23 +1,49 @@
-int sum(int a, int b) {
-    return a+b;
+// int sum(int a, int b) {
+//     return a+b;
+// }
+//
+// int summ(int b, int c, int d, int e) {
+//     return sum(b, sum(c, sum(d, e)));
+// }
+
+// int fac(int i) {
+//     if (i == 0) {
+//         return 1;
+//     }
+//     return fac(i-1) * i;
+// }
+
+int fib(int a) {
+    if (a == 0 || a == 1) {
+      return 1;
+    }
+
+    return fib(a-1) + fib(a-2);
 }
 
+// int a = 5;
+// int b = 6;
 
 int main() {
-    int c = 3234;
-    int a = 2;
-
-    // a = 2;
-    // a + 1;
-    // a = a + 6;
-
-    int b = 6;
-
-    // char c = 'a';
-
-    // a = a + b;
-
-    b = sum(a, b);
+    // int c = 3234;
+    // int a = 2;
+    //
+    // // a = 2;
+    // // a + 1;
+    // // a = a + 6;
+    //
+    // int b = 6;
+    //
+    // // char c = 'a';
+    //
+    // // a = a + b;
+    //
+    // b = sum(a, b); // b = 8
+    //
+    // summ(1, a, b, 4);
+    //
+    // fac(30);
+    return fib(15);
 
     // while (b < a) {
     //   if (c != '6') {

@@ -12,21 +12,30 @@ from VisitorCodeGenerator import *
 
 import traceback
 import sys
+import time
 
 def main(filename):
+    timeNow = time.time()
     input_file = FileStream(filename)
+    print ("file read: ", time.time() - timeNow)
 
     # get lexer
+    timeNow = time.time()
     lexer = SmallCLexer(input_file)
+    print ("file lexed: ", time.time() - timeNow)
 
     # get list of matched tokens
+    timeNow = time.time()
     stream = CommonTokenStream(lexer)
+    print ("file tokenized: ", time.time() - timeNow)
 
     # pass tokens to the parser
     parser = SmallCParser(stream)
 
     # specify the entry point
+    timeNow = time.time()
     programContext = parser.program() # tree with program as root
+    print ("file parsed: ", time.time() - timeNow)
 
     # walk it and attach our listener
     walker = ParseTreeWalker()
@@ -40,29 +49,39 @@ def main(filename):
     try:
         listener = Listener(abstractSyntaxTree)
         # walk the parse tree and fill in the AST
+        timeNow = time.time()
         walker.walk(listener, programContext)
+        print ("AST built: ", time.time() - timeNow)
 
         # print the resulting AST after the walk
         print (abstractSyntaxTree)
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
+        timeNow = time.time()
         functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
+        print ("symbol table filled: ", time.time() - timeNow)
         symbolTable.traverseOn()
         symbolTable.resetToRoot()
+        timeNow = time.time()
         tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
+        print ("symbol table checked: ", time.time() - timeNow)
         print(symbolTable)
 
         # do the type checking
+        timeNow = time.time()
         typeCheck = VisitorTypeChecker(errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
+        print ("program type checked: ", time.time() - timeNow)
 
         # generate code
         symbolTable.resetToRoot()
+        timeNow = time.time()
         codeGenerator = VisitorCodeGenerator(symbolTable)
         codeGenerator.visitProgramNode(abstractSyntaxTree.root)
+        print ("code generated: ", time.time() - timeNow)
 
     except Exception as e:
         ex_type, ex, tb = sys.exc_info()

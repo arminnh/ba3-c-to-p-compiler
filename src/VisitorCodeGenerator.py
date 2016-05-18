@@ -59,10 +59,23 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitProgramNode(self, node):
-        # self.outFile.write("code\n")
-        # self.outFile.write("ujp  lmain\n")
-        self.outFile.write("ujp main\n")
-        self.visitChildren(node)
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
+
+        # code for variables
+        for variable in self.symbolTable.currentScope.addressedVariables:
+            self.visitDeclaratorInitializerNode(variable.astnode)
+
+        # sep k where k = max. depth local stack
+        # self.outFile.write("sep 2147483646\n")
+
+        self.outFile.write("mst 0\n")
+        self.outFile.write("cup 0 function_main\n") #TODO: argc/argv
+        self.outFile.write("hlt\n")
+
+        # code for functions
+        for child in node.children:
+            if isinstance(child, ASTFunctionDefinitionNode):
+                child.accept(self)
 
 
     def visitIncludeNode(self, node):
@@ -85,17 +98,17 @@ class VisitorCodeGenerator(Visitor):
         # set SP to
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
 
-        for variable in scope.addressedVariables:
-            # distinguish arguments from local variables: arguments already placed on stack by caller
-            self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
+        # for variable in scope.addressedVariables:
+            # TODO: distinguish arguments from local variables: arguments already placed on stack by caller
+            # self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
 
         # sep k where k = max. depth local stack
-        self.outFile.write("sep 1000\n")
+        # self.outFile.write("sep 1000\n")
 
         label = self.getLabel()
 
-        # jump over optional sub procedures
-        self.outFile.write("ujp {0}\n".format(label))
+        # TODO: extra: jump over optional sub procedures
+        # TODO: extra: self.outFile.write("ujp {0}\n".format(label))
         # TODO: extra: code for optional sub procedures here
 
         # function body code
@@ -115,13 +128,13 @@ class VisitorCodeGenerator(Visitor):
 
     def visitMainFunctionNode(self, node):
         # self.outFile.write("\nlmain:\n")
-        self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
-        self.outFile.write("\nmain:\n")
-        for i in range(len(self.symbolTable.currentScope.addressedVariables)):
-            self.outFile.write("ldc {0} 0\n".format(self.p_types[self.symbolTable.currentScope.addressedVariables[i].typeInfo.basetype]))
-        self.visitChildren(node)
-        self.outFile.write("hlt\n")
-        self.symbolTable.closeScope()
+        # self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
+        # self.outFile.write("\nmain:\n")
+        # for i in range(len(self.symbolTable.currentScope.addressedVariables)):
+        #     self.outFile.write("ldc {0} 0\n".format(self.p_types[self.symbolTable.currentScope.addressedVariables[i].typeInfo.basetype]))
+        # self.visitChildren(node)
+        # self.symbolTable.closeScope()
+        self.visitFunctionDefinitionNode(node)
 
 
     def visitParametersNode(self, node):
@@ -224,14 +237,12 @@ class VisitorCodeGenerator(Visitor):
             if isinstance(child, ASTInitializerListNode):
                 hasInitializer = True
 
-        self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
-
         if hasInitializer:
             self.visitChildren(node)
         else:
             self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
 
-        self.outFile.write("sto {0}\n".format(self.p_types[node.getType().basetype]))
+        self.outFile.write("str {0} 0 {1}\n".format(self.p_types[node.getType().basetype], node.symbolInfo.address + 5))
 
 
     def visitInitializerListNode(self, node):
@@ -257,10 +268,11 @@ class VisitorCodeGenerator(Visitor):
 
     def visitVariableNode(self, node):
         if self.lvalue and self.lvalue.pop():
-            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
+            # put address on stack
+            self.outFile.write("lda 0 {0}\n".format(node.symbolInfo.address + 5))
         else:
-            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
-            self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype]))
+            # put value on stack
+            self.outFile.write("lod {0} 0 {1}\n".format(self.p_types[node.getType().basetype], node.symbolInfo.address + 5))
 
         self.visitChildren(node)
 
