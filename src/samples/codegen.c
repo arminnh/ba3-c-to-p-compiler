@@ -1,24 +1,32 @@
-int main() {
-    int a;
+int sum(int a, int b) {
+    return a+b;
+}
 
-    a = 2;
-    a + 1;
-    a = a + 6;
+
+int main() {
+    int c = 3234;
+    int a = 2;
+
+    // a = 2;
+    // a + 1;
+    // a = a + 6;
 
     int b = 6;
 
-    char c = '6';
+    // char c = 'a';
 
-    a = a + b;
+    // a = a + b;
 
-    while (b < a) {
-      if (c != '6') {
-        a = a - 1;
-      }
-      else {
-        b = b+1;
-      }
-    }
+    b = sum(a, b);
+
+    // while (b < a) {
+    //   if (c != '6') {
+    //     a = a - 1;
+    //   }
+    //   else {
+    //     b = b+1;
+    //   }
+    // }
 
     // if (1 != 1) {
     //     10;

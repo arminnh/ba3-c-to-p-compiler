@@ -77,23 +77,38 @@ class VisitorCodeGenerator(Visitor):
 
     def visitFunctionDefinitionNode(self, node):
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
-        node.plabel = "function_{0}".format(node.identifier)
-
-        self.outFile.write("{0}:\n".format(node.plabel))
-        self.outFile.write("sep 1000\n") # track actual value
-
         scope = self.symbolTable.currentScope
+
+        # function label
+        self.outFile.write("\nfunction_{0}:\n".format(node.identifier))
+
+        # set SP to
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
+
         for variable in scope.addressedVariables:
             # distinguish arguments from local variables: arguments already placed on stack by caller
             self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
-        
-        for i in range(1, len(node.children)): # exclude parameters node
-            node.children[i].accept(self)
 
-        # set stack pointer back after wastefully using 
-        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1))
+        # sep k where k = max. depth local stack
+        self.outFile.write("sep 1000\n")
 
-        self.outFile.write("retp\n")
+        label = self.getLabel()
+
+        # jump over optional sub procedures
+        self.outFile.write("ujp {0}\n".format(label))
+        # TODO: extra: code for optional sub procedures here
+
+        # function body code
+        self.outFile.write("{0}:\n".format(label))
+        for child in node.children:
+            if not isinstance(child, ASTParametersNode):
+                child.accept(self)
+
+        # return from function
+        if node.getType().basetype == "void" and node.getType().indirections == 0:
+            self.outFile.write("retp\n")
+        else:
+            self.outFile.write("retf\n")
 
         self.symbolTable.closeScope()
 
@@ -101,7 +116,7 @@ class VisitorCodeGenerator(Visitor):
     def visitMainFunctionNode(self, node):
         # self.outFile.write("\nlmain:\n")
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
-        self.outFile.write("main:\n")
+        self.outFile.write("\nmain:\n")
         for i in range(len(self.symbolTable.currentScope.addressedVariables)):
             self.outFile.write("ldc {0} 0\n".format(self.p_types[self.symbolTable.currentScope.addressedVariables[i].typeInfo.basetype]))
         self.visitChildren(node)
@@ -110,7 +125,6 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitParametersNode(self, node):
-        # self.outFile.write("code\n")
         self.visitChildren(node)
 
 
@@ -120,8 +134,15 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitArgumentsNode(self, node):
-        # self.outFile.write("code\n")
-        self.visitChildren(node)
+        for child in node.children:
+            if isinstance(child, ASTVariableNode):
+                if child.getType().indirections > 0:
+                    self.lvalue.append(True)
+                    child.accept(self)
+                else:
+                    child.accept(self)
+            else:
+                child.accept(self)
 
 
     def visitStatementsNode(self, node):
@@ -137,8 +158,13 @@ class VisitorCodeGenerator(Visitor):
         #     self.outFile.write("ldc {0} {1}".format(self.p_type[ttype], self.initializers[ttype]))
 
     def visitReturnNode(self, node):
-        # self.outFile.write("code\n")
-        self.visitChildren(node)
+        if not node.children:
+            self.outFile.write("retp\n")
+            return
+
+        self.visitChildren(node) # TODO: make sure this takes the r value
+        self.outFile.write("str {0} 0 0\n".format(self.p_types[node.children[0].getType().basetype]))
+        self.outFile.write("retf\n") # note: this was not in the compendium
 
 
     def visitIfNode(self, node):
@@ -231,19 +257,23 @@ class VisitorCodeGenerator(Visitor):
 
     def visitVariableNode(self, node):
         if self.lvalue and self.lvalue.pop():
-            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address)) # TODO
+            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
         else:
-            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address)) # TODO
-            self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
-            # self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype])) # TODO
+            self.outFile.write("ldc a {0}\n".format(node.symbolInfo.address))
+            self.outFile.write("ind {0}\n".format(self.p_types[node.getType().basetype]))
 
         self.visitChildren(node)
 
 
     def visitFunctionCallNode(self, node):
-        self.outFile.write("mst 0\n") # organizational block
-        self.visitChildren(node) # evaluate arguments
-        self.outFile.write("cup 0 {0}\n".format(node.definitionNode.plabel)) # call user procedure
+        # organizational block
+        self.outFile.write("mst 0\n")
+
+        # evaluate arguments
+        self.visitChildren(node)
+
+        # call user procedure
+        self.outFile.write("cup {0} function_{1}\n".format(len(node.children[0].children), node.definitionNode.identifier))
 
 
     def visitTernaryConditionalOperatorNode(self, node):
@@ -253,11 +283,10 @@ class VisitorCodeGenerator(Visitor):
 
     def visitSimpleAssignmentOperatorNode(self, node):
         # children of a = b: [ASTVariableNode, ExpressionNode]
-
         self.lvalue.append(True)
         node.children[0].accept(self)
-        self.outFile.write("dpl a\n")
-        node.children[1].accept(self) # put expression result on stack as the "return value" of this operation
+        self.outFile.write("dpl a\n") # duplicate the address to load it after the assignment
+        node.children[1].accept(self)
         self.outFile.write("sto {0}\n".format(self.p_types[node.children[0].getType().basetype]))
         self.outFile.write("ind {0}\n".format(self.p_types[node.children[0].getType().basetype]))
 
