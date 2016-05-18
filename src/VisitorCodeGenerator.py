@@ -102,6 +102,8 @@ class VisitorCodeGenerator(Visitor):
         # self.outFile.write("\nlmain:\n")
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
         self.outFile.write("main:\n")
+        for i in range(len(self.symbolTable.currentScope.addressedVariables)):
+            self.outFile.write("ldc {0} 0\n".format(self.p_types[self.symbolTable.currentScope.addressedVariables[i].typeInfo.basetype]))
         self.visitChildren(node)
         self.outFile.write("hlt\n")
         self.symbolTable.closeScope()
