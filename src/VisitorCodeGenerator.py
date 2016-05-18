@@ -61,8 +61,8 @@ class VisitorCodeGenerator(Visitor):
     def visitProgramNode(self, node):
         # self.outFile.write("code\n")
         # self.outFile.write("ujp  lmain\n")
+        self.outFile.write("ujp main\n")
         self.visitChildren(node)
-        self.outFile.write("hlt\n")
 
 
     def visitIncludeNode(self, node):
@@ -77,22 +77,34 @@ class VisitorCodeGenerator(Visitor):
 
     def visitFunctionDefinitionNode(self, node):
         self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
+        node.plabel = "function_{0}".format(node.identifier)
+
+        self.outFile.write("{0}:\n".format(node.plabel))
+        self.outFile.write("sep 1000\n") # track actual value
 
         scope = self.symbolTable.currentScope
         for variable in scope.addressedVariables:
             # distinguish arguments from local variables: arguments already placed on stack by caller
             self.outFile.write("ldc {0} 0\n".format(self.p_types[variable.typeInfo.basetype]))
-        self.visitChildren(node) # exclude parameters node
+        
+        for i in range(1, len(node.children)): # exclude parameters node
+            node.children[i].accept(self)
+
+        # set stack pointer back after wastefully using 
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1))
 
-        # retf / retp
+        self.outFile.write("retp\n")
 
         self.symbolTable.closeScope()
 
 
     def visitMainFunctionNode(self, node):
         # self.outFile.write("\nlmain:\n")
-        self.visitFunctionDefinitionNode(node)
+        self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
+        self.outFile.write("main:\n")
+        self.visitChildren(node)
+        self.outFile.write("hlt\n")
+        self.symbolTable.closeScope()
 
 
     def visitParametersNode(self, node):
@@ -227,9 +239,9 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFunctionCallNode(self, node):
-        # mst 0 # organizational block
-        self.visitChildren() # evaluate arguments
-        # cup p q # call user procedure
+        self.outFile.write("mst 0\n") # organizational block
+        self.visitChildren(node) # evaluate arguments
+        self.outFile.write("cup 0 {0}\n".format(node.definitionNode.plabel)) # call user procedure
 
 
     def visitTernaryConditionalOperatorNode(self, node):

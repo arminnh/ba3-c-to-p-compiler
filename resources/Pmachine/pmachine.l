@@ -536,7 +536,7 @@ f		{
 					cout << "space found" << endl;
 				#endif
 				
-				return blank;
+				return p_blank;
 			}
 							
 %%
