@@ -50,6 +50,11 @@ class VisitorCodeGenerator(Visitor):
         # or -> or
         # ! -> not
 
+    def pType(self, typeInfo):
+        if typeInfo.indirections > 0:
+            return self.p_types["address"]
+        return self.p_types[typeInfo.basetype]
+
     def getLabel(self):
         self.current += 1
         return "l" + str(self.current)
@@ -242,7 +247,7 @@ class VisitorCodeGenerator(Visitor):
         else:
             self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
 
-        self.outFile.write("str {0} 0 {1}\n".format(self.p_types[node.getType().basetype], node.symbolInfo.address + 5))
+        self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
 
     def visitInitializerListNode(self, node):
@@ -270,9 +275,11 @@ class VisitorCodeGenerator(Visitor):
         if self.lvalue and self.lvalue.pop():
             # put address on stack
             self.outFile.write("lda 0 {0}\n".format(node.symbolInfo.address + 5))
+        elif node.getType().indirections != 0:
+            self.outFile.write("lod a 0 {0}\n".format(node.symbolInfo.address + 5))
         else:
             # put value on stack
-            self.outFile.write("lod {0} 0 {1}\n".format(self.p_types[node.getType().basetype], node.symbolInfo.address + 5))
+            self.outFile.write("lod {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
         self.visitChildren(node)
 
@@ -299,8 +306,9 @@ class VisitorCodeGenerator(Visitor):
         node.children[0].accept(self)
         self.outFile.write("dpl a\n") # duplicate the address to load it after the assignment
         node.children[1].accept(self)
-        self.outFile.write("sto {0}\n".format(self.p_types[node.children[0].getType().basetype]))
-        self.outFile.write("ind {0}\n".format(self.p_types[node.children[0].getType().basetype]))
+
+        self.outFile.write("sto {0}\n".format(self.pType(node.children[0].getType())))
+        self.outFile.write("ind {0}\n".format(self.pType(node.children[0].getType())))
 
 
     def visitLogicOperatorNode(self, node):
@@ -329,13 +337,19 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("UNARY ARITHMETIC" + op + "\n")
 
     def visitAddressOfoperatorNode(self, node):
-        self.outFile.write("code address of op\n")
+        self.lvalue.append(True)
         self.visitChildren(node)
 
 
     def visitDereferenceNode(self, node):
-        self.outFile.write("code dereference op\n")
+        # if isinstance(node.parent, ASTSimpleAssignmentOperatorNode) and self is node.parent.children[0]:
+        #     self.lvalue.push(True)
         self.visitChildren(node)
+
+        if isinstance(node.parent, ASTSimpleAssignmentOperatorNode) and node is node.parent.children[0]:
+            self.outFile.write("ind a\n")
+        else:
+            self.outFile.write("ind {0}\n".format(self.pType(node.getType())))
 
 
     def visitLogicalNotOperatorNode(self, node):

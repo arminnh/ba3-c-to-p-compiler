@@ -13,21 +13,35 @@
 //     return fac(i-1) * i;
 // }
 
-int fib(int a) {
-    if (a == 0 || a == 1) {
-      return 1;
-    }
+// int fib(int a) {
+//     if (a == 0 || a == 1) {
+//       return 1;
+//     }
 
-    return fib(a-1) + fib(a-2);
-}
+//     return fib(a-1) + fib(a-2);
+// }
 
 // int a = 5;
 // int b = 6;
 
+int changeValue(int* a) {
+    *a = *a + 1;
+    return 0;
+}
+
 int main() {
     // int c = 3234;
-    // int a = 2;
-    //
+    int a = 2;
+    
+    int* b = &a;
+    int** bb = &b;
+    int* cc = *bb;
+
+    int c = *b;
+    int c_ = **bb;
+
+    changeValue(&a);
+
     // // a = 2;
     // // a + 1;
     // // a = a + 6;
@@ -43,7 +57,7 @@ int main() {
     // summ(1, a, b, 4);
     //
     // fac(30);
-    return fib(15);
+    // return fib(15);
 
     // while (b < a) {
     //   if (c != '6') {
