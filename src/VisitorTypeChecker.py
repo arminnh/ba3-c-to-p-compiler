@@ -23,6 +23,9 @@ class VisitorTypeChecker(Visitor):
 
 
     def visitReturnNode(self, node):
+        if self.visitChildren(node) == "error":
+            return
+            
         functionDefinition = node
 
         while functionDefinition is not None and not isinstance(functionDefinition, ASTFunctionDefinitionNode):

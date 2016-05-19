@@ -1,9 +1,9 @@
-int myFunction1(int const* i, float **c) {
+float myFunction1(int const* i, float **c) {
     int *a;
     if (i == a)
-        return 5 * 3 * **c;
+        return 5.0 * 3.0 * **c;
     else
-        return 2*5;
+        return 2.0*5.0;
 }
 
 int myFunction2(int i, float *c);
@@ -47,7 +47,7 @@ int main(void)
     e = myFunction4();
     // printf("%d\n", myFunction2(d, &e)); // undefined reference
 
-    printf("%d\n", myFunction1(aPtr, dPtrPtr));
+    printf("%f\n", myFunction1(aPtr, dPtrPtr));
     printf("%i\n", myFunction3(b, c));
     printf("%i\n", myFunction3(h, c));
     printf("%i\n", myFunction3(g, c));

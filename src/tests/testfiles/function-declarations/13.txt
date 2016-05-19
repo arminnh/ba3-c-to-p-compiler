@@ -4,6 +4,3 @@ int iojiofej(void a) {
 testfiles/function-declarations/13.c:2:12: error: variable 'a' undeclared
 return a;
        ^
-testfiles/function-declarations/13.c:2:5: error: incompatible conversion returning 'None' from a function with return type 'int'
-return a;
-^

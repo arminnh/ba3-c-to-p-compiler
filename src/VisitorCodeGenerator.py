@@ -110,14 +110,14 @@ class VisitorCodeGenerator(Visitor):
         # sep k where k = max. depth local stack
         # self.outFile.write("sep 1000\n")
 
-        label = self.getLabel()
+        # label = self.getLabel()
 
         # TODO: extra: jump over optional sub procedures
         # TODO: extra: self.outFile.write("ujp {0}\n".format(label))
         # TODO: extra: code for optional sub procedures here
 
         # function body code
-        self.outFile.write("{0}:\n".format(label))
+        # self.outFile.write("{0}:\n".format(label))
         for child in node.children:
             if not isinstance(child, ASTParametersNode):
                 child.accept(self)
@@ -274,7 +274,7 @@ class VisitorCodeGenerator(Visitor):
     def visitVariableNode(self, node):
         if self.lvalue and self.lvalue.pop():
             # put address on stack
-            self.outFile.write("lda 0 {0}\n".format(node.symbolInfo.address + 5))
+            self.outFile.write("lda {0} {1}\n".format(node.symbolInfo.depthDifference + 1, node.symbolInfo.address + 5))
         elif node.getType().indirections != 0:
             self.outFile.write("lod a 0 {0}\n".format(node.symbolInfo.address + 5))
         else:

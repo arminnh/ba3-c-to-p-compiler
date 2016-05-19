@@ -1,6 +1,15 @@
-// int sum(int a, int b) {
-//     return a+b;
-// }
+int global_a = 5;
+int global_b = 6;
+
+int sum(int a, int b) {
+    global_b = 10;
+    return a+b;
+}
+
+int sum2() {
+    return sum(1, 2);
+}
+
 //
 // int summ(int b, int c, int d, int e) {
 //     return sum(b, sum(c, sum(d, e)));
@@ -21,26 +30,23 @@
 //     return fib(a-1) + fib(a-2);
 // }
 
-// int a = 5;
-// int b = 6;
-
-int changeValue(int* a) {
-    *a = *a + 1;
-    return 0;
-}
+// int changeValue(int* a) {
+//     *a = *a + 1;
+//     return 0;
+// }
 
 int main() {
     // int c = 3234;
-    int a = 2;
-    
-    int* b = &a;
-    int** bb = &b;
-    int* cc = *bb;
-
-    int c = *b;
-    int c_ = **bb;
-
-    changeValue(&a);
+    // int a = 2;
+    //
+    // int* b = &a;
+    // int** bb = &b;
+    // int* cc = *bb;
+    //
+    // int c = *b;
+    // int c_ = **bb;
+    //
+    // changeValue(&a);
 
     // // a = 2;
     // // a + 1;
@@ -53,6 +59,7 @@ int main() {
     // // a = a + b;
     //
     // b = sum(a, b); // b = 8
+    return sum2(1, 2);
     //
     // summ(1, a, b, 4);
     //

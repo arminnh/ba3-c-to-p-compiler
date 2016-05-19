@@ -143,6 +143,7 @@ class SymbolTable(object):
         self.traverse = False
         self.root = Scope()
         self.currentScope = self.root
+        self.currentDepth = 0
 
     def openScope(self, isFunctionScope=False, name=None):
         if self.traverse:
@@ -155,10 +156,12 @@ class SymbolTable(object):
             self.currentScope.currentChild = 0
         else:
             scope = self.currentScope
+            self.currentDepth += 1
             self.currentScope = self.currentScope.addChild(Scope(isFunctionScope=isFunctionScope, name=name))
 
     def closeScope(self):
         self.currentScope = self.currentScope.parent
+        self.currentDepth -= 1
 
     def insertVariableSymbol(self, astnode):
         self.currentScope.insertSymbol(VariableSymbolInfo(astnode))
@@ -173,11 +176,15 @@ class SymbolTable(object):
             return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 
     def retrieveSymbol(self, name, requireSeen=True):
+        depthDifference = 0
         scope = self.currentScope
+
         while scope is not None:
             nametype = scope.retrieveSymbol(name, requireSeen)
             if nametype is not None:
+                nametype.depthDifference = depthDifference
                 return nametype
+            depthDifference += 1
             scope = scope.parent
 
     def __str__(self):
