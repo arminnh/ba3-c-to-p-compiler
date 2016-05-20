@@ -274,7 +274,7 @@ class VisitorCodeGenerator(Visitor):
     def visitVariableNode(self, node):
         if self.lvalue and self.lvalue.pop():
             # put address on stack
-            self.outFile.write("lda {0} {1}\n".format(node.symbolInfo.depthDifference + 1, node.symbolInfo.address + 5))
+            self.outFile.write("lda {0} {1}\n".format(node.symbolInfo.depthDifference, node.symbolInfo.address + 5))
         elif node.getType().indirections != 0:
             self.outFile.write("lod a 0 {0}\n".format(node.symbolInfo.address + 5))
         else:
@@ -286,7 +286,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitFunctionCallNode(self, node):
         # organizational block
-        self.outFile.write("mst 0\n")
+        self.outFile.write("mst {0}\n".format(self.symbolTable.currentDepth))
 
         # evaluate arguments
         self.visitChildren(node)

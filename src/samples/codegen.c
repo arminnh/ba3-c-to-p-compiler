@@ -2,7 +2,13 @@ int global_a = 5;
 int global_b = 6;
 
 int sum(int a, int b) {
-    global_b = 10;
+    if (a == 2) {
+        global_b = 10;
+    }
+
+    if (a == 1) {
+        return sum(2, 2);
+    }
     return a+b;
 }
 
@@ -59,7 +65,7 @@ int main() {
     // // a = a + b;
     //
     // b = sum(a, b); // b = 8
-    return sum2(1, 2);
+    return sum2();
     //
     // summ(1, a, b, 4);
     //

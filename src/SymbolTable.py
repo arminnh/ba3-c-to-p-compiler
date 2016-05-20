@@ -146,6 +146,8 @@ class SymbolTable(object):
         self.currentDepth = 0
 
     def openScope(self, isFunctionScope=False, name=None):
+        self.currentDepth += 1
+
         if self.traverse:
             if self.currentScope.currentChild >= len(self.currentScope.children):
                 raise Exception("Trying to open nonexisting scope; current scope:\n" + self.currentScope.out(0) + "am at child " + str(self.currentScope.currentChild))
@@ -156,12 +158,11 @@ class SymbolTable(object):
             self.currentScope.currentChild = 0
         else:
             scope = self.currentScope
-            self.currentDepth += 1
             self.currentScope = self.currentScope.addChild(Scope(isFunctionScope=isFunctionScope, name=name))
 
     def closeScope(self):
-        self.currentScope = self.currentScope.parent
         self.currentDepth -= 1
+        self.currentScope = self.currentScope.parent
 
     def insertVariableSymbol(self, astnode):
         self.currentScope.insertSymbol(VariableSymbolInfo(astnode))
