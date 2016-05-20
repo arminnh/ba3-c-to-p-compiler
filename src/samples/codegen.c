@@ -1,6 +1,10 @@
 int global_a = 5;
 int global_b = 6;
 
+void emptyReturn() {
+    return;
+}
+
 int sum(int a, int b) {
     if (a == 2) {
         global_b = 10;
@@ -13,6 +17,7 @@ int sum(int a, int b) {
 }
 
 int sum2() {
+    int a, b;
     return sum(1, 2);
 }
 
@@ -42,8 +47,9 @@ int sum2() {
 // }
 
 int main() {
-    // int c = 3234;
-    // int a = 2;
+    // int c = 3234
+    int a = 2;
+    int *aa = &a;
     //
     // int* b = &a;
     // int** bb = &b;
@@ -53,7 +59,8 @@ int main() {
     // int c_ = **bb;
     //
     // changeValue(&a);
-
+    &(*aa);
+    int *b = &(*aa);
     // // a = 2;
     // // a + 1;
     // // a = a + 6;
@@ -65,7 +72,9 @@ int main() {
     // // a = a + b;
     //
     // b = sum(a, b); // b = 8
-    return sum2();
+    // emptyReturn();
+    // return a = b = 2;
+    // return sum2();
     //
     // summ(1, a, b, 4);
     //

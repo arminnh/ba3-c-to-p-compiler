@@ -132,13 +132,6 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitMainFunctionNode(self, node):
-        # self.outFile.write("\nlmain:\n")
-        # self.symbolTable.openScope(isFunctionScope=True, name=node.identifier)
-        # self.outFile.write("\nmain:\n")
-        # for i in range(len(self.symbolTable.currentScope.addressedVariables)):
-        #     self.outFile.write("ldc {0} 0\n".format(self.p_types[self.symbolTable.currentScope.addressedVariables[i].typeInfo.basetype]))
-        # self.visitChildren(node)
-        # self.symbolTable.closeScope()
         self.visitFunctionDefinitionNode(node)
 
 
@@ -151,6 +144,7 @@ class VisitorCodeGenerator(Visitor):
         self.visitChildren(node)
 
 
+    # TODO: check this with different codes (code_l, code_r and code_a)
     def visitArgumentsNode(self, node):
         for child in node.children:
             if isinstance(child, ASTVariableNode):
@@ -335,6 +329,7 @@ class VisitorCodeGenerator(Visitor):
             pass
         elif op == "--":
             self.outFile.write("UNARY ARITHMETIC" + op + "\n")
+
 
     def visitAddressOfoperatorNode(self, node):
         self.lvalue.append(True)

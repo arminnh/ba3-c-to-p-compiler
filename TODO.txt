@@ -1,17 +1,39 @@
-code generation
+CODE GENERATION:
+*) finish/check pointers (&(*aa);)
+*) static arrays + array subscripting
+*) test all unary, binary an ternary operators
+*) check argument loading for functions
+*) check if parameter node code generation can be 'pass'
+*) new names for declarationProcessor and definitionProcessor
 
 
+EXTRAS:
+*) continue, break,
+*) for loops
+*) const correctnes
+*) implicit and explicit type conversions
+*) nested functions
+*) check whether all paths in a function body end with a return statement
+*) warning when overinitializing arrays
+*) (maybe) default parameters
+*) (maybe) inline functions
+*) (maybe) enums
 
 
 DONE:
 *) recognize printf/scanf after import stdio
 *) fix very long nested expressions
 
-
-
-
-
-EXTRAS:
-
-int myfun(int a, char b = 'c') {
+enum a {
+    BLABLA = 1,
+    BLBALA2 = 10
+    BLBAL3
 }
+
+struct a {
+    const int BLABLA = 1;
+    const int blabla2 = 10;
+    const int blabla3 = 11;
+}
+
+static a myEnum = new a();
