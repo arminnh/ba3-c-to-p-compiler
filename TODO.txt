@@ -1,7 +1,5 @@
 *) add -saveast flag to c2p.py for AST output
 
-*) fix situation where the following compiles: 'int b = sum(a, b);', the rightmost b does not exist yet
-
 CODE GENERATION:
 *) finish/check pointers (&(*aa);)
 *) static arrays + array subscripting
@@ -35,12 +33,18 @@ DONE:
 
 FIX:
 
+====
+
+the following compiles: 'int b = sum(a, b);', the rightmost b does not exist yet
+
+=====
+
 This works ok:
     int a, b;
     a = 10;
     b = 5;
 
-This does not, lines 2 and 3 refer enter a wrong nesting depth value (2 instead of 0) 
+This does not, lines 2 and 3 refer enter a wrong nesting depth value (2 instead of 0)
     int a, b;
     a = 10;
     b = 5;
