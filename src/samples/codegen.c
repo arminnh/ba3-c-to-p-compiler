@@ -40,7 +40,7 @@ int fib(int a) {
     }
 
     return fib(a-1) + fib(a-2);
-}fads
+}
 
 // int changeValue(int* a) {
 //     *a = *a + 1;

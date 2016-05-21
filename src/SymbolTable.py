@@ -82,6 +82,7 @@ class Scope:
                 return None
         return symbolInfo
 
+
     def isInsertionOk(self, new:SymbolInfo):
         old = self.retrieveSymbol(new.astnode.identifier, requireSeen=False)
 
@@ -177,15 +178,26 @@ class SymbolTable(object):
             return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 
     def retrieveSymbol(self, name, requireSeen=True):
-        depthDifference = 0
         scope = self.currentScope
 
         while scope is not None:
             nametype = scope.retrieveSymbol(name, requireSeen)
             if nametype is not None:
-                nametype.depthDifference = depthDifference
                 return nametype
-            depthDifference += 1
+
+            scope = scope.parent
+
+        return None
+
+    def functionDefinitionDepthDifference(self, symbolInfo, requireSeen=True):
+        scope = self.currentScope
+        depthDifference = 0
+
+        while scope is not None:
+            if symbolInfo in scope.symbols.values():
+                return depthDifference
+            if scope.isFunctionScope:
+                depthDifference += 1
             scope = scope.parent
 
     def __str__(self):

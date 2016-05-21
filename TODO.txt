@@ -6,6 +6,8 @@ CODE GENERATION:
 *) test all unary, binary an ternary operators
 *) check argument loading for functions
 *) new names for declarationProcessor and definitionProcessor
+*) make sure that all ints are converted to booleans when used in conditions
+*) printf/scanf
 
 
 EXTRAS:
