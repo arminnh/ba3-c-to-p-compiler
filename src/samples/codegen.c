@@ -11,6 +11,7 @@ int sum(int a, int b) {
     }
 
     if (a == 1) {
+        global_a = 50;
         return sum(2, 2);
     }
     return a+b;
@@ -21,25 +22,25 @@ int sum2() {
     return sum(1, 2);
 }
 
-//
-// int summ(int b, int c, int d, int e) {
-//     return sum(b, sum(c, sum(d, e)));
-// }
 
-// int fac(int i) {
-//     if (i == 0) {
-//         return 1;
-//     }
-//     return fac(i-1) * i;
-// }
+int summ(int b, int c, int d, int e) {
+    return sum(b, sum(c, sum(d, e)));
+}
 
-// int fib(int a) {
-//     if (a == 0 || a == 1) {
-//       return 1;
-//     }
+int fac(int i) {
+    if (i == 0) {
+        return 1;
+    }
+    return fac(i-1) * i;
+}
 
-//     return fib(a-1) + fib(a-2);
-// }
+int fib(int a) {
+    if (a == 0 || a == 1) {
+      return 1;
+    }
+
+    return fib(a-1) + fib(a-2);
+}fads
 
 // int changeValue(int* a) {
 //     *a = *a + 1;
@@ -47,9 +48,8 @@ int sum2() {
 // }
 
 int main() {
-    // int c = 3234
     int a = 2;
-    int *aa = &a;
+    // int *aa = &a;
     //
     // int* b = &a;
     // int** bb = &b;
@@ -59,49 +59,53 @@ int main() {
     // int c_ = **bb;
     //
     // changeValue(&a);
-    &(*aa);
-    int *b = &(*aa);
+    // &(*aa);
+    // int *b = &(*aa);
     // // a = 2;
     // // a + 1;
     // // a = a + 6;
     //
-    // int b = 6;
+    int b = 7;
+    // //
+    char c = 'a';
     //
-    // // char c = 'a';
+    // a = a + b;
     //
-    // // a = a + b;
-    //
-    // b = sum(a, b); // b = 8
+    // b = sum(a, b);
     // emptyReturn();
-    // return a = b = 2;
-    // return sum2();
+    // a = b;
+    // sum2();
     //
     // summ(1, a, b, 4);
     //
-    // fac(30);
-    // return fib(15);
+    // a = fac(2);
+    // b = fib(2);
+    // int d = a < b; //TODO: make this work
 
-    // while (b < a) {
-    //   if (c != '6') {
-    //     a = a - 1;
-    //   }
-    //   else {
-    //     b = b+1;
-    //   }
-    // }
-
+    a = 10;
+    b = 5;
+    while (b < a) {
+      a = a - 1;
+      if (c != '6') {
+        a = a - 1;
+      }
+      else {
+        b = b + 1;
+      }
+    }
+    //
     // if (1 != 1) {
     //     10;
     // } else {
     //     20;
     // }
-
-    // if (2 == 2 ) {
+    //
+    // if (2 == 2) {
     //     30;
     // }
 
-    // int a = 5;
-    // while (a != 3) {
+    // a = 20;              // TODO: fix this, didnt work
+    // while (a < 30) {     // TODO: fix this, didnt work
     //     a = a + 1;
     // }
 
@@ -119,4 +123,7 @@ int main() {
     // 4 - 5;
     // 3 * (4 + 5) / 7 * a;
     // a = (a = (a = 1));
+
+
+    return 1;
 }

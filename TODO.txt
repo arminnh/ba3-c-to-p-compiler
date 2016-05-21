@@ -1,39 +1,55 @@
+*) add -saveast flag to c2p.py for AST output
+
+*) fix situation where the following compiles: 'int b = sum(a, b);', the rightmost b does not exist yet
+
 CODE GENERATION:
 *) finish/check pointers (&(*aa);)
 *) static arrays + array subscripting
 *) test all unary, binary an ternary operators
 *) check argument loading for functions
-*) check if parameter node code generation can be 'pass'
 *) new names for declarationProcessor and definitionProcessor
 
 
 EXTRAS:
-*) continue, break,
+*) continue, break
 *) for loops
 *) const correctnes
 *) implicit and explicit type conversions
 *) nested functions
 *) check whether all paths in a function body end with a return statement
-*) warning when overinitializing arrays
-*) (maybe) default parameters
-*) (maybe) inline functions
-*) (maybe) enums
+    maybe:
+    *) add warnings
+    *) warning when variable declarations have no initializer
+    *) warning when overinitializing arrays
+    *) default parameters
+    *) inline functions
+    *) enums
 
 
 DONE:
 *) recognize printf/scanf after import stdio
 *) fix very long nested expressions
+*) check if parameter node code generation can be 'pass'
 
-enum a {
-    BLABLA = 1,
-    BLBALA2 = 10
-    BLBAL3
-}
 
-struct a {
-    const int BLABLA = 1;
-    const int blabla2 = 10;
-    const int blabla3 = 11;
-}
 
-static a myEnum = new a();
+FIX:
+
+This works ok:
+    int a, b;
+    a = 10;
+    b = 5;
+
+This does not, lines 2 and 3 refer enter a wrong nesting depth value (2 instead of 0) 
+    int a, b;
+    a = 10;
+    b = 5;
+    while (b < a) {
+      a = a - 1;
+      if (c != '6') {
+        a = a - 1;
+      }
+      else {
+        b = b + 1;
+      }
+    }

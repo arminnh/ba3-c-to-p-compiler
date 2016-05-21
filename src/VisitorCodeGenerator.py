@@ -135,13 +135,14 @@ class VisitorCodeGenerator(Visitor):
         self.visitFunctionDefinitionNode(node)
 
 
+    # arguments are pushed on stack by the caller, type checking checks if everything is correct, so no code needed for function definition parameters
     def visitParametersNode(self, node):
-        self.visitChildren(node)
+        pass
 
 
     def visitParameterNode(self, node):
         # self.outFile.write("code\n")
-        self.visitChildren(node)
+        pass
 
 
     # TODO: check this with different codes (code_l, code_r and code_a)

@@ -37,6 +37,10 @@ def main(filename):
     programContext = parser.program() # tree with program as root
     print ("file parsed: ", time.time() - timeNow)
 
+    # quit if there are any syntax errors
+    if parser._syntaxErrors > 0:
+        sys.exit(0)
+
     # walk it and attach our listener
     walker = ParseTreeWalker()
 

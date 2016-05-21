@@ -282,26 +282,26 @@ class SmallCParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'='", "'?'", "':'", "'||'", "'&&'", "'=='", 
-                     "'!='", "'<='", "'>='", "'+'", "'-'", "'*'", "'/'", 
-                     "'%'", "'++'", "'--'", "'&'", "'!'", "';'", "'#include'", 
-                     "'.'", "','", "'('", "')'", "'<'", "'>'", "'{'", "'}'", 
-                     "'['", "']'", "'\"'", "'char'", "'float'", "'int'", 
-                     "'void'", "'const'", "'volatile'", "'mutable'", "'if'", 
-                     "'else'", "'do'", "'while'", "'for'", "'break'", "'continue'", 
+    literalNames = [ "<INVALID>", "'='", "'?'", "':'", "'||'", "'&&'", "'=='",
+                     "'!='", "'<='", "'>='", "'+'", "'-'", "'*'", "'/'",
+                     "'%'", "'++'", "'--'", "'&'", "'!'", "';'", "'#include'",
+                     "'.'", "','", "'('", "')'", "'<'", "'>'", "'{'", "'}'",
+                     "'['", "']'", "'\"'", "'char'", "'float'", "'int'",
+                     "'void'", "'const'", "'volatile'", "'mutable'", "'if'",
+                     "'else'", "'do'", "'while'", "'for'", "'break'", "'continue'",
                      "'return'" ]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "COMMA", "LBRA", "RBRA", 
-                      "LABRA", "RABRA", "LCBRA", "RCBRA", "LSBRA", "RSBRA", 
-                      "QUOTE", "TYPECHAR", "TYPEFLOAT", "TYPEINT", "TYPEVOID", 
-                      "CONST", "VOLATILE", "MUTABLE", "IF", "ELSE", "DO", 
-                      "WHILE", "FOR", "BREAK", "CONTINUE", "RETURN", "COMMENT", 
-                      "MULTICOMMENT", "INTEGER", "FLOAT", "IDENTIFIER", 
+    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                      "<INVALID>", "<INVALID>", "COMMA", "LBRA", "RBRA",
+                      "LABRA", "RABRA", "LCBRA", "RCBRA", "LSBRA", "RSBRA",
+                      "QUOTE", "TYPECHAR", "TYPEFLOAT", "TYPEINT", "TYPEVOID",
+                      "CONST", "VOLATILE", "MUTABLE", "IF", "ELSE", "DO",
+                      "WHILE", "FOR", "BREAK", "CONTINUE", "RETURN", "COMMENT",
+                      "MULTICOMMENT", "INTEGER", "FLOAT", "IDENTIFIER",
                       "CHARACTER", "STRING", "WS" ]
 
     RULE_oplevel15 = 0
@@ -356,18 +356,18 @@ class SmallCParser ( Parser ):
     RULE_characterLiteral = 49
     RULE_stringLiteral = 50
 
-    ruleNames =  [ "oplevel15", "oplevel14", "oplevel13", "oplevel12", "oplevel11", 
-                   "oplevel10", "oplevel9", "oplevel8", "oplevel7", "oplevel6", 
-                   "oplevel5", "oplevel4", "oplevel3", "oplevel2", "oplevel1", 
-                   "program", "include", "stdInclude", "customInclude", 
-                   "functionDeclaration", "functionDefinition", "parameters", 
-                   "parameter", "pointerPart", "arrayPart", "statements", 
-                   "statement", "expression", "ifCond", "elseCond", "whileCond", 
-                   "doWhileCond", "forLoop", "variableDeclaration", "declarationSpecifier", 
-                   "cvQualifier", "declaratorInitializer", "declarator1", 
-                   "declarator2", "initializer", "returnStmt", "arguments", 
-                   "functionCall", "variable", "identifier", "pointer", 
-                   "typeDeclaration", "floatLiteral", "integerLiteral", 
+    ruleNames =  [ "oplevel15", "oplevel14", "oplevel13", "oplevel12", "oplevel11",
+                   "oplevel10", "oplevel9", "oplevel8", "oplevel7", "oplevel6",
+                   "oplevel5", "oplevel4", "oplevel3", "oplevel2", "oplevel1",
+                   "program", "include", "stdInclude", "customInclude",
+                   "functionDeclaration", "functionDefinition", "parameters",
+                   "parameter", "pointerPart", "arrayPart", "statements",
+                   "statement", "expression", "ifCond", "elseCond", "whileCond",
+                   "doWhileCond", "forLoop", "variableDeclaration", "declarationSpecifier",
+                   "cvQualifier", "declaratorInitializer", "declarator1",
+                   "declarator2", "initializer", "returnStmt", "arguments",
+                   "functionCall", "variable", "identifier", "pointer",
+                   "typeDeclaration", "floatLiteral", "integerLiteral",
                    "characterLiteral", "stringLiteral" ]
 
     EOF = Token.EOF
@@ -659,7 +659,7 @@ class SmallCParser ( Parser ):
                     self.state = 124
                     self.match(SmallCParser.T__3)
                     self.state = 125
-                    self.oplevel11(0) 
+                    self.oplevel11(0)
                 self.state = 130
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
@@ -728,7 +728,7 @@ class SmallCParser ( Parser ):
                     self.state = 135
                     self.match(SmallCParser.T__4)
                     self.state = 136
-                    self.oplevel7(0) 
+                    self.oplevel7(0)
                 self.state = 141
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
@@ -937,7 +937,7 @@ class SmallCParser ( Parser ):
                         self.oplevel6(0)
                         pass
 
-             
+
                 self.state = 161
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
@@ -1052,7 +1052,7 @@ class SmallCParser ( Parser ):
                         self.oplevel4(0)
                         pass
 
-             
+
                 self.state = 181
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
@@ -1181,7 +1181,7 @@ class SmallCParser ( Parser ):
                         self.oplevel3(0)
                         pass
 
-             
+
                 self.state = 197
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
@@ -1283,7 +1283,7 @@ class SmallCParser ( Parser ):
                         self.oplevel2()
                         pass
 
-             
+
                 self.state = 214
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
@@ -1573,7 +1573,7 @@ class SmallCParser ( Parser ):
                         self.match(SmallCParser.RSBRA)
                         pass
 
-             
+
                 self.state = 263
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
@@ -1896,13 +1896,13 @@ class SmallCParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 291 
+            self.state = 291
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 290
                 self.declarationSpecifier()
-                self.state = 293 
+                self.state = 293
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
@@ -1995,13 +1995,13 @@ class SmallCParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 308 
+            self.state = 308
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 307
                 self.declarationSpecifier()
-                self.state = 310 
+                self.state = 310
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
@@ -2157,13 +2157,13 @@ class SmallCParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 337 
+            self.state = 337
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 336
                 self.declarationSpecifier()
-                self.state = 339 
+                self.state = 339
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
@@ -2978,13 +2978,13 @@ class SmallCParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 437 
+            self.state = 437
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 436
                 self.declarationSpecifier()
-                self.state = 439 
+                self.state = 439
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
@@ -3336,7 +3336,7 @@ class SmallCParser ( Parser ):
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 491 
+                self.state = 491
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -3346,7 +3346,7 @@ class SmallCParser ( Parser ):
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 493 
+                    self.state = 493
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,45,self._ctx)
 
@@ -3966,74 +3966,69 @@ class SmallCParser ( Parser ):
     def oplevel12_sempred(self, localctx:Oplevel12Context, predIndex:int):
             if predIndex == 0:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel11_sempred(self, localctx:Oplevel11Context, predIndex:int):
             if predIndex == 1:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel7_sempred(self, localctx:Oplevel7Context, predIndex:int):
             if predIndex == 2:
                 return self.precpred(self._ctx, 3)
-         
+
 
             if predIndex == 3:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel6_sempred(self, localctx:Oplevel6Context, predIndex:int):
             if predIndex == 4:
                 return self.precpred(self._ctx, 5)
-         
+
 
             if predIndex == 5:
                 return self.precpred(self._ctx, 4)
-         
+
 
             if predIndex == 6:
                 return self.precpred(self._ctx, 3)
-         
+
 
             if predIndex == 7:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel4_sempred(self, localctx:Oplevel4Context, predIndex:int):
             if predIndex == 8:
                 return self.precpred(self._ctx, 3)
-         
+
 
             if predIndex == 9:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel3_sempred(self, localctx:Oplevel3Context, predIndex:int):
             if predIndex == 10:
                 return self.precpred(self._ctx, 4)
-         
+
 
             if predIndex == 11:
                 return self.precpred(self._ctx, 3)
-         
+
 
             if predIndex == 12:
                 return self.precpred(self._ctx, 2)
-         
+
 
     def oplevel1_sempred(self, localctx:Oplevel1Context, predIndex:int):
             if predIndex == 13:
                 return self.precpred(self._ctx, 9)
-         
+
 
             if predIndex == 14:
                 return self.precpred(self._ctx, 8)
-         
+
 
             if predIndex == 15:
                 return self.precpred(self._ctx, 7)
-         
-
-
-
-
