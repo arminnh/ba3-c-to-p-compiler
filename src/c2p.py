@@ -15,20 +15,29 @@ import traceback
 import sys
 import time
 
+arg_save_ast          = False
+arg_save_symbol_table = False
+arg_timings           = False
+arg_quiet             = False
+
+def output(text):
+    if not arg_quiet:
+        print (text)
+
 def main(filename):
     timeNow = time.time()
     input_file = FileStream(filename)
-    print ("file read:            ", time.time() - timeNow)
+    output("file read:            " + str(time.time() - timeNow))
 
     # get lexer
     timeNow = time.time()
     lexer = SmallCLexer(input_file)
-    print ("file lexed:           ", time.time() - timeNow)
+    output("file lexed:           " + str(time.time() - timeNow))
 
     # get list of matched tokens
     timeNow = time.time()
     stream = CommonTokenStream(lexer)
-    print ("file tokenized:       ", time.time() - timeNow)
+    output("file tokenized:       " + str(time.time() - timeNow))
 
     # pass tokens to the parser
     parser = SmallCParser(stream)
@@ -36,7 +45,7 @@ def main(filename):
     # specify the entry point
     timeNow = time.time()
     programContext = parser.program() # tree with program as root
-    print ("file parsed:          ", time.time() - timeNow)
+    output("file parsed:          " + str(time.time() - timeNow))
 
     # quit if there are any syntax errors
     if parser._syntaxErrors > 0:
@@ -56,30 +65,30 @@ def main(filename):
         # walk the parse tree and fill in the AST
         timeNow = time.time()
         walker.walk(listener, programContext)
-        print ("AST built:            ", time.time() - timeNow)
+        output("AST built:            " + str(time.time() - timeNow))
 
-        # print the resulting AST after the walk
-        # print (abstractSyntaxTree)
+        # output the resulting AST after the walk
+        output(str(abstractSyntaxTree))
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
         timeNow = time.time()
         functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
-        print ("symbol table filled:  ", time.time() - timeNow)
+        output("symbol table filled:  " + str(time.time() - timeNow))
         symbolTable.traverseOn()
         symbolTable.resetToRoot()
         timeNow = time.time()
         tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
-        print ("symbol table checked: ", time.time() - timeNow)
-        # print(symbolTable)
+        output("symbol table checked: " + str(time.time() - timeNow))
+        output(str(symbolTable))
 
         # do the type checking
         timeNow = time.time()
         typeCheck = VisitorTypeChecker(errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
-        print ("program type checked: ", time.time() - timeNow)
+        output("program type checked: " + str(time.time() - timeNow))
 
         # generate code
         if not errorHandler.errorCount():
@@ -87,32 +96,40 @@ def main(filename):
             timeNow = time.time()
             codeGenerator = VisitorCodeGenerator(symbolTable)
             codeGenerator.visitProgramNode(abstractSyntaxTree.root)
-            print ("code generated:       ", time.time() - timeNow)
+            output("code generated:       " + str(time.time() - timeNow))
 
     except Exception as e:
         ex_type, ex, tb = sys.exc_info()
         traceback.print_exception(ex_type, ex, tb)
 
     if errorHandler.errorCount():
-        print (errorHandler.errorCount(), "error" + ("s" if errorHandler.errorCount() != 1 else ""))
+        output(errorHandler.errorCount() + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
         errorHandler.printErrors()
 
 
 if __name__=="__main__":
 
-    parser = argparse.ArgumentParser(description="A C to P compiler")
-    # saveast as per assignment constraints
-    parser.add_argument("filename", help="The filename of the c program")
-    parser.add_argument("-s", "--saveast", help="Serializes the AST and saves it to c2p_AST.txt", action="store_true", default=False)
-    parser.add_argument("--saveSymbolTable", help="Serializes the symbol table and saves it to c2p_symbol_table.txt", action="store_true", default=False)
-    parser.add_argument("-t", "--timings", help="Shows how long each step of the process takes", action="store_true", default=False)
-    args = parser.parse_args()
+    argparser = argparse.ArgumentParser(description="A C to P compiler")
 
-    print ("args: ", args, "\n")
-    # sys.exit(0)
+    argparser.add_argument("filename",                                         help="The filename of the c program")
+    argparser.add_argument("-save-ast", "--save-ast", "-saveast", "--saveast", help="Serializes the AST and saves it to c2p_AST.txt", action="store_true", default=False) # saveast as per assignment constraints
+    argparser.add_argument("-save-symbol-table", "--save-symbol-table",        help="Serializes the symbol table and saves it to c2p_symbol_table.txt", action="store_true", default=False)
+    argparser.add_argument("-t", "--timings",                                  help="Shows how long each step of the process takes", action="store_true", default=False)
+    argparser.add_argument("-q", "--quiet",                                    help="Disables the printing of the AST and symbol table", action="store_true", default=False)
+    args = argparser.parse_args()
 
-    if len(sys.argv) != 2:
-        print("Usage: python3 c2p.py filename\n")
-        sys.exit()
+    if args.save_ast:
+        arg_save_ast = True
+
+    if args.save_symbol_table:
+        arg_save_symbol_table = True
+
+    if args.timings:
+        arg_timings = True
+
+    if args.quiet:
+        arg_quiet  = True
+
+    output("args: " + str(args) + "\n" + "save_ast: " + str(arg_save_ast) + ", save_symbl_table: " + str(arg_save_symbol_table) + ", timings: " + str(arg_timings) + ", quiet: " + str(arg_quiet) + "\n")
 
     main(args.filename)
