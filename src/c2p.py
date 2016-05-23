@@ -10,6 +10,7 @@ from VisitorDeclarationProcessor import *
 from VisitorTypeChecker import *
 from VisitorCodeGenerator import *
 
+import argparse
 import traceback
 import sys
 import time
@@ -99,8 +100,19 @@ def main(filename):
 
 if __name__=="__main__":
 
+    parser = argparse.ArgumentParser(description="A C to P compiler")
+    # saveast as per assignment constraints
+    parser.add_argument("filename", help="The filename of the c program")
+    parser.add_argument("-s", "--saveast", help="Serializes the AST and saves it to c2p_AST.txt", action="store_true", default=False)
+    parser.add_argument("--saveSymbolTable", help="Serializes the symbol table and saves it to c2p_symbol_table.txt", action="store_true", default=False)
+    parser.add_argument("-t", "--timings", help="Shows how long each step of the process takes", action="store_true", default=False)
+    args = parser.parse_args()
+
+    print ("args: ", args, "\n")
+    # sys.exit(0)
+
     if len(sys.argv) != 2:
         print("Usage: python3 c2p.py filename\n")
         sys.exit()
 
-    main(sys.argv[1])
+    main(args.filename)
