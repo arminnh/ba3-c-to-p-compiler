@@ -43,9 +43,9 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         if symbol is None:
             raise Exception("Expected to find " + str(node.identifier) + " in symbol table")
 
-        symbol.seen = True
-
         self.visitChildren(node)
+        
+        symbol.seen = True
 
 
     def visitVariableNode(self, node):

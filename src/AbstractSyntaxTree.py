@@ -367,6 +367,11 @@ class ASTExpressionNode(ASTNode):
     def __init__(self, label="expression", ctx=None):
         super(ASTExpressionNode, self).__init__(label, ctx)
 
+    def baseExpression(self):
+        if isinstance(self.parent, ASTExpressionNode):
+            return self.parent.baseExpression()
+        return self
+
     def getType(self):
         raise NotImplementedError
 

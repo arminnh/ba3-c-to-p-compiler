@@ -8,6 +8,7 @@ CODE GENERATION:
 *) new names for declarationProcessor and definitionProcessor
 *) make sure that all ints are converted to booleans when used in conditions
 *) printf/scanf
+*) what to do when using a variable in its own initialization?
 
 
 EXTRAS:

@@ -1,3 +1,4 @@
+from AbstractSyntaxTree import *
 
 class Visitor:
     def __init__(self, errorHandler=None):
@@ -25,6 +26,14 @@ class Visitor:
     def addError(self, error, node):
         line, column = node.getLineAndColumn()
         node.error = True
+
+        # if something fails during variable initialization, the declarator initializer node will be marked as error,
+        # though the variable will remain in the symbol table to prevent every applied occurrence from generating an
+        # undeclared variable error
+        if isinstance(node, ASTExpressionNode):
+            baseExpression = node.baseExpression()
+            if isinstance(baseExpression.parent, ASTInitializerListNode):
+                baseExpression.parent.parent.error = True
         self.errorHandler.addError(error, line, column)
 
 
