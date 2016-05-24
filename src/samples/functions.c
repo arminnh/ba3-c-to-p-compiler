@@ -1,7 +1,7 @@
 int myFunction1(int const* i, float **c) {
     int *a;
     if (i == a)
-        return 5 * 3 * **c;
+        return 5 * 3;
     else
         return 2*5;
 }

@@ -251,15 +251,15 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitIntegerLiteralNode(self, node):
-        self.outFile.write("ldc i " + str(node.value) + "\n")
+        self.outFile.write("ldc i {0}\n".format(str(node.value)))
 
 
     def visitFloatLiteralNode(self, node):
-        self.outFile.write("ldc f " + str(node.value) + "\n")
+        self.outFile.write("ldc f {0}\n".format(str(node.value)))
 
 
     def visitCharacterLiteralNode(self, node):
-        self.outFile.write("ldc c " + str(node.value) + "\n")
+        self.outFile.write("ldc c {0}\n".format(str(node.value)))
 
 
     def visitStringLiteralNode(self, node):
@@ -313,23 +313,20 @@ class VisitorCodeGenerator(Visitor):
 
     def visitComparisonOperatorNode(self, node):
         self.visitChildren(node)
-        self.outFile.write(self.bin_comp_op[str(node.comparisonType)] + " " + self.p_types[node.children[0].getType().basetype] + "\n")
+        self.outFile.write("{0} {1}\n".format(self.bin_comp_op[str(node.comparisonType)], self.p_types[node.children[0].getType().basetype]))
 
 
     def visitUnaryArithmeticOperatorNode(self, node):
         op = str(node.arithmeticType)
         self.visitChildren(node)
         if op == "-":
-            self.outFile.write("neg " + self.p_types[node.children[0].getType().basetype] +"\n")
+            self.outFile.write("neg {0}\n".format(self.p_types[node.children[0].getType().basetype]))
         elif op == "+":
             pass
         elif op == "++":
-
-            # self.outFile.write("ldc i 1\n")
-            # self.outFile.write("add i\n")
-            pass
+            self.outFile.write("inc {0} 1\n".format(self.p_types[node.children[0].getType().basetype]))
         elif op == "--":
-            self.outFile.write("UNARY ARITHMETIC" + op + "\n")
+            self.outFile.write("dec {0} 1\n".format(self.p_types[node.children[0].getType().basetype]))
 
 
     def visitAddressOfoperatorNode(self, node):
@@ -351,7 +348,7 @@ class VisitorCodeGenerator(Visitor):
     def visitLogicalNotOperatorNode(self, node):
         self.outFile.write("code logical not op\n")
         self.visitChildren(node)
-        self.outFile.write("not " + self.p_types[node.children[0].getType().basetype] + "\n")
+        self.outFile.write("not {0}\n".format(self.p_types[node.children[0].getType().basetype]))
 
 
     def visitArraySubscriptNode(self, node):
@@ -361,4 +358,4 @@ class VisitorCodeGenerator(Visitor):
 
     def visitBinaryArithmeticNode(self, node):
         self.visitChildren(node)
-        self.outFile.write(self.bin_arithm_op[str(node.arithmeticType)] + " " + self.p_types[node.children[0].getType().basetype] + "\n")
+        self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))

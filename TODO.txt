@@ -1,7 +1,9 @@
 *) add -saveast flag to c2p.py for AST output
+*) improve parsing time of a file (expression recognition is taking way too much time)
 
 CODE GENERATION:
 *) finish/check pointers (&(*aa);)
+*) check unary arithmetic operator
 *) static arrays + array subscripting
 *) test all unary, binary an ternary operators
 *) check argument loading for functions
@@ -9,6 +11,7 @@ CODE GENERATION:
 *) make sure that all ints are converted to booleans when used in conditions
 *) printf/scanf
 *) what to do when using a variable in its own initialization?
+*) check situations where there are multiple retfs in a row
 
 
 EXTRAS:
@@ -41,22 +44,3 @@ FIX:
 the following compiles: 'int b = sum(a, b);', the rightmost b does not exist yet
 
 =====
-
-This works ok:
-    int a, b;
-    a = 10;
-    b = 5;
-
-This does not, lines 2 and 3 refer enter a wrong nesting depth value (2 instead of 0)
-    int a, b;
-    a = 10;
-    b = 5;
-    while (b < a) {
-      a = a - 1;
-      if (c != '6') {
-        a = a - 1;
-      }
-      else {
-        b = b + 1;
-      }
-    }
