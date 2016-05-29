@@ -231,6 +231,10 @@ class ASTStatementNode(ASTNode):
     def __init__(self, label="statement", ctx=None):
         super(ASTStatementNode, self).__init__(label, ctx)
 
+    def accept(self, visitor):
+        if not self.error:
+            visitor.visitStatementNode(self)
+
 class ASTReturnNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTReturnNode, self).__init__("return", ctx)
@@ -624,7 +628,7 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
             return str(self)
 
     def __init__(self, arithmeticType, operatorType, ctx=None):
-        super(ASTUnaryArithmeticOperatorNode, self).__init__(str(arithmeticType) + " - " + str(operatorType), str(operatorType), ctx)
+        super(ASTUnaryArithmeticOperatorNode, self).__init__(str(arithmeticType) + " - " + str(operatorType), operatorType, ctx)
         self.arithmeticType = arithmeticType
 
     def accept(self, visitor):

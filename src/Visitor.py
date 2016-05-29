@@ -32,8 +32,11 @@ class Visitor:
         # undeclared variable error
         if isinstance(node, ASTExpressionNode):
             baseExpression = node.baseExpression()
+            baseExpression.error = True
             if isinstance(baseExpression.parent, ASTInitializerListNode):
                 baseExpression.parent.parent.error = True
+            if isinstance(baseExpression.parent, ASTStatementNode):
+                baseExpression.parent.error = True
         self.errorHandler.addError(error, line, column)
 
 
@@ -74,6 +77,10 @@ class Visitor:
 
 
     def visitStatementsNode(self, node):
+        self.visitChildren(node)
+
+
+    def visitStatementNode(self, node):
         self.visitChildren(node)
 
 

@@ -52,12 +52,12 @@ class Listener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#statement.
     def enterStatement(self, ctx:SmallCParser.StatementContext):
-        # self.currentNode = self.currentNode.addChildNode(ASTStatementNode())
+        self.currentNode = self.currentNode.addChildNode(ASTStatementNode(ctx=ctx))
         pass
 
     # Exit a parse tree produced by SmallCParser#statement.
     def exitStatement(self, ctx:SmallCParser.StatementContext):
-        # self.currentNode = self.currentNode.parent
+        self.currentNode = self.currentNode.parent
         pass
 
 

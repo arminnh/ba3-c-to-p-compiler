@@ -44,7 +44,7 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
             raise Exception("Expected to find " + str(node.identifier) + " in symbol table")
 
         self.visitChildren(node)
-        
+
         symbol.seen = True
 
 

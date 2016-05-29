@@ -170,6 +170,11 @@ class VisitorCodeGenerator(Visitor):
         # for ttype in self.symbolTable.getVariables(node):
         #     self.outFile.write("ldc {0} {1}".format(self.p_type[ttype], self.initializers[ttype]))
 
+    def visitStatementNode(self, node):
+        self.visitChildren(node)
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
+
+
     def visitReturnNode(self, node):
         if not node.children:
             self.outFile.write("retp\n")
@@ -318,15 +323,29 @@ class VisitorCodeGenerator(Visitor):
 
     def visitUnaryArithmeticOperatorNode(self, node):
         op = str(node.arithmeticType)
+        ttype = self.pType(node.children[0].getType())
+
+        if op == "++" or op == "--":
+            self.lvalue.append(True)
         self.visitChildren(node)
+        if op == "++" or op == "--":
+            self.outFile.write("dpl a\ndpl a\n")
+            maininstr = "inc"
+            secinstr = "dec"
+            if op == "--":
+                maininstr, secinstr = secinstr, maininstr
+
+            self.outFile.write("ind {0}\n".format(ttype))
+            self.outFile.write("{0} {1} 1\n".format(maininstr, ttype))
+            self.outFile.write("sto {0}\n".format(ttype))
+            self.outFile.write("ind {0}\n".format(ttype))
+            if node.operatorType == ASTUnaryOperatorNode.Type['postfix']:
+                self.outFile.write("{0} {1} 1\n".format(secinstr, ttype))
+
         if op == "-":
-            self.outFile.write("neg {0}\n".format(self.p_types[node.children[0].getType().basetype]))
+            self.outFile.write("neg {0}\n".format(ttype))
         elif op == "+":
             pass
-        elif op == "++":
-            self.outFile.write("inc {0} 1\n".format(self.p_types[node.children[0].getType().basetype]))
-        elif op == "--":
-            self.outFile.write("dec {0} 1\n".format(self.p_types[node.children[0].getType().basetype]))
 
 
     def visitAddressOfoperatorNode(self, node):

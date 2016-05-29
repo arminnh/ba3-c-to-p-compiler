@@ -20,24 +20,27 @@ arg_save_symbol_table = False
 arg_timings           = False
 arg_quiet             = False
 
-def output(text):
-    if not arg_quiet:
-        print (text)
+def output(text, print_arg=None):
+    if print_arg is not None:
+        if print_arg:
+            print(text)
+    elif not arg_quiet:
+        print(text)
 
 def main(filename):
     timeNow = time.time()
     input_file = FileStream(filename)
-    output("file read:            " + str(time.time() - timeNow))
+    output("file read:            " + str(time.time() - timeNow), arg_timings)
 
     # get lexer
     timeNow = time.time()
     lexer = SmallCLexer(input_file)
-    output("file lexed:           " + str(time.time() - timeNow))
+    output("file lexed:           " + str(time.time() - timeNow), arg_timings)
 
     # get list of matched tokens
     timeNow = time.time()
     stream = CommonTokenStream(lexer)
-    output("file tokenized:       " + str(time.time() - timeNow))
+    output("file tokenized:       " + str(time.time() - timeNow), arg_timings)
 
     # pass tokens to the parser
     parser = SmallCParser(stream)
@@ -45,7 +48,7 @@ def main(filename):
     # specify the entry point
     timeNow = time.time()
     programContext = parser.program() # tree with program as root
-    output("file parsed:          " + str(time.time() - timeNow))
+    output("file parsed:          " + str(time.time() - timeNow), arg_timings)
 
     # quit if there are any syntax errors
     if parser._syntaxErrors > 0:
@@ -65,7 +68,7 @@ def main(filename):
         # walk the parse tree and fill in the AST
         timeNow = time.time()
         walker.walk(listener, programContext)
-        output("AST built:            " + str(time.time() - timeNow))
+        output("AST built:            " + str(time.time() - timeNow), arg_timings)
 
         # output the resulting AST after the walk
         output(str(abstractSyntaxTree))
@@ -81,14 +84,14 @@ def main(filename):
         timeNow = time.time()
         tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
-        output("symbol table checked: " + str(time.time() - timeNow))
+        output("symbol table checked: " + str(time.time() - timeNow), arg_timings)
         output(str(symbolTable))
 
         # do the type checking
         timeNow = time.time()
         typeCheck = VisitorTypeChecker(errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
-        output("program type checked: " + str(time.time() - timeNow))
+        output("program type checked: " + str(time.time() - timeNow), arg_timings)
 
         # generate code
         if not errorHandler.errorCount():
@@ -96,14 +99,14 @@ def main(filename):
             timeNow = time.time()
             codeGenerator = VisitorCodeGenerator(symbolTable)
             codeGenerator.visitProgramNode(abstractSyntaxTree.root)
-            output("code generated:       " + str(time.time() - timeNow))
+            output("code generated:       " + str(time.time() - timeNow), arg_timings)
 
     except Exception as e:
         ex_type, ex, tb = sys.exc_info()
         traceback.print_exception(ex_type, ex, tb)
 
     if errorHandler.errorCount():
-        output(errorHandler.errorCount() + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
+        output(str(errorHandler.errorCount()) + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
         errorHandler.printErrors()
 
 
