@@ -15,6 +15,12 @@ class TypeInfo:
 		cpy.rvalue = True
 		return cpy
 
+	def isConst(self):
+		if len(self.const):
+			return self.const[-1]
+		return False
+		# raise Exception("Type {0} has empty const list".format(self))
+
 	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
 		if self is None or other is None:
 			return False
@@ -38,7 +44,31 @@ class TypeInfo:
 		if self.indirections == 1 and other.indirections == 1 and (not self.isArray and other.isArray or self.isArray and not other.isArray):
 			return self.basetype == other.basetype
 
+		if not ignoreConst and not self.isConstCompatible(other):
+			return False
+
 		return False
+
+
+	def isConstCompatible(self, other):
+		if len(self.const) != len(other.const):
+			# if throw:
+			# 	raise Exception("isConstCompatible expects const lists of the same length; got {0} for {1} and {2} for {3}".format(\
+			# 	self.const, str(self), other.const, str(other)))
+			# else:
+				return False
+
+		# print("--- isConstCompatible: comparing {0} to {1}: {2} and {3}".format(self, other, self.const, other.const))
+
+		for i in range(len(self.const) - 1):
+			# last one is always OK because that's the one we're actually assigning (sorry bad explanation ask me)
+			cself = self.const[i]
+			cother = other.const[i]
+			if cother and not cself:
+
+				return False
+
+		return True
 
 	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
 		if self is None or other is None:
@@ -62,7 +92,8 @@ class TypeInfo:
 
 	def out(self, withRvalue=False):
 		out = ""
-		if self.const[0]:
+		# print("CONST ELEMENTS for basetype {0}, indirections {1}: {2}".format(self.basetype, self.indirections, self.const))
+		if len(self.const) and self.const[0]:
 			out += "const "
 
 		out += self.basetype

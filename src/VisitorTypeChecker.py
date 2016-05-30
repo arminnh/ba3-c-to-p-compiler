@@ -25,7 +25,7 @@ class VisitorTypeChecker(Visitor):
     def visitReturnNode(self, node):
         if self.visitChildren(node) == "error":
             return
-            
+
         functionDefinition = node
 
         while functionDefinition is not None and not isinstance(functionDefinition, ASTFunctionDefinitionNode):
@@ -182,6 +182,7 @@ class VisitorTypeChecker(Visitor):
                     node.errorParameter = i
                     self.addError("expected '{0}' but argument is of type '{1}'".format(str(parameterNodes[i].getType()), str(argument.getType())), node)
                     return
+
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
 
@@ -219,9 +220,22 @@ class VisitorTypeChecker(Visitor):
             self.addError("expression is not assignable", node)
             return
 
-        if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
+        t1 = node.children[0].getType().toRvalue()
+        t2 = node.children[1].getType().toRvalue()
+
+        if not t1.isCompatible(t2, ignoreConst=True):
             self.addError("incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
             return
+
+        if t1.isConst():
+            if isinstance(node.children[0], ASTVariableNode):
+                self.addError("cannot assign to variable '{0}' with const-qualified type".format(node.children[0].identifier), node)
+            else:
+                self.addError("read-only variable is not assignable", node)
+            return
+
+        if not t1.isConstCompatible(t2):
+            self.addError("assigning to {0} from {1} discards qualifiers".format(t1, t2), node)
 
 
     def visitLogicOperatorNode(self, node):

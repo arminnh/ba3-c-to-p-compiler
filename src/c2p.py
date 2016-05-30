@@ -133,6 +133,6 @@ if __name__=="__main__":
     if args.quiet:
         arg_quiet  = True
 
-    output("args: " + str(args) + "\n" + "save_ast: " + str(arg_save_ast) + ", save_symbl_table: " + str(arg_save_symbol_table) + ", timings: " + str(arg_timings) + ", quiet: " + str(arg_quiet) + "\n")
+    # output("args: " + str(args) + "\n" + "save_ast: " + str(arg_save_ast) + ", save_symbl_table: " + str(arg_save_symbol_table) + ", timings: " + str(arg_timings) + ", quiet: " + str(arg_quiet) + "\n")
 
     main(args.filename)

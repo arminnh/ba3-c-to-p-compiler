@@ -433,8 +433,23 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
     def testFunctionDeclaration18(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/18")
 
-class ASTNodeTests(unittest.TestCase):
-    pass
+
+class ConstTests(ASTTest, unittest.TestCase):
+    def testConst1(self):
+        self.generateNoError("testfiles/const/1.c")
+
+    def testConst2(self):
+        self.generateErrorsAndCompare("testfiles/const/2")
+
+    def testConst3(self):
+        self.generateErrorsAndCompare("testfiles/const/2")
+
+    def testConst4(self):
+        self.generateErrorsAndCompare("testfiles/const/2")
+
+    def testConst5(self):
+        self.generateErrorsAndCompare("testfiles/const/2")
+
 
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):
