@@ -76,7 +76,7 @@ class VisitorTypeChecker(Visitor):
 
                         if not ownType.isConstCompatible(t2):
                             # warning
-                            self.addError("initializing {0} with an expression of type {1} discards qualifiers".format(ownType, t2), node)
+                            self.addError("initializing '{0}' with an expression of type '{1}' discards qualifiers".format(ownType, t2), node)
                             continue
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
@@ -192,10 +192,17 @@ class VisitorTypeChecker(Visitor):
                 return
 
             for i, argument in enumerate(arguments.children):
-                if not argument.getType().isCompatible(parameterNodes[i].getType(), ignoreRvalue=True, ignoreConst=True):
+                t1 = parameterNodes[i].getType()
+                t2 = argument.getType()
+                if not t1.isCompatible(t2, ignoreRvalue=True):
                     node.errorParameter = i
-                    self.addError("expected '{0}' but argument is of type '{1}'".format(str(parameterNodes[i].getType()), str(argument.getType())), node)
-                    return
+                    self.addError("expected '{0}' but argument is of type '{1}'".format(t1, t2), node)
+                    continue
+
+                if not t1.isConstCompatible(t2):
+                    # warning
+                    self.addError("passing '{1}' to parameter of type '{0}' discards qualifiers".format(t1, t2), node)
+                    continue
 
         else:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
@@ -249,7 +256,7 @@ class VisitorTypeChecker(Visitor):
             return
 
         if not t1.isConstCompatible(t2):
-            self.addError("assigning to {0} from {1} discards qualifiers".format(t1, t2), node)
+            self.addError("assigning to '{0}' from '{1}' discards qualifiers".format(t1, t2), node)
 
 
     def visitLogicOperatorNode(self, node):

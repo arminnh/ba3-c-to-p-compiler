@@ -1,0 +1,3 @@
+testfiles/const/9.c:8:5: error: passing 'const int *' to parameter of type 'int *' discards qualifiers
+f(&a);
+^

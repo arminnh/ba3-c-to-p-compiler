@@ -649,7 +649,7 @@ class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections += 1
-        ttype.const.append(True)
+        ttype.const.append(False)
         ttype.rvalue = True
         return ttype
 

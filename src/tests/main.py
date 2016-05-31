@@ -21,7 +21,8 @@ import copy
 # import re to remove all whitespace from strings
 import re
 
-# set this to True to overwrite ALL test .txt files with output from c2p.py
+# set this to True to generate test .txt files for failing
+# generate-error-and-compare tests with output from c2p.py
 set = False
 
 class ASTTest():
@@ -453,8 +454,14 @@ class ConstTests(ASTTest, unittest.TestCase):
     def testConst6(self):
         self.generateErrorsAndCompare("testfiles/const/6")
 
-    def testConst6(self):
+    def testConst7(self):
         self.generateErrorsAndCompare("testfiles/const/7")
+
+    def testConst8(self):
+        self.generateErrorsAndCompare("testfiles/const/8")
+
+    def testConst9(self):
+        self.generateErrorsAndCompare("testfiles/const/9")
 
 
 class SymbolTableTests(unittest.TestCase):

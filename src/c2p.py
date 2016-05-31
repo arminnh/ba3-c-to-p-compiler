@@ -78,7 +78,7 @@ def main(filename):
         timeNow = time.time()
         functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
-        output("symbol table filled:  " + str(time.time() - timeNow))
+        output("symbol table filled:  " + str(time.time() - timeNow), arg_timings)
         symbolTable.traverseOn()
         symbolTable.resetToRoot()
         timeNow = time.time()
