@@ -182,7 +182,6 @@ class VisitorTypeChecker(Visitor):
 
         cutIntoPieces.append(format[endOfLastMatch:])
 
-        print (cutIntoPieces)
         node.parsedFormat = cutIntoPieces
 
         # print (codes)
