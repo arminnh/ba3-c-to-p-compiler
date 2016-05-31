@@ -9,12 +9,12 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
             printf = ASTFunctionDefinitionNode()
             printf.identifier = "printf"
             printf.basetype = "void"
-            printf.isStdPrintf = True
+            printf.isStdioFunction = True
 
             scanf = ASTFunctionDefinitionNode()
             scanf.identifier = "scanf"
             scanf.basetype = "void"
-            scanf.isStdScanf =  True
+            scanf.isStdioFunction =  True
 
             printfOk = self.table.isInsertionOk(printf, isFunction=True)
             scanfOk = self.table.isInsertionOk(scanf, isFunction=False)

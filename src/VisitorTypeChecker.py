@@ -140,33 +140,50 @@ class VisitorTypeChecker(Visitor):
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
 
         formatArgument = arguments.children[0]
+        format = formatArgument.value
         stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[True, True], isArray=True)
 
         if not formatArgument.getType().isCompatible(stringLiteralType):
             #TODO: test this
             self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
 
-        codes = re.findall(r'%([0-9]*)([a-z%])', formatArgument.value)
+        formatSpecifiers = re.finditer(r'%([0-9]*)([a-z%])', format)
 
-        if len(codes) < len(arguments.children) - 1:
-            # print("warning: too many arguments for format")
-            pass
+        # if len(formatSpecifiers) < len(arguments.children) - 1:
+        #     # print("warning: too many arguments for format")
+        #     pass
 
         # print (codes, len(arguments.children))
-        for i, (width, code) in enumerate(codes):
-            if i+1 > len(arguments.children): #ex: printf("%i %i", 1)
-                # print("warning: format ‘%i’ expects a matching ‘int’ argument")
-                continue
+        endOfLastMatch = 0
+        cutIntoPieces = []
+        if formatSpecifiers:
+            for i, match in enumerate(formatSpecifiers):
+                cutIntoPieces.append(format[endOfLastMatch:match.start()])
+                width, code = match.groups()
+                if i + 1 > len(arguments.children): #ex: printf("%i %i", 1)
+                    # print("warning: format ‘%i’ expects a matching ‘int’ argument")
+                    continue
+                if i + 1 < len(arguments.children):
+                    # print("warning: too many arguments for format")
+                    pass
 
-            if code == "%":
-                continue
+                if code == "%":
+                    continue
 
-            if code not in self.stdioCodes:
-                #TODO: test this
-                self.addError("unknown format code '{0}'".format(code), node)
+                if code not in self.stdioCodes:
+                    #TODO: test this
+                    self.addError("unknown format code '{0}'".format(code), node)
 
-            elif not self.stdioCodes[code].isCompatible(arguments.children[i+1].getType(), ignoreConst=True):
-                self.addError("format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), node)
+                elif not self.stdioCodes[code].isCompatible(arguments.children[i+1].getType(), ignoreConst=True):
+                    self.addError("format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), node)
+
+                cutIntoPieces.append((width, arguments.children[i + 1]))
+                endOfLastMatch = match.end()
+
+        cutIntoPieces.append(format[endOfLastMatch:])
+
+        print (cutIntoPieces)
+        node.parsedFormat = cutIntoPieces
 
         # print (codes)
 
@@ -176,7 +193,7 @@ class VisitorTypeChecker(Visitor):
         if self.visitChildren(node) == "error":
             return
 
-        if node.identifier in ["printf", "scanf"]:
+        if node.identifier in ["printf", "scanf"] and node.definitionNode.isStdioFunction:
             return self.checkStdioFunction(node)
 
         arguments = None

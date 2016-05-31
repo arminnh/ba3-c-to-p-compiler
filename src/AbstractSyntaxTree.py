@@ -119,6 +119,7 @@ class ASTFunctionDeclarationNode(ASTNode):
 class ASTFunctionDefinitionNode(ASTFunctionDeclarationNode):
     def __init__(self, label="function definition", ctx=None):
         super(ASTFunctionDefinitionNode, self).__init__(label, ctx)
+        self.isStdioFunction = False
         # parameters and statements are child nodes
 
     def accept(self, visitor):
