@@ -442,13 +442,13 @@ class ConstTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/const/2")
 
     def testConst3(self):
-        self.generateErrorsAndCompare("testfiles/const/2")
+        self.generateErrorsAndCompare("testfiles/const/3")
 
     def testConst4(self):
-        self.generateErrorsAndCompare("testfiles/const/2")
+        self.generateErrorsAndCompare("testfiles/const/4")
 
     def testConst5(self):
-        self.generateErrorsAndCompare("testfiles/const/2")
+        self.generateErrorsAndCompare("testfiles/const/5")
 
 
 class SymbolTableTests(unittest.TestCase):

@@ -2,6 +2,7 @@
 *) improve parsing time of a file (expression recognition is taking way too much time)
 
 CODE GENERATION:
+*) % operator
 *) finish/check pointers (&(*aa);)
 *) check unary arithmetic operator
 *) static arrays + array subscripting

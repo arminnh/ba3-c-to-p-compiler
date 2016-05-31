@@ -1,0 +1,6 @@
+testfiles/const/5.c:5:5: error: cannot assign to variable 'aa' with const-qualified type
+aa = &a;
+^
+testfiles/const/5.c:6:5: error: read-only variable is not assignable
+*aa = a;
+^
