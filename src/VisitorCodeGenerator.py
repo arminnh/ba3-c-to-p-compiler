@@ -32,7 +32,6 @@ class VisitorCodeGenerator(Visitor):
             "-"  : "sub",
             "*"  : "mul",
             "/"  : "div",
-            "%"  : "MODULO"
         }
 
         self.bin_comp_op = {
@@ -64,6 +63,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitProgramNode(self, node):
+        self.outFile.write("ldc i 0\n") # work/trash register
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
 
         # code for variables
@@ -376,5 +376,12 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitBinaryArithmeticNode(self, node):
-        self.visitChildren(node)
-        self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))
+        if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']:
+            node.children[0].accept(self)
+            self.outFile.write("dpl i\n")
+            self.outFile.write("ldc a 0\n")
+            node.children[1].accept(self)
+            self.outFile.write("sto i\nldc a 0\nind i\ndiv i\nldc a 0\nind i\nmul i\nsub i\n")
+        else:
+            self.visitChildren(node)
+            self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))

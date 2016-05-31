@@ -1,5 +1,5 @@
-int global_a = 5;
-int global_b = 6;
+// int global_a = 5;
+// int global_b = 6;
 
 // void emptyReturn() {
 //     return;
@@ -48,7 +48,7 @@ int global_b = 6;
 // }
 
 int main() {
-    int a = 2;
+    // int a = 2;
     // int *aa = &a;
     //
     // int* b = &a;
@@ -116,14 +116,15 @@ int main() {
     // a != 5;
     // 8 < 9 && 9 < 8;
     // 9 > 9 || 9 < 9;
-    ++a;
-    --a;
+    // ++a;
+    // --a;
     // 3 * 8;
     // 7 / 3;
     // 4 - 5;
     // 3 * (4 + 5) / 7 * a;
     // a = (a = (a = 1));
 
+    8 % 3;
 
-    return 1;
+    return 0;
 }

@@ -497,7 +497,7 @@ class Listener(SmallCListener):
         elif symbol == "-": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']
         elif symbol == "*": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['mul']
         elif symbol == "/": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['div']
-        elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['remainder']
+        elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']
         else: return False
         self.currentNode = self.currentNode.addChildNode(ASTBinaryArithmeticOperatorNode(arithmeticType, ctx))
         return True

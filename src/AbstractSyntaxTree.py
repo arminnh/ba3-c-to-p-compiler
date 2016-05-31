@@ -713,14 +713,14 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
         sub = 2
         mul = 3
         div = 4
-        remainder = 5
+        modulo = 5
 
         def __str__(self):
             if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['add']: return "+"
             if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']: return "-"
             if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['mul']: return "*"
             if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['div']: return "/"
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['remainder']: return "%"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']: return "%"
             return super(ASTBinaryArithmeticOperatorNode.ArithmeticType, self).__str__()
 
     def __init__(self, arithmeticType, ctx=None):
