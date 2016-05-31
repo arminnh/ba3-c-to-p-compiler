@@ -67,9 +67,16 @@ class VisitorTypeChecker(Visitor):
                         if not isinstance(initListElement, ASTStringLiteralNode):
                             ownType.isArray = False
                             ownType.indirections -= 1
+                            ownType.const.pop()
+                        t2 = initListElement.getType()
 
                         if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
-                            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(str(ownType), str(initListElement.getType())), node)
+                            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(ownType, t2), node)
+                            continue
+
+                        if not ownType.isConstCompatible(t2):
+                            # warning
+                            self.addError("initializing {0} with an expression of type {1} discards qualifiers".format(ownType, t2), node)
                             continue
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
@@ -79,10 +86,17 @@ class VisitorTypeChecker(Visitor):
                         self.addError("empty scalar initializer", node)
                         continue
 
+                    t1 = node.getType()
+                    t2 = child.children[0].getType()
+
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
-                    if not node.getType().isCompatible(child.children[0].getType(), ignoreRvalue=True, ignoreConst=True):
-                        self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(str(node.getType()), str(child.children[0].getType())), node)
+                    if not t1.isCompatible(t2, ignoreRvalue=True, ignoreConst=True):
+                        self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
                         continue
+
+                    if not t1.isConstCompatible(t2):
+                        # warning
+                        self.addError("initializing {0} with an expression of type {1} discards qualifiers".format(t1, t2), node)
 
                     # if len(child.children) > 1:
                     #     line, column = node.getLineAndColumn()
@@ -126,7 +140,7 @@ class VisitorTypeChecker(Visitor):
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
 
         formatArgument = arguments.children[0]
-        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
+        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[True, True], isArray=True)
 
         if not formatArgument.getType().isCompatible(stringLiteralType):
             #TODO: test this

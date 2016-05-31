@@ -172,6 +172,7 @@ class Listener(SmallCListener):
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         self.currentNode.isArray = True
         self.currentNode.indirections += 1
+        self.currentNode.const.append(False)
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
@@ -279,6 +280,8 @@ class Listener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#stringLiteral.
     def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
+        if isinstance(self.currentNode.parent, ASTVariableDeclarationNode):
+            self.currentNode.parent.const.append(False)
         self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText(), ctx))
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.

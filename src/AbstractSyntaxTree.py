@@ -434,7 +434,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
             visitor.visitStringLiteralNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
+        return TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False, False], isArray=True)
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -696,6 +696,7 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
         ttype.indirections -= 1
+        ttype.const.pop()
         ttype.rvalue = False
         if ttype.indirections == 0:
             ttype.isArray = False

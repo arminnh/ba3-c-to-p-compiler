@@ -21,11 +21,10 @@ class TypeInfo:
 		return False
 		# raise Exception("Type {0} has empty const list".format(self))
 
+	# ignoreConst deprecated; const checking now handled by isConstCompatible entirely
 	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
 		if self is None or other is None:
 			return False
-		if self.equals(other, ignoreRvalue = ignoreRvalue, ignoreConst = ignoreConst):
-			return True
 
 		'''
 		// char* = char []
@@ -44,19 +43,15 @@ class TypeInfo:
 		if self.indirections == 1 and other.indirections == 1 and (not self.isArray and other.isArray or self.isArray and not other.isArray):
 			return self.basetype == other.basetype
 
-		if not ignoreConst and not self.isConstCompatible(other):
-			return False
-
-		return False
+		return  self.basetype     == other.basetype \
+			and self.indirections == other.indirections \
+			and self.isArray      == other.isArray
 
 
 	def isConstCompatible(self, other):
 		if len(self.const) != len(other.const):
-			# if throw:
-			# 	raise Exception("isConstCompatible expects const lists of the same length; got {0} for {1} and {2} for {3}".format(\
-			# 	self.const, str(self), other.const, str(other)))
-			# else:
-				return False
+			raise Exception("isConstCompatible expects const lists of the same length; got {0} for {1} and {2} for {3}".format(\
+			self.const, str(self), other.const, str(other)))
 
 		# print("--- isConstCompatible: comparing {0} to {1}: {2} and {3}".format(self, other, self.const, other.const))
 

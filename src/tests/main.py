@@ -450,6 +450,12 @@ class ConstTests(ASTTest, unittest.TestCase):
     def testConst5(self):
         self.generateErrorsAndCompare("testfiles/const/5")
 
+    def testConst6(self):
+        self.generateErrorsAndCompare("testfiles/const/6")
+
+    def testConst6(self):
+        self.generateErrorsAndCompare("testfiles/const/7")
+
 
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):

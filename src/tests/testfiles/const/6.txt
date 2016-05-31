@@ -1,0 +1,3 @@
+testfiles/const/6.c:4:8: error: initializing int * with an expression of type const int * discards qualifiers
+int* aaa = aa;
+   ^
