@@ -19,6 +19,7 @@ arg_save_ast          = False
 arg_save_symbol_table = False
 arg_timings           = False
 arg_quiet             = False
+arg_out_filename      = "out.p"
 
 def output(text, print_arg=None):
     if print_arg is not None:
@@ -97,7 +98,7 @@ def main(filename):
         if not errorHandler.errorCount():
             symbolTable.resetToRoot()
             timeNow = time.time()
-            codeGenerator = VisitorCodeGenerator(symbolTable)
+            codeGenerator = VisitorCodeGenerator(symbolTable, arg_out_filename)
             codeGenerator.visitProgramNode(abstractSyntaxTree.root)
             output("code generated:       " + str(time.time() - timeNow), arg_timings)
 
@@ -106,7 +107,7 @@ def main(filename):
         traceback.print_exception(ex_type, ex, tb)
 
     if errorHandler.errorCount():
-        output(str(errorHandler.errorCount()) + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
+        print(str(errorHandler.errorCount()) + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
         errorHandler.printErrors()
 
 
@@ -119,19 +120,14 @@ if __name__=="__main__":
     argparser.add_argument("-save-symbol-table", "--save-symbol-table",        help="Serializes the symbol table and saves it to c2p_symbol_table.txt", action="store_true", default=False)
     argparser.add_argument("-t", "--timings",                                  help="Shows how long each step of the process takes", action="store_true", default=False)
     argparser.add_argument("-q", "--quiet",                                    help="Disables the printing of the AST and symbol table", action="store_true", default=False)
+    argparser.add_argument("-o",                                               help="Specifies the output filename (preferably with .p filename extension)", default="out.p")
     args = argparser.parse_args()
 
-    if args.save_ast:
-        arg_save_ast = True
-
-    if args.save_symbol_table:
-        arg_save_symbol_table = True
-
-    if args.timings:
-        arg_timings = True
-
-    if args.quiet:
-        arg_quiet  = True
+    arg_save_ast = args.save_ast
+    arg_save_symbol_table = args.save_symbol_table
+    arg_timings = args.timings
+    arg_quiet  = args.quiet
+    arg_out_filename = args.o
 
     # output("args: " + str(args) + "\n" + "save_ast: " + str(arg_save_ast) + ", save_symbl_table: " + str(arg_save_symbol_table) + ", timings: " + str(arg_timings) + ", quiet: " + str(arg_quiet) + "\n")
 

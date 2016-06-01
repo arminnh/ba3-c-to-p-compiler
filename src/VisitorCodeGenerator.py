@@ -191,6 +191,7 @@ class VisitorCodeGenerator(Visitor):
         afterLabel = self.getLabel()
 
         node.children[0].accept(self)                            # condition
+        self.outFile.write("conv {0} b\n".format(self.pType(node.children[0].getType())))
         self.outFile.write("fjp {0}\n".format(elseLabel))        # if top == false, jump over the 'then' code
         node.children[1].accept(self)                            # 'then'
 
@@ -212,6 +213,7 @@ class VisitorCodeGenerator(Visitor):
         afterLabel = self.getLabel()
         self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)                            # condition
+        self.outFile.write("conv {0} b\n".format(self.pType(node.children[0].getType())))
         self.outFile.write("fjp {0}\n".format(afterLabel))       # if top == false, jump over the loop code
         node.children[1].accept(self)                            # loop code
         self.outFile.write("ujp {0}\n".format(conditionLabel))   # jump back to the condition
@@ -319,6 +321,7 @@ class VisitorCodeGenerator(Visitor):
     def visitComparisonOperatorNode(self, node):
         self.visitChildren(node)
         self.outFile.write("{0} {1}\n".format(self.bin_comp_op[str(node.comparisonType)], self.p_types[node.children[0].getType().basetype]))
+        self.outFile.write("conv b i\n")
 
 
     def visitUnaryArithmeticOperatorNode(self, node):

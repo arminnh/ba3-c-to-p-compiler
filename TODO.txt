@@ -1,15 +1,12 @@
-*) add -saveast flag to c2p.py for AST output
-*) improve parsing time of a file (expression recognition is taking way too much time)
+*) implement --save-ast, --save-symbol- table
+*) improve parsing time of a file (expression recognition is taking way too much time) (how?)
 
 CODE GENERATION:
-*) % operator
-*) finish/check pointers (&(*aa);)
-*) check unary arithmetic operator
+*) finish/check pointers (&(*aa);) (fixed i think)
 *) static arrays + array subscripting
 *) test all unary, binary an ternary operators
 *) check argument loading for functions
 *) new names for declarationProcessor and definitionProcessor
-*) make sure that all ints are converted to booleans when used in conditions
 *) printf/scanf
 *) what to do when using a variable in its own initialization?
 *) check situations where there are multiple retfs in a row
