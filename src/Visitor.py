@@ -136,6 +136,10 @@ class Visitor:
         self.visitChildren(node)
 
 
+    def visitTypeCastNode(self, node):
+        self.visitChildren(node)
+
+
     def typeCheckUnaryOperatorNode(self, node):
         self.visitChildren(node)
 

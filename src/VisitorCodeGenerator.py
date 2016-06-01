@@ -263,7 +263,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFloatLiteralNode(self, node):
-        self.outFile.write("ldc f {0}\n".format(str(node.value)))
+        self.outFile.write("ldc r {0}\n".format(str(node.value)))
 
 
     def visitCharacterLiteralNode(self, node):
@@ -296,6 +296,11 @@ class VisitorCodeGenerator(Visitor):
 
         # call user procedure
         self.outFile.write("cup {0} function_{1}\n".format(len(node.children[0].children), node.definitionNode.identifier))
+
+
+    def visitTypeCastNode(self, node):
+        self.visitChildren(node)
+        self.outFile.write("conv {0} {1}\n".format(self.pType(node.children[0].getType()), self.pType(node.getType())))
 
 
     def visitTernaryConditionalOperatorNode(self, node):

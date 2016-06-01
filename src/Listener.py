@@ -544,6 +544,7 @@ class Listener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#oplevel1.
     def enterOplevel1(self, ctx:SmallCParser.Oplevel1Context):
         children = list(ctx.getChildren())
+            
         if len(children) == 2:
             symbol = children[1].getText()
             if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix'], ctx))
@@ -562,3 +563,11 @@ class Listener(SmallCListener):
     # Exit a parse tree produced by SmallCParser#oplevel1.
     def exitOplevel1(self, ctx:SmallCParser.Oplevel1Context):
         if self.createdNode.pop(): self.currentNode = self.currentNode.parent
+
+    # Enter a parse tree produced by SmallCParser#typeCast.
+    def enterTypeCast(self, ctx=SmallCParser.TypeCastContext):
+        self.currentNode = self.currentNode.addChildNode(ASTTypeCastNode(ctx))
+
+    # Exit a parse tree produced by SmallCParser#typeCast.
+    def exitTypeCast(self, ctx=SmallCParser.TypeCastContext):
+        self.currentNode = self.currentNode.parent

@@ -79,7 +79,7 @@ oplevel2 :
     | '*' oplevel2 // dereference
     | '!' oplevel2
     | functionCall
-    | LBRA typeDeclaration RBRA oplevel2
+    | typeCast
     | oplevel1
     ;
 
@@ -93,6 +93,10 @@ oplevel1 :
     | characterLiteral
     | stringLiteral
     | '(' expression ')'
+    ;
+
+typeCast :
+      '(' declarationSpecifier+ pointerPart* ')' oplevel2
     ;
 
 program :

@@ -482,6 +482,22 @@ class ASTFunctionCallNode(ASTExpressionNode):
 
         return s if (not self.children) else self.outChildren(s, level)
 
+class ASTTypeCastNode(ASTExpressionNode):
+    def __init__(self, ctx=None):
+        super(ASTTypeCastNode, self).__init__("type cast", ctx)
+        self.basetype = None
+        self.indirections = 0
+        self.isConstant = False
+        self.const = []
+
+    def accept(self, visitor):
+        visitor.visitTypeCastNode(self)
+
+    def getType(self):
+        if self.basetype is None:
+            raise Exception("ASTTypeCastNode basetype not filled in", line, column)
+        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant] + self.const)
+
 
 '''
     EXPRESISSION OPERATIONS

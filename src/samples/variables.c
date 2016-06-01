@@ -7,6 +7,7 @@ int main(void)
     int e = 1;
 
     {
+        float z = (float) z;
         float b = 1.0;
         float c = 2.7, d = 8.0;
         char f = 'a', *ff = "aaa";
