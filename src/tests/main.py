@@ -79,9 +79,8 @@ class ASTTest():
             f.write(errorMessageWithWhitespace)
             f.close()
 
-        # if not expectedOutputFound:
-        #     log = logging.getLogger("ASTTest")
-        #     log.debug(__name__ + ": expected:\n" + correctOutput + "\ngot:\n" + errorMessage)
+        if not expectedOutputFound:
+            print("\nexpected:\n" + correctOutput + "\ngot:\n" + errorMessage + "\n")
 
         self.assertTrue(expectedOutputFound)
         self.errorHandler = None
@@ -311,6 +310,12 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterType13(self):
         self.generateErrorsAndCompare("testfiles/function-calls/13")
 
+    def testFunctionCallParameterType14(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/14")
+
+    def testFunctionCallParameterType15(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/15")
+
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
 
@@ -376,6 +381,15 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
 
     def testVariableDeclarations20(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/20")
+
+    def testVariableDeclarations21(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/21")
+
+    def testVariableDeclarations22(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/22")
+
+    def testVariableDeclarations23(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/23")
 
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):

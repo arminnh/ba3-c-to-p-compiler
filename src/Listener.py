@@ -280,8 +280,6 @@ class Listener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#stringLiteral.
     def enterStringLiteral(self, ctx:SmallCParser.StringLiteralContext):
-        if isinstance(self.currentNode.parent, ASTVariableDeclarationNode):
-            self.currentNode.parent.const.append(False)
         self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText(), ctx))
 
     # Exit a parse tree produced by SmallCParser#stringLiteral.
@@ -544,7 +542,7 @@ class Listener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#oplevel1.
     def enterOplevel1(self, ctx:SmallCParser.Oplevel1Context):
         children = list(ctx.getChildren())
-            
+
         if len(children) == 2:
             symbol = children[1].getText()
             if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix'], ctx))

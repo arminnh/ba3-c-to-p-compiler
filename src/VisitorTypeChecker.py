@@ -31,11 +31,6 @@ class VisitorTypeChecker(Visitor):
         while functionDefinition is not None and not isinstance(functionDefinition, ASTFunctionDefinitionNode):
             functionDefinition = functionDefinition.parent
 
-        if functionDefinition is None:
-            #TODO: test this
-            self.addError("return statement outside of function definition", node)
-            return
-
         if not node.children:
             return
 
@@ -54,8 +49,7 @@ class VisitorTypeChecker(Visitor):
             if isinstance(child, ASTExpressionNode):
                 arrayLengthExpression = True
                 if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True), ignoreConst=True):
-                    #TODO: test this
-                    self.addError("array length type must be compatible with 'int' (have '{0}')".format(str(child.getType())), node)
+                    self.addError("size of array ‘{0}’ has non-integer type (have '{1}')".format(node.identifier, str(child.getType())), node)
                     continue
 
             elif isinstance(child, ASTInitializerListNode):
@@ -139,14 +133,17 @@ class VisitorTypeChecker(Visitor):
         if arguments is None:
             raise Exception("Did not find arguments node in ASTFunctionCallNode")
 
+        # take first argument of scanf/printf function
         formatArgument = arguments.children[0]
-        format = formatArgument.value
+
+        # first argument should be of string type
         stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[True, True], isArray=True)
-
         if not formatArgument.getType().isCompatible(stringLiteralType):
-            #TODO: test this
             self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
+            return
 
+        # get the text of the first argument (the format argument) and get the format codes out of it
+        format = formatArgument.value
         formatSpecifiers = re.finditer(r'%([0-9]*)([a-z%])', format)
 
         # if len(formatSpecifiers) < len(arguments.children) - 1:

@@ -1,0 +1,3 @@
+testfiles/variable-declarations/20.c:2:10: error: variable 'a' undeclared
+int a = a;
+        ^
