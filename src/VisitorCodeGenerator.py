@@ -24,7 +24,8 @@ class VisitorCodeGenerator(Visitor):
             "int"     : 0,
             "float"   : 0.0,
             "char"    : 'c',
-            "boolean" : 0
+            "boolean" : 0,
+            "address" : 0
         }
 
         self.bin_arithm_op = {
@@ -202,8 +203,8 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("{0}:\n".format(elseLabel))
 
 
-    def visitElseNode(self, node):
-        self.visitChildren(node)
+    # def visitElseNode(self, node):
+    #     self.visitChildren(node)
 
 
     def visitWhileNode(self, node):
@@ -245,7 +246,7 @@ class VisitorCodeGenerator(Visitor):
         if hasInitializer:
             self.visitChildren(node)
         else:
-            self.outFile.write("ldc {0} {1}\n".format(self.p_types[node.getType().basetype], self.initializers[node.getType().basetype]))
+            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().indirections > 0 else node.getType().basetype]))
 
         self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
@@ -296,8 +297,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitTernaryConditionalOperatorNode(self, node):
-        self.outFile.write("code ternary cond\n")
-        self.visitChildren(node)
+        self.visitIfNode(node)
 
 
     def visitSimpleAssignmentOperatorNode(self, node):
@@ -350,6 +350,8 @@ class VisitorCodeGenerator(Visitor):
 
     def visitAddressOfoperatorNode(self, node):
         self.lvalue.append(True)
+        if isinstance(node.children[0], ASTDereferenceOperatorNode):
+            self.visitChildren(node.children[0])
         self.visitChildren(node)
 
 

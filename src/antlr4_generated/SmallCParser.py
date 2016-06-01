@@ -1,4 +1,4 @@
-# Generated from SmallC.g4 by ANTLR 4.5.3
+# Generated from ../SmallC.g4 by ANTLR 4.5.3
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -120,7 +120,7 @@ def serializedATN():
         buf.write("\2\2\u00d9\u00da\7\21\2\2\u00da\u00ef\5\34\17\2\u00db")
         buf.write("\u00dc\7\22\2\2\u00dc\u00ef\5\34\17\2\u00dd\u00de\7\f")
         buf.write("\2\2\u00de\u00ef\5\34\17\2\u00df\u00e0\7\r\2\2\u00e0\u00ef")
-        buf.write("\5\34\17\2\u00e1\u00e2\7\23\2\2\u00e2\u00ef\5\36\20\2")
+        buf.write("\5\34\17\2\u00e1\u00e2\7\23\2\2\u00e2\u00ef\5\34\17\2")
         buf.write("\u00e3\u00e4\7\16\2\2\u00e4\u00ef\5\34\17\2\u00e5\u00e6")
         buf.write("\7\24\2\2\u00e6\u00ef\5\34\17\2\u00e7\u00ef\5V,\2\u00e8")
         buf.write("\u00e9\7\31\2\2\u00e9\u00ea\5^\60\2\u00ea\u00eb\7\32\2")
@@ -1306,10 +1306,6 @@ class SmallCParser ( Parser ):
             return self.getTypedRuleContext(SmallCParser.Oplevel2Context,0)
 
 
-        def oplevel1(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel1Context,0)
-
-
         def functionCall(self):
             return self.getTypedRuleContext(SmallCParser.FunctionCallContext,0)
 
@@ -1323,6 +1319,10 @@ class SmallCParser ( Parser ):
 
         def RBRA(self):
             return self.getToken(SmallCParser.RBRA, 0)
+
+        def oplevel1(self):
+            return self.getTypedRuleContext(SmallCParser.Oplevel1Context,0)
+
 
         def getRuleIndex(self):
             return SmallCParser.RULE_oplevel2
@@ -1383,7 +1383,7 @@ class SmallCParser ( Parser ):
                 self.state = 223
                 self.match(SmallCParser.T__16)
                 self.state = 224
-                self.oplevel1(0)
+                self.oplevel2()
                 pass
 
             elif la_ == 6:
