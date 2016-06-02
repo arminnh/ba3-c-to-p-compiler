@@ -130,7 +130,7 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ pointerPart* identifier? arrayPart?;
+      declarationSpecifier+ pointerPart* identifier? arrayPart*;
 
 pointerPart:
       pointer cvQualifier?
@@ -223,7 +223,7 @@ declaratorInitializer :
 
 declarator1 :
       '(' declarator1 ')'
-    | declarator2 arrayPart?
+    | declarator2 arrayPart*
     ;
 
 declarator2 :
@@ -232,11 +232,22 @@ declarator2 :
     | pointerPart+ declarator1
     ;
 
+
 initializer :
       LCBRA (expression (',' expression)*)? RCBRA
     | expression
     ;
+/*
+initializer :
+      LCBRA initializerArrayList RCBRA
+    | expression
+    |
+    ;
 
+initializerArrayList :
+      expression (, expression+)?
+    ;
+*/
 returnStmt :
       RETURN expression?
     ;
