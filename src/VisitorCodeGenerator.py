@@ -275,14 +275,15 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitVariableNode(self, node):
+        depthDifference = self.symbolTable.functionDefinitionDepthDifference(node.symbolInfo)
         if self.lvalue and self.lvalue.pop():
             # put address on stack
-            self.outFile.write("lda {0} {1}\n".format(self.symbolTable.functionDefinitionDepthDifference(node.symbolInfo), node.symbolInfo.address + 5))
+            self.outFile.write("lda {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
         elif node.getType().indirections != 0:
-            self.outFile.write("lod a 0 {0}\n".format(node.symbolInfo.address + 5))
+            self.outFile.write("lod a {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
         else:
             # put value on stack
-            self.outFile.write("lod {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
+            self.outFile.write("lod {0} {1} {2}\n".format(self.pType(node.getType()), depthDifference, node.symbolInfo.address + 5))
 
         self.visitChildren(node)
 
