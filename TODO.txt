@@ -38,6 +38,10 @@ DONE:
 *) recognize printf/scanf after import stdio
 *) fix very long nested expressions
 *) check if parameter node code generation can be 'pass'
+*) add -saveast flag to c2p.py for AST output
+*) improve parsing time of a file (expression recognition is taking way too much time)
+*) finish/check pointers (&(*aa);)
+*) check unary arithmetic operator
 
 
 
