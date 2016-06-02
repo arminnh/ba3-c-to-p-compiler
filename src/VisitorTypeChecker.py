@@ -14,7 +14,7 @@ class VisitorTypeChecker(Visitor):
             'i' : TypeInfo(rvalue=True, basetype="int"),
             'f' : TypeInfo(rvalue=True, basetype="float"),
             'c' : TypeInfo(rvalue=True, basetype="char"),
-            's' : TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False], isArray=True)
+            's' : TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
         }
 
 
@@ -54,14 +54,12 @@ class VisitorTypeChecker(Visitor):
 
             elif isinstance(child, ASTInitializerListNode):
                 # if basetype is array, typecheck with each elements of initializer list
-                if node.isArray:
+                if node.getType().isArray():
                     for initListElement in child.children:
                         # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
                         ownType = copy.deepcopy(node.getType())
                         if not isinstance(initListElement, ASTStringLiteralNode):
-                            ownType.isArray = False
-                            ownType.indirections -= 1
-                            ownType.const.pop()
+                            ownType.indirections.pop()
                         t2 = initListElement.getType()
 
                         if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
@@ -96,7 +94,7 @@ class VisitorTypeChecker(Visitor):
                     #     line, column = node.getLineAndColumn()
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
-        if not node.children and node.isArray:
+        if not node.children and node.getType().isArray(): # TODO: adapt for multidimensional arrays
             self.addError("array size missing in '{0}'".format(node.identifier), node)
             return
 
@@ -137,7 +135,7 @@ class VisitorTypeChecker(Visitor):
         formatArgument = arguments.children[0]
 
         # first argument should be of string type
-        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=1, const=[True, True], isArray=True)
+        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
         if not formatArgument.getType().isCompatible(stringLiteralType):
             self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
             return
@@ -320,7 +318,7 @@ class VisitorTypeChecker(Visitor):
             return
 
         ttype = node.getType()
-        if ttype.indirections < 0:
+        if ttype.nrIndirections() < 0:
             self.addError("invalid type argument of unary '*' (have '{0}')".format(str(ttype)), node)
             return
 

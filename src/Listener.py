@@ -170,9 +170,7 @@ class Listener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
-        self.currentNode.isArray = True
-        self.currentNode.indirections += 1
-        self.currentNode.const.append(False)
+        self.currentNode.indirections.append((True, False))
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
@@ -305,17 +303,10 @@ class Listener(SmallCListener):
     def exitPointer(self, ctx:SmallCParser.PointerContext):
         pass
 
+
      # Enter a parse tree produced by SmallCParser#pointerPart.
     def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
-        if hasattr(self.currentNode, "indirections"):
-            self.currentNode.indirections += 1
-
-        if hasattr(self.currentNode, "const"):
-            if ctx.getChildCount() == 2:
-                self.currentNode.const.append(True)
-            else:
-                self.currentNode.const.append(False)
-        pass
+        self.currentNode.indirections.append((False, ctx.getChildCount() == 2)) # if child count == 2, there is a const node
 
     # Exit a parse tree produced by SmallCParser#pointerPart.
     def exitPointerPart(self, ctx:SmallCParser.PointerPartContext):

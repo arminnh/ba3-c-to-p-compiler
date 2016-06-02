@@ -89,9 +89,8 @@ class ASTFunctionDeclarationNode(ASTNode):
         super(ASTFunctionDeclarationNode, self).__init__(label, ctx)
         self.basetype = None
         self.identifier = None
-        self.indirections = 0
+        self.indirections = [] # list of tuples of booleans: (array, const)
         self.isConstant = False
-        self.const = []
         # parameters are child nodes
 
     def accept(self, visitor):
@@ -101,7 +100,7 @@ class ASTFunctionDeclarationNode(ASTNode):
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTFunctionDeclarationNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const)
+        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=[(False, self.isConstant)] + self.indirections)
 
     def getParameters(self):
         for child in self.children:
@@ -156,11 +155,9 @@ class ASTParameterNode(ASTNode):
         super(ASTParameterNode, self).__init__("parameter", ctx)
         self.basetype = None
         self.identifier = None
-        self.isArray = False
         # self.arrayLength = None
-        self.const = []
         self.isConstant = False
-        self.indirections = 0
+        self.indirections = [] # list of tuples of booleans: (array, const)
 
     def accept(self, visitor):
         if not self.error:
@@ -169,7 +166,7 @@ class ASTParameterNode(ASTNode):
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTParameterNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=False, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant]+self.const, isArray=self.isArray)
+        return TypeInfo(rvalue=False, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
 
     def __eq__(self, other):
         # TODO: if checking arrayLength, need to check possible expression child equality. (somehow do self.arrayLength == other.arrayLength)
@@ -178,25 +175,27 @@ class ASTParameterNode(ASTNode):
     def out(self, level):
         s = offset * level
 
-        if self.isConstant:
-            s += "const "
+        s += str(self.identifier) + ": " + str(self.getType())
 
-        s += str(self.basetype) + " "
+        # if self.isConstant:
+        #     s += "const "
 
-        nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
-        for i in range(0, nrOfIndirections):
-            if i != 0:
-                s += " "
-            s += "*"
-            if i < len(self.const) and self.const[i]:
-                s += " const"
-            if i == (nrOfIndirections - 1):
-                s += " "
-
-        s += str(self.identifier)
-
-        if (self.isArray != False) :
-            s += " []"
+        # s += str(self.basetype) + " "
+        #
+        # nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
+        # for i in range(0, nrOfIndirections):
+        #     if i != 0:
+        #         s += " "
+        #     s += "*"
+        #     if i < len(self.const) and self.const[i]:
+        #         s += " const"
+        #     if i == (nrOfIndirections - 1):
+        #         s += " "
+        #
+        # s += str(self.identifier)
+        #
+        # if (self.isArray != False) :
+        #     s += " []"
 
         return s + "\n"
 
@@ -320,39 +319,40 @@ class ASTDeclaratorInitializerNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTDeclaratorInitializerNode, self).__init__("declarator initializer", ctx)
         self.identifier = None
-        self.isArray = False
         # arrayLength will be an expressionNode child
-        self.indirections = 0
-        self.const = []
+        self.indirections = [] # list of tuples of booleans: (array, const)
 
     def accept(self, visitor):
         if not self.error:
             visitor.visitDeclaratorInitializerNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections=self.indirections, const=[self.parent.isConstant] + self.const, isArray=self.isArray)
+        return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections = [(False, self.parent.isConstant)] + self.indirections)
 
     def out(self, level):
         s = offset * level + "declarator initializer" + "\n" + (offset * (level + 1))
 
-        nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
-        for i in range(0, nrOfIndirections):
-            if i != 0:
-                s += " "
-            s += "*"
-            if i < len(self.const) and self.const[i]:
-                s += " const"
-            if i == (nrOfIndirections - 1):
-                s += " "
+        s += self.identifier + ": "
+        s += str(self.getType()) + "\n"
 
-        s += self.identifier
-
-        if (self.isArray != False) :
-            s += " []"
+        # nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
+        # for i in range(0, nrOfIndirections):
+        #     if i != 0:
+        #         s += " "
+        #     s += "*"
+        #     if i < len(self.const) and self.const[i]:
+        #         s += " const"
+        #     if i == (nrOfIndirections - 1):
+        #         s += " "
+        #
+        # s += self.identifier
+        #
+        # if (self.isArray != False) :
+        #     s += " []"
 
         # s += "   ind: " + str(self.indirections) + " const: " + str(self.const)
 
-        s += "\n"
+        # s += "\n"
 
         for child in self.children:
             if isinstance(child, ASTExpressionNode):
@@ -436,7 +436,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
             visitor.visitStringLiteralNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="char", indirections=1, const=[False, False], isArray=True)
+        return TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -487,9 +487,8 @@ class ASTTypeCastNode(ASTExpressionNode):
     def __init__(self, ctx=None):
         super(ASTTypeCastNode, self).__init__("type cast", ctx)
         self.basetype = None
-        self.indirections = 0
+        self.indirections = []
         self.isConstant = False
-        self.const = []
 
     def accept(self, visitor):
         if not self.error:
@@ -498,7 +497,7 @@ class ASTTypeCastNode(ASTExpressionNode):
     def getType(self):
         if self.basetype is None:
             raise Exception("ASTTypeCastNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=self.indirections, const=[self.isConstant] + self.const)
+        return TypeInfo(rvalue=True, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
 
 
 '''
@@ -667,8 +666,7 @@ class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
-        ttype.indirections += 1
-        ttype.const.append(False)
+        ttype.indirections.append((False, False))
         ttype.rvalue = True
         return ttype
 
@@ -683,11 +681,9 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
-        ttype.indirections -= 1
-        ttype.const.pop()
+        ttype.indirections.pop()
         ttype.rvalue = False
-        if ttype.indirections == 0:
-            ttype.isArray = False
+
         return ttype
 
     def getRelevantToken(self):
@@ -714,11 +710,9 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
-        ttype.indirections -= 1
-        ttype.const.pop()
+        ttype.indirections.pop()
         ttype.rvalue = False
-        if ttype.indirections == 0:
-            ttype.isArray = False
+
         return ttype
 
     def addChildNode(self, node):

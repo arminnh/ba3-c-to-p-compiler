@@ -48,7 +48,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
                 self.addError("‘void’ must be the only parameter", node)
                 return
 
-            elif node.identifier is not None and node.getType().indirections == 0:
+            elif node.identifier is not None and node.getType().nrIndirections() == 0:
                 self.addError("parameter '{0}' has incomplete type".format(node.identifier), node)
                 return
 

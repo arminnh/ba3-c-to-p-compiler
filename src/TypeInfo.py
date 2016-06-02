@@ -1,12 +1,19 @@
 import copy
 
 class TypeInfo:
-	def __init__(self, rvalue, basetype, indirections=0, const=[False], isArray=False):
+	def __init__(self, rvalue, basetype, indirections=[(False, False)]):
 		self.rvalue = rvalue
 		self.basetype = basetype
-		self.indirections = indirections
-		self.const = const
-		self.isArray = isArray
+		self.indirections = indirections # list of tuples: (is array, is constant)
+
+	def array(self):
+		return [indirect[0] for indirect in self.indirections]
+
+	def const(self):
+		return [indirect[1] for indirect in self.indirections]
+
+	def nrIndirections(self):
+		return len(self.indirections) - 1
 
 	def toRvalue(self):
 		if self.rvalue:
@@ -15,11 +22,11 @@ class TypeInfo:
 		cpy.rvalue = True
 		return cpy
 
+	def isArray(self):
+		return self.array()[-1]
+
 	def isConst(self):
-		if len(self.const):
-			return self.const[-1]
-		return False
-		# raise Exception("Type {0} has empty const list".format(self))
+		return self.const()[-1]
 
 	# ignoreConst deprecated; const checking now handled by isConstCompatible entirely
 	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
@@ -40,27 +47,29 @@ class TypeInfo:
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
 
-		if self.indirections == 1 and other.indirections == 1 and (not self.isArray and other.isArray or self.isArray and not other.isArray):
+		if self.nrIndirections() == 1 and other.nrIndirections() == 1 and (not self.isArray() and other.isArray() or self.isArray() and not other.isArray()):
 			return self.basetype == other.basetype
 
-		return  self.basetype     == other.basetype \
-			and self.indirections == other.indirections \
-			and self.isArray      == other.isArray
+		if other.isArray():
+			return False
+
+		return  self.basetype         == other.basetype \
+			and self.nrIndirections() == other.nrIndirections() \
+			and self.isArray          == other.isArray
 
 
 	def isConstCompatible(self, other):
-		if len(self.const) != len(other.const):
+		cself = self.const()
+		cother = other.const()
+		if len(cself) != len(cother):
 			raise Exception("isConstCompatible expects const lists of the same length; got {0} for {1} and {2} for {3}".format(\
-			self.const, str(self), other.const, str(other)))
+			cself, str(self), cother, str(other)))
 
 		# print("--- isConstCompatible: comparing {0} to {1}: {2} and {3}".format(self, other, self.const, other.const))
 
-		for i in range(len(self.const) - 1):
+		for i in range(len(cself) - 1):
 			# last one is always OK because that's the one we're actually assigning (sorry bad explanation ask me)
-			cself = self.const[i]
-			cother = other.const[i]
-			if cother and not cself:
-
+			if cother[i] and not cself[i]:
 				return False
 
 		return True
@@ -72,15 +81,15 @@ class TypeInfo:
 		# print ("self: " + str(self))
 		# print ("other: " + str(other) + "\n")
 
-		if not ignoreConst and self.const != other.const:
+		if not ignoreConst and self.const() != other.const():
 			return False
 
 		if not ignoreRvalue and self.rvalue != other.rvalue:
 			return False
 
-		return  self.basetype     == other.basetype \
-			and self.indirections == other.indirections \
-			and self.isArray      == other.isArray
+		return  self.basetype         == other.basetype \
+			and self.nrIndirections() == other.nrIndirections() \
+			and self.isArray()        == other.isArray()
 
 	def __eq__(self, other):
 		return self.equals(other)
@@ -88,22 +97,19 @@ class TypeInfo:
 	def out(self, withRvalue=False):
 		out = ""
 		# print("CONST ELEMENTS for basetype {0}, indirections {1}: {2}".format(self.basetype, self.indirections, self.const))
-		if len(self.const) and self.const[0]:
+		if len(self.const()) and self.const()[0]:
 			out += "const "
 
 		out += self.basetype
 
-		for i in range(0, (self.indirections if not self.isArray else self.indirections - 1)):
-			out += " *"
-			if i+1 < len(self.const) and self.const[i+1]:
+		for i in range(self.nrIndirections()):
+			out += " *" if not self.array()[i+1] else " []"
+			if i+1 < len(self.const()) and self.const()[i+1]:
 				out += " const"
-
-		if self.isArray:
-			out += " []"
 
 		if withRvalue and self.rvalue is not None:
 			out += " " + ("r" if self.rvalue else "l") + "value"
-
+		# out += str(self.indirections)
 		# out += " ind: " + str(self.indirections) + " const: " + str(self.const)
 		return out
 
