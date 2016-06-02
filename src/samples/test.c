@@ -60,5 +60,20 @@ int main() {
 	char ((((*((y4[5]))))));
 	char *(*y10[4]);
 
-	return 0;
-}
+	int a123[] = {5, 6};
+	int a234[2];
+	a234 = a123;
+	int *a345 = a123;
+	a123 = a345;
+
+	char *s123 = h;
+	hello = s123;
+
+	char hello2[46];
+	hello2 = hello;
+
+	printf("%s\n", "hello");
+	printf("%s\n", hello);
+	printf("%s\n", &hello);
+	printf("%s\n", h);
+ }

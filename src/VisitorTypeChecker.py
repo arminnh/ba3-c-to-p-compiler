@@ -14,7 +14,7 @@ class VisitorTypeChecker(Visitor):
             'i' : TypeInfo(rvalue=True, basetype="int"),
             'f' : TypeInfo(rvalue=True, basetype="float"),
             'c' : TypeInfo(rvalue=True, basetype="char"),
-            's' : TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
+            's' : TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (False, False)])
         }
 
 
@@ -48,7 +48,7 @@ class VisitorTypeChecker(Visitor):
             # if child is expression node, it is the array length value
             if isinstance(child, ASTExpressionNode):
                 arrayLengthExpression = True
-                if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True), ignoreConst=True):
+                if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True)):
                     self.addError("size of array ‘{0}’ has non-integer type (have '{1}')".format(node.identifier, str(child.getType())), node)
                     continue
 
@@ -62,7 +62,7 @@ class VisitorTypeChecker(Visitor):
                             ownType.indirections.pop()
                         t2 = initListElement.getType()
 
-                        if not ownType.isCompatible(initListElement.getType(), ignoreRvalue=True, ignoreConst=True):
+                        if not ownType.isCompatible(t2, ignoreRvalue=True):
                             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(ownType, t2), node)
                             continue
 
@@ -82,7 +82,7 @@ class VisitorTypeChecker(Visitor):
                     t2 = child.children[0].getType()
 
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
-                    if not t1.isCompatible(t2, ignoreRvalue=True, ignoreConst=True):
+                    if not t1.isCompatible(t2, ignoreRvalue=True):
                         self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
                         continue
 
@@ -168,9 +168,11 @@ class VisitorTypeChecker(Visitor):
                 if code not in self.stdioCodes:
                     #TODO: test this
                     self.addError("unknown format code '{0}'".format(code), node)
-
-                elif not self.stdioCodes[code].isCompatible(arguments.children[i+1].getType(), ignoreConst=True):
-                    self.addError("format '{0}' expects argument of type '{1}', but argument {3} has type '{2}'".format(code, self.stdioCodes[code], arguments.children[i+1].getType(), i+2), node)
+                else:
+                    t1 = self.stdioCodes[code].toRvalue()
+                    t2 = arguments.children[i+1].getType()
+                    if not t1.isCompatible(t2):
+                        self.addError("format '{0}' expects argument of type '{1}', but argument {2} has type '{3}'".format(code, t1, i+2, t2), node)
 
                 cutIntoPieces.append((width, arguments.children[i + 1]))
                 endOfLastMatch = match.end()
@@ -225,7 +227,7 @@ class VisitorTypeChecker(Visitor):
         if self.visitChildren(node) == "error":
             return
 
-        if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue(), ignoreConst=True):
+        if not node.children[0].getType().toRvalue().isCompatible(node.children[1].getType().toRvalue()):
             self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), node.label), node)
             return
 
@@ -254,11 +256,11 @@ class VisitorTypeChecker(Visitor):
             self.addError("expression is not assignable", node)
             return
 
-        t1 = node.children[0].getType().toRvalue()
+        t1 = node.children[0].getType()
         t2 = node.children[1].getType().toRvalue()
 
-        if not t1.isCompatible(t2, ignoreConst=True):
-            self.addError("incompatible types when assigning to type '{0}' from type '{1}'".format(str(node.children[0].getType()), str(node.children[1].getType())), node)
+        if not t1.isCompatible(t2):
+            self.addError("incompatible types when assigning to type '{0}' from type '{1}'".format(str(t1), str(t2)), node)
             return
 
         if t1.isConst():
@@ -289,7 +291,7 @@ class VisitorTypeChecker(Visitor):
         if self.visitChildren(node) == "error":
             return
 
-        if not node.children[0].getType().equals(node.children[1].getType(), ignoreRvalue=True, ignoreConst=True):
+        if not node.children[0].getType().isCompatible(node.children[1].getType(), ignoreRvalue=True):
             self.addError("invalid operands to comparison '{2}' (have '{0}' and '{1}')".format(str(node.children[0].getType()), str(node.children[1].getType()), str(node.comparisonType)), node)
             return
 

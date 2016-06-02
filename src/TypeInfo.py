@@ -20,6 +20,7 @@ class TypeInfo:
 			return self
 		cpy = copy.deepcopy(self)
 		cpy.rvalue = True
+		cpy.indirections = [(False, isConst) for (isArray, isConst) in cpy.indirections]
 		return cpy
 
 	def isArray(self):
@@ -28,10 +29,11 @@ class TypeInfo:
 	def isConst(self):
 		return self.const()[-1]
 
-	# ignoreConst deprecated; const checking now handled by isConstCompatible entirely
-	def isCompatible(self, other, ignoreRvalue=True, ignoreConst=False):
+	def isCompatible(self, other, ignoreRvalue=True):
 		if self is None or other is None:
 			return False
+
+		# print(str(self.indirections), ", ", str(other.indirections))
 
 		'''
 		// char* = char []
@@ -46,16 +48,13 @@ class TypeInfo:
 		c = a;
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
-
-		if self.nrIndirections() == 1 and other.nrIndirections() == 1 and (not self.isArray() and other.isArray() or self.isArray() and not other.isArray()):
+		# assigning an array to a pointer is ok, like in the examples above
+		if self.nrIndirections() == 1 and other.nrIndirections() == 1 and (not self.isArray() and other.isArray()):
 			return self.basetype == other.basetype
-
-		if other.isArray():
-			return False
 
 		return  self.basetype         == other.basetype \
 			and self.nrIndirections() == other.nrIndirections() \
-			and self.isArray          == other.isArray
+			and self.isArray()        == other.isArray()
 
 
 	def isConstCompatible(self, other):
@@ -74,15 +73,12 @@ class TypeInfo:
 
 		return True
 
-	def equals(self, other, ignoreRvalue=True, ignoreConst=False):
+	def equals(self, other, ignoreRvalue=True):
 		if self is None or other is None:
 			return False
-		# print ("ignoreConst = " + str(ignoreConst), "ignoreRvalue = ", str(ignoreRvalue))
+		# print ("ignoreRvalue = ", str(ignoreRvalue))
 		# print ("self: " + str(self))
 		# print ("other: " + str(other) + "\n")
-
-		if not ignoreConst and self.const() != other.const():
-			return False
 
 		if not ignoreRvalue and self.rvalue != other.rvalue:
 			return False

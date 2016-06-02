@@ -95,12 +95,12 @@ def main(filename):
         output("program type checked: " + str(time.time() - timeNow), arg_timings)
 
         # generate code
-        if not errorHandler.errorCount():
-            symbolTable.resetToRoot()
-            timeNow = time.time()
-            codeGenerator = VisitorCodeGenerator(symbolTable, arg_out_filename)
-            codeGenerator.visitProgramNode(abstractSyntaxTree.root)
-            output("code generated:       " + str(time.time() - timeNow), arg_timings)
+        # if not errorHandler.errorCount():
+        #     symbolTable.resetToRoot()
+        #     timeNow = time.time()
+        #     codeGenerator = VisitorCodeGenerator(symbolTable, arg_out_filename)
+        #     codeGenerator.visitProgramNode(abstractSyntaxTree.root)
+        #     output("code generated:       " + str(time.time() - timeNow), arg_timings)
 
     except Exception as e:
         ex_type, ex, tb = sys.exc_info()
