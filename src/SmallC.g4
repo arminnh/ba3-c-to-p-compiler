@@ -232,22 +232,12 @@ declarator2 :
     | pointerPart+ declarator1
     ;
 
-
 initializer :
-      LCBRA (expression (',' expression)*)? RCBRA
+      LCBRA (expression (',' expression)*)?   RCBRA
+    | LCBRA (initializer (',' initializer)*)? RCBRA
     | expression
     ;
-/*
-initializer :
-      LCBRA initializerArrayList RCBRA
-    | expression
-    |
-    ;
 
-initializerArrayList :
-      expression (, expression+)?
-    ;
-*/
 returnStmt :
       RETURN expression?
     ;
