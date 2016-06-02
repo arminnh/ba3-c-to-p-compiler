@@ -170,7 +170,7 @@ ifCond :
       IF LBRA expression RBRA statement elseCond?
     ;
 
-elseCond:
+elseCond :
       ELSE statement
     ;
 
@@ -183,8 +183,24 @@ doWhileCond :
     ;
 
 // TODO: add forLoopNode and all the rest for scope and type checking
-forLoop:
-      FOR LBRA (variableDeclaration | variable) ';' expression ';' expression RBRA statement
+forLoop :
+      FOR LBRA forLoopInitStatement ';' forLoopCondition ';' forLoopIterationExpression RBRA statement
+    ;
+
+forLoopInitStatement :
+      variableDeclaration
+    | expression
+    |
+    ;
+
+forLoopCondition :
+      expression
+    |
+    ;
+
+forLoopIterationExpression :
+      expression
+    |
     ;
 
 variableDeclaration :

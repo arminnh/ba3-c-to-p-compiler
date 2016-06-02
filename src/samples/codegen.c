@@ -27,20 +27,20 @@
 //     return sum(b, sum(c, sum(d, e)));
 // }
 
-// int fac(int i) {
-//     if (i == 0) {
-//         return 1;
-//     }
-//     return fac(i-1) * i;
-// }
-//
-// int fib(int a) {
-//     if (a == 0 || a == 1) {
-//       return 1;
-//     }
-//
-//     return fib(a-1) + fib(a-2);
-// }
+int fac(int i) {
+    if (i == 0) {
+        return 1;
+    }
+    return fac(i-1) * i;
+}
+
+int fib(int a) {
+    if (a == 0 || a == 1) {
+      return 1;
+    }
+
+    return fib(a-1) + fib(a-2);
+}
 
 // int changeValue(int* a) {
 //     *a = *a + 1;
@@ -48,7 +48,7 @@
 // }
 
 int main() {
-    // int a = 2;
+    int a = 2;
     // int *aa = &a;
     //
     // int* b = &a;
@@ -65,7 +65,7 @@ int main() {
     // // a + 1;
     // // a = a + 6;
     //
-    // int b = 7;
+    int b = 7;
     // //
     // char c = 'a';
     //
@@ -78,8 +78,8 @@ int main() {
     //
     // summ(1, a, b, 4);
     //
-    // a = fac(2);
-    // b = fib(2);
+    // a = fac(5);
+    b = fib(5);
     // int d = a < b; //TODO: make this work
 
     // a = 10;

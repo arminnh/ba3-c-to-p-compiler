@@ -205,6 +205,8 @@ class VisitorTypeChecker(Visitor):
                 return
 
             for i, argument in enumerate(arguments.children):
+                if argument.error:
+                    continue
                 t1 = parameterNodes[i].getType()
                 t2 = argument.getType()
                 if not t1.isCompatible(t2, ignoreRvalue=True):

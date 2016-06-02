@@ -213,7 +213,8 @@ class ASTInitializerListNode(ASTNode):
         super(ASTInitializerListNode, self).__init__("initializer list", ctx)
 
     def accept(self, visitor):
-        visitor.visitInitializerListNode(self)
+        if not self.error:
+            visitor.visitInitializerListNode(self)
 
 '''
     STATEMENTS
@@ -491,7 +492,8 @@ class ASTTypeCastNode(ASTExpressionNode):
         self.const = []
 
     def accept(self, visitor):
-        visitor.visitTypeCastNode(self)
+        if not self.error:
+            visitor.visitTypeCastNode(self)
 
     def getType(self):
         if self.basetype is None:

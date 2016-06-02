@@ -319,8 +319,12 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitLogicOperatorNode(self, node):
-        self.visitChildren(node)
+        node.children[0].accept(self)
+        self.outFile.write("conv i b\n")
+        node.children[1].accept(self)
+        self.outFile.write("conv i b\n")
         self.outFile.write(str(node.logicOperatorType) + "\n")
+        self.outFile.write("conv b i\n")
 
 
     def visitComparisonOperatorNode(self, node):
@@ -375,9 +379,10 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitLogicalNotOperatorNode(self, node):
-        self.outFile.write("code logical not op\n")
         self.visitChildren(node)
-        self.outFile.write("not {0}\n".format(self.p_types[node.children[0].getType().basetype]))
+        self.outFile.write("conv i b\n")
+        self.outFile.write("not\n")
+        self.outFile.write("conv b i\n")
 
 
     def visitArraySubscriptNode(self, node):
@@ -391,7 +396,14 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("dpl i\n")
             self.outFile.write("ldc a 0\n")
             node.children[1].accept(self)
-            self.outFile.write("sto i\nldc a 0\nind i\ndiv i\nldc a 0\nind i\nmul i\nsub i\n")
+            self.outFile.write("sto i\n" +\
+                               "ldc a 0\n"+\
+                               "ind i\n" +\
+                               "div i\n" +\
+                               "ldc a 0\n" +\
+                               "ind i\n" +\
+                               "mul i\n" +\
+                               "sub i\n")
         else:
             self.visitChildren(node)
             self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))

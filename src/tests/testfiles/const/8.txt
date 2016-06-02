@@ -1,3 +1,6 @@
 testfiles/const/8.c:8:8: error: initializing int * * with an expression of type int * const * discards qualifiers
 int** b = a;
    ^
+testfiles/const/8.c:9:5: error: passing 'int * const *' to parameter of type 'int * *' discards qualifiers
+f(a);
+^

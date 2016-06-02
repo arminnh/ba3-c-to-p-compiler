@@ -5,15 +5,16 @@
    => error: variable-sized object may not be initialized
 
 *) check "unknown format code '{0}'" errors, they are just warnings with gcc
+*) ask someone about: 'int b = sum(a, b);', the rightmost b does not exist yet
+      => what to do when using a variable in its own initialization?
+*) new names for declarationProcessor and definitionProcessor
 
 CODE GENERATION:
 *) finish/check pointers (&(*aa);) (fixed i think)
 *) static arrays + array subscripting
-*) test all unary, binary an ternary operators
+*) test all unary, binary and ternary operators
 *) check argument loading for functions
-*) new names for declarationProcessor and definitionProcessor
 *) printf/scanf
-*) what to do when using a variable in its own initialization?
 *) check situations where there are multiple retfs in a row
 *) void pointers
 
@@ -42,13 +43,3 @@ DONE:
 *) improve parsing time of a file (expression recognition is taking way too much time)
 *) finish/check pointers (&(*aa);)
 *) check unary arithmetic operator
-
-
-
-FIX:
-
-====
-
-the following compiles: 'int b = sum(a, b);', the rightmost b does not exist yet
-
-=====

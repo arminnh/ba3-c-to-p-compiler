@@ -60,19 +60,20 @@ class ASTTest():
         # if there is error output generated, compare with txt file
         try:
             with open(filename + ".txt", 'r') as myfile:
-                correctOutput = myfile.read()
+                correctOutputOriginal = myfile.read()
         except:
             with open(filename + ".txt", 'w') as myfile:
-                correctOutput = "blabla"
+                correctOutputOriginal = "blabla"
 
         errorMessage = self.errorHandler.errorsToString()
         errorMessageWithWhitespace = copy.copy(errorMessage)
 
         # remove all whitespace
         errorMessage  = re.sub('[ \t\n\r]', '', errorMessage)
-        correctOutput = re.sub('[ \t\n\r]', '', correctOutput)
+        correctOutput = re.sub('[ \t\n\r]', '', correctOutputOriginal)
 
-        expectedOutputFound = errorMessage.find(correctOutput) != -1
+        # expectedOutputFound = errorMessage.find(correctOutput) != -1
+        expectedOutputFound = errorMessage == correctOutput
 
         if set and not expectedOutputFound:
             f = open(filename + ".txt", "w")
@@ -80,7 +81,7 @@ class ASTTest():
             f.close()
 
         if not expectedOutputFound:
-            print("\nexpected:\n" + correctOutput + "\ngot:\n" + errorMessage + "\n")
+            print("\nexpected:\n" + correctOutputOriginal + "\ngot:\n" + errorMessageWithWhitespace + "\n")
 
         self.assertTrue(expectedOutputFound)
         self.errorHandler = None
@@ -390,6 +391,9 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
 
     def testVariableDeclarations23(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/23")
+
+    def testVariableDeclarations24(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/24")
 
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
