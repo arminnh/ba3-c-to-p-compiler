@@ -109,6 +109,26 @@ class Listener(SmallCListener):
         pass
 
 
+
+
+    # Enter a parse tree produced by SmallCParser#declaratorInitializer.
+    def enterDeclarator1(self, ctx:SmallCParser.Declarator1Context):
+        children = list(ctx.getChildren())
+        for child in children:
+            if isinstance(child, SmallCParser.PointerPartContext):
+                self.currentNode.indirections.append((False, child.getChildCount() == 2)) # if child count == 2, there is a const node
+        for i in range(len(children) - 1, -1, -1):
+            if isinstance(children[i], SmallCParser.ArrayPartContext):
+                self.currentNode.indirections.append((True, False))
+
+
+
+    # Exit a parse tree produced by SmallCParser#declaratorInitializer.
+    def exitDeclarator1(self, ctx:SmallCParser.Declarator1Context):
+        children = list(ctx.getChildren())
+
+
+
     # Enter a parse tree produced by SmallCParser#declaratorInitializer.
     def enterDeclaratorInitializer(self, ctx:SmallCParser.DeclaratorInitializerContext):
         self.currentNode = self.currentNode.addChildNode(ASTDeclaratorInitializerNode(ctx))
@@ -170,7 +190,8 @@ class Listener(SmallCListener):
 
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
-        self.currentNode.indirections.append((True, False))
+        # self.currentNode.indirections.append((True, False))
+        pass
 
     # Exit a parse tree produced by SmallCParser#functionDefinition.
     def exitArrayPart(self, ctx:SmallCParser.ArrayPartContext):
@@ -306,7 +327,8 @@ class Listener(SmallCListener):
 
      # Enter a parse tree produced by SmallCParser#pointerPart.
     def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
-        self.currentNode.indirections.append((False, ctx.getChildCount() == 2)) # if child count == 2, there is a const node
+        # self.currentNode.indirections.append((False, ctx.getChildCount() == 2)) # if child count == 2, there is a const node
+        pass
 
     # Exit a parse tree produced by SmallCParser#pointerPart.
     def exitPointerPart(self, ctx:SmallCParser.PointerPartContext):

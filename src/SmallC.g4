@@ -130,7 +130,8 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ pointerPart* identifier? arrayPart*;
+      declarationSpecifier+ pointerPart* identifier? arrayPart*
+    ;
 
 pointerPart:
       pointer cvQualifier?
@@ -222,14 +223,8 @@ declaratorInitializer :
     ;
 
 declarator1 :
-      '(' declarator1 ')'
-    | declarator2 arrayPart*
-    ;
-
-declarator2 :
-      '(' declarator2 ')'
-    | pointerPart* identifier
-    | pointerPart+ declarator1
+      pointerPart* '(' declarator1 ')' arrayPart*
+    | pointerPart* identifier arrayPart*
     ;
 
 initializer :

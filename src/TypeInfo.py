@@ -20,7 +20,7 @@ class TypeInfo:
 			return self
 		cpy = copy.deepcopy(self)
 		cpy.rvalue = True
-		cpy.indirections = [(False, isConst) for (isArray, isConst) in cpy.indirections]
+		cpy.indirections[-1] = (False, cpy.indirections[-1][1])
 		return cpy
 
 	def isArray(self):
@@ -46,6 +46,10 @@ class TypeInfo:
 		int *c;
 		// int * = int []
 		c = a;
+
+		int **cc;
+		int aa[][];
+		cc = aa;
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
 		# assigning an array to a pointer is ok, like in the examples above

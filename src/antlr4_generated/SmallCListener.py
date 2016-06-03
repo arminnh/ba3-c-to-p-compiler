@@ -386,15 +386,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#declarator2.
-    def enterDeclarator2(self, ctx:SmallCParser.Declarator2Context):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#declarator2.
-    def exitDeclarator2(self, ctx:SmallCParser.Declarator2Context):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#initializer.
     def enterInitializer(self, ctx:SmallCParser.InitializerContext):
         pass

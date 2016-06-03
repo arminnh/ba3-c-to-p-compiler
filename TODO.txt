@@ -8,6 +8,7 @@
 *) ask someone about: 'int b = sum(a, b);', the rightmost b does not exist yet
       => what to do when using a variable in its own initialization?
 *) new names for declarationProcessor and definitionProcessor
+*) prevent initializers from appearing in parameter declarations
 
 CODE GENERATION:
 *) finish/check pointers (&(*aa);) (fixed i think)
