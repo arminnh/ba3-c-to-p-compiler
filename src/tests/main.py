@@ -398,6 +398,9 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclarationsCharArraysPointers(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/char-arrays-pointers")
 
+    def testVariableDeclarationsMultiArraysPointers(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/multi-arrays-pointers")
+
 
 class FunctionDeclarationTests(ASTTest, unittest.TestCase):
 

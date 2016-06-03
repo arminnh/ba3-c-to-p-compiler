@@ -1,0 +1,36 @@
+testfiles/variable-declarations/multi-arrays-pointers.c:17:10: error: incompatible types when initializing type 'char' using type 'int []'
+char aa = a;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:18:10: error: incompatible types when initializing type 'char' using type 'int * []'
+char bb = b;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:19:10: error: incompatible types when initializing type 'char' using type 'int [] *'
+char cc = c;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:20:10: error: incompatible types when initializing type 'char' using type 'int * [] []'
+char dd = d;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:21:10: error: incompatible types when initializing type 'char' using type 'int [] * []'
+char ee = e;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:22:10: error: incompatible types when initializing type 'char' using type 'int * [] * []'
+char ff = f;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:23:10: error: incompatible types when initializing type 'char' using type 'int * * * [] [] []'
+char gg1 = g1;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:24:10: error: incompatible types when initializing type 'char' using type 'int * * * [] [] []'
+char gg2 = g2;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:25:10: error: incompatible types when initializing type 'char' using type 'int * * * [] [] []'
+char gg3 = g3;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:26:10: error: incompatible types when initializing type 'char' using type 'int * * [] [] [] *'
+char hh = h;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:27:10: error: incompatible types when initializing type 'char' using type 'int * [] * * [] []'
+char ii = i;
+     ^
+testfiles/variable-declarations/multi-arrays-pointers.c:28:10: error: incompatible types when initializing type 'char' using type 'int [] * [] * [] *'
+char jj = j;
+     ^

@@ -215,6 +215,11 @@ class ASTInitializerListNode(ASTNode):
         if not self.error:
             visitor.visitInitializerListNode(self)
 
+    def out(self, level):
+        s = offset * level
+        s += "{0}, {1} elements\n".format(self.label, len(self.children))
+        return s if (not self.children) else self.outChildren(s, level)
+
 '''
     STATEMENTS
 '''
