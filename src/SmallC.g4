@@ -104,7 +104,7 @@ program :
     ;
 
 include :
-      '#include' LABRA stdInclude RABRA
+      '#include' '<' stdInclude '>'
     | '#include' customInclude
     ;
 
@@ -117,11 +117,11 @@ customInclude :
     ;
 
 functionDeclaration :
-      declarationSpecifier+ pointerPart* identifier LBRA parameters RBRA ';'
+      declarationSpecifier+ pointerPart* identifier '(' parameters ')' ';'
     ;
 
 functionDefinition :
-      declarationSpecifier+ pointerPart* identifier LBRA parameters RBRA statements
+      declarationSpecifier+ pointerPart* identifier '(' parameters ')' statements
     ;
 
 parameters :
@@ -138,11 +138,11 @@ pointerPart:
     ;
 
 arrayPart :
-      LSBRA expression? RSBRA
+      '[' expression? ']'
     ;
 
 statements :
-      LCBRA statement* RCBRA
+      '{' statement* '}'
     ;
 
 statement :
@@ -168,7 +168,7 @@ expression :
     ;
 
 ifCond :
-      IF LBRA expression RBRA statement elseCond?
+      IF '(' expression ')' statement elseCond?
     ;
 
 elseCond :
@@ -176,16 +176,16 @@ elseCond :
     ;
 
 whileCond :
-      WHILE LBRA expression RBRA statement
+      WHILE '(' expression ')' statement
     ;
 
 doWhileCond :
-      DO statements WHILE LBRA expression RBRA ';'
+      DO statements WHILE '(' expression ')' ';'
     ;
 
 // TODO: add forLoopNode and all the rest for scope and type checking
 forLoop :
-      FOR LBRA forLoopInitStatement ';' forLoopCondition ';' forLoopIterationExpression RBRA statement
+      FOR '(' forLoopInitStatement ';' forLoopCondition ';' forLoopIterationExpression ')' statement
     ;
 
 forLoopInitStatement :
@@ -228,8 +228,8 @@ declarator1 :
     ;
 
 initializer :
-      LCBRA (expression (',' expression)*)?   RCBRA
-    | LCBRA (initializer (',' initializer)*)? RCBRA
+      '{' (expression (',' expression)*)?   '}'
+    | '{' (initializer (',' initializer)*)? '}'
     | expression
     ;
 
@@ -243,7 +243,7 @@ arguments :
     ;
 
 functionCall:
-      identifier LBRA arguments RBRA
+      identifier '(' arguments ')'
     ;
 
 variable :
@@ -263,20 +263,7 @@ characterLiteral : CHARACTER;
 stringLiteral    : STRING;
 
 
-
-
 // lexer rules (rule names start with capital character)
-COMMA     : ',';
-LBRA      : '(';
-RBRA      : ')';
-LABRA     : '<';
-RABRA     : '>';
-LCBRA     : '{';
-RCBRA     : '}';
-LSBRA     : '[';
-RSBRA     : ']';
-QUOTE     : '"';
-
 TYPECHAR  : 'char';
 TYPEFLOAT : 'float';
 TYPEINT   : 'int';
@@ -285,7 +272,6 @@ CONST     : 'const';
 VOLATILE  : 'volatile';
 MUTABLE   : 'mutable';
 
-//CFUN      : 'printf' | 'scanf';
 IF        : 'if';
 ELSE      : 'else';
 DO        : 'do';
@@ -294,9 +280,9 @@ FOR       : 'for';
 BREAK     : 'break';
 CONTINUE  : 'continue';
 RETURN    : 'return';
-//MAIN      : 'main';
+//MAIN    : 'main';
 
-COMMENT   : '//'~[\r\n]* -> skip;
+COMMENT      : '//'~[\r\n]* -> skip;
 MULTICOMMENT : '/*'(.)*?'*/' -> skip;
 
 INTEGER   : [0-9]+;
