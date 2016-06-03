@@ -10,6 +10,7 @@ class VisitorTypeChecker(Visitor):
         super(VisitorTypeChecker, self).__init__(errorHandler)
 
         self.stdioCodes = {
+            # types are rvalues
             'd' : TypeInfo(rvalue=True, basetype="int"),
             'i' : TypeInfo(rvalue=True, basetype="int"),
             'f' : TypeInfo(rvalue=True, basetype="float"),
@@ -134,10 +135,10 @@ class VisitorTypeChecker(Visitor):
         # take first argument of scanf/printf function
         formatArgument = arguments.children[0]
 
-        # first argument should be of string type
-        stringLiteralType = TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
-        if not formatArgument.getType().isCompatible(stringLiteralType):
-            self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(stringLiteralType), str(formatArgument.getType())), node)
+        # first argument should be of string rvalue type
+        formatStringType = self.stdioCodes['s']
+        if not formatStringType.isCompatible(formatArgument.getType().toRvalue()):
+            self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(formatStringType), str(formatArgument.getType().toRvalue())), node)
             return
 
         # get the text of the first argument (the format argument) and get the format codes out of it
@@ -169,8 +170,8 @@ class VisitorTypeChecker(Visitor):
                     #TODO: test this
                     self.addError("unknown format code '{0}'".format(code), node)
                 else:
-                    t1 = self.stdioCodes[code].toRvalue()
-                    t2 = arguments.children[i+1].getType()
+                    t1 = self.stdioCodes[code]
+                    t2 = arguments.children[i+1].getType().toRvalue()
                     if not t1.isCompatible(t2):
                         self.addError("format '{0}' expects argument of type '{1}', but argument {2} has type '{3}'".format(code, t1, i+2, t2), node)
 
@@ -183,7 +184,6 @@ class VisitorTypeChecker(Visitor):
 
         # print (codes)
 
-    # TODO for extras: check constness of arguments/parameters
     # TODO: prevent function call with void return type from appearing in a subexpression
     def visitFunctionCallNode(self, node):
         if self.visitChildren(node) == "error":
