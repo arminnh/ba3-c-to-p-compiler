@@ -436,7 +436,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
             visitor.visitStringLiteralNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (True, False)])
+        return TypeInfo(rvalue=True, basetype="char", indirections=[(False, False), (False, False)])
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"

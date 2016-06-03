@@ -21,6 +21,7 @@ class TypeInfo:
 		cpy = copy.deepcopy(self)
 		cpy.rvalue = True
 		cpy.indirections[-1] = (False, cpy.indirections[-1][1])
+
 		return cpy
 
 	def isArray(self):
@@ -53,8 +54,8 @@ class TypeInfo:
 		more examples: tests/testfiles/binary-operators/strings-and-arrays.c
 		'''
 		# assigning an array to a pointer is ok, like in the examples above
-		if self.nrIndirections() == 1 and other.nrIndirections() == 1 and (not self.isArray() and other.isArray()):
-			return self.basetype == other.basetype
+		# if self.nrIndirections() == 1 and other.nrIndirections() == 1 and (not self.isArray() and other.isArray()):
+		# 	return self.basetype == other.basetype
 
 		return  self.basetype         == other.basetype \
 			and self.nrIndirections() == other.nrIndirections() \

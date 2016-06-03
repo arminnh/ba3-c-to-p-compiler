@@ -317,6 +317,9 @@ class FunctionCallTypeTests(ASTTest, unittest.TestCase):
     def testFunctionCallParameterType15(self):
         self.generateErrorsAndCompare("testfiles/function-calls/15")
 
+    def testFunctionCallParameterType16(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/16")
+
 
 class VariableDeclarationTests(ASTTest, unittest.TestCase):
 

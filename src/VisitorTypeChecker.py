@@ -61,7 +61,11 @@ class VisitorTypeChecker(Visitor):
                         ownType = copy.deepcopy(node.getType())
                         if not isinstance(initListElement, ASTStringLiteralNode):
                             ownType.indirections.pop()
-                        t2 = initListElement.getType()
+                        t2 = initListElement.getType().toRvalue()
+
+                        #  char a[] = "uitzondering";
+                        if isinstance(child.children[0], ASTStringLiteralNode) and node.getType().equals(TypeInfo(basetype="char", indirections=[(False, False), (True, False)], rvalue=False)):
+                            continue
 
                         if not ownType.isCompatible(t2, ignoreRvalue=True):
                             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(ownType, t2), node)
@@ -79,8 +83,8 @@ class VisitorTypeChecker(Visitor):
                         self.addError("empty scalar initializer", node)
                         continue
 
-                    t1 = node.getType()
-                    t2 = child.children[0].getType()
+                    t1 = node.getType().toRvalue()
+                    t2 = child.children[0].getType().toRvalue()
 
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
                     if not t1.isCompatible(t2, ignoreRvalue=True):
@@ -89,7 +93,7 @@ class VisitorTypeChecker(Visitor):
 
                     if not t1.isConstCompatible(t2):
                         # warning
-                        self.addError("initializing {0} with an expression of type {1} discards qualifiers".format(t1, t2), node)
+                        self.addError("initializing '{0}' with an expression of type '{1}' discards qualifiers".format(t1, t2), node)
 
                     # if len(child.children) > 1:
                     #     line, column = node.getLineAndColumn()
@@ -207,8 +211,8 @@ class VisitorTypeChecker(Visitor):
             for i, argument in enumerate(arguments.children):
                 if argument.error:
                     continue
-                t1 = parameterNodes[i].getType()
-                t2 = argument.getType()
+                t1 = parameterNodes[i].getType().toRvalue()
+                t2 = argument.getType().toRvalue()
                 if not t1.isCompatible(t2, ignoreRvalue=True):
                     node.errorParameter = i
                     self.addError("expected '{0}' but argument is of type '{1}'".format(t1, t2), node)

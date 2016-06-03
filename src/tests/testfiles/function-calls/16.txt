@@ -1,0 +1,9 @@
+testfiles/function-calls/16.c:13:8: error: incompatible types when initializing type 'char' using type 'char *'
+char string3[] = s3;
+     ^
+testfiles/function-calls/16.c:15:8: error: incompatible types when initializing type 'char' using type 'char *'
+char string4[] = string;
+     ^
+testfiles/function-calls/16.c:19:7: error: incompatible types when initializing type 'int' using type 'int *'
+int arr[] = aPtr;
+    ^

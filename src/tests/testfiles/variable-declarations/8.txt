@@ -1,4 +1,4 @@
-testfiles/variable-declarations/8.c:2:9: error: incompatible types when initializing type 'int' using type 'char []'
+testfiles/variable-declarations/8.c:2:9: error: incompatible types when initializing type 'int' using type 'char *'
 int j = "hello";
     ^
 testfiles/variable-declarations/8.c:4:9: error: incompatible types when initializing type 'int' using type 'char'
