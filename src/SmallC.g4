@@ -130,7 +130,17 @@ parameters :
     ;
 
 parameter :
-      declarationSpecifier+ pointerPart* identifier? arrayPart*
+      declarationSpecifier+ paramDeclarator
+    ;
+
+paramDeclarator :
+      '(' paramDeclarator1 ')'
+    | paramDeclarator1
+    ;
+
+paramDeclarator1 :
+      pointerPart* '(' paramDeclarator1 ')' arrayPart*
+    | pointerPart* identifier? arrayPart*
     ;
 
 pointerPart:

@@ -188,6 +188,12 @@ class Listener(SmallCListener):
         self.currentNode = self.currentNode.parent
 
 
+    def enterParamDeclarator1(self, ctx:SmallCParser.ParamDeclaratorContext):
+        self.enterDeclarator1(ctx)
+
+    def exitParamDeclarator1(self, ctx:SmallCParser.ParamDeclaratorContext):
+        self.exitDeclarator1(ctx)
+
     # Enter a parse tree produced by SmallCParser#functionDefinition.
     def enterArrayPart(self, ctx:SmallCParser.ArrayPartContext):
         # self.currentNode.indirections.append((True, False))
@@ -327,7 +333,8 @@ class Listener(SmallCListener):
 
      # Enter a parse tree produced by SmallCParser#pointerPart.
     def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
-        # self.currentNode.indirections.append((False, ctx.getChildCount() == 2)) # if child count == 2, there is a const node
+        if isinstance(self.currentNode, (ASTFunctionDeclarationNode, ASTTypeCastNode)):
+            self.currentNode.indirections.append((False, ctx.getChildCount() == 2)) # if child count == 2, there is a const node
         pass
 
     # Exit a parse tree produced by SmallCParser#pointerPart.
