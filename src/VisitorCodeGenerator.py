@@ -51,7 +51,7 @@ class VisitorCodeGenerator(Visitor):
         # ! -> not
 
     def pType(self, typeInfo):
-        if typeInfo.indirections > 0:
+        if typeInfo.nrIndirections() > 0:
             return self.p_types["address"]
         return self.p_types[typeInfo.basetype]
 
@@ -124,7 +124,7 @@ class VisitorCodeGenerator(Visitor):
                 child.accept(self)
 
         # return from function
-        if node.getType().basetype == "void" and node.getType().indirections == 0:
+        if node.getType().basetype == "void" and node.getType().nrIndirections() == 0:
             self.outFile.write("retp\n")
         else:
             self.outFile.write("retf\n")
@@ -248,7 +248,7 @@ class VisitorCodeGenerator(Visitor):
         if hasInitializer:
             self.visitChildren(node)
         else:
-            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().indirections > 0 else node.getType().basetype]))
+            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
 
         self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
@@ -279,7 +279,7 @@ class VisitorCodeGenerator(Visitor):
         if self.lvalue and self.lvalue.pop():
             # put address on stack
             self.outFile.write("lda {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
-        elif node.getType().indirections != 0:
+        elif node.getType().nrIndirections() != 0:
             self.outFile.write("lod a {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
         else:
             # put value on stack
