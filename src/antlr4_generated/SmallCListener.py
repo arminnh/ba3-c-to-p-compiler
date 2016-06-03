@@ -224,6 +224,24 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#paramDeclarator.
+    def enterParamDeclarator(self, ctx:SmallCParser.ParamDeclaratorContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#paramDeclarator.
+    def exitParamDeclarator(self, ctx:SmallCParser.ParamDeclaratorContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#paramDeclarator1.
+    def enterParamDeclarator1(self, ctx:SmallCParser.ParamDeclarator1Context):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#paramDeclarator1.
+    def exitParamDeclarator1(self, ctx:SmallCParser.ParamDeclarator1Context):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#pointerPart.
     def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
         pass
