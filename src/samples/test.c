@@ -12,4 +12,6 @@ int main() {
 
 	// char a;
 	printf("%s\n", aa);
+	int i = aa;
+	f(aa);
  }

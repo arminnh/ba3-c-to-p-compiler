@@ -4,7 +4,7 @@ printf("test %c, %f \n", '1', 10);
 testfiles/function-calls/11.c:7:5: error: format 'c' expects argument of type 'char', but argument 2 has type 'int'
 printf("test %c, %5f \n", 2, 23.948984);
 ^
-testfiles/function-calls/11.c:8:5: error: format 'i' expects argument of type 'int', but argument 3 has type 'char []'
+testfiles/function-calls/11.c:8:5: error: format 'i' expects argument of type 'int', but argument 3 has type 'char *'
 printf("test %c, %i, %7f \n", '3', "528439789", 353332.53523);
 ^
 testfiles/function-calls/11.c:11:5: error: format 'f' expects argument of type 'float', but argument 4 has type 'int'
@@ -13,6 +13,6 @@ printf("%c%s%f%i%d%f%i%c%s", 'h', "ello", 314, 666, 42.0, 123.456, "789", '0', "
 testfiles/function-calls/11.c:11:5: error: format 'd' expects argument of type 'int', but argument 6 has type 'float'
 printf("%c%s%f%i%d%f%i%c%s", 'h', "ello", 314, 666, 42.0, 123.456, "789", '0', "1234565789");
 ^
-testfiles/function-calls/11.c:11:5: error: format 'i' expects argument of type 'int', but argument 8 has type 'char []'
+testfiles/function-calls/11.c:11:5: error: format 'i' expects argument of type 'int', but argument 8 has type 'char *'
 printf("%c%s%f%i%d%f%i%c%s", 'h', "ello", 314, 666, 42.0, 123.456, "789", '0', "1234565789");
 ^
