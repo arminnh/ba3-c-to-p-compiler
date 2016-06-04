@@ -129,6 +129,13 @@ class Visitor:
         self.visitChildren(node)
 
 
+    def enterExpression(self, node):
+        pass
+
+    def exitExpression(self, node):
+        pass
+
+
     def visitIntegerLiteralNode(self, node):
         pass
 

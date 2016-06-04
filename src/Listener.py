@@ -289,6 +289,7 @@ class Listener(SmallCListener):
     def exitForLoopInitStatement(self, ctx:SmallCParser.ForLoopInitStatementContext):
         if self.currentNode.children:
             self.currentNode.parent.initializer = self.currentNode.children[0]
+            self.currentNode.parent.initializer.parent = self.currentNode.parent
         self.currentNode = self.currentNode.parent
 
 
@@ -298,6 +299,7 @@ class Listener(SmallCListener):
     def exitForLoopCondition(self, ctx:SmallCParser.ForLoopConditionContext):
         if self.currentNode.children:
             self.currentNode.parent.condition = self.currentNode.children[0]
+            self.currentNode.parent.condition.parent = self.currentNode.parent
         self.currentNode = self.currentNode.parent
 
 
@@ -307,6 +309,7 @@ class Listener(SmallCListener):
     def exitForLoopIterationExpression(self, ctx:SmallCParser.ForLoopIterationExpressionContext):
         if self.currentNode.children:
             self.currentNode.parent.iteration = self.currentNode.children[0]
+            self.currentNode.parent.iteration.parent = self.currentNode.parent
         self.currentNode = self.currentNode.parent
 
 

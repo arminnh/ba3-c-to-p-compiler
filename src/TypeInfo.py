@@ -116,3 +116,6 @@ class TypeInfo:
 
 	def __str__(self):
 		return self.out()
+
+def voidType():
+	return TypeInfo(rvalue=False, basetype="void")
