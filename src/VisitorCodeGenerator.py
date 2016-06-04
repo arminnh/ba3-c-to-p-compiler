@@ -218,14 +218,17 @@ class VisitorCodeGenerator(Visitor):
 
     def visitForNode(self, node):
         iterationLabel = self.getLabel()
+        conditionLabel = self.getLabel()
         afterLabel = self.getLabel()
         self.backLabel = iterationLabel
         self.forwardLabel = afterLabel
 
         self.symbolTable.openScope()
         if node.initializer: node.initializer.accept(self)
+        self.outFile.write("ujp {0}\n".format(conditionLabel))
         self.outFile.write("{0}:\n".format(iterationLabel))
         if node.iteration: node.iteration.accept(self)
+        self.outFile.write("{0}:\n".format(conditionLabel))
         if node.condition:
             node.condition.accept(self)
             self.outFile.write("conv {0} b\n".format(self.pType(node.condition.getType())))
