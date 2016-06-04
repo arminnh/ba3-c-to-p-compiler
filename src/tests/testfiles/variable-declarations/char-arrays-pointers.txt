@@ -1,7 +1,7 @@
 testfiles/variable-declarations/char-arrays-pointers.c:9:2: error: incompatible types when assigning to type 'char []' from type 'char *'
 hello = s123; // error
 ^
-testfiles/variable-declarations/char-arrays-pointers.c:12:2: error: incompatible types when assigning to type 'char []' from type 'char *'
+testfiles/variable-declarations/char-arrays-pointers.c:12:2: error: incompatible types when assigning to type 'char [46]' from type 'char *'
 hello2 = hello; // error
 ^
 testfiles/variable-declarations/char-arrays-pointers.c:18:2: error: format 's' expects argument of type 'char *', but argument 2 has type 'char [] *'

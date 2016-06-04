@@ -5,19 +5,23 @@ void f(int i) {
 
 int main() {
 	for (int i = 5, j = 5; i < 30; ++i) {
-		if (j > 6) {
-			continue;
+		for (int i = 5;; ++i) {
+			if (i >= 7) {
+				break;
+			}
 		}
-		++j;
+		if (i >= 25) {
+			break;
+		}
 	}
 
 	int i = 0;
 
-	while (i < 30) {
-		++i;
-	}
+	// while (i < 30) {
+	// 	++i;
+	// }
 
-	do {} while (0);
+	// do {} while (0);
 
 	return 0;
 }

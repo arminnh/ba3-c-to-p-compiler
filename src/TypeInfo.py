@@ -12,6 +12,13 @@ class TypeInfo:
 	def const(self):
 		return [indirect[1] for indirect in self.indirections]
 
+	def size(self):
+		size = 1
+		for i in range(len(self.indirections) - 1, -1, -1):
+			if type(self.array()[i]) is bool and self.array()[i] == False:
+				return size
+			size *= self.array()[i]
+
 	def nrIndirections(self):
 		return len(self.indirections) - 1
 
@@ -25,7 +32,14 @@ class TypeInfo:
 		return cpy
 
 	def isArray(self):
-		return self.array()[-1]
+		return bool(self.array()[-1])
+
+	def arrayNrDimensions(self):
+		nr = 0
+		for i in range(len(self.array()) - 1, -1, -1):
+			if type(self.array()[i]) is bool and self.array()[i] == False:
+				return nr
+			nr += 1
 
 	def isConst(self):
 		return self.const()[-1]
@@ -104,7 +118,7 @@ class TypeInfo:
 		out += self.basetype
 
 		for i in range(self.nrIndirections()):
-			out += " *" if not self.array()[i+1] else " []"
+			out += " *" if type(self.array()[i+1]) is bool and self.array()[i+1] == False else " [{0}]".format(self.array()[i+1] if type(self.array()[i+1]) is int else "")
 			if i+1 < len(self.const()) and self.const()[i+1]:
 				out += " const"
 

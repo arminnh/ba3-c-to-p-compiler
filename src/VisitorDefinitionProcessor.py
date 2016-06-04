@@ -27,6 +27,21 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
     # int a[myFun(5)] = {1, 2+"a", 3}
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):
+        arrayLength = []
+        for child in reversed(node.children):
+            if isinstance(child, ASTIntegerLiteralNode):
+                arrayLength.append(child)
+        i = 0
+        for j in range(len(node.indirections)):
+            if node.indirections[j][0]:
+                if i >= len(arrayLength):
+                    # raise Exception("not enough array length nodes")
+                    break
+
+                node.indirections[j] = (arrayLength[i].value, node.indirections[j][1])
+                i += 1
+
+
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
             if node.parent.basetype is None:
                 node.parent.basetype = "int"
@@ -36,6 +51,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
             result = self.insertSymbol(node, isFunction=False)
             if result == False:
                 return
+
 
         self.visitChildren(node)
 

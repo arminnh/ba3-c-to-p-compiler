@@ -326,58 +326,58 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testStrangeBrackets(self):
         self.generateNoError("testfiles/variable-declarations/strange-brackets.c")
 
-    def testVariableDeclaration1(self):
+    def testVariableDeclarations1(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/1")
 
-    def testVariableDeclaration2(self):
+    def testVariableDeclarations2(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/2")
 
-    def testVariableDeclaration3(self):
+    def testVariableDeclarations3(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/3")
 
-    def testVariableDeclaration4(self):
+    def testVariableDeclarations4(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/4")
 
-    def testVariableDeclaration5(self):
+    def testVariableDeclarations5(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/5")
 
-    def testVariableDeclaration6(self):
+    def testVariableDeclarations6(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/6")
 
-    def testVariableDeclaration7(self):
+    def testVariableDeclarations7(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/7")
 
-    def testVariableDeclaration8(self):
+    def testVariableDeclarations8(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/8")
 
-    def testVariableDeclaration9(self):
+    def testVariableDeclarations9(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/9")
 
-    def testVariableDeclaration10(self):
+    def testVariableDeclarations10(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/10")
 
     def testVariableDeclarations11(self):
         self.generateNoError("testfiles/variable-declarations/11.c")
 
-    def testVariableDeclaration12(self):
+    def testVariableDeclarations12(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/12")
 
     def testVariableDeclarations13(self):
         self.generateNoError("testfiles/variable-declarations/13.c")
 
-    def testVariableDeclaration14(self):
+    def testVariableDeclarations14(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/14")
 
     def testVariableDeclarations15(self):
         self.generateNoError("testfiles/variable-declarations/15.c")
 
-    def testVariableDeclaration16(self):
+    def testVariableDeclarations16(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/16")
 
     def testVariableDeclarations17(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/17")
 
-    def testVariableDeclaration18(self):
+    def testVariableDeclarations18(self):
         self.generateNoError("testfiles/variable-declarations/18.c")
 
     def testVariableDeclarations19(self):

@@ -2,6 +2,7 @@ from antlr4 import *
 from AbstractSyntaxTree import *
 from Visitor import *
 from TypeInfo import voidType
+import copy
 
 class VisitorCodeGenerator(Visitor):
 
@@ -68,7 +69,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitProgramNode(self, node):
         self.outFile.write("ldc i 0\n") # work/trash register
-        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 5))
 
         # code for variables
         for variable in self.symbolTable.currentScope.addressedVariables:
@@ -105,7 +106,7 @@ class VisitorCodeGenerator(Visitor):
         self.outFile.write("\nfunction_{0}:\n".format(node.identifier))
 
         # set SP to
-        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
+        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 5))
 
         # for variable in scope.addressedVariables:
             # TODO: distinguish arguments from local variables: arguments already placed on stack by caller
@@ -274,18 +275,38 @@ class VisitorCodeGenerator(Visitor):
         self.visitChildren(node)
 
 
+    def allocArray(self, ttype, address):
+        if not ttype.isArray():
+            raise Exception("trying to alloc array of non-array type")
+        arrayElementType = copy.deepcopy(ttype)
+        arrayElementType.indirections = ttype.indirections[:-1]
+        if ttype.arrayNrDimensions() == 1:
+            for i in range(ttype.array()[-1]):
+                # self.outFile.write("lda 0 {0}\n".format(address + i))
+                self.outFile.write("ldc {0} {1}\n".format(self.pType(arrayElementType), self.initializers["address" if arrayElementType.nrIndirections() > 0 else arrayElementType.basetype]))
+                self.outFile.write("str {0} 0 {1}\n".format(self.pType(arrayElementType), address + i))
+        else:
+            for i in range(ttype.array()[-1]):
+                self.allocArray(arrayElementType, address + i * arrayElementType.size())
+
+
+
     def visitDeclaratorInitializerNode(self, node):
         hasInitializer = False
         for child in node.children:
             if isinstance(child, ASTInitializerListNode):
                 hasInitializer = True
 
-        if hasInitializer:
-            self.visitChildren(node)
-        else:
-            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
+        ttype = node.getType()
 
-        self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
+        if hasInitializer and not ttype.isArray():
+            self.visitChildren(node)
+        if ttype.nrIndirections() > 0 and not ttype.isArray():
+            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
+        elif ttype.isArray():
+            self.allocArray(ttype, node.symbolInfo.address + 5)
+        else:
+            self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
 
     def visitInitializerListNode(self, node):
@@ -467,7 +488,7 @@ def expressionResultNeedsToBeCleanedUp(node):
             return True
         else:
             return False
-    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode)):
+    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode, ASTArgumentsNode)):
         return False
     if type(node.parent) is ASTStatementNode:
         return True

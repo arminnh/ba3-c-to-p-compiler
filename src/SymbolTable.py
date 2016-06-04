@@ -53,11 +53,11 @@ class Scope:
     def assignAddress(self, variable):
         if self.parent is None or self.isFunctionScope:
             if self.addressCounter is None:
-                self.addressCounter = -1 # initialize
+                self.addressCounter = 0 # initialize
             self.addressedVariables.append(variable) # put variable into function scope variable address list
-            self.addressCounter += 1 # increment counter
             variable.address = self.addressCounter # set variable's address
-            return self.addressCounter
+            self.addressCounter += variable.typeInfo.size() # increment counter
+            return variable.address
         return self.parent.assignAddress(variable)
 
     def addChild(self, scope):
