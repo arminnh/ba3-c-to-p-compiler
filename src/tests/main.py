@@ -23,7 +23,7 @@ import re
 
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
-set = False
+set = True
 
 class ASTTest():
     def setUp(self):
@@ -81,7 +81,7 @@ class ASTTest():
             f.close()
 
         if not expectedOutputFound:
-            print("\nexpected:\n" + correctOutputOriginal + "\ngot:\n" + errorMessageWithWhitespace + "\n")
+            print("\nEXPECTED:\n" + correctOutputOriginal + "\nGOT:\n" + errorMessageWithWhitespace + "\n\n\n\n")
 
         self.assertTrue(expectedOutputFound)
         self.errorHandler = None
@@ -489,6 +489,9 @@ class ConstTests(ASTTest, unittest.TestCase):
 
     def testConst9(self):
         self.generateErrorsAndCompare("testfiles/const/9")
+
+    def testConst10(self):
+        self.generateErrorsAndCompare("testfiles/const/10")
 
 
 class SymbolTableTests(unittest.TestCase):

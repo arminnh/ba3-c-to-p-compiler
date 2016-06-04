@@ -7,4 +7,8 @@ int main() {
     int* const * a;
     int** b = a;
     f(a);
+
+    int * const * const * const c;
+    f(c);
+    f(*c);
 }

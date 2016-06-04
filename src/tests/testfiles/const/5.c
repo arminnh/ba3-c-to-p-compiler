@@ -4,4 +4,7 @@ int main() {
 
     aa = &a;
     *aa = a;
+
+    const int blabla[5];
+    blabla[4] = 0;
 }
