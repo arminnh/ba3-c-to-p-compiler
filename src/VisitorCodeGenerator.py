@@ -1,6 +1,7 @@
 from antlr4 import *
 from AbstractSyntaxTree import *
 from Visitor import *
+from TypeInfo import voidType
 
 class VisitorCodeGenerator(Visitor):
 
@@ -175,7 +176,6 @@ class VisitorCodeGenerator(Visitor):
 
     def visitStatementNode(self, node):
         self.visitChildren(node)
-        self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 1 + 5))
 
 
     def visitReturnNode(self, node):
@@ -196,8 +196,8 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitIfNode(self, node):
-        elseLabel = self.getLabel()
-        afterLabel = self.getLabel()
+        elseLabel = self.getLabel() + "_else"
+        afterLabel = self.getLabel() + "_after_if"
 
         node.children[0].accept(self)                            # condition
         self.outFile.write("conv {0} b\n".format(self.pType(node.children[0].getType())))
@@ -217,9 +217,9 @@ class VisitorCodeGenerator(Visitor):
     #     self.visitChildren(node)
 
     def visitForNode(self, node):
-        iterationLabel = self.getLabel()
-        conditionLabel = self.getLabel()
-        afterLabel = self.getLabel()
+        iterationLabel = self.getLabel() + "_for_iteration"
+        conditionLabel = self.getLabel() + "_for_condition"
+        afterLabel = self.getLabel() + "_for_after"
         self.backLabel = iterationLabel
         self.forwardLabel = afterLabel
 
@@ -240,8 +240,8 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitWhileNode(self, node):
-        conditionLabel = self.getLabel()
-        afterLabel = self.getLabel()
+        conditionLabel = self.getLabel() + "_while_condition"
+        afterLabel = self.getLabel() + "_while_after"
         self.backLabel = conditionLabel
         self.forwardLabel = afterLabel
 
@@ -255,11 +255,12 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitDoWhileNode(self, node): #TODO: test this
-        conditionLabel = self.getLabel()
-        afterLabel = self.getLabel()
+        conditionLabel = self.getLabel() + "_do_while_condition"
+        afterLabel = self.getLabel() + "_do_while_after"
 
         node.children[1].accept(self)                            # loop code
 
+        self.outFile.write("conv {0} b\n".format(self.pType(node.children[1].getType())))
         self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)                            # condition
         self.outFile.write("fjp {0}\n".format(afterLabel))       # if top == false, jump over the loop code
@@ -290,6 +291,16 @@ class VisitorCodeGenerator(Visitor):
     def visitInitializerListNode(self, node):
         # children will cause data to be loaded onto the stack
         self.visitChildren(node)
+
+
+    def enterExpression(self, node):
+        # print(type(node), "is stmt node", isinstance(node, ASTStatementNode))
+        if expressionResultNeedsToBeCleanedUp(node):
+            self.outFile.write("ldc a 0\n")
+
+    def exitExpression(self, node):
+        if expressionResultNeedsToBeCleanedUp(node):
+            self.outFile.write("sto {0}\n".format(self.pType(node.getType())))
 
 
     def visitIntegerLiteralNode(self, node):
@@ -442,3 +453,22 @@ class VisitorCodeGenerator(Visitor):
         else:
             self.visitChildren(node)
             self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))
+
+def expressionResultNeedsToBeCleanedUp(node):
+    # print(type(node.parent))
+    if not node.isBaseExpression():
+        return False
+    if node.getType().equals(voidType()):
+        return False
+    if type(node.parent) is ASTInitializerListNode:
+        return False
+    if isinstance(node.parent, ASTForNode):
+        if node is node.parent.iteration:
+            return True
+        else:
+            return False
+    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode)):
+        return False
+    if type(node.parent) is ASTStatementNode:
+        return True
+    raise Exception("don't know if expression result should be cleaned up for expression type " + str(type(node)) + ", parent type " + str(type(node.parent)))
