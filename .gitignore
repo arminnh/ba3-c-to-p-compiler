@@ -1,4 +1,6 @@
 out.p
+out_AST.txt
+out_symbol_table.txt
 a.out
 *.java
 *.class

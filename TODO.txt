@@ -1,5 +1,3 @@
-*) implement --save-ast, --save-symbol- table
-*) improve parsing time of a file (expression recognition is taking way too much time) (how?)
 
 *) int a[function()] = {1,2,3};
    => error: variable-sized object may not be initialized
@@ -8,10 +6,12 @@
 *) ask someone about: 'int b = sum(a, b);', the rightmost b does not exist yet
       => what to do when using a variable in its own initialization?
 *) new names for declarationProcessor and definitionProcessor
-*) prevent initializers from appearing in parameter declarations
+
+*) improve parsing time of a file (expression recognition is taking way too much time) (how?)
+
 
 CODE GENERATION:
-*) finish/check pointers (&(*aa);) (fixed i think)
+*) finish/check pointers (&(*aa);), *(f + 1) = 4;
 *) static arrays + array subscripting
 *) test all unary, binary and ternary operators
 *) check argument loading for functions
@@ -41,6 +41,6 @@ DONE:
 *) fix very long nested expressions
 *) check if parameter node code generation can be 'pass'
 *) add -saveast flag to c2p.py for AST output
-*) improve parsing time of a file (expression recognition is taking way too much time)
-*) finish/check pointers (&(*aa);)
 *) check unary arithmetic operator
+*) implement --save-ast, --save-symbol- table
+*) prevent initializers from appearing in parameter declarations (default argumants) # done in grammar, it's a syntax error just like in c
