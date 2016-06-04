@@ -8,10 +8,9 @@ offset = "  | "
 
 class ASTNode(object):
 
-    def __init__(self, label="no label", ctx=None):
+    def __init__(self, label="no label", ctx=None, parent=None):
         self.tree = None
-        if not hasattr(self, "parent"):
-            self.parent = None
+        self.parent = parent
         self.error = False
         self.label = label
         self.ctx = ctx
@@ -249,6 +248,24 @@ class ASTReturnNode(ASTStatementNode):
         if not self.error:
             visitor.visitReturnNode(self)
 
+class ASTBreakNode(ASTStatementNode):
+    def __init__(self, ctx=None):
+        super(ASTBreakNode, self).__init__("break", ctx)
+        self.breakFrom = None
+
+    def accept(self, visitor):
+        if not self.error:
+            visitor.visitBreakNode(self)
+
+class ASTContinueNode(ASTStatementNode):
+    def __init__(self, ctx=None):
+        super(ASTContinueNode, self).__init__("continue", ctx)
+        self.continueTo = None
+
+    def accept(self, visitor):
+        if not self.error:
+            visitor.visitContinueNode(self)
+
 class ASTIfNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTIfNode, self).__init__("if", ctx)
@@ -281,6 +298,32 @@ class ASTElseNode(ASTNode):
     def accept(self, visitor):
         if not self.error:
             visitor.visitElseNode(self)
+
+class ASTForNode(ASTStatementNode):
+    def __init__(self, ctx=None):
+        super(ASTForNode, self).__init__("for", ctx)
+        self.dummies = [ASTNode(parent=self) for i in range(3)]
+        self.initializer = None
+        self.condition = None
+        self.iteration = None
+
+    def accept(self, visitor):
+        if not self.error:
+            visitor.visitForNode(self)
+
+    def out(self, level):
+        s = offset * level + self.label + "\n"
+
+        if self.initializer:
+            s += offset * (level + 1) + "initializer\n"
+            s += self.initializer.out(level + 2)
+        if self.condition:
+            s += offset * (level + 1) + "condition\n"
+            s += self.condition.out(level + 2)
+        if self.iteration:
+            s += offset * (level + 1) + "iteration\n"
+            s += self.iteration.out(level + 2)
+        return s if (not self.children) else self.outChildren(s, level)
 
 class ASTWhileNode(ASTStatementNode):
     def __init__(self, ctx=None):

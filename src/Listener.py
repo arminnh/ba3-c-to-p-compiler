@@ -72,12 +72,30 @@ class Listener(SmallCListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#expression.
-    def enterReturnStmt(self, ctx:SmallCParser.ExpressionContext):
+    # Enter a parse tree produced by SmallCParser#returnStmt.
+    def enterReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
         self.currentNode = self.currentNode.addChildNode(ASTReturnNode(ctx))
 
-    # Exit a parse tree produced by SmallCParser#expression.
-    def exitReturnStmt(self, ctx:SmallCParser.ExpressionContext):
+    # Exit a parse tree produced by SmallCParser#returnStmt.
+    def exitReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#breakStmt.
+    def enterBreakStmt(self, ctx:SmallCParser.BreakStmtContext):
+        self.currentNode = self.currentNode.addChildNode(ASTBreakNode(ctx))
+
+    # Exit a parse tree produced by SmallCParser#breakStmt.
+    def exitBreakStmt(self, ctx:SmallCParser.BreakStmtContext):
+        self.currentNode = self.currentNode.parent
+
+
+    # Enter a parse tree produced by SmallCParser#continueStmt.
+    def enterContinueStmt(self, ctx:SmallCParser.ContinueStmtContext):
+        self.currentNode = self.currentNode.addChildNode(ASTContinueNode(ctx))
+
+    # Exit a parse tree produced by SmallCParser#continueStmt.
+    def exitContinueStmt(self, ctx:SmallCParser.ContinueStmtContext):
         self.currentNode = self.currentNode.parent
 
 
@@ -255,6 +273,40 @@ class Listener(SmallCListener):
 
     # Exit a parse tree produced by SmallCParser#elseCond.
     def exitElseCond(self, ctx:SmallCParser.ElseCondContext):
+        self.currentNode = self.currentNode.parent
+
+
+    def enterForLoop(self, ctx:SmallCParser.ForLoopContext):
+        self.currentNode = self.currentNode.addChildNode(ASTForNode(ctx))
+
+    def exitForLoop(self, ctx:SmallCParser.ForLoopContext):
+        self.currentNode = self.currentNode.parent
+
+
+    def enterForLoopInitStatement(self, ctx:SmallCParser.ForLoopInitStatementContext):
+        self.currentNode = self.currentNode.dummies[0]
+
+    def exitForLoopInitStatement(self, ctx:SmallCParser.ForLoopInitStatementContext):
+        if self.currentNode.children:
+            self.currentNode.parent.initializer = self.currentNode.children[0]
+        self.currentNode = self.currentNode.parent
+
+
+    def enterForLoopCondition(self, ctx:SmallCParser.ForLoopConditionContext):
+        self.currentNode = self.currentNode.dummies[1]
+
+    def exitForLoopCondition(self, ctx:SmallCParser.ForLoopConditionContext):
+        if self.currentNode.children:
+            self.currentNode.parent.condition = self.currentNode.children[0]
+        self.currentNode = self.currentNode.parent
+
+
+    def enterForLoopIterationExpression(self, ctx:SmallCParser.ForLoopIterationExpressionContext):
+        self.currentNode = self.currentNode.dummies[2]
+
+    def exitForLoopIterationExpression(self, ctx:SmallCParser.ForLoopIterationExpressionContext):
+        if self.currentNode.children:
+            self.currentNode.parent.iteration = self.currentNode.children[0]
         self.currentNode = self.currentNode.parent
 
 

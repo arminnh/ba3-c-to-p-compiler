@@ -33,7 +33,7 @@ class VisitorSymbolTable(Visitor):
     def visitStatementsNode(self, node):
         openedScope = False
 
-        if not isinstance(node.parent, ASTFunctionDefinitionNode):
+        if not isinstance(node.parent, (ASTFunctionDefinitionNode, ASTForNode)):
             openedScope = True
             self.table.openScope()
 
@@ -41,3 +41,14 @@ class VisitorSymbolTable(Visitor):
 
         if openedScope:
             self.table.closeScope()
+
+    def visitForNode(self, node):
+        self.table.openScope()
+        if node.initializer:
+            node.initializer.accept(self)
+        if node.condition:
+            node.condition.accept(self)
+        if node.iteration:
+            node.iteration.accept(self)
+        self.visitChildren(node)
+        self.table.closeScope()

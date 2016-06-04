@@ -164,6 +164,8 @@ statement :
     | expression ';'
     | variableDeclaration ';'
     | returnStmt ';'
+    | breakStmt ';'
+    | continueStmt ';'
     | ';'
     ;
 
@@ -245,6 +247,14 @@ initializer :
 
 returnStmt :
       RETURN expression?
+    ;
+
+breakStmt :
+      BREAK
+    ;
+
+continueStmt :
+      CONTINUE
     ;
 
 arguments :

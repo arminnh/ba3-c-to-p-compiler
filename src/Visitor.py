@@ -88,6 +88,14 @@ class Visitor:
         self.visitChildren(node)
 
 
+    def visitBreakNode(self, node):
+        pass
+
+
+    def visitContinueNode(self, node):
+        pass
+
+
     def visitIfNode(self, node):
         self.visitChildren(node)
 
@@ -95,6 +103,15 @@ class Visitor:
     def visitElseNode(self, node):
         self.visitChildren(node)
 
+
+    def visitForNode(self, node):
+        if node.initializer:
+            node.initializer.accept(self)
+        if node.condition:
+            node.condition.accept(self)
+        if node.iteration:
+            node.iteration.accept(self)
+        self.visitChildren(node)
 
     def visitWhileNode(self, node):
         self.visitChildren(node)

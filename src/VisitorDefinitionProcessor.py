@@ -4,6 +4,26 @@ from VisitorSymbolTable import *
 
 class VisitorDefinitionProcessor(VisitorSymbolTable):
 
+    def visitBreakNode(self, node):
+        breakFrom = node
+        while not isinstance(breakFrom, (ASTForNode, ASTWhileNode)) and breakFrom is not None:
+            breakFrom = breakFrom.parent
+
+        if breakFrom is None:
+            self.addError("'break' statement not in loop statement", node)
+
+        node.breakFrom = breakFrom
+
+    def visitContinueNode(self, node):
+        continueTo = node
+        while not isinstance(continueTo, (ASTForNode, ASTWhileNode)) and continueTo is not None:
+            continueTo = continueTo.parent
+
+        if continueTo is None:
+            self.addError("'continue' statement not in loop statement", node)
+
+        node.continueTo = continueTo
+
     # int a[myFun(5)] = {1, 2+"a", 3}
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):

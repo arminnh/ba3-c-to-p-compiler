@@ -8,6 +8,8 @@ class VisitorCodeGenerator(Visitor):
         self.symbolTable = symbolTable
         self.current = 0
         self.lvalue = []
+        self.backLabel = None
+        self.forwardLabel = None
         self.outFile = open(outFile, 'w')
 
         self.p_types = {
@@ -162,7 +164,7 @@ class VisitorCodeGenerator(Visitor):
     def visitStatementsNode(self, node):
         # self.outFile.write("code\n")
         openedScope = False
-        if not isinstance(node.parent, ASTFunctionDefinitionNode):
+        if not isinstance(node.parent, (ASTFunctionDefinitionNode, ASTForNode)):
             self.symbolTable.openScope()
             openedScope = True
         self.visitChildren(node)
@@ -184,6 +186,13 @@ class VisitorCodeGenerator(Visitor):
         self.visitChildren(node) # TODO: make sure this takes the r value
         self.outFile.write("str {0} 0 0\n".format(self.p_types[node.children[0].getType().basetype]))
         self.outFile.write("retf\n") # note: this was not in the compendium
+
+    def visitBreakNode(self, node):
+        self.outFile.write("ujp {0}\n".format(self.forwardLabel))
+
+
+    def visitContinueNode(self, node):
+        self.outFile.write("ujp {0}\n".format(self.backLabel))
 
 
     def visitIfNode(self, node):
@@ -207,10 +216,33 @@ class VisitorCodeGenerator(Visitor):
     # def visitElseNode(self, node):
     #     self.visitChildren(node)
 
+    def visitForNode(self, node):
+        iterationLabel = self.getLabel()
+        afterLabel = self.getLabel()
+        self.backLabel = iterationLabel
+        self.forwardLabel = afterLabel
+
+        self.symbolTable.openScope()
+        if node.initializer: node.initializer.accept(self)
+        self.outFile.write("{0}:\n".format(iterationLabel))
+        if node.iteration: node.iteration.accept(self)
+        if node.condition:
+            node.condition.accept(self)
+            self.outFile.write("conv {0} b\n".format(self.pType(node.condition.getType())))
+        else: self.outFile.write("ldc b 1\n")
+        self.outFile.write("fjp {0}\n".format(afterLabel))
+        self.visitChildren(node)
+        self.outFile.write("ujp {0}\n".format(iterationLabel))
+        self.outFile.write("{0}:\n".format(afterLabel))
+        self.symbolTable.closeScope()
+
 
     def visitWhileNode(self, node):
         conditionLabel = self.getLabel()
         afterLabel = self.getLabel()
+        self.backLabel = conditionLabel
+        self.forwardLabel = afterLabel
+
         self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)                            # condition
         self.outFile.write("conv {0} b\n".format(self.pType(node.children[0].getType())))

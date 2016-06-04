@@ -422,6 +422,24 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SmallCParser#breakStmt.
+    def enterBreakStmt(self, ctx:SmallCParser.BreakStmtContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#breakStmt.
+    def exitBreakStmt(self, ctx:SmallCParser.BreakStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SmallCParser#continueStmt.
+    def enterContinueStmt(self, ctx:SmallCParser.ContinueStmtContext):
+        pass
+
+    # Exit a parse tree produced by SmallCParser#continueStmt.
+    def exitContinueStmt(self, ctx:SmallCParser.ContinueStmtContext):
+        pass
+
+
     # Enter a parse tree produced by SmallCParser#arguments.
     def enterArguments(self, ctx:SmallCParser.ArgumentsContext):
         pass
