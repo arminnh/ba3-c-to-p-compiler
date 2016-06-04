@@ -260,6 +260,7 @@ class VisitorCodeGenerator(Visitor):
 
         node.children[1].accept(self)                            # loop code
 
+        self.outFile.write("conv {0} b\n".format(self.pType(node.children[1].getType())))
         self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)                            # condition
         self.outFile.write("fjp {0}\n".format(afterLabel))       # if top == false, jump over the loop code
@@ -466,8 +467,8 @@ def expressionResultNeedsToBeCleanedUp(node):
             return True
         else:
             return False
-    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTReturnNode)):
+    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode)):
         return False
     if type(node.parent) is ASTStatementNode:
         return True
-    raise Exception("don't know if expression result should be cleaned up for expression type " + str(type(node)) + ", parent type" + str(type(node.parent)))
+    raise Exception("don't know if expression result should be cleaned up for expression type " + str(type(node)) + ", parent type " + str(type(node.parent)))

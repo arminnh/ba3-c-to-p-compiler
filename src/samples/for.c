@@ -17,5 +17,7 @@ int main() {
 		++i;
 	}
 
+	do {} while (0);
+
 	return 0;
 }
