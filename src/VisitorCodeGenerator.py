@@ -305,8 +305,9 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
         elif ttype.isArray():
             self.allocArray(ttype, node.symbolInfo.address + 5)
-        else:
-            self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
+            return
+
+        self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
 
     def visitInitializerListNode(self, node):
