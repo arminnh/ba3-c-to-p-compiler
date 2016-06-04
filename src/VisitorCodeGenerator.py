@@ -225,17 +225,16 @@ class VisitorCodeGenerator(Visitor):
 
         self.symbolTable.openScope()
         if node.initializer: node.initializer.accept(self)
-        self.outFile.write("ujp {0}\n".format(conditionLabel))
-        self.outFile.write("{0}:\n".format(iterationLabel))
-        if node.iteration: node.iteration.accept(self)
         self.outFile.write("{0}:\n".format(conditionLabel))
         if node.condition:
             node.condition.accept(self)
             self.outFile.write("conv {0} b\n".format(self.pType(node.condition.getType())))
-        else: self.outFile.write("ldc b 1\n")
+        else: self.outFile.write("ldc b t\n")
         self.outFile.write("fjp {0}\n".format(afterLabel))
         self.visitChildren(node)
-        self.outFile.write("ujp {0}\n".format(iterationLabel))
+        self.outFile.write("{0}:\n".format(iterationLabel))
+        if node.iteration: node.iteration.accept(self)
+        self.outFile.write("ujp {0}\n".format(conditionLabel))
         self.outFile.write("{0}:\n".format(afterLabel))
         self.symbolTable.closeScope()
 
