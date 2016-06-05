@@ -490,7 +490,7 @@ class VisitorCodeGenerator(Visitor):
         self._lvalue[-1] = False
         node.children[1].accept(self)
         self._lvalue.pop()
-        self.outFile.write("chk 0 {0}\n".format(arrayElementType.size()))
+        self.outFile.write("chk 0 {0}\n".format(node.children[0].getType().size() - 1))
         self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
 
         if self.rvalue():
