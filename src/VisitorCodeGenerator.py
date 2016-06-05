@@ -163,7 +163,7 @@ class VisitorCodeGenerator(Visitor):
         for child in node.children:
             if isinstance(child, ASTVariableNode):
                 if child.getType().nrIndirections() > 0:
-                    self.lvalue.append(True)
+                    self._lvalue.append(True)
                     child.accept(self)
                 else:
                     child.accept(self)
@@ -469,7 +469,7 @@ class VisitorCodeGenerator(Visitor):
         self._lvalue.append(False)
         self.visitChildren(node)
         self._lvalue.pop()
-        
+
         if self.rvalue():
             self.outFile.write("ind {0}\n".format(self.pType(node.getType())))
 

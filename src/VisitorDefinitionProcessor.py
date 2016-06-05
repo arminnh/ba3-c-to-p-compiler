@@ -31,6 +31,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
         for child in reversed(node.children):
             if isinstance(child, ASTIntegerLiteralNode):
                 arrayLength.append(child)
+
         i = 0
         for j in range(len(node.indirections)):
             if node.indirections[j][0]:
@@ -41,16 +42,13 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
                 node.indirections[j] = (arrayLength[i].value, node.indirections[j][1])
                 i += 1
 
-
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
             if node.parent.basetype is None:
                 node.parent.basetype = "int"
-                # TODO: test this
-                self.addWarning("type specifier missing, defaults to 'int'", node)
+                self.addWarning("type specifier missing in declaration of '{0}', type defaults to 'int'".format(node.identifier), node)
             result = self.insertSymbol(node, isFunction=False)
             if result == False:
                 return
-
 
         self.visitChildren(node)
 
@@ -93,8 +91,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         elif node.basetype is None:
             node.basetype = "int"
-            # TODO: test this
-            self.addWarning("type specifier missing, defaults to 'int'", node)
+            self.addWarning("type specifier missing in declaration of '{0}', type defaults to 'int'".format(node.identifier), node)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
             result = self.insertSymbol(node, isFunction=False)

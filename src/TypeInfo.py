@@ -115,7 +115,7 @@ class TypeInfo:
 		if len(self.const()) and self.const()[0]:
 			out += "const "
 
-		out += self.basetype
+		out += str(self.basetype)
 
 		for i in range(self.nrIndirections()):
 			out += " *" if type(self.array()[i+1]) is bool and self.array()[i+1] == False else " [{0}]".format(self.array()[i+1] if type(self.array()[i+1]) is int else "")

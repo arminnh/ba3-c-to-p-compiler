@@ -42,7 +42,7 @@ class Visitor:
 
     def addWarning(self, error, node):
         line, column = node.getLineAndColumn()
-        node.error = True
+        node.error = False
 
         self.errorHandler.addWarning(error, line, column)
 

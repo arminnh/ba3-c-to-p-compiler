@@ -35,12 +35,9 @@ class ErrorHandler:
             msg += "{filename}:{line}:{column}: {isError}: {error}\n".format(filename=self.srcFilename, line=error.lineNumber, column=column + 1, error=error.message, isError=("error" if not error.isWarning else "warning"))
 
             line = linecache.getline(self.srcFilename, error.lineNumber)[:-1]
-            while len(line) and line[0] in [" ", "\t"]: # remove whitespace in front
-                line = line[1:]
-                column -= 1
 
-            msg += line + "\n"
-            msg += " " * (column) + "^\n"
+            msg += " " + line + "\n"
+            msg += " " + " " * (column) + "^\n"
         else:
             msg += "Error: {error}\n".format(error=error.message)
 
