@@ -1,4 +1,7 @@
 
+int f(int q[][3]) {
+	return 0;
+}
 
 int main(void) {
 	int arr[2][2];
@@ -17,6 +20,13 @@ int main(void) {
 	(*p)[0] = 16;
 	(*p)[1] = 17;
 
-	// int arr2[5];
-	// arr2[4];
+	int (*q)[2][2];
+	// f(q);
+
+	int r[][2];
+
+	int arr2[5][6];
+	for (int i = 0; i < 5; ++i)
+		for (int j = 0; j < 5; ++j)
+			arr2[i][j] = i + j;
 }
