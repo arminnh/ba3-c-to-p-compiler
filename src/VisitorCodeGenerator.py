@@ -454,8 +454,9 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitArraySubscriptNode(self, node):
-        self.outFile.write("code array subscript op\n")
+        arrayElementType = node.getType()
         self.visitChildren(node)
+        self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
 
 
     def visitBinaryArithmeticNode(self, node):

@@ -639,7 +639,9 @@ class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
 
     def accept(self, visitor):
         if not self.error:
+            visitor.enterExpression(self)
             visitor.visitSimpleAssignmentOperatorNode(self)
+            visitor.exitExpression(self)
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):
