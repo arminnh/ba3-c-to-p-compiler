@@ -81,7 +81,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         if node.basetype == "void":
             if node.identifier is None and parametersCount > 1:
-                self.addError("‘void’ must be the only parameter", node)
+                self.addError("'void' must be the only parameter", node)
                 return
 
             elif node.identifier is not None and node.getType().nrIndirections() == 0:

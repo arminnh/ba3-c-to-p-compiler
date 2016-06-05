@@ -1,3 +1,7 @@
+*) look at VisitorDefinitionProcessor @ 50, we might need a warning system now, or just make this an error "type specifier missing"
+
+*) look (or not) at declarations like 'int int a', 'int int float a'
+      gcc: error: two or more data types in declaration specifiers
 
 *) int a[function()] = {1,2,3};
    => error: variable-sized object may not be initialized

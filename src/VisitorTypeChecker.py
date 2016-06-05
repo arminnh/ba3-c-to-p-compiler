@@ -36,7 +36,7 @@ class VisitorTypeChecker(Visitor):
             return
 
         if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
-            #TODO: warning: ‘return’ with a value, in function returning void [enabled by default]
+            #TODO: warning: 'return' with a value, in function returning void [enabled by default]
             self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)
 
 
@@ -50,7 +50,7 @@ class VisitorTypeChecker(Visitor):
             if isinstance(child, ASTExpressionNode):
                 arrayLengthExpression = True
                 if not child.getType().isCompatible(TypeInfo(basetype="int", rvalue=True)):
-                    self.addError("size of array ‘{0}’ has non-integer type (have '{1}')".format(node.identifier, str(child.getType())), node)
+                    self.addError("size of array '{0}' has non-integer type (have '{1}')".format(node.identifier, str(child.getType())), node)
                     continue
 
             elif isinstance(child, ASTInitializerListNode):
@@ -72,8 +72,8 @@ class VisitorTypeChecker(Visitor):
                             continue
 
                         if not ownType.isConstCompatible(t2):
-                            # warning
-                            self.addError("initializing '{0}' with an expression of type '{1}' discards qualifiers".format(ownType, t2), node)
+                            # this is a warning in c, but an error in c++
+                            self.addError("initializing '{0}' with an expression of type '{1}' discards 'const' qualifier".format(ownType, t2), node)
                             continue
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
@@ -93,13 +93,16 @@ class VisitorTypeChecker(Visitor):
 
                     if not t1.isConstCompatible(t2):
                         # warning
-                        self.addError("initializing '{0}' with an expression of type '{1}' discards qualifiers".format(t1, t2), node)
+                        self.addError("initializing '{0}' with an expression of type '{1}' discards 'const' qualifier".format(t1, t2), node)
 
                     # if len(child.children) > 1:
                     #     line, column = node.getLineAndColumn()
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
-        if not node.children and node.getType().isArray(): # TODO: adapt for multidimensional arrays
+        # TODO: adapt for multidimensional arrays
+        # possibility: count in indirections array the amount of arrays from right to left, up until the first non-array
+        #              these are the arrays that need an array length specifier
+        if not node.children and node.getType().isArray():
             self.addError("array size missing in '{0}'".format(node.identifier), node)
             return
 
@@ -161,7 +164,7 @@ class VisitorTypeChecker(Visitor):
                 cutIntoPieces.append(format[endOfLastMatch:match.start()])
                 width, code = match.groups()
                 if i + 1 > len(arguments.children): #ex: printf("%i %i", 1)
-                    # print("warning: format ‘%i’ expects a matching ‘int’ argument")
+                    # print("warning: format '%i' expects a matching 'int' argument")
                     continue
                 if i + 1 < len(arguments.children):
                     # print("warning: too many arguments for format")
@@ -215,12 +218,12 @@ class VisitorTypeChecker(Visitor):
                 t2 = argument.getType().toRvalue()
                 if not t1.isCompatible(t2, ignoreRvalue=True):
                     node.errorParameter = i
-                    self.addError("expected '{0}' but argument is of type '{1}'".format(t1, t2), node)
+                    self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
                     continue
 
                 if not t1.isConstCompatible(t2):
-                    # warning
-                    self.addError("passing '{1}' to parameter of type '{0}' discards qualifiers".format(t1, t2), node)
+                    # warning passing argument 1 of ‘f’ discards ‘const’ qualifier from pointer target type
+                    self.addError("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
                     continue
 
         else:
@@ -269,13 +272,15 @@ class VisitorTypeChecker(Visitor):
 
         if t1.isConst():
             if isinstance(node.children[0], ASTVariableNode):
-                self.addError("cannot assign to variable '{0}' with const-qualified type".format(node.children[0].identifier), node)
+                self.addError("assignment of read-only variable '{0}'".format(node.children[0].identifier), node)
+            elif isinstance(node.children[0], (ASTArraySubscriptNode, ASTDereferenceOperatorNode)):
+                self.addError("assignment of read-only location '{0}'".format(node.children[0].ctx.getText()), node)
             else:
-                self.addError("read-only variable is not assignable", node)
+                self.addError("assignment of read-only variable", node)
             return
 
         if not t1.isConstCompatible(t2):
-            self.addError("assigning to '{0}' from '{1}' discards qualifiers".format(t1, t2), node)
+            self.addError("assigning to '{0}' from '{1}' discards 'const' qualifier".format(t1, t2), node)
 
 
     def visitLogicOperatorNode(self, node):
