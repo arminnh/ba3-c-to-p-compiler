@@ -499,7 +499,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitBinaryArithmeticNode(self, node):
-        self._lvalue.append(True)
+        self._lvalue.append(False)
         if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']:
             node.children[0].accept(self)
             self.outFile.write("dpl i\n")
