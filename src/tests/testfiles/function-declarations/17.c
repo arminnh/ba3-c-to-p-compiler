@@ -13,3 +13,11 @@ float sub(void) {
 int main(void) {
     return 0;
 }
+
+char* string(void) {
+    return "hello";
+}
+
+char* string2(void) {
+    return 'h';
+}

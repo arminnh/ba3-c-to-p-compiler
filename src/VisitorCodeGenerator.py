@@ -21,7 +21,8 @@ class VisitorCodeGenerator(Visitor):
             "char"    : "c",
             "numeric" : "N",
             "type"    : "T",
-            "boolean" : "b"
+            "boolean" : "b",
+            "void"    : "a" # TODO: check what to actually do here
         }
 
         self.initializers = {

@@ -470,6 +470,12 @@ class FunctionDeclarationTests(ASTTest, unittest.TestCase):
     def testFunctionDeclaration18(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/18")
 
+    def testFunctionDeclaration19(self):
+        self.generateErrorsAndCompare("testfiles/function-declarations/19")
+
+    def testFunctionDeclaration20(self):
+        self.generateErrorsAndCompare("testfiles/function-declarations/20")
+
 
 class ConstTests(ASTTest, unittest.TestCase):
     def testConst1(self):

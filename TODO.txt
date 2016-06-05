@@ -1,3 +1,5 @@
+*) fix case test variable-declarations/27.c
+
 *) look (or not) at declarations like 'int int a', 'int int float a'
       gcc: error: two or more data types in declaration specifiers
 
@@ -20,6 +22,7 @@ CODE GENERATION:
 *) static arrays + array subscripting
 *) test all unary, binary and ternary operators
 *) check argument loading for functions
+*) check out how to handle void and void* type things
 *) printf/scanf
 *) check situations where there are multiple retfs in a row
 *) void pointers

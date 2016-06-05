@@ -35,15 +35,21 @@ class VisitorTypeChecker(Visitor):
         if not node.children:
             return
 
+
         if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
-            #TODO: warning: 'return' with a value, in function returning void [enabled by default]
-            self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)
+            if functionDefinition.getType().isCompatible(TypeInfo(rvalue=True, basetype="void", indirections=[(False, False)]), ignoreRvalue=True):
+                self.addWarning("'return' with a value, in function returning void", node)
+            else:
+                self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(node.children[0].getType(), functionDefinition.getType()), node)
 
 
     # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
         if self.visitChildren(node) == "error":
             return
+
+        if node.getType().isCompatible(TypeInfo(rvalue=True, basetype="void", indirections=[(False, False)])):
+            self.addError("variable or field '{0}' declared void".format(node.identifier), node)
 
         for child in node.children:
             # if child is expression node, it is the array length value
@@ -67,7 +73,10 @@ class VisitorTypeChecker(Visitor):
                         if isinstance(child.children[0], ASTStringLiteralNode) and node.getType().equals(TypeInfo(basetype="char", indirections=[(False, False), (True, False)], rvalue=False)):
                             continue
 
-                        if not ownType.isCompatible(t2, ignoreRvalue=True):
+                        if t2.isCompatible(TypeInfo(rvalue=True, basetype="void", indirections=[(False, False)]), ignoreRvalue=True):
+                            self.addError("void value not ignored as it ought to be", node)
+                            continue
+                        elif not ownType.isCompatible(t2, ignoreRvalue=True):
                             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(ownType, t2), node)
                             continue
 
@@ -86,8 +95,11 @@ class VisitorTypeChecker(Visitor):
                     t1 = node.getType().toRvalue()
                     t2 = child.children[0].getType().toRvalue()
 
+                    if t2.isCompatible(TypeInfo(rvalue=True, basetype="void", indirections=[(False, False)]), ignoreRvalue=True):
+                        self.addError("void value not ignored as it ought to be", node)
+                        continue
                     # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer
-                    if not t1.isCompatible(t2, ignoreRvalue=True):
+                    elif not t1.isCompatible(t2, ignoreRvalue=True):
                         self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
                         continue
 
