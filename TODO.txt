@@ -4,6 +4,9 @@
 *) int a[function()] = {1,2,3};
    => error: variable-sized object may not be initialized
 
+*) int f() { return; }
+   => error: non-void function 'f' should return a value
+
 *) check "unknown format code '{0}'" errors, they are just warnings with gcc
 *) ask someone about: 'int b = sum(a, b);', the rightmost b does not exist yet
       => what to do when using a variable in its own initialization?

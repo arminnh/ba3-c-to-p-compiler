@@ -9,7 +9,7 @@ class VisitorCodeGenerator(Visitor):
     def __init__(self, symbolTable, outFile="out.p"):
         self.symbolTable = symbolTable
         self.current = 0
-        self.lvalue = []
+        self._lvalue = []
         self.backLabel = None
         self.forwardLabel = None
         self.outFile = open(outFile, 'w')
@@ -53,6 +53,14 @@ class VisitorCodeGenerator(Visitor):
         # and -> and
         # or -> or
         # ! -> not
+
+    def lvalue(self):
+        if len(self._lvalue):
+            return self._lvalue[-1]
+        return False
+
+    def rvalue(self):
+        return not self.lvalue()
 
     def pType(self, typeInfo):
         if typeInfo.nrIndirections() > 0:
@@ -200,6 +208,11 @@ class VisitorCodeGenerator(Visitor):
         elseLabel = self.getLabel() + "_else"
         afterLabel = self.getLabel() + "_after_if"
 
+        self._lvalue.append(False)
+        if not isinstance(node.children[0], ASTExpressionNode):
+            # only in case of ternary conditional operator, given that every statement is wrapped by a statement node (which is the case at the time of writing)
+            # if proper if node, _lvalue should be empty as it needs to be
+            self._lvalue.pop()
         node.children[0].accept(self)                            # condition
         self.outFile.write("conv {0} b\n".format(self.pType(node.children[0].getType())))
         self.outFile.write("fjp {0}\n".format(elseLabel))        # if top == false, jump over the 'then' code
@@ -212,6 +225,11 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("{0}:\n".format(afterLabel))
         else:
             self.outFile.write("{0}:\n".format(elseLabel))
+
+        if isinstance(node.children[0], ASTExpressionNode):
+            # if ternary conditional, pop from _lvalue after visiting 'then' and 'else' (which are expressions in that case)
+            self._lvalue.pop()
+
 
 
     # def visitElseNode(self, node):
@@ -292,16 +310,16 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitDeclaratorInitializerNode(self, node):
-        hasInitializer = False
+        initializer = None
         for child in node.children:
             if isinstance(child, ASTInitializerListNode):
-                hasInitializer = True
+                initializer = child
 
         ttype = node.getType()
 
-        if hasInitializer and not ttype.isArray():
-            self.visitChildren(node)
-        if ttype.nrIndirections() > 0 and not ttype.isArray():
+        if initializer is not None and not ttype.isArray():
+            initializer.accept(self)
+        elif not ttype.isArray():
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
         elif ttype.isArray():
             self.allocArray(ttype, node.symbolInfo.address + 5)
@@ -343,10 +361,11 @@ class VisitorCodeGenerator(Visitor):
 
     def visitVariableNode(self, node):
         depthDifference = self.symbolTable.functionDefinitionDepthDifference(node.symbolInfo)
-        if self.lvalue and self.lvalue.pop():
+        if self.lvalue():
             # put address on stack
             self.outFile.write("lda {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
-        elif node.getType().nrIndirections() != 0:
+        elif node.getType().nrIndirections() > 0:
+            # TODO: can't the elif and else be joined together?
             self.outFile.write("lod a {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
         else:
             # put value on stack
@@ -368,7 +387,9 @@ class VisitorCodeGenerator(Visitor):
 
     def visitTypeCastNode(self, node):
         self.visitChildren(node)
-        self.outFile.write("conv {0} {1}\n".format(self.pType(node.children[0].getType()), self.pType(node.getType())))
+
+        if self.rvalue() and self.pType(node.children[0].getType()) != self.pType(node.getType()):
+            self.outFile.write("conv {0} {1}\n".format(self.pType(node.children[0].getType()), self.pType(node.getType())))
 
 
     def visitTernaryConditionalOperatorNode(self, node):
@@ -377,37 +398,44 @@ class VisitorCodeGenerator(Visitor):
 
     def visitSimpleAssignmentOperatorNode(self, node):
         # children of a = b: [ASTVariableNode, ExpressionNode]
-        self.lvalue.append(True)
+        self._lvalue.append(True)
         node.children[0].accept(self)
         self.outFile.write("dpl a\n") # duplicate the address to load it after the assignment
+
+        self._lvalue[-1] = False
         node.children[1].accept(self)
+        self._lvalue.pop()
 
         self.outFile.write("sto {0}\n".format(self.pType(node.children[0].getType())))
         self.outFile.write("ind {0}\n".format(self.pType(node.children[0].getType())))
 
 
     def visitLogicOperatorNode(self, node):
+        self._lvalue.append(False)
         node.children[0].accept(self)
         self.outFile.write("conv i b\n")
         node.children[1].accept(self)
         self.outFile.write("conv i b\n")
         self.outFile.write(str(node.logicOperatorType) + "\n")
         self.outFile.write("conv b i\n")
+        self._lvalue.pop()
 
 
     def visitComparisonOperatorNode(self, node):
+        self._lvalue.append(False)
         self.visitChildren(node)
         self.outFile.write("{0} {1}\n".format(self.bin_comp_op[str(node.comparisonType)], self.p_types[node.children[0].getType().basetype]))
         self.outFile.write("conv b i\n")
+        self._lvalue.pop()
 
 
     def visitUnaryArithmeticOperatorNode(self, node):
         op = str(node.arithmeticType)
         ttype = self.pType(node.children[0].getType())
 
-        if op == "++" or op == "--":
-            self.lvalue.append(True)
+        self._lvalue.append(op == "++" or op == "--")
         self.visitChildren(node)
+        self._lvalue.pop()
         if op == "++" or op == "--":
             self.outFile.write("dpl a\ndpl a\n")
             maininstr = "inc"
@@ -429,36 +457,48 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitAddressOfoperatorNode(self, node):
-        self.lvalue.append(True)
+        self._lvalue.append(True)
         if isinstance(node.children[0], ASTDereferenceOperatorNode):
             self.visitChildren(node.children[0])
-        self.visitChildren(node)
+        else:
+            self.visitChildren(node)
+        self._lvalue.pop()
 
 
     def visitDereferenceNode(self, node):
-        # if isinstance(node.parent, ASTSimpleAssignmentOperatorNode) and self is node.parent.children[0]:
-        #     self.lvalue.push(True)
+        self._lvalue.append(False)
         self.visitChildren(node)
-
-        if isinstance(node.parent, ASTSimpleAssignmentOperatorNode) and node is node.parent.children[0]:
-            self.outFile.write("ind a\n")
-        else:
+        self._lvalue.pop()
+        
+        if self.rvalue():
             self.outFile.write("ind {0}\n".format(self.pType(node.getType())))
 
 
     def visitLogicalNotOperatorNode(self, node):
+        self._lvalue.append(False)
         self.visitChildren(node)
+        self._lvalue.pop()
         self.outFile.write("conv i b\n")
         self.outFile.write("not\n")
         self.outFile.write("conv b i\n")
 
 
     def visitArraySubscriptNode(self, node):
-        self.outFile.write("code array subscript op\n")
-        self.visitChildren(node)
+        arrayElementType = node.getType()
+        self._lvalue.append(True)
+        node.children[0].accept(self)
+        self._lvalue[-1] = False
+        node.children[1].accept(self)
+        self._lvalue.pop()
+        self.outFile.write("chk 0 {0}\n".format(node.children[0].getType().size() - 1))
+        self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
+
+        if self.rvalue():
+            self.outFile.write("ind {0}\n".format(self.pType(node.getType())))
 
 
     def visitBinaryArithmeticNode(self, node):
+        self._lvalue.append(True)
         if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']:
             node.children[0].accept(self)
             self.outFile.write("dpl i\n")
@@ -475,6 +515,7 @@ class VisitorCodeGenerator(Visitor):
         else:
             self.visitChildren(node)
             self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().basetype]))
+        self._lvalue.pop()
 
 def expressionResultNeedsToBeCleanedUp(node):
     # print(type(node.parent))
@@ -489,7 +530,7 @@ def expressionResultNeedsToBeCleanedUp(node):
             return True
         else:
             return False
-    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode, ASTArgumentsNode)):
+    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode, ASTArgumentsNode, ASTDeclaratorInitializerNode)):
         return False
     if type(node.parent) is ASTStatementNode:
         return True
