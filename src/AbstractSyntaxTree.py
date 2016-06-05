@@ -86,7 +86,8 @@ class ASTIncludeNode(ASTNode):
 class ASTFunctionDeclarationNode(ASTNode):
     def __init__(self, label="function declaration", ctx=None):
         super(ASTFunctionDeclarationNode, self).__init__(label, ctx)
-        self.basetype = None
+        self.basetype = "int"
+        self.typeSpecifierPresent = False
         self.identifier = None
         self.indirections = [] # list of tuples of booleans: (array, const)
         self.isConstant = False
@@ -152,7 +153,8 @@ class ASTParametersNode(ASTNode):
 class ASTParameterNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTParameterNode, self).__init__("parameter", ctx)
-        self.basetype = None
+        self.basetype = "int"
+        self.typeSpecifierPresent = False
         self.identifier = None
         # self.arrayLength = None
         self.isConstant = False
@@ -344,7 +346,8 @@ class ASTDoWhileNode(ASTStatementNode):
 class ASTVariableDeclarationNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTVariableDeclarationNode, self).__init__("variable declaration", ctx)
-        self.basetype = None
+        self.basetype = "int"
+        self.typeSpecifierPresent = False
         self.isConstant = False
         # declaratorInitializers are children
 
@@ -553,7 +556,8 @@ class ASTFunctionCallNode(ASTExpressionNode):
 class ASTTypeCastNode(ASTExpressionNode):
     def __init__(self, ctx=None):
         super(ASTTypeCastNode, self).__init__("type cast", ctx)
-        self.basetype = None
+        self.basetype = "int"
+        self.typeSpecifierPresent = False
         self.indirections = []
         self.isConstant = False
 

@@ -24,6 +24,11 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         node.continueTo = continueTo
 
+    def visitTypeCastNode(self, node):
+        if not node.typeSpecifierPresent:
+            # TODO: test this
+            self.addWarning("type specifier missing, defaults to 'int'", node)
+
     # int a[myFun(5)] = {1, 2+"a", 3}
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
     def visitDeclaratorInitializerNode(self, node):
@@ -43,8 +48,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
                 i += 1
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
-            if node.parent.basetype is None:
-                node.parent.basetype = "int"
+            if not node.parent.typeSpecifierPresent:
                 self.addWarning("type specifier missing in declaration of '{0}', type defaults to 'int'".format(node.identifier), node)
             result = self.insertSymbol(node, isFunction=False)
             if result == False:
@@ -55,6 +59,9 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
     # insert function declaration into symbol table
     def visitFunctionDeclarationNode(self, node):
+        if not node.typeSpecifierPresent:
+            # TODO: test this
+            self.addWarning("type specifier missing, defaults to 'int'", node)
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return
@@ -64,6 +71,9 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
     # insert function definition into symbol table
     def visitFunctionDefinitionNode(self, node):
+        if not node.typeSpecifierPresent:
+            # TODO: test this
+            self.addWarning("type specifier missing, defaults to 'int'", node)
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return
@@ -89,8 +99,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
             self.addError("parameter name omitted", node)
             return
 
-        elif node.basetype is None:
-            node.basetype = "int"
+        elif not node.typeSpecifierPresent:
             self.addWarning("type specifier missing in declaration of '{0}', type defaults to 'int'".format(node.identifier), node)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
