@@ -99,7 +99,10 @@ class VisitorTypeChecker(Visitor):
                     #     line, column = node.getLineAndColumn()
                     #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
-        if not node.children and node.getType().isArray(): # TODO: adapt for multidimensional arrays
+        # TODO: adapt for multidimensional arrays
+        # possibility: count in indirections array the amount of arrays from right to left, up until the first non-array
+        #              these are the arrays that need an array length specifier
+        if not node.children and node.getType().isArray():
             self.addError("array size missing in '{0}'".format(node.identifier), node)
             return
 

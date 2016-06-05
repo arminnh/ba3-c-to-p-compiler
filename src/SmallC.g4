@@ -195,7 +195,6 @@ doWhileCond :
       DO statements WHILE '(' expression ')' ';'
     ;
 
-// TODO: add forLoopNode and all the rest for scope and type checking
 forLoop :
       FOR '(' forLoopInitStatement ';' forLoopCondition ';' forLoopIterationExpression ')' statement
     ;

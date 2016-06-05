@@ -164,11 +164,11 @@ class ASTParameterNode(ASTNode):
 
     def getType(self):
         if self.basetype is None:
-            raise Exception("ASTParameterNode basetype not filled in", line, column)
+            return None
+            # raise Exception("ASTParameterNode basetype not filled in", line, column)
         return TypeInfo(rvalue=False, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
 
     def __eq__(self, other):
-        # TODO: if checking arrayLength, need to check possible expression child equality. (somehow do self.arrayLength == other.arrayLength)
         return self.getType() == other.getType()
 
     def out(self, level):
@@ -628,7 +628,7 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
             visitor.exitExpression(self)
 
     def getRelevantToken(self):
-            return self.getFirstToken(list(self.ctx.getChildren())[self.errorOperand * 2])
+        return self.getFirstToken(list(self.ctx.getChildren())[self.errorOperand * 2])
 
     def getType(self):
         return self.children[1].getType().toRvalue()
