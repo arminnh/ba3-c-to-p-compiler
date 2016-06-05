@@ -40,6 +40,13 @@ class Visitor:
         self.errorHandler.addError(error, line, column)
 
 
+    def addWarning(self, error, node):
+        line, column = node.getLineAndColumn()
+        node.error = True
+
+        self.errorHandler.addWarning(error, line, column)
+
+
     def visitProgramNode(self, node):
         self.visitChildren(node)
 

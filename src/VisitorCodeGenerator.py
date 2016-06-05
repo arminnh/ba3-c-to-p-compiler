@@ -154,7 +154,7 @@ class VisitorCodeGenerator(Visitor):
     def visitArgumentsNode(self, node):
         for child in node.children:
             if isinstance(child, ASTVariableNode):
-                if child.getType().indirections > 0:
+                if child.getType().nrIndirections() > 0:
                     self.lvalue.append(True)
                     child.accept(self)
                 else:

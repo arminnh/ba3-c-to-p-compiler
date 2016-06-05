@@ -73,7 +73,7 @@ class VisitorTypeChecker(Visitor):
 
                         if not ownType.isConstCompatible(t2):
                             # this is a warning in c, but an error in c++
-                            self.addError("initializing '{0}' with an expression of type '{1}' discards 'const' qualifier".format(ownType, t2), node)
+                            self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(ownType, t2), node)
                             continue
 
                 #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
@@ -86,18 +86,17 @@ class VisitorTypeChecker(Visitor):
                     t1 = node.getType().toRvalue()
                     t2 = child.children[0].getType().toRvalue()
 
-                    # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer [enabled by default]
+                    # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer
                     if not t1.isCompatible(t2, ignoreRvalue=True):
                         self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
                         continue
 
                     if not t1.isConstCompatible(t2):
-                        # warning
-                        self.addError("initializing '{0}' with an expression of type '{1}' discards 'const' qualifier".format(t1, t2), node)
+                        self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), node)
 
-                    # if len(child.children) > 1:
-                    #     line, column = node.getLineAndColumn()
-                    #     self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
+                    if len(child.children) > 1:
+                        line, column = node.getLineAndColumn()
+                        self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
 
         # TODO: adapt for multidimensional arrays
         # possibility: count in indirections array the amount of arrays from right to left, up until the first non-array
@@ -152,23 +151,19 @@ class VisitorTypeChecker(Visitor):
         format = formatArgument.value
         formatSpecifiers = re.finditer(r'%([0-9]*)([a-z%])', format)
 
-        # if len(formatSpecifiers) < len(arguments.children) - 1:
-        #     # print("warning: too many arguments for format")
-        #     pass
-
         # print (codes, len(arguments.children))
         endOfLastMatch = 0
         cutIntoPieces = []
+        codesCount = 0
         if formatSpecifiers:
             for i, match in enumerate(formatSpecifiers):
                 cutIntoPieces.append(format[endOfLastMatch:match.start()])
                 width, code = match.groups()
+                codesCount += 1
+
                 if i + 1 > len(arguments.children): #ex: printf("%i %i", 1)
-                    # print("warning: format '%i' expects a matching 'int' argument")
+                    self.addWarning("format '%{0}' expects a matching '{1}' argument".format(code, str(self.stdioCodes[code])))
                     continue
-                if i + 1 < len(arguments.children):
-                    # print("warning: too many arguments for format")
-                    pass
 
                 if code == "%":
                     continue
@@ -186,10 +181,11 @@ class VisitorTypeChecker(Visitor):
                 endOfLastMatch = match.end()
 
         cutIntoPieces.append(format[endOfLastMatch:])
-
         node.parsedFormat = cutIntoPieces
 
-        # print (codes)
+        if codesCount < len(arguments.children) - 1:
+            #TODO: test this
+            self.addWarning("too many arguments for format", node)
 
     # TODO: prevent function call with void return type from appearing in a subexpression
     def visitFunctionCallNode(self, node):
@@ -222,8 +218,7 @@ class VisitorTypeChecker(Visitor):
                     continue
 
                 if not t1.isConstCompatible(t2):
-                    # warning passing argument 1 of ‘f’ discards ‘const’ qualifier from pointer target type
-                    self.addError("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+                    self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
                     continue
 
         else:

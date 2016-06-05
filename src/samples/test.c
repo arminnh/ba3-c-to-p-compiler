@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int aaaa(const const int const  const dwdwa) {
+int aaaa(const const  const  const dwdwa) {
 	return 4;
 }
 
@@ -97,4 +97,13 @@ int main() {
 	// printf("%s\n", hello);
 	// printf("%s\n", &hello);
 	// printf("%s\n", h);
+
+	char format[50] = "blabla \n %s \n %i \n  blabla \n";
+	format[0] = 'z';
+	format[1] = 'z';
+	format[2] = 'z';
+	format[3] = 'z';
+	format[4] = 'z';
+	format[5] = 'z';
+	printf(format, "5");
  }

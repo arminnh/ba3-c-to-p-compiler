@@ -10,7 +10,7 @@ from antlr4_generated.SmallCParser import SmallCParser
 
 from AbstractSyntaxTree import *
 from Listener import *
-from CompilerErrorHandler import *
+from ErrorHandler import *
 from SymbolTable import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
@@ -23,7 +23,7 @@ import re
 
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
-set = True
+set = False
 
 class ASTTest():
     def setUp(self):
@@ -38,7 +38,7 @@ class ASTTest():
 
         walker = ParseTreeWalker()
         abstractSyntaxTree = AbstractSyntaxTree();
-        self.errorHandler = CompilerErrorHandler(filename)
+        self.errorHandler = ErrorHandler(filename)
         listener = Listener(abstractSyntaxTree)
         walker.walk(listener, programContext)
 
@@ -55,7 +55,7 @@ class ASTTest():
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")
-        self.assertTrue(self.errorHandler.errorCount() > 0)
+        self.assertTrue(self.errorHandler.errorCount() or self.errorHandler.warningCount())
 
         # if there is error output generated, compare with txt file
         try:

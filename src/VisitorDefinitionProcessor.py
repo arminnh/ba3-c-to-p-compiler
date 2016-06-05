@@ -45,9 +45,8 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
             if node.parent.basetype is None:
                 node.parent.basetype = "int"
-                # warning
                 # TODO: test this
-                self.addError("type specifier missing, defaults to 'int'", node)
+                self.addWarning("type specifier missing, defaults to 'int'", node)
             result = self.insertSymbol(node, isFunction=False)
             if result == False:
                 return
@@ -94,9 +93,8 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         elif node.basetype is None:
             node.basetype = "int"
-            # warning
             # TODO: test this
-            self.addError("type specifier missing, defaults to 'int'", node)
+            self.addWarning("type specifier missing, defaults to 'int'", node)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
             result = self.insertSymbol(node, isFunction=False)

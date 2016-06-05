@@ -3,7 +3,7 @@ from antlr4_generated.SmallCParser import SmallCParser
 
 from AbstractSyntaxTree import *
 from Listener import *
-from CompilerErrorHandler import *
+from ErrorHandler import *
 from SymbolTable import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
@@ -132,7 +132,7 @@ def main(filename):
     parseTreeRoot = parseFile(filename)
 
     # the errorHandler which will group all of the errors
-    errorHandler = CompilerErrorHandler(filename)
+    errorHandler = ErrorHandler(filename)
 
     try:
         # create an AST an attach it to a listener so the listener can fill in the tree
@@ -155,8 +155,9 @@ def main(filename):
         ex_type, ex, tb = sys.exc_info()
         traceback.print_exception(ex_type, ex, tb)
 
-    if errorHandler.errorCount():
+    if errorHandler.errorCount() or errorHandler.warningCount():
         print(str(errorHandler.errorCount()) + " error" + ("s" if errorHandler.errorCount() != 1 else ""))
+        print(str(errorHandler.warningCount()) + " warning" + ("s" if errorHandler.warningCount() != 1 else ""))
         errorHandler.printErrors()
 
 
