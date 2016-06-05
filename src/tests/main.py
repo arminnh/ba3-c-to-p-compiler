@@ -91,161 +91,164 @@ class ASTTest():
 
         self.assertTrue(self.errorHandler.errorCount() == 0)
 
-class UnaryOperatorsTypeTests(ASTTest, unittest.TestCase):
+class UnaryOperatorsTests(ASTTest, unittest.TestCase):
     # unary operators: ++, --, *, &, !, [], can be prefix or postfix
     # unary logic operator: ! only works with type int
-    def testUnaryOperatorTypes1(self):
+    def test1(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/1")
 
-    def testUnaryOperatorTypes2(self):
+    def test2(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/2")
 
-    def testUnaryOperatorTypes3(self):
+    def test3(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/3")
 
-    def testUnaryOperatorTypes4(self):
+    def test4(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/4")
 
-    def testUnaryOperatorTypes5(self):
+    def test5(self):
         self.generateNoError("testfiles/unary-operators/5.c")
 
-    def testUnaryOperatorTypes6(self):
+    def test6(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/6")
 
-    def testUnaryOperatorTypes7(self):
+    def test7(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/7")
 
-    def testUnaryOperatorTypes8(self):
+    def test8(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/8")
 
-    def testUnaryOperatorTypes9(self):
+    def test9(self):
         self.generateNoError("testfiles/unary-operators/9.c")
 
-    def testUnaryOperatorTypes10(self):
+    def test10(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/10")
 
-    def testUnaryOperatorTypes11(self):
+    def test11(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/11")
 
-    def testUnaryOperatorTypes12(self):
+    def test12(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/12")
 
-    def testUnaryOperatorTypes13(self):
+    def test13(self):
         self.generateNoError("testfiles/unary-operators/13.c")
 
-    def testUnaryOperatorTypes14(self):
+    def test14(self):
         self.generateNoError("testfiles/unary-operators/14.c")
 
 
-class BinaryOperatorsTypeTests(ASTTest, unittest.TestCase):
+class BinaryOperatorsTests(ASTTest, unittest.TestCase):
 
-    def testAllBinaryOperatorTypesLiteralsCorrect(self):
+    def testLiteralsCorrect(self):
         self.generateNoError("testfiles/binary-operators/correct-literals.c")
 
-    def testBinaryOperatorTypes1(self):
+    def testStringsAndArrays(self):
+        self.generateNoError("testfiles/binary-operators/strings-and-arrays.c")
+
+    def test1(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/1")
 
-    def testBinaryOperatorTypes2(self):
+    def test2(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/2")
 
-    def testBinaryOperatorTypes3(self):
+    def test3(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/3")
 
-    def testBinaryOperatorTypes4(self):
+    def test4(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/4")
 
-    def testBinaryOperatorTypes5(self):
+    def test5(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/5")
 
-    def testBinaryOperatorTypes6(self):
+    def test6(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/6")
 
-    def testBinaryOperatorTypes7(self):
+    def test7(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/7")
 
-    def testBinaryOperatorTypes8(self):
+    def test8(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/8")
 
-    def testBinaryOperatorTypes9(self):
+    def test9(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/9")
 
-    def testBinaryOperatorTypes10(self):
+    def test10(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/10")
 
-    def testBinaryOperatorTypes11(self):
+    def test11(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/11")
 
-    def testBinaryOperatorTypes12(self):
+    def test12(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/12")
 
-    def testBinaryOperatorTypes13(self):
+    def test13(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/13")
 
-    def testBinaryOperatorTypes14(self):
+    def test14(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/14")
 
-    def testBinaryOperatorTypes15(self):
+    def test15(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/15")
 
-    def testBinaryOperatorTypes16(self):
+    def test16(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/16")
 
-    def testBinaryOperatorTypes17(self):
+    def test17(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/17")
 
-    def testBinaryOperatorTypes18(self):
+    def test18(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/18")
 
-    def testBinaryOperatorTypes19(self):
+    def test19(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/19")
 
-    def testBinaryOperatorTypes20(self):
+    def test20(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/20")
 
-    def testBinaryOperatorTypes21(self):
+    def test21(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/21")
 
-    def testBinaryOperatorTypes22(self):
+    def test22(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/22")
 
-    def testBinaryOperatorTypes23(self):
+    def test23(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/23")
 
-    def testBinaryOperatorTypes24(self):
+    def test24(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/24")
 
-    def testBinaryOperatorTypes25(self):
+    def test25(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/25")
 
-    def testBinaryOperatorTypes26(self):
+    def test26(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/26")
 
-    def testBinaryOperatorTypes27(self):
+    def test27(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/27")
 
-    def testBinaryOperatorTypes28(self):
+    def test28(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/28")
 
-    def testBinaryOperatorTypes29(self):
+    def test29(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/29")
 
-    def testBinaryOperatorTypes30(self):
+    def test30(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/30")
 
-    def testBinaryOperatorTypes31(self):
+    def test31(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/31")
 
-    def testBinaryOperatorTypes32(self):
+    def test32(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/32")
 
-    def testBinaryOperatorTypes33(self):
+    def test33(self):
         self.generateNoError("testfiles/binary-operators/33.c")
 
-    def testBinaryOperatorTypes34(self):
+    def test34(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/34")
 
 
-class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
+class TernaryOperatorsTests(ASTTest, unittest.TestCase):
     # ternary operator test: needs int as first operator and alternatives should be of same type
     # (expression with type int) ? (expression with type T) : (expression with same type T);
     def test1(self):
@@ -257,255 +260,259 @@ class TernaryOperatorTypeTests(ASTTest, unittest.TestCase):
     def test3(self):
         self.generateNoError("testfiles/ternary-operator/3.c")
 
-    def test3(self):
+    def test4(self):
         self.generateNoError("testfiles/ternary-operator/4.c")
 
-    def test3(self):
+    def test5(self):
         self.generateErrorsAndCompare("testfiles/ternary-operator/5")
 
     def test6(self):
         self.generateErrorsAndCompare("testfiles/ternary-operator/6")
 
 
-class FunctionCallTypeTests(ASTTest, unittest.TestCase):
+class FunctionCallsTests(ASTTest, unittest.TestCase):
 
-    def testFunctionCallParameterType1(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/1")
-
-    def testFunctionCallParameterType2(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/2")
-
-    def testFunctionCallParameterType3(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/3")
-
-    def testFunctionCallParameterType4(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/4")
-
-    def testFunctionCallParameterType5(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/5")
-
-    def testFunctionCallParameterType6(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/6")
-
-    def testFunctionCallParameterType7(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/7")
-
-    def testFunctionCallParameterType8(self):
-        self.generateErrorsAndCompare("testfiles/function-calls/8")
-
-    def testFunctionCallParameterTypeCorrect(self):
+    def testCorrect(self):
         self.generateNoError("testfiles/function-calls/correct.c")
 
-    def testFunctionCallParameterType9(self):
+    def test1(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/1")
+
+    def test2(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/2")
+
+    def test3(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/3")
+
+    def test4(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/4")
+
+    def test5(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/5")
+
+    def test6(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/6")
+
+    def test7(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/7")
+
+    def test8(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/8")
+
+    def test9(self):
         self.generateErrorsAndCompare("testfiles/function-calls/9")
 
-    def testFunctionCallParameterType10(self):
+    def test10(self):
         self.generateNoError("testfiles/function-calls/10.c")
 
-    def testFunctionCallParameterType11(self):
+    def test11(self):
         self.generateErrorsAndCompare("testfiles/function-calls/11")
 
-    def testFunctionCallParameterType12(self):
+    def test12(self):
         self.generateNoError("testfiles/function-calls/12.c")
 
-    def testFunctionCallParameterType13(self):
+    def test13(self):
         self.generateErrorsAndCompare("testfiles/function-calls/13")
 
-    def testFunctionCallParameterType14(self):
+    def test14(self):
         self.generateErrorsAndCompare("testfiles/function-calls/14")
 
-    def testFunctionCallParameterType15(self):
+    def test15(self):
         self.generateErrorsAndCompare("testfiles/function-calls/15")
 
-    def testFunctionCallParameterType16(self):
+    def test16(self):
         self.generateErrorsAndCompare("testfiles/function-calls/16")
 
+    def test17(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/17")
 
-class VariableDeclarationTests(ASTTest, unittest.TestCase):
+
+class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 
     def testStrangeBrackets(self):
         self.generateNoError("testfiles/variable-declarations/strange-brackets.c")
 
-    def testVariableDeclarations1(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/1")
-
-    def testVariableDeclarations2(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/2")
-
-    def testVariableDeclarations3(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/3")
-
-    def testVariableDeclarations4(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/4")
-
-    def testVariableDeclarations5(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/5")
-
-    def testVariableDeclarations6(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/6")
-
-    def testVariableDeclarations7(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/7")
-
-    def testVariableDeclarations8(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/8")
-
-    def testVariableDeclarations9(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/9")
-
-    def testVariableDeclarations10(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/10")
-
-    def testVariableDeclarations11(self):
-        self.generateNoError("testfiles/variable-declarations/11.c")
-
-    def testVariableDeclarations12(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/12")
-
-    def testVariableDeclarations13(self):
-        self.generateNoError("testfiles/variable-declarations/13.c")
-
-    def testVariableDeclarations14(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/14")
-
-    def testVariableDeclarations15(self):
-        self.generateNoError("testfiles/variable-declarations/15.c")
-
-    def testVariableDeclarations16(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/16")
-
-    def testVariableDeclarations17(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/17")
-
-    def testVariableDeclarations18(self):
-        self.generateNoError("testfiles/variable-declarations/18.c")
-
-    def testVariableDeclarations19(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/19")
-
-    def testVariableDeclarations20(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/20")
-
-    def testVariableDeclarations21(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/21")
-
-    def testVariableDeclarations22(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/22")
-
-    def testVariableDeclarations23(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/23")
-
-    def testVariableDeclarations24(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/24")
-
-    def testVariableDeclarations25(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/25")
-
-    def testVariableDeclarations26(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/26")
-
-    def testVariableDeclarations27(self):
-        self.generateErrorsAndCompare("testfiles/variable-declarations/27")
-
-    def testVariableDeclarationsCharArraysPointers(self):
+    def testCharArraysPointers(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/char-arrays-pointers")
 
-    def testVariableDeclarationsMultiArraysPointers(self):
+    def testMultiArraysPointers(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/multi-arrays-pointers")
 
+    def test1(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/1")
 
-class FunctionDeclarationTests(ASTTest, unittest.TestCase):
+    def test2(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/2")
 
-    def testFunctionDeclaration1(self):
+    def test3(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/3")
+
+    def test4(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/4")
+
+    def test5(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/5")
+
+    def test6(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/6")
+
+    def test7(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/7")
+
+    def test8(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/8")
+
+    def test9(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/9")
+
+    def test10(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/10")
+
+    def test11(self):
+        self.generateNoError("testfiles/variable-declarations/11.c")
+
+    def test12(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/12")
+
+    def test13(self):
+        self.generateNoError("testfiles/variable-declarations/13.c")
+
+    def test14(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/14")
+
+    def test15(self):
+        self.generateNoError("testfiles/variable-declarations/15.c")
+
+    def test16(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/16")
+
+    def test17(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/17")
+
+    def test18(self):
+        self.generateNoError("testfiles/variable-declarations/18.c")
+
+    def test19(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/19")
+
+    def test20(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/20")
+
+    def test21(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/21")
+
+    def test22(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/22")
+
+    def test23(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/23")
+
+    def test24(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/24")
+
+    def test25(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/25")
+
+    def test26(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/26")
+
+    # def test27(self):
+    #     self.generateErrorsAndCompare("testfiles/variable-declarations/27")
+
+
+class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
+
+    def test1(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/1")
 
-    def testFunctionDeclaration2(self):
+    def test2(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/2")
 
-    def testFunctionDeclaration3(self):
+    def test3(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/3")
 
-    def testFunctionDeclaration4(self):
+    def test4(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/4")
 
-    def testFunctionDeclaration5(self):
+    def test5(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/5")
 
-    def testFunctionDeclaration6(self):
+    def test6(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/6")
 
-    def testFunctionDeclaration7(self):
+    def test7(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/7")
 
-    def testFunctionDeclaration8(self):
+    def test8(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/8")
 
-    def testFunctionDeclaration9(self):
+    def test9(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/9")
 
-    def testFunctionDeclaration10(self):
+    def test10(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/10")
 
-    def testFunctionDeclaration11(self):
+    def test11(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/11")
 
-    def testFunctionDeclaration12(self):
+    def test12(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/12")
 
-    def testFunctionDeclaration13(self):
+    def test13(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/13")
 
-    def testFunctionDeclaration14(self):
+    def test14(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/14")
 
-    def testFunctionDeclaration15(self):
+    def test15(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/15")
 
-    def testFunctionDeclaration16(self):
+    def test16(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/16")
 
-    def testFunctionDeclaration17(self):
+    def test17(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/17")
 
-    def testFunctionDeclaration18(self):
+    def test18(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/18")
 
-    def testFunctionDeclaration19(self):
+    def test19(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/19")
 
-    def testFunctionDeclaration20(self):
+    def test20(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/20")
 
 
 class ConstTests(ASTTest, unittest.TestCase):
-    def testConst1(self):
+
+    def test1(self):
         self.generateNoError("testfiles/const/1.c")
 
-    def testConst2(self):
+    def test2(self):
         self.generateErrorsAndCompare("testfiles/const/2")
 
-    def testConst3(self):
+    def test3(self):
         self.generateErrorsAndCompare("testfiles/const/3")
 
-    def testConst4(self):
+    def test4(self):
         self.generateErrorsAndCompare("testfiles/const/4")
 
-    def testConst5(self):
+    def test5(self):
         self.generateErrorsAndCompare("testfiles/const/5")
 
-    def testConst6(self):
+    def test6(self):
         self.generateErrorsAndCompare("testfiles/const/6")
 
-    def testConst7(self):
+    def test7(self):
         self.generateErrorsAndCompare("testfiles/const/7")
 
-    def testConst8(self):
+    def test8(self):
         self.generateErrorsAndCompare("testfiles/const/8")
 
-    def testConst9(self):
+    def test9(self):
         self.generateErrorsAndCompare("testfiles/const/9")
 
-    def testConst10(self):
+    def test10(self):
         self.generateErrorsAndCompare("testfiles/const/10")
 
 

@@ -173,16 +173,17 @@ class VisitorTypeChecker(Visitor):
                 width, code = match.groups()
                 codesCount += 1
 
-                if i + 1 > len(arguments.children): #ex: printf("%i %i", 1)
-                    self.addWarning("format '%{0}' expects a matching '{1}' argument".format(code, str(self.stdioCodes[code])))
-                    continue
-
                 if code == "%":
                     continue
 
                 if code not in self.stdioCodes:
-                    #TODO: test this
+                    #TODO: is this a warning/error or not?
                     self.addError("unknown format code '{0}'".format(code), node)
+                    continue
+
+                if i + 1 >= len(arguments.children): #ex: printf("%i %i", 1)
+                    self.addWarning("format '%{0}' expects a matching '{1}' argument".format(code, str(self.stdioCodes[code])), node)
+                    continue
                 else:
                     t1 = self.stdioCodes[code]
                     t2 = arguments.children[i+1].getType().toRvalue()
@@ -196,7 +197,6 @@ class VisitorTypeChecker(Visitor):
         node.parsedFormat = cutIntoPieces
 
         if codesCount < len(arguments.children) - 1:
-            #TODO: test this
             self.addWarning("too many arguments for format", node)
 
     # TODO: prevent function call with void return type from appearing in a subexpression

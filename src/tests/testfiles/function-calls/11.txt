@@ -16,3 +16,6 @@ printf("%c%s%f%i%d%f%i%c%s", 'h', "ello", 314, 666, 42.0, 123.456, "789", '0', "
 testfiles/function-calls/11.c:11:5: error: format 'i' expects argument of type 'int', but argument 8 has type 'char *'
 printf("%c%s%f%i%d%f%i%c%s", 'h', "ello", 314, 666, 42.0, 123.456, "789", '0', "1234565789");
 ^
+testfiles/function-calls/11.c:12:5: warning: too many arguments for format
+     printf("aaa \n", "bb");
+     ^
