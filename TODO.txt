@@ -1,5 +1,3 @@
-*) look at VisitorDefinitionProcessor @ 50, we might need a warning system now, or just make this an error "type specifier missing"
-
 *) look (or not) at declarations like 'int int a', 'int int float a'
       gcc: error: two or more data types in declaration specifiers
 
@@ -51,3 +49,5 @@ DONE:
 *) check unary arithmetic operator
 *) implement --save-ast, --save-symbol- table
 *) prevent initializers from appearing in parameter declarations (default argumants) # done in grammar, it's a syntax error just like in c
+*) look at VisitorDefinitionProcessor @ 50, we might need a warning system now, or just make this an error "type specifier missing"
+*) added warnings functionality

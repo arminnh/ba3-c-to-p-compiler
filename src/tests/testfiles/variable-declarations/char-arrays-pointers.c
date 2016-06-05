@@ -15,5 +15,5 @@ int main() {
 	printf("%s\n", hello);
 	printf("%s\n", h);
 
-	printf("%s\n", &hello); // error
+	printf("%s\n", &hello, hello);
  }

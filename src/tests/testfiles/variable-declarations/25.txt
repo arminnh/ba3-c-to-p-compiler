@@ -1,0 +1,6 @@
+testfiles/variable-declarations/25.c:2:11: warning: type specifier missing in declaration of 'i', type defaults to 'int'
+    const i;
+          ^
+testfiles/variable-declarations/25.c:3:17: warning: type specifier missing in declaration of 'ii', type defaults to 'int'
+    const const * const ii;
+                ^

@@ -10,7 +10,7 @@ from antlr4_generated.SmallCParser import SmallCParser
 
 from AbstractSyntaxTree import *
 from Listener import *
-from CompilerErrorHandler import *
+from ErrorHandler import *
 from SymbolTable import *
 from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
@@ -23,7 +23,7 @@ import re
 
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
-set = True
+set = False
 
 class ASTTest():
     def setUp(self):
@@ -38,7 +38,7 @@ class ASTTest():
 
         walker = ParseTreeWalker()
         abstractSyntaxTree = AbstractSyntaxTree();
-        self.errorHandler = CompilerErrorHandler(filename)
+        self.errorHandler = ErrorHandler(filename)
         listener = Listener(abstractSyntaxTree)
         walker.walk(listener, programContext)
 
@@ -55,7 +55,7 @@ class ASTTest():
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")
-        self.assertTrue(self.errorHandler.errorCount() > 0)
+        self.assertTrue(self.errorHandler.errorCount() or self.errorHandler.warningCount())
 
         # if there is error output generated, compare with txt file
         try:
@@ -398,6 +398,15 @@ class VariableDeclarationTests(ASTTest, unittest.TestCase):
     def testVariableDeclarations24(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/24")
 
+    def testVariableDeclarations25(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/25")
+
+    def testVariableDeclarations26(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/26")
+
+    def testVariableDeclarations27(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/27")
+
     def testVariableDeclarationsCharArraysPointers(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/char-arrays-pointers")
 
@@ -494,6 +503,47 @@ class ConstTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/const/10")
 
 
+class MiscellaneousTests(ASTTest, unittest.TestCase):
+
+    # expressions.c has many combinations of binary operators
+    def testExpressions(self):
+        self.generateNoError("testfiles/expressions.c")
+
+    # tests different usages of if, else, while, do while, if without else
+    def testFlowControl(self):
+        self.generateNoError("testfiles/flow_control.c")
+
+    # many scopes and many variables and some more complex initializers
+    def testVariables(self):
+        self.generateNoError("testfiles/variables.c")
+
+    # functions, forward declarations, weird parameters to functions and printf
+    def testFunctions(self):
+        self.generateNoError("testfiles/functions.c")
+
+    # a file with some includes, functions, expressions and flow control
+    def testHelloWorld(self):
+        self.generateNoError("testfiles/hello_world.c")
+
+
+class EvalutationTests(ASTTest, unittest.TestCase):
+
+    def testTypes(self):
+        self.generateNoError("testfiles/assistant-tests/1types2.c")
+
+    def testIO(self):
+        self.generateNoError("testfiles/assistant-tests/2io1.c")
+
+    def testExpressions(self):
+        self.generateNoError("testfiles/assistant-tests/3expressions3.c")
+
+    def testFunction(self):
+        self.generateNoError("testfiles/assistant-tests/7function2.c")
+
+    def testArrays(self):
+        self.generateNoError("testfiles/assistant-tests/8arrays2.c")
+
+
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):
         table = SymbolTable()
@@ -543,46 +593,6 @@ class SymbolTableTests(unittest.TestCase):
         self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
         self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is None)
         self.assertTrue(table.retrieveSymbol("d", requireSeen=False) is None)
-
-
-class MiscellaneousTests(ASTTest, unittest.TestCase):
-
-    # expressions.c has many combinations of binary operators
-    def testExpressions(self):
-        self.generateNoError("testfiles/expressions.c")
-
-    # tests different usages of if, else, while, do while, if without else
-    def testFlowControl(self):
-        self.generateNoError("testfiles/flow_control.c")
-
-    # many scopes and many variables and some more complex initializers
-    def testVariables(self):
-        self.generateNoError("testfiles/variables.c")
-
-    # functions, forward declarations, weird parameters to functions and printf
-    def testFunctions(self):
-        self.generateNoError("testfiles/functions.c")
-
-    # a file with some includes, functions, expressions and flow control
-    def testHelloWorld(self):
-        self.generateNoError("testfiles/hello_world.c")
-
-class EvalutationTests(ASTTest, unittest.TestCase):
-
-    def testTypes(self):
-        self.generateNoError("testfiles/assistant-tests/1types2.c")
-
-    def testIO(self):
-        self.generateNoError("testfiles/assistant-tests/2io1.c")
-
-    def testExpressions(self):
-        self.generateNoError("testfiles/assistant-tests/3expressions3.c")
-
-    def testFunction(self):
-        self.generateNoError("testfiles/assistant-tests/7function2.c")
-
-    def testArrays(self):
-        self.generateNoError("testfiles/assistant-tests/8arrays2.c")
 
 def testAll():
     unittest.main()
