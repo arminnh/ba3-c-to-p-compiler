@@ -310,15 +310,15 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitDeclaratorInitializerNode(self, node):
-        hasInitializer = False
+        initializer = None
         for child in node.children:
             if isinstance(child, ASTInitializerListNode):
-                hasInitializer = True
+                initializer = child
 
         ttype = node.getType()
 
-        if hasInitializer and not ttype.isArray():
-            self.visitChildren(node)
+        if initializer is not None and not ttype.isArray():
+            initializer.accept(self)
         elif not ttype.isArray():
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
         elif ttype.isArray():
@@ -490,6 +490,7 @@ class VisitorCodeGenerator(Visitor):
         self._lvalue[-1] = False
         node.children[1].accept(self)
         self._lvalue.pop()
+        self.outFile.write("chk 0 {0}\n".format(arrayElementType.size()))
         self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
 
         if self.rvalue():
@@ -529,7 +530,7 @@ def expressionResultNeedsToBeCleanedUp(node):
             return True
         else:
             return False
-    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode, ASTArgumentsNode)):
+    if isinstance(node.parent, (ASTIfNode, ASTWhileNode, ASTDoWhileNode, ASTReturnNode, ASTArgumentsNode, ASTDeclaratorInitializerNode)):
         return False
     if type(node.parent) is ASTStatementNode:
         return True
