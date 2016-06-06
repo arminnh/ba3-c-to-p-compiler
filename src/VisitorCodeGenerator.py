@@ -1,7 +1,7 @@
 from antlr4 import *
 from AbstractSyntaxTree import *
 from Visitor import *
-from TypeInfo import voidType
+from TypeInfo import types
 import copy
 
 class VisitorCodeGenerator(Visitor):
@@ -12,7 +12,7 @@ class VisitorCodeGenerator(Visitor):
         self._lvalue = []
         self.backLabels = []
         self.forwardLabels = []
-        self.outFile = open(outFile, 'w')
+        self.outFile = open(outFile, "w")
 
         self.p_types = {
             "address" : "a",
@@ -364,7 +364,7 @@ class VisitorCodeGenerator(Visitor):
     def visitCommaOperatorNode(self, node):
         for i in range(len(node.children) - 1):
             child = node.children[i]
-            if not node.getType().equals(voidType()):
+            if not node.getType().equals(types["void"]):
                 self.outFile.write("ldc a 0\n")
                 child.accept(self)
                 self.outFile.write("sto {0}\n".format(self.pType(node.getType())))
@@ -478,7 +478,7 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("{0} {1} 1\n".format(maininstr, ttype))
             self.outFile.write("sto {0}\n".format(ttype))
             self.outFile.write("ind {0}\n".format(ttype))
-            if node.operatorType == ASTUnaryOperatorNode.Type['postfix']:
+            if node.operatorType == ASTUnaryOperatorNode.Type["postfix"]:
                 self.outFile.write("{0} {1} 1\n".format(secinstr, ttype))
 
         if op == "-":
@@ -530,7 +530,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitBinaryArithmeticNode(self, node):
         self._lvalue.append(False)
-        if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']:
+        if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType["modulo"]:
             node.children[0].accept(self)
             self.outFile.write("dpl i\n")
             self.outFile.write("ldc a 0\n")
@@ -552,7 +552,7 @@ def expressionResultNeedsToBeCleanedUp(node):
     # print(type(node.parent))
     if not node.isBaseExpression():
         return False
-    if node.getType().equals(voidType()):
+    if node.getType().equals(types["void"]):
         return False
     if type(node.parent) is ASTInitializerListNode:
         return False

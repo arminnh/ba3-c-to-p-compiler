@@ -14,7 +14,8 @@ int main(void)
 
         {
             const int g[] = {1, 2, 3};
-            int const h = 5; // TODO for extras: dont't allow const variable declaration without initial value
+            int const h = 5;
+            const int eofaejifaoe;
 
             {
                 int i[7] = {1, 2}; // {1, 2, 0, 0, 0, 0, 0}

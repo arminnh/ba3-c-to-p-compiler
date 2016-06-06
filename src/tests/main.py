@@ -3,7 +3,7 @@ import logging
 
 # insert the parent directory into this path to get antlr files
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, "..")
 
 from antlr4_generated.SmallCLexer import SmallCLexer
 from antlr4_generated.SmallCParser import SmallCParser
@@ -59,18 +59,18 @@ class ASTTest():
 
         # if there is error output generated, compare with txt file
         try:
-            with open(filename + ".txt", 'r') as myfile:
+            with open(filename + ".txt", "r") as myfile:
                 correctOutputOriginal = myfile.read()
         except:
-            with open(filename + ".txt", 'w') as myfile:
+            with open(filename + ".txt", "w") as myfile:
                 correctOutputOriginal = "blabla"
 
         errorMessage = self.errorHandler.errorsToString()
         errorMessageWithWhitespace = copy.copy(errorMessage)
 
         # remove all whitespace
-        errorMessage  = re.sub('[ \t\n\r]', '', errorMessage)
-        correctOutput = re.sub('[ \t\n\r]', '', correctOutputOriginal)
+        errorMessage  = re.sub("[ \t\n\r]", "", errorMessage)
+        correctOutput = re.sub("[ \t\n\r]", "", correctOutputOriginal)
 
         # expectedOutputFound = errorMessage.find(correctOutput) != -1
         expectedOutputFound = errorMessage == correctOutput
@@ -92,8 +92,7 @@ class ASTTest():
         self.assertTrue(self.errorHandler.errorCount() == 0)
 
 class UnaryOperatorsTests(ASTTest, unittest.TestCase):
-    # unary operators: ++, --, *, &, !, [], can be prefix or postfix
-    # unary logic operator: ! only works with type int
+
     def test1(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/1")
 
@@ -135,6 +134,12 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
 
     def test14(self):
         self.generateNoError("testfiles/unary-operators/14.c")
+
+    def test15(self):
+        self.generateErrorsAndCompare("testfiles/unary-operators/15")
+
+    def test16(self):
+        self.generateErrorsAndCompare("testfiles/unary-operators/16")
 
 
 class BinaryOperatorsTests(ASTTest, unittest.TestCase):
@@ -247,6 +252,18 @@ class BinaryOperatorsTests(ASTTest, unittest.TestCase):
     def test34(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/34")
 
+    def test35(self):
+        self.generateNoError("testfiles/binary-operators/35.c")
+
+    def test36(self):
+        self.generateErrorsAndCompare("testfiles/binary-operators/36")
+
+    def test37(self):
+        self.generateErrorsAndCompare("testfiles/binary-operators/37")
+
+    def test38(self):
+        self.generateErrorsAndCompare("testfiles/binary-operators/38")
+
 
 class TernaryOperatorsTests(ASTTest, unittest.TestCase):
     # ternary operator test: needs int as first operator and alternatives should be of same type
@@ -325,6 +342,13 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
 
     def test17(self):
         self.generateErrorsAndCompare("testfiles/function-calls/17")
+
+    def test18(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/18")
+
+    # test 19 takes very long (15 seconds)
+    # def test19(self):
+    #     self.generateErrorsAndCompare("testfiles/function-calls/19")
 
 
 class VariableDeclarationsTests(ASTTest, unittest.TestCase):
@@ -419,6 +443,9 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
     def test27(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/27")
 
+    def test28(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/28")
+
 
 class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
 
@@ -484,6 +511,12 @@ class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
 
     def test21(self):
         self.generateErrorsAndCompare("testfiles/function-declarations/21")
+
+    def test22(self):
+        self.generateErrorsAndCompare("testfiles/function-declarations/22")
+
+    def test23(self):
+        self.generateErrorsAndCompare("testfiles/function-declarations/23")
 
 
 class ConstTests(ASTTest, unittest.TestCase):

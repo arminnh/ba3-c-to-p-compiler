@@ -1,0 +1,13 @@
+int sub (int a, int b) {
+  return 0;
+}
+
+int main() {
+  int i = (5, 6), k;
+
+  (k = 5, (i = 5 + (6, 7, 8) * sub(1, 2)), "hello") = 100;
+
+  (k = 5, (i = 5 + (6, 7, 8) * sub(1, 2)), "hello") = "byebye";
+
+  return 0;
+}

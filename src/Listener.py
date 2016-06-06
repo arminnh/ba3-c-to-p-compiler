@@ -61,17 +61,6 @@ class Listener(SmallCListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#expression.
-    def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        # self.currentNode = self.currentNode.addChildNode(ASTExpressionNode())
-        pass
-
-    # Exit a parse tree produced by SmallCParser#expression.
-    def exitExpression(self, ctx:SmallCParser.ExpressionContext):
-        # self.currentNode = self.currentNode.parent
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#returnStmt.
     def enterReturnStmt(self, ctx:SmallCParser.ReturnStmtContext):
         self.currentNode = self.currentNode.addChildNode(ASTReturnNode(ctx))
@@ -378,15 +367,6 @@ class Listener(SmallCListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#pointer.
-    def enterPointer(self, ctx:SmallCParser.PointerContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#pointer.
-    def exitPointer(self, ctx:SmallCParser.PointerContext):
-        pass
-
-
      # Enter a parse tree produced by SmallCParser#pointerPart.
     def enterPointerPart(self, ctx:SmallCParser.PointerPartContext):
         if isinstance(self.currentNode, (ASTFunctionDeclarationNode, ASTTypeCastNode)):
@@ -453,7 +433,7 @@ class Listener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getText()
             if symbol == "||":
-                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['disj'], ctx))
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType["disj"], ctx))
                 self.createdNode.append(True)
                 return
 
@@ -470,7 +450,7 @@ class Listener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getText()
             if symbol == "&&":
-                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType['conj'], ctx))
+                self.currentNode = self.currentNode.addChildNode(ASTLogicOperatorNode(ASTLogicOperatorNode.LogicOperatorType["conj"], ctx))
                 self.createdNode.append(True)
                 return
 
@@ -514,7 +494,7 @@ class Listener(SmallCListener):
         if len(children) == 3:
             symbol = children[1].getSymbol().text
             self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode( \
-                ASTComparisonOperatorNode.ComparisonType['inequal'] if symbol == "!=" else ASTComparisonOperatorNode.ComparisonType['equal'], ctx))
+                ASTComparisonOperatorNode.ComparisonType["inequal"] if symbol == "!=" else ASTComparisonOperatorNode.ComparisonType["equal"], ctx))
             self.createdNode.append(True)
         else:
             self.createdNode.append(False)
@@ -531,10 +511,10 @@ class Listener(SmallCListener):
             symbol = children[1].getSymbol().text
             if symbol in ["<", ">", "<=", ">="]:
                 comparisonType = None
-                if symbol == "<": comparisonType = ASTComparisonOperatorNode.ComparisonType['lt']
-                elif symbol == ">": comparisonType = ASTComparisonOperatorNode.ComparisonType['gt']
-                elif symbol == "<=": comparisonType = ASTComparisonOperatorNode.ComparisonType['le']
-                elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType['ge']
+                if symbol == "<": comparisonType = ASTComparisonOperatorNode.ComparisonType["lt"]
+                elif symbol == ">": comparisonType = ASTComparisonOperatorNode.ComparisonType["gt"]
+                elif symbol == "<=": comparisonType = ASTComparisonOperatorNode.ComparisonType["le"]
+                elif symbol == ">=": comparisonType = ASTComparisonOperatorNode.ComparisonType["ge"]
                 self.currentNode = self.currentNode.addChildNode(ASTComparisonOperatorNode(comparisonType, ctx))
                 self.createdNode.append(True)
                 return
@@ -572,11 +552,11 @@ class Listener(SmallCListener):
 
     def addBinaryArithmeticOperator(self, symbol, ctx):
         arithmeticType = None
-        if symbol == "+": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['add']
-        elif symbol == "-": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']
-        elif symbol == "*": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['mul']
-        elif symbol == "/": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['div']
-        elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']
+        if symbol == "+": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType["add"]
+        elif symbol == "-": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType["sub"]
+        elif symbol == "*": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType["mul"]
+        elif symbol == "/": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType["div"]
+        elif symbol == "%": arithmeticType = ASTBinaryArithmeticOperatorNode.ArithmeticType["modulo"]
         else: return False
         self.currentNode = self.currentNode.addChildNode(ASTBinaryArithmeticOperatorNode(arithmeticType, ctx))
         return True
@@ -601,10 +581,10 @@ class Listener(SmallCListener):
         children = list(ctx.getChildren())
         if len(children) == 2:
             symbol = children[0].getText()
-            if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['prefix'], ctx))
-            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['prefix'], ctx))
-            elif symbol == "+":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['plus'], ASTUnaryOperatorNode.Type['prefix'], ctx))
-            elif symbol == "-":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['minus'], ASTUnaryOperatorNode.Type['prefix'], ctx))
+            if   symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"], ASTUnaryOperatorNode.Type["prefix"], ctx))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"], ASTUnaryOperatorNode.Type["prefix"], ctx))
+            elif symbol == "+":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["plus"], ASTUnaryOperatorNode.Type["prefix"], ctx))
+            elif symbol == "-":  self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["minus"], ASTUnaryOperatorNode.Type["prefix"], ctx))
             elif symbol == "&":  self.currentNode = self.currentNode.addChildNode(ASTAddressOfOperatorNode(ctx))
             elif symbol == "*":  self.currentNode = self.currentNode.addChildNode(ASTDereferenceOperatorNode(ctx))
             elif symbol == "!":  self.currentNode = self.currentNode.addChildNode(ASTLogicalNotOperatorNode(ctx))
@@ -626,8 +606,8 @@ class Listener(SmallCListener):
 
         if len(children) == 2:
             symbol = children[1].getText()
-            if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['increment'], ASTUnaryOperatorNode.Type['postfix'], ctx))
-            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement'], ASTUnaryOperatorNode.Type['postfix'], ctx))
+            if symbol == "++": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"], ASTUnaryOperatorNode.Type["postfix"], ctx))
+            elif symbol == "--": self.currentNode = self.currentNode.addChildNode(ASTUnaryArithmeticOperatorNode(ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"], ASTUnaryOperatorNode.Type["postfix"], ctx))
             self.createdNode.append(True)
             return
         elif len(children) == 4:

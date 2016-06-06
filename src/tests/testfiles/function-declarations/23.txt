@@ -1,0 +1,33 @@
+testfiles/function-declarations/23.c:1:1: warning: type specifier missing, return type defaults to 'int'
+ nothing0() {
+ ^
+testfiles/function-declarations/23.c:2:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+testfiles/function-declarations/23.c:5:1: warning: type specifier missing, return type defaults to 'int'
+ nothing1() {
+ ^
+testfiles/function-declarations/23.c:6:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+testfiles/function-declarations/23.c:9:1: warning: type specifier missing, return type defaults to 'int'
+ * const * nothing2() {
+ ^
+testfiles/function-declarations/23.c:10:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+testfiles/function-declarations/23.c:13:1: warning: type specifier missing, return type defaults to 'int'
+ nothing3() {
+ ^
+testfiles/function-declarations/23.c:14:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+testfiles/function-declarations/23.c:17:1: warning: type specifier missing, return type defaults to 'int'
+ * nothing4() {
+ ^
+testfiles/function-declarations/23.c:18:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+testfiles/function-declarations/23.c:21:1: warning: type specifier missing, return type defaults to 'int'
+ main() {
+ ^

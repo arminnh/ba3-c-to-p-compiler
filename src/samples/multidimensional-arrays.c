@@ -33,7 +33,6 @@ int main() {
 
     int * josse [10] = { nn, nn, nn, nn, nn, nn, nn, nn, nn, nn };
 
-    // TODO: bij het alloceren van een array, allocceer vanaf de bovenkant van TypeInfo.indirections tot dat je een niet-array indirectie tegenkomt
     int *(* a2[2])[10] = { &josse, &josse };
     a2[0] = &josse;
 

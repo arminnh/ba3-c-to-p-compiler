@@ -1,0 +1,12 @@
+testfiles/function-declarations/22.c:1:1: warning: data definition has no type or storage class, type defaults to 'int' in declaration of 'nothing0'
+ nothing0();
+ ^
+testfiles/function-declarations/22.c:3:1: warning: data definition has no type or storage class, type defaults to 'int' in declaration of 'nothing2'
+ * const * nothing2();
+ ^
+testfiles/function-declarations/22.c:5:1: warning: data definition has no type or storage class, type defaults to 'int' in declaration of 'nothing4'
+ * nothing4();
+ ^
+testfiles/function-declarations/22.c:7:1: warning: type specifier missing, return type defaults to 'int'
+ main() {
+ ^

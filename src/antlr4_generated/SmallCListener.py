@@ -278,15 +278,6 @@ class SmallCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SmallCParser#expression.
-    def enterExpression(self, ctx:SmallCParser.ExpressionContext):
-        pass
-
-    # Exit a parse tree produced by SmallCParser#expression.
-    def exitExpression(self, ctx:SmallCParser.ExpressionContext):
-        pass
-
-
     # Enter a parse tree produced by SmallCParser#ifCond.
     def enterIfCond(self, ctx:SmallCParser.IfCondContext):
         pass

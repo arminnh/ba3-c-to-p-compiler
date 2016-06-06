@@ -145,7 +145,7 @@ class Visitor:
 
     def visitCommaOperatorNode(self, node):
         self.visitChildren(node)
-        
+
 
     def visitIntegerLiteralNode(self, node):
         pass
@@ -172,14 +172,6 @@ class Visitor:
 
 
     def visitTypeCastNode(self, node):
-        self.visitChildren(node)
-
-
-    def typeCheckUnaryOperatorNode(self, node):
-        self.visitChildren(node)
-
-
-    def typeCheckBinaryOperatorNode(self, node):
         self.visitChildren(node)
 
 

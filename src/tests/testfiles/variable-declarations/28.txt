@@ -1,0 +1,6 @@
+testfiles/variable-declarations/28.c:4:5: warning: type specifier missing, defaults to 'int'
+     (const) a;
+     ^
+testfiles/variable-declarations/28.c:8:5: warning: type specifier missing, defaults to 'int'
+     (const * const *************const*****************************) c;
+     ^

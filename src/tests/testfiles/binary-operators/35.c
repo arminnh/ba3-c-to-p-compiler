@@ -3,11 +3,11 @@ int main() {
 
   1, 2, 3;
   1, (2, 3);
-  int i, j;
+  int ii, j;
 
   i = 5, j = 6;
 
-  int k = (i, j);
+  int kk = (i, j);
 
   return 0;
 }

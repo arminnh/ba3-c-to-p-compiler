@@ -83,7 +83,7 @@ def buildAST(parseTreeRoot):
     if SAVE_AST:
         # os.path.splitext(name) splits name into tuple: (name without extension, extension)
         filename = os.path.splitext(OUT_FILE_NAME)[0] + "_AST.txt"
-        outfile = open(filename, 'w')
+        outfile = open(filename, "w")
         outfile.write(str(abstractSyntaxTree))
         outfile.close()
 
@@ -108,7 +108,7 @@ def scopeCheck(abstractSyntaxTree, errorHandler, symbolTable):
     if SAVE_SYMBOL_TABLE:
         # os.path.splitext(name) splits name into tuple: (name without extension, extension)
         filename = os.path.splitext(OUT_FILE_NAME)[0] + "_symbol_table.txt"
-        outfile = open(filename, 'w')
+        outfile = open(filename, "w")
         outfile.write(str(symbolTable))
         outfile.close()
 

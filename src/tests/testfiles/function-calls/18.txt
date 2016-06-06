@@ -1,0 +1,36 @@
+testfiles/function-calls/18.c:16:9: error: void value not ignored as it ought to be
+     a = f(a) + f2(a);
+         ^
+testfiles/function-calls/18.c:17:9: error: void value not ignored as it ought to be
+     a = f(a) - f2(a);
+         ^
+testfiles/function-calls/18.c:18:9: error: void value not ignored as it ought to be
+     a = f(a) * f2(a);
+         ^
+testfiles/function-calls/18.c:19:9: error: void value not ignored as it ought to be
+     a = f(a) / f2(a);
+         ^
+testfiles/function-calls/18.c:20:9: error: void value not ignored as it ought to be
+     a = f(a) % f2(a);
+         ^
+testfiles/function-calls/18.c:22:5: error: invalid use of void expression
+     f2(a)++;
+     ^
+testfiles/function-calls/18.c:23:5: error: invalid use of void expression
+     --f2(a);
+     ^
+testfiles/function-calls/18.c:25:5: warning: taking address of expression of type ‘void’
+     &f2(5);
+     ^
+testfiles/function-calls/18.c:25:5: error: lvalue required as unary '&' operand, (got rvalue of type 'void')
+     &f2(5);
+     ^
+testfiles/function-calls/18.c:26:6: error: void value not ignored as it ought to be
+     *f2(5);
+      ^
+testfiles/function-calls/18.c:28:5: error: invalid use of void expression
+     !f2(5);
+     ^
+testfiles/function-calls/18.c:30:5: error: subscripted value is neither array nor pointer nor vector
+     f2(5)[5];
+     ^

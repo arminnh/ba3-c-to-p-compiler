@@ -37,13 +37,16 @@ class ErrorHandler:
             line = linecache.getline(self.srcFilename, error.lineNumber)[:-1]
 
             msg += " " + line + "\n"
-            msg += " " + "".join([" " if c != '\t' else "\t" for c in line[:column]]) + "^\n"
+            msg += " " + "".join([" " if c != "\t" else "\t" for c in line[:column]]) + "^\n"
         else:
             msg += "Error: {error}\n".format(error=error.message)
 
         return msg
 
     def errorsToString(self):
+        # sort errors according to lineNumber
+        self.errors.sort(key=lambda x : (x.lineNumber, x.column))
+
         s = ""
 
         for i, error in enumerate(self.errors):
@@ -55,5 +58,8 @@ class ErrorHandler:
         print(self.errorToString(index), end="")
 
     def printErrors(self):
+        # sort errors according to lineNumber
+        self.errors.sort(key=lambda x : (x.lineNumber, x.column))
+
         for i in range(len(self.errors)):
             self.printError(i)

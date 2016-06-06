@@ -9,6 +9,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
             return
         self.table.insertStringLiteral(node)
 
+
     def visitBreakNode(self, node):
         breakFrom = node
         while not isinstance(breakFrom, (ASTForNode, ASTWhileNode)) and breakFrom is not None:
@@ -18,6 +19,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
             self.addError("'break' statement not in loop statement", node)
 
         node.breakFrom = breakFrom
+
 
     def visitContinueNode(self, node):
         continueTo = node
@@ -29,10 +31,11 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
 
         node.continueTo = continueTo
 
+
     def visitTypeCastNode(self, node):
         if not node.typeSpecifierPresent:
-            # TODO: test this
             self.addWarning("type specifier missing, defaults to 'int'", node)
+
 
     # int a[myFun(5)] = {1, 2+"a", 3}
     # put variables and parameters into the currently open scope, but not parameters of a function declaration
@@ -65,8 +68,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
     # insert function declaration into symbol table
     def visitFunctionDeclarationNode(self, node):
         if not node.typeSpecifierPresent:
-            # TODO: test this
-            self.addWarning("type specifier missing, defaults to 'int'", node)
+            self.addWarning("data definition has no type or storage class, type defaults to 'int' in declaration of '{0}'".format(node.identifier), node)
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return
@@ -77,8 +79,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
     # insert function definition into symbol table
     def visitFunctionDefinitionNode(self, node):
         if not node.typeSpecifierPresent:
-            # TODO: test this
-            self.addWarning("type specifier missing, defaults to 'int'", node)
+            self.addWarning("type specifier missing, return type defaults to 'int'", node)
         result = self.insertSymbol(node, isFunction=True)
         if result == False:
             return

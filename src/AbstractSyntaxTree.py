@@ -63,9 +63,6 @@ class ASTNode(object):
 
         return s
 
-    # def __str__(self):
-    #     return self.label
-
 class ASTProgramNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTProgramNode, self).__init__("program", ctx)
@@ -175,28 +172,7 @@ class ASTParameterNode(ASTNode):
 
     def out(self, level):
         s = offset * level
-
         s += str(self.identifier) + ": " + str(self.getType())
-
-        # if self.isConstant:
-        #     s += "const "
-
-        # s += str(self.basetype) + " "
-        #
-        # nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
-        # for i in range(0, nrOfIndirections):
-        #     if i != 0:
-        #         s += " "
-        #     s += "*"
-        #     if i < len(self.const) and self.const[i]:
-        #         s += " const"
-        #     if i == (nrOfIndirections - 1):
-        #         s += " "
-        #
-        # s += str(self.identifier)
-        #
-        # if (self.isArray != False) :
-        #     s += " []"
 
         return s + "\n"
 
@@ -386,25 +362,6 @@ class ASTDeclaratorInitializerNode(ASTNode):
         s += self.identifier + ": "
         s += str(self.getType()) + "\n"
 
-        # nrOfIndirections = self.indirections if not self.isArray else self.indirections - 1
-        # for i in range(0, nrOfIndirections):
-        #     if i != 0:
-        #         s += " "
-        #     s += "*"
-        #     if i < len(self.const) and self.const[i]:
-        #         s += " const"
-        #     if i == (nrOfIndirections - 1):
-        #         s += " "
-        #
-        # s += self.identifier
-        #
-        # if (self.isArray != False) :
-        #     s += " []"
-
-        # s += "   ind: " + str(self.indirections) + " const: " + str(self.const)
-
-        # s += "\n"
-
         for child in self.children:
             if isinstance(child, ASTExpressionNode):
                 s += offset * (level + 1) + "arrayLength\n"
@@ -574,6 +531,12 @@ class ASTTypeCastNode(ASTExpressionNode):
             raise Exception("ASTTypeCastNode basetype not filled in", line, column)
         return TypeInfo(rvalue=True, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
 
+    def out(self, level):
+        s = offset * level + self.label + "\n"
+        s = offset * (level + 1) + "target type - " + str(self.getType()) + "\n"
+
+        return s if (not self.children) else self.outChildren(s, level)
+
 
 '''
     EXPRESISSION OPERATIONS
@@ -585,8 +548,8 @@ class ASTUnaryOperatorNode(ASTExpressionNode):
         postfix = 2
 
         def __str__(self):
-            if self == ASTUnaryOperatorNode.Type['prefix']: return "prefix"
-            if self == ASTUnaryOperatorNode.Type['postfix']: return "postfix"
+            if self == ASTUnaryOperatorNode.Type["prefix"]: return "prefix"
+            if self == ASTUnaryOperatorNode.Type["postfix"]: return "postfix"
             return super(ASTUnaryOperatorNode.Type, self).__str__()
 
     def __init__(self, label, operatorType, ctx):
@@ -651,7 +614,9 @@ class ASTCommaOperatorNode(ASTExpressionNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        return self.children[-1].getType()
+        ttype = self.children[-1].getType()
+        ttype.rvalue = True
+        return ttype
 
     def out(self, level):
         return self.outChildren(offset * level + self.label + "\n", level)
@@ -673,8 +638,8 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
         disj = 2
 
         def __str__(self):
-            if self == ASTLogicOperatorNode.LogicOperatorType['conj']: return "and"
-            if self == ASTLogicOperatorNode.LogicOperatorType['disj']: return "or"
+            if self == ASTLogicOperatorNode.LogicOperatorType["conj"]: return "and"
+            if self == ASTLogicOperatorNode.LogicOperatorType["disj"]: return "or"
             return super(ASTLogicOperatorNode.LogicOperatorType, self).__str__()
 
     def __init__(self, logicOperatorType, ctx=None):
@@ -700,12 +665,12 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         inequal = 6
 
         def __str__(self):
-            if self == ASTComparisonOperatorNode.ComparisonType['lt']: return "<"
-            if self == ASTComparisonOperatorNode.ComparisonType['gt']: return ">"
-            if self == ASTComparisonOperatorNode.ComparisonType['le']: return "<="
-            if self == ASTComparisonOperatorNode.ComparisonType['ge']: return ">="
-            if self == ASTComparisonOperatorNode.ComparisonType['equal']: return "=="
-            if self == ASTComparisonOperatorNode.ComparisonType['inequal']: return "!="
+            if self == ASTComparisonOperatorNode.ComparisonType["lt"]: return "<"
+            if self == ASTComparisonOperatorNode.ComparisonType["gt"]: return ">"
+            if self == ASTComparisonOperatorNode.ComparisonType["le"]: return "<="
+            if self == ASTComparisonOperatorNode.ComparisonType["ge"]: return ">="
+            if self == ASTComparisonOperatorNode.ComparisonType["equal"]: return "=="
+            if self == ASTComparisonOperatorNode.ComparisonType["inequal"]: return "!="
             return super(ASTComparisonOperatorNode.ComparisonType, self).__str__()
 
     def __init__(self, comparisonType, ctx=None):
@@ -733,17 +698,17 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
         minus = 4
 
         def __str__(self):
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']: return "++"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']: return "--"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['plus']: return "+"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['minus']: return "-"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"]: return "++"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"]: return "--"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["plus"]: return "+"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["minus"]: return "-"
             return super(ASTUnaryArithmeticOperatorNode, self).__str__()
 
         def wordStr(self):
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['increment']: return "increment"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['decrement']: return "decrement"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['plus']: return "unary plus"
-            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType['minus']: return "unary minus"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"]: return "increment"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"]: return "decrement"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["plus"]: return "unary plus"
+            if self == ASTUnaryArithmeticOperatorNode.ArithmeticType["minus"]: return "unary minus"
             return str(self)
 
     def __init__(self, arithmeticType, operatorType, ctx=None):
@@ -761,7 +726,7 @@ class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
 
 class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
-        super(ASTAddressOfOperatorNode, self).__init__("&", ASTUnaryOperatorNode.Type['prefix'], ctx)
+        super(ASTAddressOfOperatorNode, self).__init__("&", ASTUnaryOperatorNode.Type["prefix"], ctx)
 
     def accept(self, visitor):
         if not self.error:
@@ -778,7 +743,7 @@ class ASTAddressOfOperatorNode(ASTUnaryOperatorNode):
 
 class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
-        super(ASTDereferenceOperatorNode, self).__init__("*", ASTUnaryOperatorNode.Type['prefix'], ctx)
+        super(ASTDereferenceOperatorNode, self).__init__("*", ASTUnaryOperatorNode.Type["prefix"], ctx)
 
     def accept(self, visitor):
         if not self.error:
@@ -798,7 +763,7 @@ class ASTDereferenceOperatorNode(ASTUnaryOperatorNode):
 
 class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
-        super(ASTLogicalNotOperatorNode, self).__init__("!", ASTUnaryOperatorNode.Type['prefix'], ctx)
+        super(ASTLogicalNotOperatorNode, self).__init__("!", ASTUnaryOperatorNode.Type["prefix"], ctx)
 
     def accept(self, visitor):
         if not self.error:
@@ -809,7 +774,7 @@ class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
 
 class ASTArraySubscriptNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):
-        super(ASTArraySubscriptNode, self).__init__("[]", ASTUnaryOperatorNode.Type['postfix'], ctx)
+        super(ASTArraySubscriptNode, self).__init__("[]", ASTUnaryOperatorNode.Type["postfix"], ctx)
 
     def accept(self, visitor):
         if not self.error:
@@ -838,11 +803,11 @@ class ASTBinaryArithmeticOperatorNode(ASTBinaryOperatorNode):
         modulo = 5
 
         def __str__(self):
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['add']: return "+"
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['sub']: return "-"
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['mul']: return "*"
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['div']: return "/"
-            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType['modulo']: return "%"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType["add"]: return "+"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType["sub"]: return "-"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType["mul"]: return "*"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType["div"]: return "/"
+            if self == ASTBinaryArithmeticOperatorNode.ArithmeticType["modulo"]: return "%"
             return super(ASTBinaryArithmeticOperatorNode.ArithmeticType, self).__str__()
 
     def __init__(self, arithmeticType, ctx=None):
