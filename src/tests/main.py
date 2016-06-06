@@ -416,8 +416,8 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
     def test26(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/26")
 
-    # def test27(self):
-    #     self.generateErrorsAndCompare("testfiles/variable-declarations/27")
+    def test27(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/27")
 
 
 class FunctionDeclarationsTests(ASTTest, unittest.TestCase):

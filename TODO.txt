@@ -1,5 +1,3 @@
-*) fix case test variable-declarations/27.c
-
 *) int a[not ASTIntegerLiteralNode] = {1,2,3};
    => error: variable-sized object may not be initialized
 
@@ -37,15 +35,3 @@ EXTRAS:
     *) default parameters
     *) inline functions
     *) enums
-
-
-DONE:
-*) recognize printf/scanf after import stdio
-*) fix very long nested expressions
-*) check if parameter node code generation can be 'pass'
-*) add -saveast flag to c2p.py for AST output
-*) check unary arithmetic operator
-*) implement --save-ast, --save-symbol- table
-*) prevent initializers from appearing in parameter declarations (default argumants) # done in grammar, it's a syntax error just like in c
-*) look at VisitorDefinitionProcessor @ 50, we might need a warning system now, or just make this an error "type specifier missing"
-*) added warnings functionality
