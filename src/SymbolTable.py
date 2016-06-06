@@ -168,7 +168,7 @@ class SymbolTable(object):
             return
         symbol = VariableSymbolInfo(astnode)
         self.root.assignAddress(symbol, insertIntoAddressedVariables=False)
-        self.stringLiterals[astnode.encodedValue] = symbol
+        self.stringLiterals[astnode.decodedValue] = symbol
 
     def insertVariableSymbol(self, astnode):
         self.currentScope.insertSymbol(VariableSymbolInfo(astnode))

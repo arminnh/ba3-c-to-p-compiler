@@ -494,7 +494,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
     def __init__(self, value, ctx=None):
         super(ASTStringLiteralNode, self).__init__("string", ctx)
         self.value = value
-        self.encodedValue = value.encode("unicode-escape")
+        self.decodedValue = bytes(value, "utf-8").decode("unicode-escape")
 
     def accept(self, visitor):
         if not self.error:
@@ -504,7 +504,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
 
     def getType(self):
          # +1 null termination, -2 for quotes
-        return TypeInfo(rvalue=False, basetype="char", indirections=[(False, False), (len(self.encodedValue) -1, False)])
+        return TypeInfo(rvalue=False, basetype="char", indirections=[(False, False), (len(self.decodedValue) -1, False)])
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
