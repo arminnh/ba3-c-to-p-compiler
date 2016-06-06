@@ -48,9 +48,10 @@ class Scope:
             return self.addressCounter
         return self.parent.getAddressCounter()
 
-    def assignAddress(self, variable):
+    def assignAddress(self, variable, insertIntoAddressedVariables=True):
         if self.parent is None or self.isFunctionScope:
-            self.addressedVariables.append(variable) # put variable into function scope variable address list
+            if insertIntoAddressedVariables:
+                self.addressedVariables.append(variable) # put variable into function scope variable address list
             variable.address = self.addressCounter # set variable's address
             self.addressCounter += variable.typeInfo.size() # increment counter
             return variable.address
@@ -141,6 +142,7 @@ class SymbolTable(object):
         self.root = Scope()
         self.currentScope = self.root
         self.currentDepth = 0
+        self.stringLiterals = {}
 
     def openScope(self, isFunctionScope=False, name=None):
         self.currentDepth += 1
@@ -160,6 +162,13 @@ class SymbolTable(object):
     def closeScope(self):
         self.currentDepth -= 1
         self.currentScope = self.currentScope.parent
+
+    def insertStringLiteral(self, astnode):
+        if self.stringLiterals.get(astnode.value) is not None:
+            return
+        symbol = VariableSymbolInfo(astnode)
+        self.root.assignAddress(symbol, insertIntoAddressedVariables=False)
+        self.stringLiterals[astnode.encodedValue] = symbol
 
     def insertVariableSymbol(self, astnode):
         self.currentScope.insertSymbol(VariableSymbolInfo(astnode))

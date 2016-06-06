@@ -10,8 +10,8 @@ class VisitorCodeGenerator(Visitor):
         self.symbolTable = symbolTable
         self.current = 0
         self._lvalue = []
-        self.backLabel = None
-        self.forwardLabel = None
+        self.backLabels = []
+        self.forwardLabels = []
         self.outFile = open(outFile, 'w')
 
         self.p_types = {
@@ -79,6 +79,17 @@ class VisitorCodeGenerator(Visitor):
     def visitProgramNode(self, node):
         self.outFile.write("ldc i 0\n") # work/trash register
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 5))
+
+        # code for string literals
+        for string, symbolInfo in self.symbolTable.stringLiterals.items():
+            for i, c in enumerate(string[1:-1]):
+                self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + i + 5))
+                self.outFile.write("ldc c {0}\n".format(repr(c)))
+                self.outFile.write("sto c\n")
+
+            self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) - 2 + 5))
+            self.outFile.write("ldc c 27\n")
+            self.outFile.write("sto c\n")
 
         # code for variables
         for variable in self.symbolTable.currentScope.addressedVariables:
@@ -198,11 +209,11 @@ class VisitorCodeGenerator(Visitor):
         self.outFile.write("retf\n") # note: this was not in the compendium
 
     def visitBreakNode(self, node):
-        self.outFile.write("ujp {0}\n".format(self.forwardLabel))
+        self.outFile.write("ujp {0}\n".format(self.forwardLabels[-1]))
 
 
     def visitContinueNode(self, node):
-        self.outFile.write("ujp {0}\n".format(self.backLabel))
+        self.outFile.write("ujp {0}\n".format(self.backLabels[-1]))
 
 
     def visitIfNode(self, node):
@@ -240,8 +251,8 @@ class VisitorCodeGenerator(Visitor):
         iterationLabel = self.getLabel() + "_for_iteration"
         conditionLabel = self.getLabel() + "_for_condition"
         afterLabel = self.getLabel() + "_for_after"
-        self.backLabel = iterationLabel
-        self.forwardLabel = afterLabel
+        self.backLabels.append(iterationLabel)
+        self.forwardLabels.append(afterLabel)
 
         self.symbolTable.openScope()
         if node.initializer: node.initializer.accept(self)
@@ -258,12 +269,15 @@ class VisitorCodeGenerator(Visitor):
         self.outFile.write("{0}:\n".format(afterLabel))
         self.symbolTable.closeScope()
 
+        self.backLabels.pop()
+        self.forwardLabels.pop()
+
 
     def visitWhileNode(self, node):
         conditionLabel = self.getLabel() + "_while_condition"
         afterLabel = self.getLabel() + "_while_after"
-        self.backLabel = conditionLabel
-        self.forwardLabel = afterLabel
+        self.backLabels.append(conditionLabel)
+        self.forwardLabels.append(afterLabel)
 
         self.outFile.write("{0}:\n".format(conditionLabel))
         node.children[0].accept(self)                            # condition
@@ -272,6 +286,9 @@ class VisitorCodeGenerator(Visitor):
         node.children[1].accept(self)                            # loop code
         self.outFile.write("ujp {0}\n".format(conditionLabel))   # jump back to the condition
         self.outFile.write("{0}:\n".format(afterLabel))
+
+        self.backLabels.pop()
+        self.forwardLabels.pop()
 
 
     def visitDoWhileNode(self, node): #TODO: test this
@@ -369,7 +386,8 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitStringLiteralNode(self, node):
-        self.outFile.write("code string literal\n")
+        if not isinstance(node.parent, (ASTDeclaratorInitializerNode, ASTInitializerListNode)):
+            self.outFile.write("lda 1 {0}\n".format(node.symbolInfo.address))
 
 
     def visitVariableNode(self, node):

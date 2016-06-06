@@ -4,6 +4,11 @@ from VisitorSymbolTable import *
 
 class VisitorDefinitionProcessor(VisitorSymbolTable):
 
+    def visitStringLiteralNode(self, node):
+        if isinstance(node.parent, ASTDeclaratorInitializerNode):
+            return
+        self.table.insertStringLiteral(node)
+
     def visitBreakNode(self, node):
         breakFrom = node
         while not isinstance(breakFrom, (ASTForNode, ASTWhileNode)) and breakFrom is not None:
