@@ -4,7 +4,8 @@ grammar SmallC;
 // parser rules (rule names start with lower case character)
 
 oplevel15 :
-      oplevel14
+      oplevel15 ',' oplevel14
+    | oplevel14
     ;
 
 oplevel14 :
@@ -176,7 +177,7 @@ expression :
     | characterLiteral
     | stringLiteral
     | functionCall
-    | oplevel14
+    | oplevel15
     ;
 
 ifCond :
