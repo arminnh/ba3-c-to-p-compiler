@@ -28,7 +28,7 @@ class VisitorCodeGenerator(Visitor):
         self.initializers = {
             "int"     : 0,
             "float"   : 0.0,
-            "char"    : 'c',
+            "char"    : 0,
             "boolean" : 0,
             "address" : 0
         }
