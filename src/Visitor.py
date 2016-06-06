@@ -83,6 +83,10 @@ class Visitor:
         self.visitChildren(node)
 
 
+    def visitArrayPartNode(self, node):
+        self.visitChildren(node)
+
+
     def visitStatementsNode(self, node):
         self.visitChildren(node)
 

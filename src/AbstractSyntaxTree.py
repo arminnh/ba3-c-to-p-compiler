@@ -197,6 +197,15 @@ class ASTInitializerListNode(ASTNode):
         s += "{0}, {1} elements\n".format(self.label, len(self.children))
         return s if (not self.children) else self.outChildren(s, level)
 
+class ASTArrayPartNode(ASTNode):
+    def __init__(self, ctx=None):
+        super(ASTArrayPartNode, self).__init__("array part", ctx)
+
+    def accept(self, visitor):
+        if not self.error:
+            visitor.visitArrayPartNode(self)
+
+
 '''
     STATEMENTS
 '''
@@ -366,7 +375,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
             if isinstance(child, ASTExpressionNode):
                 s += offset * (level + 1) + "arrayLength\n"
                 s += child.out(level + 2)
-            elif isinstance(child, ASTInitializerListNode):
+            else:
                 s += child.out(level + 1)
 
         return s

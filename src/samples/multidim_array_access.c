@@ -4,7 +4,7 @@ int f(int q[][3]) {
 }
 
 int main(void) {
-	int arr[2][3];
+	int arr[][3];
 	int i = 0, j = 1;
 	arr[i][i] = 5;
 	arr[i][j] = 6;

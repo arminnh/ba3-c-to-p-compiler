@@ -183,11 +183,10 @@ class Listener(CListener):
 
 
     def enterArrayPart(self, ctx:CParser.ArrayPartContext):
-        # self.currentNode.indirections.append((True, False))
-        pass
+        self.currentNode = self.currentNode.addChildNode(ASTArrayPartNode(ctx=ctx))
 
     def exitArrayPart(self, ctx:CParser.ArrayPartContext):
-        pass
+        self.currentNode = self.currentNode.parent
 
 
 
