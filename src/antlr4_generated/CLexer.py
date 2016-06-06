@@ -1,4 +1,4 @@
-# Generated from SmallC.g4 by ANTLR 4.5.3
+# Generated from C.g4 by ANTLR 4.5.3
 from antlr4 import *
 from io import StringIO
 
@@ -157,7 +157,7 @@ def serializedATN():
         return buf.getvalue()
 
 
-class SmallCLexer(Lexer):
+class CLexer(Lexer):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -244,7 +244,7 @@ class SmallCLexer(Lexer):
                   "RETURN", "COMMENT", "MULTICOMMENT", "INTEGER", "FLOAT", 
                   "IDENTIFIER", "CHARACTER", "STRING", "WS" ]
 
-    grammarFileName = "SmallC.g4"
+    grammarFileName = "C.g4"
 
     def __init__(self, input=None):
         super().__init__(input)

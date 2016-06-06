@@ -40,16 +40,3 @@ EXTRAS:
     *) dynamic arrays
     *) inline functions
     *) nested functions
-
-
-
-
-updated the way expressions are handled in grammar
-added tests for all "todo: test this" comments
-fixed new errors that were found while adding these tests
-refactored VisitorTypeChecker
-added typechecking for assignments with void functions
-added types dictionary in TypeInfo.py to get base types from
-removed ignoreRvalue parameter in TypeInfo comparisons
-cleaned up comments from code
-updated todo

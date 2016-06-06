@@ -2,12 +2,12 @@
 
 echo Running Python3 tests with file /src/tests/main.py
 
-if not exist "antlr4_generated\SmallCParser.py" GOTO build
-if not exist "antlr4_generated\SmallCLexer.py" GOTO build
-if not exist "antlr4_generated\SmallCLexer.tokens" GOTO build
-if not exist "antlr4_generated\SmallCListener.py" GOTO build
-if not exist "antlr4_generated\SmallCParser.py" GOTO build
-if not exist "antlr4_generated\SmallC.tokens" GOTO build
+if not exist "antlr4_generated\CParser.py" GOTO build
+if not exist "antlr4_generated\CLexer.py" GOTO build
+if not exist "antlr4_generated\CLexer.tokens" GOTO build
+if not exist "antlr4_generated\CListener.py" GOTO build
+if not exist "antlr4_generated\CParser.py" GOTO build
+if not exist "antlr4_generated\C.tokens" GOTO build
 
 :test
 cd tests/

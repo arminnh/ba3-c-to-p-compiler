@@ -5,8 +5,8 @@ import logging
 import sys
 sys.path.insert(0, "..")
 
-from antlr4_generated.SmallCLexer import SmallCLexer
-from antlr4_generated.SmallCParser import SmallCParser
+from antlr4_generated.CLexer import CLexer
+from antlr4_generated.CParser import CParser
 
 from AbstractSyntaxTree import *
 from Listener import *
@@ -31,9 +31,9 @@ class ASTTest():
 
     def parseFile(self, filename):
         input_file = FileStream(filename)
-        lexer = SmallCLexer(input_file)
+        lexer = CLexer(input_file)
         stream = CommonTokenStream(lexer)
-        parser = SmallCParser(stream)
+        parser = CParser(stream)
         programContext = parser.program()
 
         walker = ParseTreeWalker()

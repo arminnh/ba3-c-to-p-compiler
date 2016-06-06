@@ -2,7 +2,7 @@
 
 echo "Running Python3 tests with file /src/tests/main.py"
 
-if [ ! -f "antlr4_generated/SmallCParser.py" -o ! -f "antlr4_generated/SmallCLexer.py" -o ! -f "antlr4_generated/SmallCLexer.tokens" -o ! -f "antlr4_generated/SmallCListener.py" -o ! -f "antlr4_generated/SmallCParser.py"  -o ! -f "antlr4_generated/SmallC.tokens" ]; then
+if [ ! -f "antlr4_generated/CParser.py" -o ! -f "antlr4_generated/CLexer.py" -o ! -f "antlr4_generated/CLexer.tokens" -o ! -f "antlr4_generated/CListener.py" -o ! -f "antlr4_generated/CParser.py"  -o ! -f "antlr4_generated/C.tokens" ]; then
     echo "Missing some necessary files. Building before tests."
 
     source ./build.sh

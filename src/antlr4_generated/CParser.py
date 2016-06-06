@@ -1,4 +1,4 @@
-# Generated from SmallC.g4 by ANTLR 4.5.3
+# Generated from C.g4 by ANTLR 4.5.3
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -315,9 +315,9 @@ def serializedATN():
         return buf.getvalue()
 
 
-class SmallCParser ( Parser ):
+class CParser ( Parser ):
 
-    grammarFileName = "SmallC.g4"
+    grammarFileName = "C.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -490,15 +490,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel14(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel14Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel14Context,0)
 
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel15
+            return CParser.RULE_oplevel15
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel15" ):
@@ -513,7 +513,7 @@ class SmallCParser ( Parser ):
     def oplevel15(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel15Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel15Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 0
         self.enterRecursionRule(localctx, 0, self.RULE_oplevel15, _p)
@@ -530,14 +530,14 @@ class SmallCParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = SmallCParser.Oplevel15Context(self, _parentctx, _parentState)
+                    localctx = CParser.Oplevel15Context(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel15)
                     self.state = 117
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 118
-                    self.match(SmallCParser.T__0)
+                    self.match(CParser.T__0)
                     self.state = 119
                     self.oplevel14() 
                 self.state = 124
@@ -559,15 +559,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel13(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel13Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel13Context,0)
 
 
         def oplevel14(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel14Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel14Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel14
+            return CParser.RULE_oplevel14
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel14" ):
@@ -582,7 +582,7 @@ class SmallCParser ( Parser ):
 
     def oplevel14(self):
 
-        localctx = SmallCParser.Oplevel14Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel14Context(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_oplevel14)
         try:
             self.state = 130
@@ -593,7 +593,7 @@ class SmallCParser ( Parser ):
                 self.state = 125
                 self.oplevel13()
                 self.state = 126
-                self.match(SmallCParser.T__1)
+                self.match(CParser.T__1)
                 self.state = 127
                 self.oplevel14()
                 pass
@@ -621,17 +621,17 @@ class SmallCParser ( Parser ):
 
         def oplevel12(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.Oplevel12Context)
+                return self.getTypedRuleContexts(CParser.Oplevel12Context)
             else:
-                return self.getTypedRuleContext(SmallCParser.Oplevel12Context,i)
+                return self.getTypedRuleContext(CParser.Oplevel12Context,i)
 
 
         def oplevel13(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel13Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel13Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel13
+            return CParser.RULE_oplevel13
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel13" ):
@@ -646,7 +646,7 @@ class SmallCParser ( Parser ):
 
     def oplevel13(self):
 
-        localctx = SmallCParser.Oplevel13Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel13Context(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_oplevel13)
         try:
             self.state = 139
@@ -657,11 +657,11 @@ class SmallCParser ( Parser ):
                 self.state = 132
                 self.oplevel12(0)
                 self.state = 133
-                self.match(SmallCParser.T__2)
+                self.match(CParser.T__2)
                 self.state = 134
                 self.oplevel12(0)
                 self.state = 135
-                self.match(SmallCParser.T__3)
+                self.match(CParser.T__3)
                 self.state = 136
                 self.oplevel13()
                 pass
@@ -688,15 +688,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel11(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel11Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel11Context,0)
 
 
         def oplevel12(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel12Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel12Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel12
+            return CParser.RULE_oplevel12
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel12" ):
@@ -711,7 +711,7 @@ class SmallCParser ( Parser ):
     def oplevel12(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel12Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel12Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 6
         self.enterRecursionRule(localctx, 6, self.RULE_oplevel12, _p)
@@ -728,14 +728,14 @@ class SmallCParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = SmallCParser.Oplevel12Context(self, _parentctx, _parentState)
+                    localctx = CParser.Oplevel12Context(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel12)
                     self.state = 144
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 145
-                    self.match(SmallCParser.T__4)
+                    self.match(CParser.T__4)
                     self.state = 146
                     self.oplevel11(0) 
                 self.state = 151
@@ -757,15 +757,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel7(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel7Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel7Context,0)
 
 
         def oplevel11(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel11Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel11Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel11
+            return CParser.RULE_oplevel11
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel11" ):
@@ -780,7 +780,7 @@ class SmallCParser ( Parser ):
     def oplevel11(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel11Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel11Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 8
         self.enterRecursionRule(localctx, 8, self.RULE_oplevel11, _p)
@@ -797,14 +797,14 @@ class SmallCParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = SmallCParser.Oplevel11Context(self, _parentctx, _parentState)
+                    localctx = CParser.Oplevel11Context(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel11)
                     self.state = 155
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                     self.state = 156
-                    self.match(SmallCParser.T__5)
+                    self.match(CParser.T__5)
                     self.state = 157
                     self.oplevel7(0) 
                 self.state = 162
@@ -826,11 +826,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel9(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel9Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel9Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel10
+            return CParser.RULE_oplevel10
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel10" ):
@@ -845,7 +845,7 @@ class SmallCParser ( Parser ):
 
     def oplevel10(self):
 
-        localctx = SmallCParser.Oplevel10Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel10Context(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_oplevel10)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -866,11 +866,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel8(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel8Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel8Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel9
+            return CParser.RULE_oplevel9
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel9" ):
@@ -885,7 +885,7 @@ class SmallCParser ( Parser ):
 
     def oplevel9(self):
 
-        localctx = SmallCParser.Oplevel9Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel9Context(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_oplevel9)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -906,11 +906,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel7(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel7Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel7Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel8
+            return CParser.RULE_oplevel8
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel8" ):
@@ -925,7 +925,7 @@ class SmallCParser ( Parser ):
 
     def oplevel8(self):
 
-        localctx = SmallCParser.Oplevel8Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel8Context(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_oplevel8)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -946,15 +946,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel6(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel6Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel6Context,0)
 
 
         def oplevel7(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel7Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel7Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel7
+            return CParser.RULE_oplevel7
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel7" ):
@@ -969,7 +969,7 @@ class SmallCParser ( Parser ):
     def oplevel7(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel7Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel7Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 16
         self.enterRecursionRule(localctx, 16, self.RULE_oplevel7, _p)
@@ -990,27 +990,27 @@ class SmallCParser ( Parser ):
                     self._errHandler.sync(self);
                     la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
                     if la_ == 1:
-                        localctx = SmallCParser.Oplevel7Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel7Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel7)
                         self.state = 172
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
                         self.state = 173
-                        self.match(SmallCParser.T__6)
+                        self.match(CParser.T__6)
                         self.state = 174
                         self.oplevel6(0)
                         pass
 
                     elif la_ == 2:
-                        localctx = SmallCParser.Oplevel7Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel7Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel7)
                         self.state = 175
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                         self.state = 176
-                        self.match(SmallCParser.T__7)
+                        self.match(CParser.T__7)
                         self.state = 177
                         self.oplevel6(0)
                         pass
@@ -1035,15 +1035,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel4(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel4Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel4Context,0)
 
 
         def oplevel6(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel6Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel6Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel6
+            return CParser.RULE_oplevel6
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel6" ):
@@ -1058,7 +1058,7 @@ class SmallCParser ( Parser ):
     def oplevel6(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel6Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel6Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 18
         self.enterRecursionRule(localctx, 18, self.RULE_oplevel6, _p)
@@ -1079,53 +1079,53 @@ class SmallCParser ( Parser ):
                     self._errHandler.sync(self);
                     la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
                     if la_ == 1:
-                        localctx = SmallCParser.Oplevel6Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel6Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel6)
                         self.state = 186
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 187
-                        self.match(SmallCParser.T__8)
+                        self.match(CParser.T__8)
                         self.state = 188
                         self.oplevel4(0)
                         pass
 
                     elif la_ == 2:
-                        localctx = SmallCParser.Oplevel6Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel6Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel6)
                         self.state = 189
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
                         self.state = 190
-                        self.match(SmallCParser.T__9)
+                        self.match(CParser.T__9)
                         self.state = 191
                         self.oplevel4(0)
                         pass
 
                     elif la_ == 3:
-                        localctx = SmallCParser.Oplevel6Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel6Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel6)
                         self.state = 192
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
                         self.state = 193
-                        self.match(SmallCParser.T__10)
+                        self.match(CParser.T__10)
                         self.state = 194
                         self.oplevel4(0)
                         pass
 
                     elif la_ == 4:
-                        localctx = SmallCParser.Oplevel6Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel6Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel6)
                         self.state = 195
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                         self.state = 196
-                        self.match(SmallCParser.T__11)
+                        self.match(CParser.T__11)
                         self.state = 197
                         self.oplevel4(0)
                         pass
@@ -1150,11 +1150,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel4(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel4Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel4Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel5
+            return CParser.RULE_oplevel5
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel5" ):
@@ -1169,7 +1169,7 @@ class SmallCParser ( Parser ):
 
     def oplevel5(self):
 
-        localctx = SmallCParser.Oplevel5Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel5Context(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_oplevel5)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1190,15 +1190,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel3(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel3Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel3Context,0)
 
 
         def oplevel4(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel4Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel4Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel4
+            return CParser.RULE_oplevel4
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel4" ):
@@ -1213,7 +1213,7 @@ class SmallCParser ( Parser ):
     def oplevel4(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel4Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel4Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 22
         self.enterRecursionRule(localctx, 22, self.RULE_oplevel4, _p)
@@ -1234,27 +1234,27 @@ class SmallCParser ( Parser ):
                     self._errHandler.sync(self);
                     la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
                     if la_ == 1:
-                        localctx = SmallCParser.Oplevel4Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel4Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel4)
                         self.state = 208
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
                         self.state = 209
-                        self.match(SmallCParser.T__12)
+                        self.match(CParser.T__12)
                         self.state = 210
                         self.oplevel3(0)
                         pass
 
                     elif la_ == 2:
-                        localctx = SmallCParser.Oplevel4Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel4Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel4)
                         self.state = 211
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                         self.state = 212
-                        self.match(SmallCParser.T__13)
+                        self.match(CParser.T__13)
                         self.state = 213
                         self.oplevel3(0)
                         pass
@@ -1279,15 +1279,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel2(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel2Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel2Context,0)
 
 
         def oplevel3(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel3Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel3Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel3
+            return CParser.RULE_oplevel3
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel3" ):
@@ -1302,7 +1302,7 @@ class SmallCParser ( Parser ):
     def oplevel3(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel3Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel3Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 24
         self.enterRecursionRule(localctx, 24, self.RULE_oplevel3, _p)
@@ -1323,40 +1323,40 @@ class SmallCParser ( Parser ):
                     self._errHandler.sync(self);
                     la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
                     if la_ == 1:
-                        localctx = SmallCParser.Oplevel3Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel3Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel3)
                         self.state = 222
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
                         self.state = 223
-                        self.match(SmallCParser.T__14)
+                        self.match(CParser.T__14)
                         self.state = 224
                         self.oplevel2()
                         pass
 
                     elif la_ == 2:
-                        localctx = SmallCParser.Oplevel3Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel3Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel3)
                         self.state = 225
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
                         self.state = 226
-                        self.match(SmallCParser.T__15)
+                        self.match(CParser.T__15)
                         self.state = 227
                         self.oplevel2()
                         pass
 
                     elif la_ == 3:
-                        localctx = SmallCParser.Oplevel3Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel3Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel3)
                         self.state = 228
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                         self.state = 229
-                        self.match(SmallCParser.T__16)
+                        self.match(CParser.T__16)
                         self.state = 230
                         self.oplevel2()
                         pass
@@ -1381,19 +1381,19 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel2(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel2Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel2Context,0)
 
 
         def typeCast(self):
-            return self.getTypedRuleContext(SmallCParser.TypeCastContext,0)
+            return self.getTypedRuleContext(CParser.TypeCastContext,0)
 
 
         def oplevel1(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel1Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel1Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel2
+            return CParser.RULE_oplevel2
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel2" ):
@@ -1408,7 +1408,7 @@ class SmallCParser ( Parser ):
 
     def oplevel2(self):
 
-        localctx = SmallCParser.Oplevel2Context(self, self._ctx, self.state)
+        localctx = CParser.Oplevel2Context(self, self._ctx, self.state)
         self.enterRule(localctx, 26, self.RULE_oplevel2)
         try:
             self.state = 252
@@ -1417,7 +1417,7 @@ class SmallCParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 236
-                self.match(SmallCParser.T__17)
+                self.match(CParser.T__17)
                 self.state = 237
                 self.oplevel2()
                 pass
@@ -1425,7 +1425,7 @@ class SmallCParser ( Parser ):
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 238
-                self.match(SmallCParser.T__18)
+                self.match(CParser.T__18)
                 self.state = 239
                 self.oplevel2()
                 pass
@@ -1433,7 +1433,7 @@ class SmallCParser ( Parser ):
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 240
-                self.match(SmallCParser.T__12)
+                self.match(CParser.T__12)
                 self.state = 241
                 self.oplevel2()
                 pass
@@ -1441,7 +1441,7 @@ class SmallCParser ( Parser ):
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 242
-                self.match(SmallCParser.T__13)
+                self.match(CParser.T__13)
                 self.state = 243
                 self.oplevel2()
                 pass
@@ -1449,7 +1449,7 @@ class SmallCParser ( Parser ):
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 244
-                self.match(SmallCParser.T__19)
+                self.match(CParser.T__19)
                 self.state = 245
                 self.oplevel2()
                 pass
@@ -1457,7 +1457,7 @@ class SmallCParser ( Parser ):
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 246
-                self.match(SmallCParser.T__14)
+                self.match(CParser.T__14)
                 self.state = 247
                 self.oplevel2()
                 pass
@@ -1465,7 +1465,7 @@ class SmallCParser ( Parser ):
             elif la_ == 7:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 248
-                self.match(SmallCParser.T__20)
+                self.match(CParser.T__20)
                 self.state = 249
                 self.oplevel2()
                 pass
@@ -1498,39 +1498,39 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def variable(self):
-            return self.getTypedRuleContext(SmallCParser.VariableContext,0)
+            return self.getTypedRuleContext(CParser.VariableContext,0)
 
 
         def floatLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.FloatLiteralContext,0)
+            return self.getTypedRuleContext(CParser.FloatLiteralContext,0)
 
 
         def integerLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.IntegerLiteralContext,0)
+            return self.getTypedRuleContext(CParser.IntegerLiteralContext,0)
 
 
         def characterLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.CharacterLiteralContext,0)
+            return self.getTypedRuleContext(CParser.CharacterLiteralContext,0)
 
 
         def stringLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.StringLiteralContext,0)
+            return self.getTypedRuleContext(CParser.StringLiteralContext,0)
 
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def functionCall(self):
-            return self.getTypedRuleContext(SmallCParser.FunctionCallContext,0)
+            return self.getTypedRuleContext(CParser.FunctionCallContext,0)
 
 
         def oplevel1(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel1Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel1Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_oplevel1
+            return CParser.RULE_oplevel1
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOplevel1" ):
@@ -1545,7 +1545,7 @@ class SmallCParser ( Parser ):
     def oplevel1(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = SmallCParser.Oplevel1Context(self, self._ctx, _parentState)
+        localctx = CParser.Oplevel1Context(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 28
         self.enterRecursionRule(localctx, 28, self.RULE_oplevel1, _p)
@@ -1581,11 +1581,11 @@ class SmallCParser ( Parser ):
 
             elif la_ == 6:
                 self.state = 260
-                self.match(SmallCParser.T__23)
+                self.match(CParser.T__23)
                 self.state = 261
                 self.oplevel15(0)
                 self.state = 262
-                self.match(SmallCParser.T__24)
+                self.match(CParser.T__24)
                 pass
 
             elif la_ == 7:
@@ -1607,40 +1607,40 @@ class SmallCParser ( Parser ):
                     self._errHandler.sync(self);
                     la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
                     if la_ == 1:
-                        localctx = SmallCParser.Oplevel1Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel1Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel1)
                         self.state = 267
                         if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
                         self.state = 268
-                        self.match(SmallCParser.T__17)
+                        self.match(CParser.T__17)
                         pass
 
                     elif la_ == 2:
-                        localctx = SmallCParser.Oplevel1Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel1Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel1)
                         self.state = 269
                         if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 270
-                        self.match(SmallCParser.T__18)
+                        self.match(CParser.T__18)
                         pass
 
                     elif la_ == 3:
-                        localctx = SmallCParser.Oplevel1Context(self, _parentctx, _parentState)
+                        localctx = CParser.Oplevel1Context(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_oplevel1)
                         self.state = 271
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 272
-                        self.match(SmallCParser.T__21)
+                        self.match(CParser.T__21)
                         self.state = 273
                         self.oplevel15(0)
                         self.state = 274
-                        self.match(SmallCParser.T__22)
+                        self.match(CParser.T__22)
                         pass
 
              
@@ -1663,25 +1663,25 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel2(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel2Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel2Context,0)
 
 
         def declarationSpecifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(CParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(CParser.DeclarationSpecifierContext,i)
 
 
         def pointerPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.PointerPartContext)
+                return self.getTypedRuleContexts(CParser.PointerPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.PointerPartContext,i)
+                return self.getTypedRuleContext(CParser.PointerPartContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_typeCast
+            return CParser.RULE_typeCast
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTypeCast" ):
@@ -1696,13 +1696,13 @@ class SmallCParser ( Parser ):
 
     def typeCast(self):
 
-        localctx = SmallCParser.TypeCastContext(self, self._ctx, self.state)
+        localctx = CParser.TypeCastContext(self, self._ctx, self.state)
         self.enterRule(localctx, 30, self.RULE_typeCast)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 281
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 283 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -1712,13 +1712,13 @@ class SmallCParser ( Parser ):
                 self.state = 285 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST))) != 0)):
                     break
 
             self.state = 290
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==SmallCParser.T__14:
+            while _la==CParser.T__14:
                 self.state = 287
                 self.pointerPart()
                 self.state = 292
@@ -1726,7 +1726,7 @@ class SmallCParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 293
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 294
             self.oplevel2()
         except RecognitionException as re:
@@ -1745,34 +1745,34 @@ class SmallCParser ( Parser ):
 
         def include(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.IncludeContext)
+                return self.getTypedRuleContexts(CParser.IncludeContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.IncludeContext,i)
+                return self.getTypedRuleContext(CParser.IncludeContext,i)
 
 
         def functionDeclaration(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.FunctionDeclarationContext)
+                return self.getTypedRuleContexts(CParser.FunctionDeclarationContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.FunctionDeclarationContext,i)
+                return self.getTypedRuleContext(CParser.FunctionDeclarationContext,i)
 
 
         def functionDefinition(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.FunctionDefinitionContext)
+                return self.getTypedRuleContexts(CParser.FunctionDefinitionContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.FunctionDefinitionContext,i)
+                return self.getTypedRuleContext(CParser.FunctionDefinitionContext,i)
 
 
         def variableDeclaration(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.VariableDeclarationContext)
+                return self.getTypedRuleContexts(CParser.VariableDeclarationContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.VariableDeclarationContext,i)
+                return self.getTypedRuleContext(CParser.VariableDeclarationContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_program
+            return CParser.RULE_program
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterProgram" ):
@@ -1787,7 +1787,7 @@ class SmallCParser ( Parser ):
 
     def program(self):
 
-        localctx = SmallCParser.ProgramContext(self, self._ctx, self.state)
+        localctx = CParser.ProgramContext(self, self._ctx, self.state)
         self.enterRule(localctx, 32, self.RULE_program)
         self._la = 0 # Token type
         try:
@@ -1795,7 +1795,7 @@ class SmallCParser ( Parser ):
             self.state = 304
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__14) | (1 << SmallCParser.T__26) | (1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST) | (1 << SmallCParser.IDENTIFIER))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__14) | (1 << CParser.T__26) | (1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST) | (1 << CParser.IDENTIFIER))) != 0):
                 self.state = 302
                 self._errHandler.sync(self);
                 la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
@@ -1818,7 +1818,7 @@ class SmallCParser ( Parser ):
                     self.state = 299
                     self.variableDeclaration()
                     self.state = 300
-                    self.match(SmallCParser.T__25)
+                    self.match(CParser.T__25)
                     pass
 
 
@@ -1841,15 +1841,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def stdInclude(self):
-            return self.getTypedRuleContext(SmallCParser.StdIncludeContext,0)
+            return self.getTypedRuleContext(CParser.StdIncludeContext,0)
 
 
         def customInclude(self):
-            return self.getTypedRuleContext(SmallCParser.CustomIncludeContext,0)
+            return self.getTypedRuleContext(CParser.CustomIncludeContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_include
+            return CParser.RULE_include
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterInclude" ):
@@ -1864,7 +1864,7 @@ class SmallCParser ( Parser ):
 
     def include(self):
 
-        localctx = SmallCParser.IncludeContext(self, self._ctx, self.state)
+        localctx = CParser.IncludeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 34, self.RULE_include)
         try:
             self.state = 314
@@ -1873,19 +1873,19 @@ class SmallCParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 307
-                self.match(SmallCParser.T__26)
+                self.match(CParser.T__26)
                 self.state = 308
-                self.match(SmallCParser.T__8)
+                self.match(CParser.T__8)
                 self.state = 309
                 self.stdInclude()
                 self.state = 310
-                self.match(SmallCParser.T__10)
+                self.match(CParser.T__10)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 312
-                self.match(SmallCParser.T__26)
+                self.match(CParser.T__26)
                 self.state = 313
                 self.customInclude()
                 pass
@@ -1907,13 +1907,13 @@ class SmallCParser ( Parser ):
 
         def identifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.IdentifierContext)
+                return self.getTypedRuleContexts(CParser.IdentifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.IdentifierContext,i)
+                return self.getTypedRuleContext(CParser.IdentifierContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_stdInclude
+            return CParser.RULE_stdInclude
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStdInclude" ):
@@ -1928,14 +1928,14 @@ class SmallCParser ( Parser ):
 
     def stdInclude(self):
 
-        localctx = SmallCParser.StdIncludeContext(self, self._ctx, self.state)
+        localctx = CParser.StdIncludeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 36, self.RULE_stdInclude)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 316
             self.identifier()
             self.state = 317
-            self.match(SmallCParser.T__27)
+            self.match(CParser.T__27)
             self.state = 318
             self.identifier()
         except RecognitionException as re:
@@ -1953,11 +1953,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def stringLiteral(self):
-            return self.getTypedRuleContext(SmallCParser.StringLiteralContext,0)
+            return self.getTypedRuleContext(CParser.StringLiteralContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_customInclude
+            return CParser.RULE_customInclude
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCustomInclude" ):
@@ -1972,7 +1972,7 @@ class SmallCParser ( Parser ):
 
     def customInclude(self):
 
-        localctx = SmallCParser.CustomIncludeContext(self, self._ctx, self.state)
+        localctx = CParser.CustomIncludeContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_customInclude)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1993,29 +1993,29 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def parameters(self):
-            return self.getTypedRuleContext(SmallCParser.ParametersContext,0)
+            return self.getTypedRuleContext(CParser.ParametersContext,0)
 
 
         def declarationSpecifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(CParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(CParser.DeclarationSpecifierContext,i)
 
 
         def pointerPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.PointerPartContext)
+                return self.getTypedRuleContexts(CParser.PointerPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.PointerPartContext,i)
+                return self.getTypedRuleContext(CParser.PointerPartContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_functionDeclaration
+            return CParser.RULE_functionDeclaration
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctionDeclaration" ):
@@ -2030,7 +2030,7 @@ class SmallCParser ( Parser ):
 
     def functionDeclaration(self):
 
-        localctx = SmallCParser.FunctionDeclarationContext(self, self._ctx, self.state)
+        localctx = CParser.FunctionDeclarationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 40, self.RULE_functionDeclaration)
         self._la = 0 # Token type
         try:
@@ -2038,7 +2038,7 @@ class SmallCParser ( Parser ):
             self.state = 325
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST))) != 0):
                 self.state = 322
                 self.declarationSpecifier()
                 self.state = 327
@@ -2048,7 +2048,7 @@ class SmallCParser ( Parser ):
             self.state = 331
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==SmallCParser.T__14:
+            while _la==CParser.T__14:
                 self.state = 328
                 self.pointerPart()
                 self.state = 333
@@ -2058,13 +2058,13 @@ class SmallCParser ( Parser ):
             self.state = 334
             self.identifier()
             self.state = 335
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 336
             self.parameters()
             self.state = 337
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 338
-            self.match(SmallCParser.T__25)
+            self.match(CParser.T__25)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2080,33 +2080,33 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def parameters(self):
-            return self.getTypedRuleContext(SmallCParser.ParametersContext,0)
+            return self.getTypedRuleContext(CParser.ParametersContext,0)
 
 
         def statements(self):
-            return self.getTypedRuleContext(SmallCParser.StatementsContext,0)
+            return self.getTypedRuleContext(CParser.StatementsContext,0)
 
 
         def declarationSpecifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(CParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(CParser.DeclarationSpecifierContext,i)
 
 
         def pointerPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.PointerPartContext)
+                return self.getTypedRuleContexts(CParser.PointerPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.PointerPartContext,i)
+                return self.getTypedRuleContext(CParser.PointerPartContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_functionDefinition
+            return CParser.RULE_functionDefinition
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctionDefinition" ):
@@ -2121,7 +2121,7 @@ class SmallCParser ( Parser ):
 
     def functionDefinition(self):
 
-        localctx = SmallCParser.FunctionDefinitionContext(self, self._ctx, self.state)
+        localctx = CParser.FunctionDefinitionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 42, self.RULE_functionDefinition)
         self._la = 0 # Token type
         try:
@@ -2129,7 +2129,7 @@ class SmallCParser ( Parser ):
             self.state = 343
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST))) != 0):
                 self.state = 340
                 self.declarationSpecifier()
                 self.state = 345
@@ -2139,7 +2139,7 @@ class SmallCParser ( Parser ):
             self.state = 349
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==SmallCParser.T__14:
+            while _la==CParser.T__14:
                 self.state = 346
                 self.pointerPart()
                 self.state = 351
@@ -2149,11 +2149,11 @@ class SmallCParser ( Parser ):
             self.state = 352
             self.identifier()
             self.state = 353
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 354
             self.parameters()
             self.state = 355
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 356
             self.statements()
         except RecognitionException as re:
@@ -2172,13 +2172,13 @@ class SmallCParser ( Parser ):
 
         def parameter(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.ParameterContext)
+                return self.getTypedRuleContexts(CParser.ParameterContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.ParameterContext,i)
+                return self.getTypedRuleContext(CParser.ParameterContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_parameters
+            return CParser.RULE_parameters
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterParameters" ):
@@ -2193,22 +2193,22 @@ class SmallCParser ( Parser ):
 
     def parameters(self):
 
-        localctx = SmallCParser.ParametersContext(self, self._ctx, self.state)
+        localctx = CParser.ParametersContext(self, self._ctx, self.state)
         self.enterRule(localctx, 44, self.RULE_parameters)
         self._la = 0 # Token type
         try:
             self.state = 367
             token = self._input.LA(1)
-            if token in [SmallCParser.TYPECHAR, SmallCParser.TYPEFLOAT, SmallCParser.TYPEINT, SmallCParser.TYPEVOID, SmallCParser.CONST]:
+            if token in [CParser.TYPECHAR, CParser.TYPEFLOAT, CParser.TYPEINT, CParser.TYPEVOID, CParser.CONST]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 358
                 self.parameter()
                 self.state = 363
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__0:
+                while _la==CParser.T__0:
                     self.state = 359
-                    self.match(SmallCParser.T__0)
+                    self.match(CParser.T__0)
                     self.state = 360
                     self.parameter()
                     self.state = 365
@@ -2216,7 +2216,7 @@ class SmallCParser ( Parser ):
                     _la = self._input.LA(1)
 
 
-            elif token in [SmallCParser.T__24]:
+            elif token in [CParser.T__24]:
                 self.enterOuterAlt(localctx, 2)
 
 
@@ -2238,18 +2238,18 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def paramDeclarator(self):
-            return self.getTypedRuleContext(SmallCParser.ParamDeclaratorContext,0)
+            return self.getTypedRuleContext(CParser.ParamDeclaratorContext,0)
 
 
         def declarationSpecifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(CParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(CParser.DeclarationSpecifierContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_parameter
+            return CParser.RULE_parameter
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterParameter" ):
@@ -2264,7 +2264,7 @@ class SmallCParser ( Parser ):
 
     def parameter(self):
 
-        localctx = SmallCParser.ParameterContext(self, self._ctx, self.state)
+        localctx = CParser.ParameterContext(self, self._ctx, self.state)
         self.enterRule(localctx, 46, self.RULE_parameter)
         self._la = 0 # Token type
         try:
@@ -2278,7 +2278,7 @@ class SmallCParser ( Parser ):
                 self.state = 372 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST))) != 0)):
                     break
 
             self.state = 374
@@ -2298,11 +2298,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def paramDeclarator1(self):
-            return self.getTypedRuleContext(SmallCParser.ParamDeclarator1Context,0)
+            return self.getTypedRuleContext(CParser.ParamDeclarator1Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_paramDeclarator
+            return CParser.RULE_paramDeclarator
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterParamDeclarator" ):
@@ -2317,7 +2317,7 @@ class SmallCParser ( Parser ):
 
     def paramDeclarator(self):
 
-        localctx = SmallCParser.ParamDeclaratorContext(self, self._ctx, self.state)
+        localctx = CParser.ParamDeclaratorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_paramDeclarator)
         try:
             self.state = 381
@@ -2326,11 +2326,11 @@ class SmallCParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 376
-                self.match(SmallCParser.T__23)
+                self.match(CParser.T__23)
                 self.state = 377
                 self.paramDeclarator1()
                 self.state = 378
-                self.match(SmallCParser.T__24)
+                self.match(CParser.T__24)
                 pass
 
             elif la_ == 2:
@@ -2355,29 +2355,29 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def paramDeclarator1(self):
-            return self.getTypedRuleContext(SmallCParser.ParamDeclarator1Context,0)
+            return self.getTypedRuleContext(CParser.ParamDeclarator1Context,0)
 
 
         def pointerPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.PointerPartContext)
+                return self.getTypedRuleContexts(CParser.PointerPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.PointerPartContext,i)
+                return self.getTypedRuleContext(CParser.PointerPartContext,i)
 
 
         def arrayPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.ArrayPartContext)
+                return self.getTypedRuleContexts(CParser.ArrayPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.ArrayPartContext,i)
+                return self.getTypedRuleContext(CParser.ArrayPartContext,i)
 
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_paramDeclarator1
+            return CParser.RULE_paramDeclarator1
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterParamDeclarator1" ):
@@ -2392,7 +2392,7 @@ class SmallCParser ( Parser ):
 
     def paramDeclarator1(self):
 
-        localctx = SmallCParser.ParamDeclarator1Context(self, self._ctx, self.state)
+        localctx = CParser.ParamDeclarator1Context(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_paramDeclarator1)
         self._la = 0 # Token type
         try:
@@ -2404,7 +2404,7 @@ class SmallCParser ( Parser ):
                 self.state = 386
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__14:
+                while _la==CParser.T__14:
                     self.state = 383
                     self.pointerPart()
                     self.state = 388
@@ -2412,15 +2412,15 @@ class SmallCParser ( Parser ):
                     _la = self._input.LA(1)
 
                 self.state = 389
-                self.match(SmallCParser.T__23)
+                self.match(CParser.T__23)
                 self.state = 390
                 self.paramDeclarator1()
                 self.state = 391
-                self.match(SmallCParser.T__24)
+                self.match(CParser.T__24)
                 self.state = 395
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__21:
+                while _la==CParser.T__21:
                     self.state = 392
                     self.arrayPart()
                     self.state = 397
@@ -2434,7 +2434,7 @@ class SmallCParser ( Parser ):
                 self.state = 401
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__14:
+                while _la==CParser.T__14:
                     self.state = 398
                     self.pointerPart()
                     self.state = 403
@@ -2443,7 +2443,7 @@ class SmallCParser ( Parser ):
 
                 self.state = 405
                 _la = self._input.LA(1)
-                if _la==SmallCParser.IDENTIFIER:
+                if _la==CParser.IDENTIFIER:
                     self.state = 404
                     self.identifier()
 
@@ -2451,7 +2451,7 @@ class SmallCParser ( Parser ):
                 self.state = 410
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__21:
+                while _la==CParser.T__21:
                     self.state = 407
                     self.arrayPart()
                     self.state = 412
@@ -2476,11 +2476,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def cvQualifier(self):
-            return self.getTypedRuleContext(SmallCParser.CvQualifierContext,0)
+            return self.getTypedRuleContext(CParser.CvQualifierContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_pointerPart
+            return CParser.RULE_pointerPart
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPointerPart" ):
@@ -2495,16 +2495,16 @@ class SmallCParser ( Parser ):
 
     def pointerPart(self):
 
-        localctx = SmallCParser.PointerPartContext(self, self._ctx, self.state)
+        localctx = CParser.PointerPartContext(self, self._ctx, self.state)
         self.enterRule(localctx, 52, self.RULE_pointerPart)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 415
-            self.match(SmallCParser.T__14)
+            self.match(CParser.T__14)
             self.state = 417
             _la = self._input.LA(1)
-            if _la==SmallCParser.CONST:
+            if _la==CParser.CONST:
                 self.state = 416
                 self.cvQualifier()
 
@@ -2524,11 +2524,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_arrayPart
+            return CParser.RULE_arrayPart
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterArrayPart" ):
@@ -2543,22 +2543,22 @@ class SmallCParser ( Parser ):
 
     def arrayPart(self):
 
-        localctx = SmallCParser.ArrayPartContext(self, self._ctx, self.state)
+        localctx = CParser.ArrayPartContext(self, self._ctx, self.state)
         self.enterRule(localctx, 54, self.RULE_arrayPart)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 419
-            self.match(SmallCParser.T__21)
+            self.match(CParser.T__21)
             self.state = 421
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__12) | (1 << CParser.T__13) | (1 << CParser.T__14) | (1 << CParser.T__17) | (1 << CParser.T__18) | (1 << CParser.T__19) | (1 << CParser.T__20) | (1 << CParser.T__23) | (1 << CParser.INTEGER) | (1 << CParser.FLOAT) | (1 << CParser.IDENTIFIER) | (1 << CParser.CHARACTER) | (1 << CParser.STRING))) != 0):
                 self.state = 420
                 self.oplevel15(0)
 
 
             self.state = 423
-            self.match(SmallCParser.T__22)
+            self.match(CParser.T__22)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2575,13 +2575,13 @@ class SmallCParser ( Parser ):
 
         def statement(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.StatementContext)
+                return self.getTypedRuleContexts(CParser.StatementContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.StatementContext,i)
+                return self.getTypedRuleContext(CParser.StatementContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_statements
+            return CParser.RULE_statements
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStatements" ):
@@ -2596,17 +2596,17 @@ class SmallCParser ( Parser ):
 
     def statements(self):
 
-        localctx = SmallCParser.StatementsContext(self, self._ctx, self.state)
+        localctx = CParser.StatementsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 56, self.RULE_statements)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 425
-            self.match(SmallCParser.T__28)
+            self.match(CParser.T__28)
             self.state = 429
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.T__25) | (1 << SmallCParser.T__28) | (1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST) | (1 << SmallCParser.IF) | (1 << SmallCParser.DO) | (1 << SmallCParser.WHILE) | (1 << SmallCParser.FOR) | (1 << SmallCParser.BREAK) | (1 << SmallCParser.CONTINUE) | (1 << SmallCParser.RETURN) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__12) | (1 << CParser.T__13) | (1 << CParser.T__14) | (1 << CParser.T__17) | (1 << CParser.T__18) | (1 << CParser.T__19) | (1 << CParser.T__20) | (1 << CParser.T__23) | (1 << CParser.T__25) | (1 << CParser.T__28) | (1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST) | (1 << CParser.IF) | (1 << CParser.DO) | (1 << CParser.WHILE) | (1 << CParser.FOR) | (1 << CParser.BREAK) | (1 << CParser.CONTINUE) | (1 << CParser.RETURN) | (1 << CParser.INTEGER) | (1 << CParser.FLOAT) | (1 << CParser.IDENTIFIER) | (1 << CParser.CHARACTER) | (1 << CParser.STRING))) != 0):
                 self.state = 426
                 self.statement()
                 self.state = 431
@@ -2614,7 +2614,7 @@ class SmallCParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 432
-            self.match(SmallCParser.T__29)
+            self.match(CParser.T__29)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2630,47 +2630,47 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def statements(self):
-            return self.getTypedRuleContext(SmallCParser.StatementsContext,0)
+            return self.getTypedRuleContext(CParser.StatementsContext,0)
 
 
         def ifCond(self):
-            return self.getTypedRuleContext(SmallCParser.IfCondContext,0)
+            return self.getTypedRuleContext(CParser.IfCondContext,0)
 
 
         def whileCond(self):
-            return self.getTypedRuleContext(SmallCParser.WhileCondContext,0)
+            return self.getTypedRuleContext(CParser.WhileCondContext,0)
 
 
         def doWhileCond(self):
-            return self.getTypedRuleContext(SmallCParser.DoWhileCondContext,0)
+            return self.getTypedRuleContext(CParser.DoWhileCondContext,0)
 
 
         def forLoop(self):
-            return self.getTypedRuleContext(SmallCParser.ForLoopContext,0)
+            return self.getTypedRuleContext(CParser.ForLoopContext,0)
 
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def variableDeclaration(self):
-            return self.getTypedRuleContext(SmallCParser.VariableDeclarationContext,0)
+            return self.getTypedRuleContext(CParser.VariableDeclarationContext,0)
 
 
         def returnStmt(self):
-            return self.getTypedRuleContext(SmallCParser.ReturnStmtContext,0)
+            return self.getTypedRuleContext(CParser.ReturnStmtContext,0)
 
 
         def breakStmt(self):
-            return self.getTypedRuleContext(SmallCParser.BreakStmtContext,0)
+            return self.getTypedRuleContext(CParser.BreakStmtContext,0)
 
 
         def continueStmt(self):
-            return self.getTypedRuleContext(SmallCParser.ContinueStmtContext,0)
+            return self.getTypedRuleContext(CParser.ContinueStmtContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_statement
+            return CParser.RULE_statement
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStatement" ):
@@ -2685,75 +2685,75 @@ class SmallCParser ( Parser ):
 
     def statement(self):
 
-        localctx = SmallCParser.StatementContext(self, self._ctx, self.state)
+        localctx = CParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 58, self.RULE_statement)
         try:
             self.state = 455
             token = self._input.LA(1)
-            if token in [SmallCParser.T__28]:
+            if token in [CParser.T__28]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 434
                 self.statements()
 
-            elif token in [SmallCParser.IF]:
+            elif token in [CParser.IF]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 435
                 self.ifCond()
 
-            elif token in [SmallCParser.WHILE]:
+            elif token in [CParser.WHILE]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 436
                 self.whileCond()
 
-            elif token in [SmallCParser.DO]:
+            elif token in [CParser.DO]:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 437
                 self.doWhileCond()
 
-            elif token in [SmallCParser.FOR]:
+            elif token in [CParser.FOR]:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 438
                 self.forLoop()
 
-            elif token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
+            elif token in [CParser.T__12, CParser.T__13, CParser.T__14, CParser.T__17, CParser.T__18, CParser.T__19, CParser.T__20, CParser.T__23, CParser.INTEGER, CParser.FLOAT, CParser.IDENTIFIER, CParser.CHARACTER, CParser.STRING]:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 439
                 self.oplevel15(0)
                 self.state = 440
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
-            elif token in [SmallCParser.TYPECHAR, SmallCParser.TYPEFLOAT, SmallCParser.TYPEINT, SmallCParser.TYPEVOID, SmallCParser.CONST]:
+            elif token in [CParser.TYPECHAR, CParser.TYPEFLOAT, CParser.TYPEINT, CParser.TYPEVOID, CParser.CONST]:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 442
                 self.variableDeclaration()
                 self.state = 443
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
-            elif token in [SmallCParser.RETURN]:
+            elif token in [CParser.RETURN]:
                 self.enterOuterAlt(localctx, 8)
                 self.state = 445
                 self.returnStmt()
                 self.state = 446
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
-            elif token in [SmallCParser.BREAK]:
+            elif token in [CParser.BREAK]:
                 self.enterOuterAlt(localctx, 9)
                 self.state = 448
                 self.breakStmt()
                 self.state = 449
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
-            elif token in [SmallCParser.CONTINUE]:
+            elif token in [CParser.CONTINUE]:
                 self.enterOuterAlt(localctx, 10)
                 self.state = 451
                 self.continueStmt()
                 self.state = 452
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
-            elif token in [SmallCParser.T__25]:
+            elif token in [CParser.T__25]:
                 self.enterOuterAlt(localctx, 11)
                 self.state = 454
-                self.match(SmallCParser.T__25)
+                self.match(CParser.T__25)
 
             else:
                 raise NoViableAltException(self)
@@ -2773,22 +2773,22 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def IF(self):
-            return self.getToken(SmallCParser.IF, 0)
+            return self.getToken(CParser.IF, 0)
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def statement(self):
-            return self.getTypedRuleContext(SmallCParser.StatementContext,0)
+            return self.getTypedRuleContext(CParser.StatementContext,0)
 
 
         def elseCond(self):
-            return self.getTypedRuleContext(SmallCParser.ElseCondContext,0)
+            return self.getTypedRuleContext(CParser.ElseCondContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_ifCond
+            return CParser.RULE_ifCond
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIfCond" ):
@@ -2803,18 +2803,18 @@ class SmallCParser ( Parser ):
 
     def ifCond(self):
 
-        localctx = SmallCParser.IfCondContext(self, self._ctx, self.state)
+        localctx = CParser.IfCondContext(self, self._ctx, self.state)
         self.enterRule(localctx, 60, self.RULE_ifCond)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 457
-            self.match(SmallCParser.IF)
+            self.match(CParser.IF)
             self.state = 458
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 459
             self.oplevel15(0)
             self.state = 460
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 461
             self.statement()
             self.state = 463
@@ -2840,14 +2840,14 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def ELSE(self):
-            return self.getToken(SmallCParser.ELSE, 0)
+            return self.getToken(CParser.ELSE, 0)
 
         def statement(self):
-            return self.getTypedRuleContext(SmallCParser.StatementContext,0)
+            return self.getTypedRuleContext(CParser.StatementContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_elseCond
+            return CParser.RULE_elseCond
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterElseCond" ):
@@ -2862,12 +2862,12 @@ class SmallCParser ( Parser ):
 
     def elseCond(self):
 
-        localctx = SmallCParser.ElseCondContext(self, self._ctx, self.state)
+        localctx = CParser.ElseCondContext(self, self._ctx, self.state)
         self.enterRule(localctx, 62, self.RULE_elseCond)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 465
-            self.match(SmallCParser.ELSE)
+            self.match(CParser.ELSE)
             self.state = 466
             self.statement()
         except RecognitionException as re:
@@ -2885,18 +2885,18 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def WHILE(self):
-            return self.getToken(SmallCParser.WHILE, 0)
+            return self.getToken(CParser.WHILE, 0)
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def statement(self):
-            return self.getTypedRuleContext(SmallCParser.StatementContext,0)
+            return self.getTypedRuleContext(CParser.StatementContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_whileCond
+            return CParser.RULE_whileCond
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterWhileCond" ):
@@ -2911,18 +2911,18 @@ class SmallCParser ( Parser ):
 
     def whileCond(self):
 
-        localctx = SmallCParser.WhileCondContext(self, self._ctx, self.state)
+        localctx = CParser.WhileCondContext(self, self._ctx, self.state)
         self.enterRule(localctx, 64, self.RULE_whileCond)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 468
-            self.match(SmallCParser.WHILE)
+            self.match(CParser.WHILE)
             self.state = 469
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 470
             self.oplevel15(0)
             self.state = 471
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 472
             self.statement()
         except RecognitionException as re:
@@ -2940,21 +2940,21 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def DO(self):
-            return self.getToken(SmallCParser.DO, 0)
+            return self.getToken(CParser.DO, 0)
 
         def statements(self):
-            return self.getTypedRuleContext(SmallCParser.StatementsContext,0)
+            return self.getTypedRuleContext(CParser.StatementsContext,0)
 
 
         def WHILE(self):
-            return self.getToken(SmallCParser.WHILE, 0)
+            return self.getToken(CParser.WHILE, 0)
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_doWhileCond
+            return CParser.RULE_doWhileCond
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDoWhileCond" ):
@@ -2969,24 +2969,24 @@ class SmallCParser ( Parser ):
 
     def doWhileCond(self):
 
-        localctx = SmallCParser.DoWhileCondContext(self, self._ctx, self.state)
+        localctx = CParser.DoWhileCondContext(self, self._ctx, self.state)
         self.enterRule(localctx, 66, self.RULE_doWhileCond)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 474
-            self.match(SmallCParser.DO)
+            self.match(CParser.DO)
             self.state = 475
             self.statements()
             self.state = 476
-            self.match(SmallCParser.WHILE)
+            self.match(CParser.WHILE)
             self.state = 477
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 478
             self.oplevel15(0)
             self.state = 479
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 480
-            self.match(SmallCParser.T__25)
+            self.match(CParser.T__25)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3002,26 +3002,26 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def FOR(self):
-            return self.getToken(SmallCParser.FOR, 0)
+            return self.getToken(CParser.FOR, 0)
 
         def forLoopInitStatement(self):
-            return self.getTypedRuleContext(SmallCParser.ForLoopInitStatementContext,0)
+            return self.getTypedRuleContext(CParser.ForLoopInitStatementContext,0)
 
 
         def forLoopCondition(self):
-            return self.getTypedRuleContext(SmallCParser.ForLoopConditionContext,0)
+            return self.getTypedRuleContext(CParser.ForLoopConditionContext,0)
 
 
         def forLoopIterationExpression(self):
-            return self.getTypedRuleContext(SmallCParser.ForLoopIterationExpressionContext,0)
+            return self.getTypedRuleContext(CParser.ForLoopIterationExpressionContext,0)
 
 
         def statement(self):
-            return self.getTypedRuleContext(SmallCParser.StatementContext,0)
+            return self.getTypedRuleContext(CParser.StatementContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_forLoop
+            return CParser.RULE_forLoop
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterForLoop" ):
@@ -3036,26 +3036,26 @@ class SmallCParser ( Parser ):
 
     def forLoop(self):
 
-        localctx = SmallCParser.ForLoopContext(self, self._ctx, self.state)
+        localctx = CParser.ForLoopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 68, self.RULE_forLoop)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 482
-            self.match(SmallCParser.FOR)
+            self.match(CParser.FOR)
             self.state = 483
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 484
             self.forLoopInitStatement()
             self.state = 485
-            self.match(SmallCParser.T__25)
+            self.match(CParser.T__25)
             self.state = 486
             self.forLoopCondition()
             self.state = 487
-            self.match(SmallCParser.T__25)
+            self.match(CParser.T__25)
             self.state = 488
             self.forLoopIterationExpression()
             self.state = 489
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
             self.state = 490
             self.statement()
         except RecognitionException as re:
@@ -3073,15 +3073,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def variableDeclaration(self):
-            return self.getTypedRuleContext(SmallCParser.VariableDeclarationContext,0)
+            return self.getTypedRuleContext(CParser.VariableDeclarationContext,0)
 
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_forLoopInitStatement
+            return CParser.RULE_forLoopInitStatement
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterForLoopInitStatement" ):
@@ -3096,22 +3096,22 @@ class SmallCParser ( Parser ):
 
     def forLoopInitStatement(self):
 
-        localctx = SmallCParser.ForLoopInitStatementContext(self, self._ctx, self.state)
+        localctx = CParser.ForLoopInitStatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 70, self.RULE_forLoopInitStatement)
         try:
             self.state = 495
             token = self._input.LA(1)
-            if token in [SmallCParser.TYPECHAR, SmallCParser.TYPEFLOAT, SmallCParser.TYPEINT, SmallCParser.TYPEVOID, SmallCParser.CONST]:
+            if token in [CParser.TYPECHAR, CParser.TYPEFLOAT, CParser.TYPEINT, CParser.TYPEVOID, CParser.CONST]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 492
                 self.variableDeclaration()
 
-            elif token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
+            elif token in [CParser.T__12, CParser.T__13, CParser.T__14, CParser.T__17, CParser.T__18, CParser.T__19, CParser.T__20, CParser.T__23, CParser.INTEGER, CParser.FLOAT, CParser.IDENTIFIER, CParser.CHARACTER, CParser.STRING]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 493
                 self.oplevel15(0)
 
-            elif token in [SmallCParser.T__25]:
+            elif token in [CParser.T__25]:
                 self.enterOuterAlt(localctx, 3)
 
 
@@ -3133,11 +3133,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_forLoopCondition
+            return CParser.RULE_forLoopCondition
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterForLoopCondition" ):
@@ -3152,17 +3152,17 @@ class SmallCParser ( Parser ):
 
     def forLoopCondition(self):
 
-        localctx = SmallCParser.ForLoopConditionContext(self, self._ctx, self.state)
+        localctx = CParser.ForLoopConditionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 72, self.RULE_forLoopCondition)
         try:
             self.state = 499
             token = self._input.LA(1)
-            if token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
+            if token in [CParser.T__12, CParser.T__13, CParser.T__14, CParser.T__17, CParser.T__18, CParser.T__19, CParser.T__20, CParser.T__23, CParser.INTEGER, CParser.FLOAT, CParser.IDENTIFIER, CParser.CHARACTER, CParser.STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 497
                 self.oplevel15(0)
 
-            elif token in [SmallCParser.T__25]:
+            elif token in [CParser.T__25]:
                 self.enterOuterAlt(localctx, 2)
 
 
@@ -3184,11 +3184,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_forLoopIterationExpression
+            return CParser.RULE_forLoopIterationExpression
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterForLoopIterationExpression" ):
@@ -3203,17 +3203,17 @@ class SmallCParser ( Parser ):
 
     def forLoopIterationExpression(self):
 
-        localctx = SmallCParser.ForLoopIterationExpressionContext(self, self._ctx, self.state)
+        localctx = CParser.ForLoopIterationExpressionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 74, self.RULE_forLoopIterationExpression)
         try:
             self.state = 503
             token = self._input.LA(1)
-            if token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
+            if token in [CParser.T__12, CParser.T__13, CParser.T__14, CParser.T__17, CParser.T__18, CParser.T__19, CParser.T__20, CParser.T__23, CParser.INTEGER, CParser.FLOAT, CParser.IDENTIFIER, CParser.CHARACTER, CParser.STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 501
                 self.oplevel15(0)
 
-            elif token in [SmallCParser.T__24]:
+            elif token in [CParser.T__24]:
                 self.enterOuterAlt(localctx, 2)
 
 
@@ -3236,20 +3236,20 @@ class SmallCParser ( Parser ):
 
         def declaratorInitializer(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclaratorInitializerContext)
+                return self.getTypedRuleContexts(CParser.DeclaratorInitializerContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclaratorInitializerContext,i)
+                return self.getTypedRuleContext(CParser.DeclaratorInitializerContext,i)
 
 
         def declarationSpecifier(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(CParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(CParser.DeclarationSpecifierContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_variableDeclaration
+            return CParser.RULE_variableDeclaration
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVariableDeclaration" ):
@@ -3264,7 +3264,7 @@ class SmallCParser ( Parser ):
 
     def variableDeclaration(self):
 
-        localctx = SmallCParser.VariableDeclarationContext(self, self._ctx, self.state)
+        localctx = CParser.VariableDeclarationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 76, self.RULE_variableDeclaration)
         self._la = 0 # Token type
         try:
@@ -3278,7 +3278,7 @@ class SmallCParser ( Parser ):
                 self.state = 508 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID) | (1 << SmallCParser.CONST))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID) | (1 << CParser.CONST))) != 0)):
                     break
 
             self.state = 510
@@ -3286,9 +3286,9 @@ class SmallCParser ( Parser ):
             self.state = 515
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==SmallCParser.T__0:
+            while _la==CParser.T__0:
                 self.state = 511
-                self.match(SmallCParser.T__0)
+                self.match(CParser.T__0)
                 self.state = 512
                 self.declaratorInitializer()
                 self.state = 517
@@ -3310,15 +3310,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def typeDeclaration(self):
-            return self.getTypedRuleContext(SmallCParser.TypeDeclarationContext,0)
+            return self.getTypedRuleContext(CParser.TypeDeclarationContext,0)
 
 
         def cvQualifier(self):
-            return self.getTypedRuleContext(SmallCParser.CvQualifierContext,0)
+            return self.getTypedRuleContext(CParser.CvQualifierContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_declarationSpecifier
+            return CParser.RULE_declarationSpecifier
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDeclarationSpecifier" ):
@@ -3333,17 +3333,17 @@ class SmallCParser ( Parser ):
 
     def declarationSpecifier(self):
 
-        localctx = SmallCParser.DeclarationSpecifierContext(self, self._ctx, self.state)
+        localctx = CParser.DeclarationSpecifierContext(self, self._ctx, self.state)
         self.enterRule(localctx, 78, self.RULE_declarationSpecifier)
         try:
             self.state = 520
             token = self._input.LA(1)
-            if token in [SmallCParser.TYPECHAR, SmallCParser.TYPEFLOAT, SmallCParser.TYPEINT, SmallCParser.TYPEVOID]:
+            if token in [CParser.TYPECHAR, CParser.TYPEFLOAT, CParser.TYPEINT, CParser.TYPEVOID]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 518
                 self.typeDeclaration()
 
-            elif token in [SmallCParser.CONST]:
+            elif token in [CParser.CONST]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 519
                 self.cvQualifier()
@@ -3366,10 +3366,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def CONST(self):
-            return self.getToken(SmallCParser.CONST, 0)
+            return self.getToken(CParser.CONST, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_cvQualifier
+            return CParser.RULE_cvQualifier
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCvQualifier" ):
@@ -3384,12 +3384,12 @@ class SmallCParser ( Parser ):
 
     def cvQualifier(self):
 
-        localctx = SmallCParser.CvQualifierContext(self, self._ctx, self.state)
+        localctx = CParser.CvQualifierContext(self, self._ctx, self.state)
         self.enterRule(localctx, 80, self.RULE_cvQualifier)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 522
-            self.match(SmallCParser.CONST)
+            self.match(CParser.CONST)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3405,15 +3405,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def declarator1(self):
-            return self.getTypedRuleContext(SmallCParser.Declarator1Context,0)
+            return self.getTypedRuleContext(CParser.Declarator1Context,0)
 
 
         def initializer(self):
-            return self.getTypedRuleContext(SmallCParser.InitializerContext,0)
+            return self.getTypedRuleContext(CParser.InitializerContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_declaratorInitializer
+            return CParser.RULE_declaratorInitializer
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDeclaratorInitializer" ):
@@ -3428,7 +3428,7 @@ class SmallCParser ( Parser ):
 
     def declaratorInitializer(self):
 
-        localctx = SmallCParser.DeclaratorInitializerContext(self, self._ctx, self.state)
+        localctx = CParser.DeclaratorInitializerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 82, self.RULE_declaratorInitializer)
         self._la = 0 # Token type
         try:
@@ -3438,16 +3438,16 @@ class SmallCParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 524
-                self.match(SmallCParser.T__23)
+                self.match(CParser.T__23)
                 self.state = 525
                 self.declarator1()
                 self.state = 526
-                self.match(SmallCParser.T__24)
+                self.match(CParser.T__24)
                 self.state = 529
                 _la = self._input.LA(1)
-                if _la==SmallCParser.T__1:
+                if _la==CParser.T__1:
                     self.state = 527
-                    self.match(SmallCParser.T__1)
+                    self.match(CParser.T__1)
                     self.state = 528
                     self.initializer()
 
@@ -3460,9 +3460,9 @@ class SmallCParser ( Parser ):
                 self.declarator1()
                 self.state = 534
                 _la = self._input.LA(1)
-                if _la==SmallCParser.T__1:
+                if _la==CParser.T__1:
                     self.state = 532
-                    self.match(SmallCParser.T__1)
+                    self.match(CParser.T__1)
                     self.state = 533
                     self.initializer()
 
@@ -3485,29 +3485,29 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def declarator1(self):
-            return self.getTypedRuleContext(SmallCParser.Declarator1Context,0)
+            return self.getTypedRuleContext(CParser.Declarator1Context,0)
 
 
         def pointerPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.PointerPartContext)
+                return self.getTypedRuleContexts(CParser.PointerPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.PointerPartContext,i)
+                return self.getTypedRuleContext(CParser.PointerPartContext,i)
 
 
         def arrayPart(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.ArrayPartContext)
+                return self.getTypedRuleContexts(CParser.ArrayPartContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.ArrayPartContext,i)
+                return self.getTypedRuleContext(CParser.ArrayPartContext,i)
 
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_declarator1
+            return CParser.RULE_declarator1
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDeclarator1" ):
@@ -3522,7 +3522,7 @@ class SmallCParser ( Parser ):
 
     def declarator1(self):
 
-        localctx = SmallCParser.Declarator1Context(self, self._ctx, self.state)
+        localctx = CParser.Declarator1Context(self, self._ctx, self.state)
         self.enterRule(localctx, 84, self.RULE_declarator1)
         self._la = 0 # Token type
         try:
@@ -3534,7 +3534,7 @@ class SmallCParser ( Parser ):
                 self.state = 541
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__14:
+                while _la==CParser.T__14:
                     self.state = 538
                     self.pointerPart()
                     self.state = 543
@@ -3542,15 +3542,15 @@ class SmallCParser ( Parser ):
                     _la = self._input.LA(1)
 
                 self.state = 544
-                self.match(SmallCParser.T__23)
+                self.match(CParser.T__23)
                 self.state = 545
                 self.declarator1()
                 self.state = 546
-                self.match(SmallCParser.T__24)
+                self.match(CParser.T__24)
                 self.state = 550
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__21:
+                while _la==CParser.T__21:
                     self.state = 547
                     self.arrayPart()
                     self.state = 552
@@ -3564,7 +3564,7 @@ class SmallCParser ( Parser ):
                 self.state = 556
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__14:
+                while _la==CParser.T__14:
                     self.state = 553
                     self.pointerPart()
                     self.state = 558
@@ -3576,7 +3576,7 @@ class SmallCParser ( Parser ):
                 self.state = 563
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__21:
+                while _la==CParser.T__21:
                     self.state = 560
                     self.arrayPart()
                     self.state = 565
@@ -3602,20 +3602,20 @@ class SmallCParser ( Parser ):
 
         def oplevel14(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.Oplevel14Context)
+                return self.getTypedRuleContexts(CParser.Oplevel14Context)
             else:
-                return self.getTypedRuleContext(SmallCParser.Oplevel14Context,i)
+                return self.getTypedRuleContext(CParser.Oplevel14Context,i)
 
 
         def initializer(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.InitializerContext)
+                return self.getTypedRuleContexts(CParser.InitializerContext)
             else:
-                return self.getTypedRuleContext(SmallCParser.InitializerContext,i)
+                return self.getTypedRuleContext(CParser.InitializerContext,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_initializer
+            return CParser.RULE_initializer
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterInitializer" ):
@@ -3630,7 +3630,7 @@ class SmallCParser ( Parser ):
 
     def initializer(self):
 
-        localctx = SmallCParser.InitializerContext(self, self._ctx, self.state)
+        localctx = CParser.InitializerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 86, self.RULE_initializer)
         self._la = 0 # Token type
         try:
@@ -3640,18 +3640,18 @@ class SmallCParser ( Parser ):
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 568
-                self.match(SmallCParser.T__28)
+                self.match(CParser.T__28)
                 self.state = 577
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__12) | (1 << CParser.T__13) | (1 << CParser.T__14) | (1 << CParser.T__17) | (1 << CParser.T__18) | (1 << CParser.T__19) | (1 << CParser.T__20) | (1 << CParser.T__23) | (1 << CParser.INTEGER) | (1 << CParser.FLOAT) | (1 << CParser.IDENTIFIER) | (1 << CParser.CHARACTER) | (1 << CParser.STRING))) != 0):
                     self.state = 569
                     self.oplevel14()
                     self.state = 574
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==SmallCParser.T__0:
+                    while _la==CParser.T__0:
                         self.state = 570
-                        self.match(SmallCParser.T__0)
+                        self.match(CParser.T__0)
                         self.state = 571
                         self.oplevel14()
                         self.state = 576
@@ -3661,24 +3661,24 @@ class SmallCParser ( Parser ):
 
 
                 self.state = 579
-                self.match(SmallCParser.T__29)
+                self.match(CParser.T__29)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 580
-                self.match(SmallCParser.T__28)
+                self.match(CParser.T__28)
                 self.state = 589
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.T__28) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__12) | (1 << CParser.T__13) | (1 << CParser.T__14) | (1 << CParser.T__17) | (1 << CParser.T__18) | (1 << CParser.T__19) | (1 << CParser.T__20) | (1 << CParser.T__23) | (1 << CParser.T__28) | (1 << CParser.INTEGER) | (1 << CParser.FLOAT) | (1 << CParser.IDENTIFIER) | (1 << CParser.CHARACTER) | (1 << CParser.STRING))) != 0):
                     self.state = 581
                     self.initializer()
                     self.state = 586
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==SmallCParser.T__0:
+                    while _la==CParser.T__0:
                         self.state = 582
-                        self.match(SmallCParser.T__0)
+                        self.match(CParser.T__0)
                         self.state = 583
                         self.initializer()
                         self.state = 588
@@ -3688,7 +3688,7 @@ class SmallCParser ( Parser ):
 
 
                 self.state = 591
-                self.match(SmallCParser.T__29)
+                self.match(CParser.T__29)
                 pass
 
             elif la_ == 3:
@@ -3713,14 +3713,14 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def RETURN(self):
-            return self.getToken(SmallCParser.RETURN, 0)
+            return self.getToken(CParser.RETURN, 0)
 
         def oplevel15(self):
-            return self.getTypedRuleContext(SmallCParser.Oplevel15Context,0)
+            return self.getTypedRuleContext(CParser.Oplevel15Context,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_returnStmt
+            return CParser.RULE_returnStmt
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterReturnStmt" ):
@@ -3735,16 +3735,16 @@ class SmallCParser ( Parser ):
 
     def returnStmt(self):
 
-        localctx = SmallCParser.ReturnStmtContext(self, self._ctx, self.state)
+        localctx = CParser.ReturnStmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 88, self.RULE_returnStmt)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 595
-            self.match(SmallCParser.RETURN)
+            self.match(CParser.RETURN)
             self.state = 597
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.T__12) | (1 << CParser.T__13) | (1 << CParser.T__14) | (1 << CParser.T__17) | (1 << CParser.T__18) | (1 << CParser.T__19) | (1 << CParser.T__20) | (1 << CParser.T__23) | (1 << CParser.INTEGER) | (1 << CParser.FLOAT) | (1 << CParser.IDENTIFIER) | (1 << CParser.CHARACTER) | (1 << CParser.STRING))) != 0):
                 self.state = 596
                 self.oplevel15(0)
 
@@ -3764,10 +3764,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def BREAK(self):
-            return self.getToken(SmallCParser.BREAK, 0)
+            return self.getToken(CParser.BREAK, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_breakStmt
+            return CParser.RULE_breakStmt
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBreakStmt" ):
@@ -3782,12 +3782,12 @@ class SmallCParser ( Parser ):
 
     def breakStmt(self):
 
-        localctx = SmallCParser.BreakStmtContext(self, self._ctx, self.state)
+        localctx = CParser.BreakStmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 90, self.RULE_breakStmt)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 599
-            self.match(SmallCParser.BREAK)
+            self.match(CParser.BREAK)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3803,10 +3803,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def CONTINUE(self):
-            return self.getToken(SmallCParser.CONTINUE, 0)
+            return self.getToken(CParser.CONTINUE, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_continueStmt
+            return CParser.RULE_continueStmt
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterContinueStmt" ):
@@ -3821,12 +3821,12 @@ class SmallCParser ( Parser ):
 
     def continueStmt(self):
 
-        localctx = SmallCParser.ContinueStmtContext(self, self._ctx, self.state)
+        localctx = CParser.ContinueStmtContext(self, self._ctx, self.state)
         self.enterRule(localctx, 92, self.RULE_continueStmt)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 601
-            self.match(SmallCParser.CONTINUE)
+            self.match(CParser.CONTINUE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3843,13 +3843,13 @@ class SmallCParser ( Parser ):
 
         def oplevel14(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.Oplevel14Context)
+                return self.getTypedRuleContexts(CParser.Oplevel14Context)
             else:
-                return self.getTypedRuleContext(SmallCParser.Oplevel14Context,i)
+                return self.getTypedRuleContext(CParser.Oplevel14Context,i)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_arguments
+            return CParser.RULE_arguments
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterArguments" ):
@@ -3864,22 +3864,22 @@ class SmallCParser ( Parser ):
 
     def arguments(self):
 
-        localctx = SmallCParser.ArgumentsContext(self, self._ctx, self.state)
+        localctx = CParser.ArgumentsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 94, self.RULE_arguments)
         self._la = 0 # Token type
         try:
             self.state = 612
             token = self._input.LA(1)
-            if token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
+            if token in [CParser.T__12, CParser.T__13, CParser.T__14, CParser.T__17, CParser.T__18, CParser.T__19, CParser.T__20, CParser.T__23, CParser.INTEGER, CParser.FLOAT, CParser.IDENTIFIER, CParser.CHARACTER, CParser.STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 603
                 self.oplevel14()
                 self.state = 608
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==SmallCParser.T__0:
+                while _la==CParser.T__0:
                     self.state = 604
-                    self.match(SmallCParser.T__0)
+                    self.match(CParser.T__0)
                     self.state = 605
                     self.oplevel14()
                     self.state = 610
@@ -3887,7 +3887,7 @@ class SmallCParser ( Parser ):
                     _la = self._input.LA(1)
 
 
-            elif token in [SmallCParser.T__24]:
+            elif token in [CParser.T__24]:
                 self.enterOuterAlt(localctx, 2)
 
 
@@ -3909,15 +3909,15 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def arguments(self):
-            return self.getTypedRuleContext(SmallCParser.ArgumentsContext,0)
+            return self.getTypedRuleContext(CParser.ArgumentsContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_functionCall
+            return CParser.RULE_functionCall
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunctionCall" ):
@@ -3932,18 +3932,18 @@ class SmallCParser ( Parser ):
 
     def functionCall(self):
 
-        localctx = SmallCParser.FunctionCallContext(self, self._ctx, self.state)
+        localctx = CParser.FunctionCallContext(self, self._ctx, self.state)
         self.enterRule(localctx, 96, self.RULE_functionCall)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 614
             self.identifier()
             self.state = 615
-            self.match(SmallCParser.T__23)
+            self.match(CParser.T__23)
             self.state = 616
             self.arguments()
             self.state = 617
-            self.match(SmallCParser.T__24)
+            self.match(CParser.T__24)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -3959,11 +3959,11 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def identifier(self):
-            return self.getTypedRuleContext(SmallCParser.IdentifierContext,0)
+            return self.getTypedRuleContext(CParser.IdentifierContext,0)
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_variable
+            return CParser.RULE_variable
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVariable" ):
@@ -3978,7 +3978,7 @@ class SmallCParser ( Parser ):
 
     def variable(self):
 
-        localctx = SmallCParser.VariableContext(self, self._ctx, self.state)
+        localctx = CParser.VariableContext(self, self._ctx, self.state)
         self.enterRule(localctx, 98, self.RULE_variable)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3999,10 +3999,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def IDENTIFIER(self):
-            return self.getToken(SmallCParser.IDENTIFIER, 0)
+            return self.getToken(CParser.IDENTIFIER, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_identifier
+            return CParser.RULE_identifier
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIdentifier" ):
@@ -4017,12 +4017,12 @@ class SmallCParser ( Parser ):
 
     def identifier(self):
 
-        localctx = SmallCParser.IdentifierContext(self, self._ctx, self.state)
+        localctx = CParser.IdentifierContext(self, self._ctx, self.state)
         self.enterRule(localctx, 100, self.RULE_identifier)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 621
-            self.match(SmallCParser.IDENTIFIER)
+            self.match(CParser.IDENTIFIER)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -4039,7 +4039,7 @@ class SmallCParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_pointer
+            return CParser.RULE_pointer
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPointer" ):
@@ -4054,12 +4054,12 @@ class SmallCParser ( Parser ):
 
     def pointer(self):
 
-        localctx = SmallCParser.PointerContext(self, self._ctx, self.state)
+        localctx = CParser.PointerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 102, self.RULE_pointer)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 623
-            self.match(SmallCParser.T__14)
+            self.match(CParser.T__14)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -4075,19 +4075,19 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def TYPECHAR(self):
-            return self.getToken(SmallCParser.TYPECHAR, 0)
+            return self.getToken(CParser.TYPECHAR, 0)
 
         def TYPEFLOAT(self):
-            return self.getToken(SmallCParser.TYPEFLOAT, 0)
+            return self.getToken(CParser.TYPEFLOAT, 0)
 
         def TYPEINT(self):
-            return self.getToken(SmallCParser.TYPEINT, 0)
+            return self.getToken(CParser.TYPEINT, 0)
 
         def TYPEVOID(self):
-            return self.getToken(SmallCParser.TYPEVOID, 0)
+            return self.getToken(CParser.TYPEVOID, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_typeDeclaration
+            return CParser.RULE_typeDeclaration
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTypeDeclaration" ):
@@ -4102,14 +4102,14 @@ class SmallCParser ( Parser ):
 
     def typeDeclaration(self):
 
-        localctx = SmallCParser.TypeDeclarationContext(self, self._ctx, self.state)
+        localctx = CParser.TypeDeclarationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 104, self.RULE_typeDeclaration)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 625
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.TYPECHAR) | (1 << SmallCParser.TYPEFLOAT) | (1 << SmallCParser.TYPEINT) | (1 << SmallCParser.TYPEVOID))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << CParser.TYPECHAR) | (1 << CParser.TYPEFLOAT) | (1 << CParser.TYPEINT) | (1 << CParser.TYPEVOID))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self.consume()
@@ -4128,10 +4128,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def FLOAT(self):
-            return self.getToken(SmallCParser.FLOAT, 0)
+            return self.getToken(CParser.FLOAT, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_floatLiteral
+            return CParser.RULE_floatLiteral
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFloatLiteral" ):
@@ -4146,12 +4146,12 @@ class SmallCParser ( Parser ):
 
     def floatLiteral(self):
 
-        localctx = SmallCParser.FloatLiteralContext(self, self._ctx, self.state)
+        localctx = CParser.FloatLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 106, self.RULE_floatLiteral)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 627
-            self.match(SmallCParser.FLOAT)
+            self.match(CParser.FLOAT)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -4167,10 +4167,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def INTEGER(self):
-            return self.getToken(SmallCParser.INTEGER, 0)
+            return self.getToken(CParser.INTEGER, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_integerLiteral
+            return CParser.RULE_integerLiteral
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIntegerLiteral" ):
@@ -4185,12 +4185,12 @@ class SmallCParser ( Parser ):
 
     def integerLiteral(self):
 
-        localctx = SmallCParser.IntegerLiteralContext(self, self._ctx, self.state)
+        localctx = CParser.IntegerLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 108, self.RULE_integerLiteral)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 629
-            self.match(SmallCParser.INTEGER)
+            self.match(CParser.INTEGER)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -4206,10 +4206,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def CHARACTER(self):
-            return self.getToken(SmallCParser.CHARACTER, 0)
+            return self.getToken(CParser.CHARACTER, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_characterLiteral
+            return CParser.RULE_characterLiteral
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCharacterLiteral" ):
@@ -4224,12 +4224,12 @@ class SmallCParser ( Parser ):
 
     def characterLiteral(self):
 
-        localctx = SmallCParser.CharacterLiteralContext(self, self._ctx, self.state)
+        localctx = CParser.CharacterLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 110, self.RULE_characterLiteral)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 631
-            self.match(SmallCParser.CHARACTER)
+            self.match(CParser.CHARACTER)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -4245,10 +4245,10 @@ class SmallCParser ( Parser ):
             self.parser = parser
 
         def STRING(self):
-            return self.getToken(SmallCParser.STRING, 0)
+            return self.getToken(CParser.STRING, 0)
 
         def getRuleIndex(self):
-            return SmallCParser.RULE_stringLiteral
+            return CParser.RULE_stringLiteral
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStringLiteral" ):
@@ -4263,12 +4263,12 @@ class SmallCParser ( Parser ):
 
     def stringLiteral(self):
 
-        localctx = SmallCParser.StringLiteralContext(self, self._ctx, self.state)
+        localctx = CParser.StringLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 112, self.RULE_stringLiteral)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 633
-            self.match(SmallCParser.STRING)
+            self.match(CParser.STRING)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

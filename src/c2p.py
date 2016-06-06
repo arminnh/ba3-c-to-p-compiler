@@ -1,5 +1,5 @@
-from antlr4_generated.SmallCLexer import SmallCLexer
-from antlr4_generated.SmallCParser import SmallCParser
+from antlr4_generated.CLexer import CLexer
+from antlr4_generated.CParser import CParser
 
 from AbstractSyntaxTree import *
 from Listener import *
@@ -42,7 +42,7 @@ def parseFile(filename):
 
     # get lexer
     timeNow = time.time()
-    lexer = SmallCLexer(input_file)
+    lexer = CLexer(input_file)
     output("file lexed:           " + str(time.time() - timeNow), is_timing=True)
 
     # get list of matched tokens
@@ -51,7 +51,7 @@ def parseFile(filename):
     output("file tokenized:       " + str(time.time() - timeNow), is_timing=True)
 
     # pass tokens to the parser
-    parser = SmallCParser(stream)
+    parser = CParser(stream)
 
     # specify the entry point
     timeNow = time.time()

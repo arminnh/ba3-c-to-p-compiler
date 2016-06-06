@@ -1,5 +1,5 @@
 // antlr keywords: import, fragment, lexer, parser, grammar, returns, locals, throws, catch, finally, mode, options, tokens, rule
-grammar SmallC;
+grammar C;
 
 ///////////////////////////////////////////////////////////////
 // PARSER RULES (rule names start with lower case character) //
