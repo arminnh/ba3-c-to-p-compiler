@@ -143,6 +143,10 @@ class Visitor:
         pass
 
 
+    def visitCommaOperatorNode(self, node):
+        self.visitChildren(node)
+        
+
     def visitIntegerLiteralNode(self, node):
         pass
 

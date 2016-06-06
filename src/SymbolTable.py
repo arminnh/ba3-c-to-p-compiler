@@ -35,7 +35,7 @@ class FunctionSymbolInfo(SymbolInfo):
 class Scope:
     def __init__(self, parent=None, isFunctionScope=False, name=None):
         self.isFunctionScope = isFunctionScope
-        self.addressCounter = None
+        self.addressCounter = 0
         self.addressedVariables = []
         self.name = name
         self.parent = parent
@@ -45,15 +45,11 @@ class Scope:
 
     def getAddressCounter(self):
         if self.parent is None or self.isFunctionScope:
-            if self.addressCounter is None:
-                self.addressCounter = -1 # initialize
             return self.addressCounter
         return self.parent.getAddressCounter()
 
     def assignAddress(self, variable):
         if self.parent is None or self.isFunctionScope:
-            if self.addressCounter is None:
-                self.addressCounter = 0 # initialize
             self.addressedVariables.append(variable) # put variable into function scope variable address list
             variable.address = self.addressCounter # set variable's address
             self.addressCounter += variable.typeInfo.size() # increment counter

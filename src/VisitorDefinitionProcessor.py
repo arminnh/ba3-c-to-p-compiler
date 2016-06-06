@@ -86,14 +86,15 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
         # in a function definition, all parameters need to have identifiers
         parametersCount = len(node.parent.children)
 
-        if node.basetype == "void":
+        if node.basetype == "void" and node.getType().nrIndirections() == 0:
             if node.identifier is None and parametersCount > 1:
                 self.addError("'void' must be the only parameter", node)
                 return
 
-            elif node.identifier is not None and node.getType().nrIndirections() == 0:
+            elif node.identifier is not None:
                 self.addError("parameter '{0}' has incomplete type".format(node.identifier), node)
                 return
+            return
 
         elif node.identifier is None and isinstance(node.parent.parent, ASTFunctionDefinitionNode):
             self.addError("parameter name omitted", node)

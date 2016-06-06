@@ -37,7 +37,7 @@ class ErrorHandler:
             line = linecache.getline(self.srcFilename, error.lineNumber)[:-1]
 
             msg += " " + line + "\n"
-            msg += " " + " " * (column) + "^\n"
+            msg += " " + "".join([" " if c != '\t' else "\t" for c in line[:column]]) + "^\n"
         else:
             msg += "Error: {error}\n".format(error=error.message)
 
