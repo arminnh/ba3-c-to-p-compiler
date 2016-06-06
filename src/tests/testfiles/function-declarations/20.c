@@ -13,6 +13,6 @@ int main() {
 	void *a3 = nothing();
 	void *a4 = nothing2();
 
-	void a5, a6 = nothing();
+	void a5, a6 = nothing(), *a7 = nothing2();
 	return 0;
 }

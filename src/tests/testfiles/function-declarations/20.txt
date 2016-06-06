@@ -14,11 +14,11 @@ testfiles/function-declarations/20.c:13:7: error: void value not ignored as it o
  	void *a3 = nothing();
        ^
 testfiles/function-declarations/20.c:16:7: error: variable or field 'a5' declared void
- 	void a5, a6 = nothing();
+ 	void a5, a6 = nothing(), *a7 = nothing2();
        ^
 testfiles/function-declarations/20.c:16:11: error: variable or field 'a6' declared void
- 	void a5, a6 = nothing();
+ 	void a5, a6 = nothing(), *a7 = nothing2();
            ^
 testfiles/function-declarations/20.c:16:11: error: void value not ignored as it ought to be
- 	void a5, a6 = nothing();
+ 	void a5, a6 = nothing(), *a7 = nothing2();
            ^

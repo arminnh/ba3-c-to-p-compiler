@@ -5,6 +5,16 @@ int aaaa(const const  const  const dwdwa) {
 	return 4;
 }
 
+int sum2() {
+    int int float a;
+
+    return (void) a;
+}
+
+void sum3() {
+    return;
+}
+
 int sum(int const * const * * a);
 int sub(const int * const * * a);
 

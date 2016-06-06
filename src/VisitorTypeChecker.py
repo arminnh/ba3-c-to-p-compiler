@@ -33,8 +33,9 @@ class VisitorTypeChecker(Visitor):
             functionDefinition = functionDefinition.parent
 
         if not node.children:
+            if functionDefinition.getType().basetype != "void" or functionDefinition.getType().nrIndirections() != 0:
+                self.addWarning("'return' with no value, in function returning non-void", node)
             return
-
 
         if not functionDefinition.getType().isCompatible(node.children[0].getType(), ignoreRvalue=True):
             if functionDefinition.getType().isCompatible(TypeInfo(rvalue=True, basetype="void", indirections=[(False, False)]), ignoreRvalue=True):
@@ -154,9 +155,8 @@ class VisitorTypeChecker(Visitor):
         formatArgument = arguments.children[0]
 
         # first argument should be of string rvalue type
-        formatStringType = self.stdioCodes['s']
-        if not formatStringType.isCompatible(formatArgument.getType().toRvalue()):
-            self.addError("argument 1 of function '{0}' should be of type '{1}' but is of type '{2}'".format(node.identifier, str(formatStringType), str(formatArgument.getType().toRvalue())), node)
+        if type(formatArgument) is not ASTStringLiteralNode:
+            self.addError("argument 1 of function '{0}' should be a string literal".format(node.identifier), node)
             return
 
         # get the text of the first argument (the format argument) and get the format codes out of it
@@ -177,8 +177,7 @@ class VisitorTypeChecker(Visitor):
                     continue
 
                 if code not in self.stdioCodes:
-                    #TODO: is this a warning/error or not?
-                    self.addError("unknown format code '{0}'".format(code), node)
+                    self.addWarning("unknown format code '{0}'".format(code), node)
                     continue
 
                 if i + 1 >= len(arguments.children): #ex: printf("%i %i", 1)
