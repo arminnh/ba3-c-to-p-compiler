@@ -110,7 +110,7 @@ class ASTFunctionDeclarationNode(ASTNode):
 
     def out(self, level):
         s = offset * level + self.label + "\n"
-        s += offset * (level + 1) + "return type: " + str(self.basetype) + "\n"
+        s += offset * (level + 1) + "return type: " + str(self.getType()) + "\n"
         s += offset * (level + 1) + "identifier:  " + str(self.identifier) + "\n"
 
         return s if (not self.children) else self.outChildren(s, level)
@@ -439,22 +439,6 @@ class ASTExpressionNode(ASTNode):
     def getType(self):
         raise NotImplementedError
 
-class ASTCommaOperatorNode(ASTExpressionNode):
-    def __init__(self, ctx):
-        super(ASTCommaOperatorNode, self).__init__(",", ctx)
-
-    def accept(self, visitor):
-        if not self.error:
-            visitor.enterExpression(self)
-            visitor.visitCommaOperatorNode(self)
-            visitor.exitExpression(self)
-
-    def getType(self):
-        return self.children[-1].getType()
-
-    def out(self, level):
-        return self.outChildren(offset * level + self.label + "\n", level)
-
 class ASTIntegerLiteralNode(ASTExpressionNode):
     def __init__(self, value, ctx=None):
         super(ASTIntegerLiteralNode, self).__init__("int", ctx)
@@ -652,6 +636,24 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
 
     def getType(self):
         return self.children[1].getType().toRvalue()
+
+
+class ASTCommaOperatorNode(ASTExpressionNode):
+    def __init__(self, ctx):
+        super(ASTCommaOperatorNode, self).__init__(",", ctx)
+
+    def accept(self, visitor):
+        if not self.error:
+            visitor.enterExpression(self)
+            visitor.visitCommaOperatorNode(self)
+            visitor.exitExpression(self)
+
+    def getType(self):
+        return self.children[-1].getType()
+
+    def out(self, level):
+        return self.outChildren(offset * level + self.label + "\n", level)
+
 
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
     def __init__(self, ctx=None):

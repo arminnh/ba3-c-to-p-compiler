@@ -401,7 +401,7 @@ class Listener(SmallCListener):
     # Enter a parse tree produced by SmallCParser#oplevel15.
     def enterOplevel15(self, ctx:SmallCParser.Oplevel15Context):
         children = list(ctx.getChildren())
-        if len(children) == 3 and not isinstance(self.currentNode, ASTCommaOperatorNode):
+        if len(children) > 1:
             self.currentNode = self.currentNode.addChildNode(ASTCommaOperatorNode(ctx))
             self.createdNode.append(True)
         else:
