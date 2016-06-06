@@ -240,9 +240,9 @@ declarator1 :
     ;
 
 initializer :
-      '{' (expression (',' expression)*)?   '}'
+      '{' (oplevel14 (',' oplevel14)*)?   '}'
     | '{' (initializer (',' initializer)*)? '}'
-    | expression
+    | oplevel14
     ;
 
 returnStmt :
@@ -258,7 +258,7 @@ continueStmt :
     ;
 
 arguments :
-      expression (',' expression)*
+      oplevel14 (',' oplevel14)*
     |
     ;
 

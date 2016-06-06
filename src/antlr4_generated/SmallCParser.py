@@ -284,22 +284,22 @@ def serializedATN():
         buf.write("\3\2\2\2\u023e\u0241\3\2\2\2\u023f\u023d\3\2\2\2\u023f")
         buf.write("\u0240\3\2\2\2\u0240\u0243\3\2\2\2\u0241\u023f\3\2\2\2")
         buf.write("\u0242\u0229\3\2\2\2\u0242\u0238\3\2\2\2\u0243Y\3\2\2")
-        buf.write("\2\u0244\u024d\7\37\2\2\u0245\u024a\5> \2\u0246\u0247")
-        buf.write("\7\3\2\2\u0247\u0249\5> \2\u0248\u0246\3\2\2\2\u0249\u024c")
-        buf.write("\3\2\2\2\u024a\u0248\3\2\2\2\u024a\u024b\3\2\2\2\u024b")
-        buf.write("\u024e\3\2\2\2\u024c\u024a\3\2\2\2\u024d\u0245\3\2\2\2")
-        buf.write("\u024d\u024e\3\2\2\2\u024e\u024f\3\2\2\2\u024f\u025e\7")
-        buf.write(" \2\2\u0250\u0259\7\37\2\2\u0251\u0256\5Z.\2\u0252\u0253")
+        buf.write("\2\u0244\u024d\7\37\2\2\u0245\u024a\5\4\3\2\u0246\u0247")
+        buf.write("\7\3\2\2\u0247\u0249\5\4\3\2\u0248\u0246\3\2\2\2\u0249")
+        buf.write("\u024c\3\2\2\2\u024a\u0248\3\2\2\2\u024a\u024b\3\2\2\2")
+        buf.write("\u024b\u024e\3\2\2\2\u024c\u024a\3\2\2\2\u024d\u0245\3")
+        buf.write("\2\2\2\u024d\u024e\3\2\2\2\u024e\u024f\3\2\2\2\u024f\u025e")
+        buf.write("\7 \2\2\u0250\u0259\7\37\2\2\u0251\u0256\5Z.\2\u0252\u0253")
         buf.write("\7\3\2\2\u0253\u0255\5Z.\2\u0254\u0252\3\2\2\2\u0255\u0258")
         buf.write("\3\2\2\2\u0256\u0254\3\2\2\2\u0256\u0257\3\2\2\2\u0257")
         buf.write("\u025a\3\2\2\2\u0258\u0256\3\2\2\2\u0259\u0251\3\2\2\2")
         buf.write("\u0259\u025a\3\2\2\2\u025a\u025b\3\2\2\2\u025b\u025e\7")
-        buf.write(" \2\2\u025c\u025e\5> \2\u025d\u0244\3\2\2\2\u025d\u0250")
+        buf.write(" \2\2\u025c\u025e\5\4\3\2\u025d\u0244\3\2\2\2\u025d\u0250")
         buf.write("\3\2\2\2\u025d\u025c\3\2\2\2\u025e[\3\2\2\2\u025f\u0261")
         buf.write("\7/\2\2\u0260\u0262\5> \2\u0261\u0260\3\2\2\2\u0261\u0262")
         buf.write("\3\2\2\2\u0262]\3\2\2\2\u0263\u0264\7-\2\2\u0264_\3\2")
-        buf.write("\2\2\u0265\u0266\7.\2\2\u0266a\3\2\2\2\u0267\u026c\5>")
-        buf.write(" \2\u0268\u0269\7\3\2\2\u0269\u026b\5> \2\u026a\u0268")
+        buf.write("\2\2\u0265\u0266\7.\2\2\u0266a\3\2\2\2\u0267\u026c\5\4")
+        buf.write("\3\2\u0268\u0269\7\3\2\2\u0269\u026b\5\4\3\2\u026a\u0268")
         buf.write("\3\2\2\2\u026b\u026e\3\2\2\2\u026c\u026a\3\2\2\2\u026c")
         buf.write("\u026d\3\2\2\2\u026d\u0271\3\2\2\2\u026e\u026c\3\2\2\2")
         buf.write("\u026f\u0271\3\2\2\2\u0270\u0267\3\2\2\2\u0270\u026f\3")
@@ -3725,11 +3725,11 @@ class SmallCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def expression(self, i:int=None):
+        def oplevel14(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.ExpressionContext)
+                return self.getTypedRuleContexts(SmallCParser.Oplevel14Context)
             else:
-                return self.getTypedRuleContext(SmallCParser.ExpressionContext,i)
+                return self.getTypedRuleContext(SmallCParser.Oplevel14Context,i)
 
 
         def initializer(self, i:int=None):
@@ -3770,7 +3770,7 @@ class SmallCParser ( Parser ):
                 _la = self._input.LA(1)
                 if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SmallCParser.T__12) | (1 << SmallCParser.T__13) | (1 << SmallCParser.T__14) | (1 << SmallCParser.T__17) | (1 << SmallCParser.T__18) | (1 << SmallCParser.T__19) | (1 << SmallCParser.T__20) | (1 << SmallCParser.T__23) | (1 << SmallCParser.INTEGER) | (1 << SmallCParser.FLOAT) | (1 << SmallCParser.IDENTIFIER) | (1 << SmallCParser.CHARACTER) | (1 << SmallCParser.STRING))) != 0):
                     self.state = 579
-                    self.expression()
+                    self.oplevel14()
                     self.state = 584
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
@@ -3778,7 +3778,7 @@ class SmallCParser ( Parser ):
                         self.state = 580
                         self.match(SmallCParser.T__0)
                         self.state = 581
-                        self.expression()
+                        self.oplevel14()
                         self.state = 586
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
@@ -3819,7 +3819,7 @@ class SmallCParser ( Parser ):
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 602
-                self.expression()
+                self.oplevel14()
                 pass
 
 
@@ -3966,11 +3966,11 @@ class SmallCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def expression(self, i:int=None):
+        def oplevel14(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(SmallCParser.ExpressionContext)
+                return self.getTypedRuleContexts(SmallCParser.Oplevel14Context)
             else:
-                return self.getTypedRuleContext(SmallCParser.ExpressionContext,i)
+                return self.getTypedRuleContext(SmallCParser.Oplevel14Context,i)
 
 
         def getRuleIndex(self):
@@ -3998,7 +3998,7 @@ class SmallCParser ( Parser ):
             if token in [SmallCParser.T__12, SmallCParser.T__13, SmallCParser.T__14, SmallCParser.T__17, SmallCParser.T__18, SmallCParser.T__19, SmallCParser.T__20, SmallCParser.T__23, SmallCParser.INTEGER, SmallCParser.FLOAT, SmallCParser.IDENTIFIER, SmallCParser.CHARACTER, SmallCParser.STRING]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 613
-                self.expression()
+                self.oplevel14()
                 self.state = 618
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -4006,7 +4006,7 @@ class SmallCParser ( Parser ):
                     self.state = 614
                     self.match(SmallCParser.T__0)
                     self.state = 615
-                    self.expression()
+                    self.oplevel14()
                     self.state = 620
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
