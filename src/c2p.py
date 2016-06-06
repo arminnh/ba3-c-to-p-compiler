@@ -138,7 +138,6 @@ def main(filename):
         # create an AST an attach it to a listener so the listener can fill in the tree
         abstractSyntaxTree = buildAST(parseTreeRoot)
 
-        output(str(abstractSyntaxTree))
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
         scopeCheck(abstractSyntaxTree, errorHandler, symbolTable)
