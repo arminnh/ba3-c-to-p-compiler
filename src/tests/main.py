@@ -584,6 +584,10 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testHelloWorld(self):
         self.generateNoError("testfiles/hello_world.c")
 
+    # builds and prints a Hankel matrix
+    def testPrintMatrix(self):
+        self.generateNoError("testfiles/print_matrix.c")
+
 
 class EvalutationTests(ASTTest, unittest.TestCase):
 

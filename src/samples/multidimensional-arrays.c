@@ -36,6 +36,8 @@ int main() {
 
     int * josse [10] = { nn, nn, nn, nn, nn, nn, nn, nn, nn, nn };
 
+    
+
     int *(* a2[2])[10] = { &josse, &josse };
     a2[0] = &josse;
 
