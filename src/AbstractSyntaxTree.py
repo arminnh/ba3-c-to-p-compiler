@@ -82,7 +82,7 @@ class ASTIncludeNode(ASTNode):
 class ASTFunctionDeclarationNode(ASTNode):
     def __init__(self, label="function declaration", ctx=None):
         super(ASTFunctionDeclarationNode, self).__init__(label, ctx)
-        self.basetype = "int"
+        self.baseType = "int"
         self.typeSpecifierPresent = False
         self.identifier = None
         self.indirections = [] # list of tuples of booleans: (array, const)
@@ -94,9 +94,9 @@ class ASTFunctionDeclarationNode(ASTNode):
             visitor.visitFunctionDeclarationNode(self)
 
     def getType(self):
-        if self.basetype is None:
-            raise Exception("ASTFunctionDeclarationNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.basetype, indirections=[(False, self.isConstant)] + self.indirections)
+        if self.baseType is None:
+            raise Exception("ASTFunctionDeclarationNode baseType not filled in", line, column)
+        return TypeInfo(rvalue=True, baseType=self.baseType, indirections=[(False, self.isConstant)] + self.indirections)
 
     def getParameters(self):
         for child in self.children:
@@ -149,7 +149,7 @@ class ASTParametersNode(ASTNode):
 class ASTParameterNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTParameterNode, self).__init__("parameter", ctx)
-        self.basetype = "int"
+        self.baseType = "int"
         self.typeSpecifierPresent = False
         self.isConstant = False
         self.identifier = None
@@ -161,7 +161,7 @@ class ASTParameterNode(ASTNode):
             visitor.visitParameterNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=False, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
+        return TypeInfo(rvalue=False, baseType=self.baseType, indirections = [(False, self.isConstant)] + self.indirections)
 
     def __eq__(self, other):
         return self.getType() == other.getType()
@@ -328,7 +328,7 @@ class ASTDoWhileNode(ASTStatementNode):
 class ASTVariableDeclarationNode(ASTStatementNode):
     def __init__(self, ctx=None):
         super(ASTVariableDeclarationNode, self).__init__("variable declaration", ctx)
-        self.basetype = "int"
+        self.baseType = "int"
         self.typeSpecifierPresent = False
         self.isConstant = False
         # declaratorInitializers are children
@@ -343,7 +343,7 @@ class ASTVariableDeclarationNode(ASTStatementNode):
 
     def out(self, level):
         s  = offset * level + self.label + "\n"
-        s += offset * (level + 1) + "type: " + str(self.basetype)
+        s += offset * (level + 1) + "type: " + str(self.baseType)
         s += ", const: " + str(self.isConstant) + "\n"
 
         return s if (not self.children) else self.outChildren(s, level)
@@ -361,7 +361,7 @@ class ASTDeclaratorInitializerNode(ASTNode):
             visitor.visitDeclaratorInitializerNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections = [(False, self.parent.isConstant)] + self.indirections)
+        return TypeInfo(rvalue=False, baseType=self.parent.baseType, indirections = [(False, self.parent.isConstant)] + self.indirections)
 
     def out(self, level):
         s = offset * level + "declarator initializer" + "\n"
@@ -406,7 +406,7 @@ class ASTIntegerLiteralNode(ASTExpressionNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int")
+        return TypeInfo(rvalue=True, baseType="int")
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -423,7 +423,7 @@ class ASTFloatLiteralNode(ASTExpressionNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="float")
+        return TypeInfo(rvalue=True, baseType="float")
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -440,7 +440,7 @@ class ASTCharacterLiteralNode(ASTExpressionNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="char")
+        return TypeInfo(rvalue=True, baseType="char")
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -459,7 +459,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
 
     def getType(self):
          # +1 null termination, -2 for quotes
-        return TypeInfo(rvalue=False, basetype="char", indirections=[(False, False), (len(self.decodedValue) + 1, False)])
+        return TypeInfo(rvalue=False, baseType="char", indirections=[(False, False), (len(self.decodedValue) + 1, False)])
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
@@ -513,7 +513,7 @@ class ASTFunctionCallNode(ASTExpressionNode):
 class ASTTypeCastNode(ASTExpressionNode):
     def __init__(self, ctx=None):
         super(ASTTypeCastNode, self).__init__("type cast", ctx)
-        self.basetype = "int"
+        self.baseType = "int"
         self.typeSpecifierPresent = False
         self.indirections = []
         self.isConstant = False
@@ -525,9 +525,9 @@ class ASTTypeCastNode(ASTExpressionNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        if self.basetype is None:
-            raise Exception("ASTTypeCastNode basetype not filled in", line, column)
-        return TypeInfo(rvalue=True, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
+        if self.baseType is None:
+            raise Exception("ASTTypeCastNode baseType not filled in", line, column)
+        return TypeInfo(rvalue=True, baseType=self.baseType, indirections = [(False, self.isConstant)] + self.indirections)
 
     def out(self, level):
         s = offset * level + self.label + "\n"
@@ -651,7 +651,7 @@ class ASTLogicOperatorNode(ASTBinaryOperatorNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int")
+        return TypeInfo(rvalue=True, baseType="int")
 
 class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
     class ComparisonType(Enum):
@@ -686,7 +686,7 @@ class ASTComparisonOperatorNode(ASTBinaryOperatorNode):
         return list(self.ctx.getChildren())[1].getSymbol()
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int").toRvalue()
+        return TypeInfo(rvalue=True, baseType="int").toRvalue()
 
 class ASTUnaryArithmeticOperatorNode(ASTUnaryOperatorNode):
     class ArithmeticType(Enum):
@@ -768,7 +768,7 @@ class ASTLogicalNotOperatorNode(ASTUnaryOperatorNode):
             visitor.visitLogicalNotOperatorNode(self)
 
     def getType(self):
-        return TypeInfo(rvalue=True, basetype="int")
+        return TypeInfo(rvalue=True, baseType="int")
 
 class ASTArraySubscriptNode(ASTUnaryOperatorNode):
     def __init__(self, ctx=None):

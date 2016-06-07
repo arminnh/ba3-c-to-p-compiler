@@ -104,9 +104,6 @@ def scopeCheck(abstractSyntaxTree, errorHandler, symbolTable):
     functionFiller.visitProgramNode(abstractSyntaxTree.root)
     output("symbol table filled:  " + str(time.time() - timeNow), is_timing=True)
 
-    symbolTable.traverseOn()
-    symbolTable.resetToRoot()
-
     timeNow = time.time()
     tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
     tableFiller.visitProgramNode(abstractSyntaxTree.root)
@@ -159,7 +156,6 @@ def main(filename):
         output(str(symbolTable))
 
         # generate code
-        symbolTable.resetToRoot()
         if not errorHandler.errorCount():
             generateCode(abstractSyntaxTree, symbolTable)
 

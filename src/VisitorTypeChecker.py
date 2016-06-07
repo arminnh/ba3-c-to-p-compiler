@@ -1,7 +1,7 @@
 from antlr4 import *
 from AbstractSyntaxTree import *
 from Visitor import *
-from TypeInfo import types
+from TypeInfo import TYPES
 import re
 import sys
 
@@ -12,11 +12,11 @@ class VisitorTypeChecker(Visitor):
 
         self.stdioCodes = {
             # types are rvalues
-            'd' : types["int"].toRvalue(),
-            'i' : types["int"].toRvalue(),
-            'f' : types["float"].toRvalue(),
-            'c' : types["char"].toRvalue(),
-            's' : types["string"].toRvalue()
+            'd' : TYPES["int"].toRvalue(),
+            'i' : TYPES["int"].toRvalue(),
+            'f' : TYPES["float"].toRvalue(),
+            'c' : TYPES["char"].toRvalue(),
+            's' : TYPES["string"].toRvalue()
         }
 
 
@@ -36,13 +36,13 @@ class VisitorTypeChecker(Visitor):
         funDefType = functionDefinition.getType()
 
         if not node.children:
-            if funDefType.basetype != "void" or funDefType.nrIndirections() != 0:
+            if funDefType.baseType != "void" or funDefType.nrIndirections() != 0:
                 self.addWarning("'return' with no value, in function returning non-void", node)
             return
 
         returnType = node.children[0].getType().toRvalue()
         if not funDefType.isCompatible(returnType):
-            if funDefType.isCompatible(types["void"].toRvalue()):
+            if funDefType.isCompatible(TYPES["void"].toRvalue()):
                 self.addWarning("'return' with a value, in function returning void", node)
             else:
                 self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(returnType, funDefType), node)
@@ -78,7 +78,7 @@ class VisitorTypeChecker(Visitor):
 
 
     def isTypeCheckInitializerValid(self, t1, t2, node):
-        if t2.isCompatible(types["void"].toRvalue()):
+        if t2.isCompatible(TYPES["void"].toRvalue()):
             self.addError("void value not ignored as it ought to be", node)
             return False
 
@@ -98,16 +98,16 @@ class VisitorTypeChecker(Visitor):
         if self.visitChildren(node) == "error":
             return
 
-        if node.getType().isCompatible(types["void"].toRvalue()):
+        if node.getType().isCompatible(TYPES["void"].toRvalue()):
             self.addError("variable or field '{0}' declared void".format(node.identifier), node)
 
-        # if basetype is array, typecheck with each elements of initializer list
+        # if baseType is array, typecheck with each elements of initializer list
         if node.getType().isArray():
             if not self.isTypeCheckArrayInitializerValid(node) or node.initializerList is None:
                 return
 
             for initListElement in node.initializerList.children:
-                # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
+                # get baseType for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
                 t1 = copy.deepcopy(node.getType())
                 t2 = initListElement.getType().toRvalue()
 
@@ -116,7 +116,7 @@ class VisitorTypeChecker(Visitor):
                     t1.indirections.pop()
 
                 #  char a[] = "special case";   // types char [] and  char *
-                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(types["string"]):
+                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(TYPES["string"]):
                     continue
 
                 # do the type checking
@@ -256,7 +256,7 @@ class VisitorTypeChecker(Visitor):
 
     def hasVoidType(self, typeList, node):
         for ttype in typeList:
-            if ttype.isCompatible(types["void"].toRvalue()):
+            if ttype.isCompatible(TYPES["void"].toRvalue()):
                 self.addError("void value not ignored as it ought to be", node)
                 return True
         return False
@@ -273,7 +273,7 @@ class VisitorTypeChecker(Visitor):
         if self.hasVoidType([t1, t2, t3], node):
             return
 
-        if not t1.isCompatible(types["int"].toRvalue()):
+        if not t1.isCompatible(TYPES["int"].toRvalue()):
             node.errorOperand = 0
             self.addError("invalid first operand to ternary '?:' (have '{0}', need 'int')".format(t1), node)
             return
@@ -344,7 +344,7 @@ class VisitorTypeChecker(Visitor):
             self.addError("invalid operands to logical '{2}' (have '{0}' and '{1}')".format(str(t1), str(t2), str(node.logicOperatorType)), node)
             return
 
-        if not t1.isCompatible(types["int"].toRvalue()) or not t2.isCompatible(types["int"].toRvalue()):
+        if not t1.isCompatible(TYPES["int"].toRvalue()) or not t2.isCompatible(TYPES["int"].toRvalue()):
             self.addError("invalid operands to logical '{2}' (have '{0}' and '{1}', need 'int' and 'int')".format(str(t1), str(t2), str(node.logicOperatorType)), node)
             return
 
@@ -370,7 +370,7 @@ class VisitorTypeChecker(Visitor):
 
         ttype = node.children[0].getType()
 
-        if ttype.isCompatible(types["void"].toRvalue()):
+        if ttype.isCompatible(TYPES["void"].toRvalue()):
             self.addError("invalid use of void expression", node)
             return
 
@@ -385,7 +385,7 @@ class VisitorTypeChecker(Visitor):
 
         ttype = node.children[0].getType()
 
-        if ttype.isCompatible(types["void"].toRvalue()):
+        if ttype.isCompatible(TYPES["void"].toRvalue()):
             self.addWarning("taking address of expression of type ‘void’", node)
 
         if ttype.rvalue:
@@ -399,7 +399,7 @@ class VisitorTypeChecker(Visitor):
 
         ttype = node.children[0].getType()
 
-        if ttype.isCompatible(types["void"].toRvalue()):
+        if ttype.isCompatible(TYPES["void"].toRvalue()):
             self.addError("void value not ignored as it ought to be", node)
             return
 
@@ -414,11 +414,11 @@ class VisitorTypeChecker(Visitor):
 
         ttype = node.children[0].getType().toRvalue()
 
-        if ttype.isCompatible(types["void"].toRvalue()):
+        if ttype.isCompatible(TYPES["void"].toRvalue()):
             self.addError("invalid use of void expression", node)
             return
 
-        if not ttype.isCompatible(types["int"].toRvalue()):
+        if not ttype.isCompatible(TYPES["int"].toRvalue()):
             self.addError("invalid operand to logical '!' (have '{0}', need 'int')".format(ttype), node)
             return
 

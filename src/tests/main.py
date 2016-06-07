@@ -49,13 +49,15 @@ class ASTTest():
         symbolTable = SymbolTable()
         functionFiller = VisitorDefinitionProcessor(symbolTable, self.errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
-        symbolTable.traverseOn()
-        symbolTable.resetToRoot()
+
         tableFiller = VisitorDeclarationProcessor(symbolTable, self.errorHandler)
         tableFiller.visitProgramNode(abstractSyntaxTree.root)
 
         typeCheck = VisitorTypeChecker(self.errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
+
+        codeGenerator = VisitorCodeGenerator(symbolTable, "out.p")
+        codeGenerator.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")
@@ -600,9 +602,9 @@ class EvalutationTests(ASTTest, unittest.TestCase):
 class SymbolTableTests(unittest.TestCase):
     def testInsertionAndRetrieval(self):
         table = SymbolTable()
-        inttype = TypeInfo(rvalue=False, basetype="int")
-        floattype = TypeInfo(rvalue=False, basetype="float")
-        chartype = TypeInfo(rvalue=False, basetype="char")
+        inttype = TypeInfo(rvalue=False, baseType="int")
+        floattype = TypeInfo(rvalue=False, baseType="float")
+        chartype = TypeInfo(rvalue=False, baseType="char")
         a = ASTVariableNode("a")
         a.typeInfo = inttype
 
@@ -637,11 +639,11 @@ class SymbolTableTests(unittest.TestCase):
         self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
         self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is None)
         self.assertTrue(table.retrieveSymbol("d", requireSeen=False) is not None)
-        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.basetype == "int")
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.baseType == "int")
 
         table.closeScope()
 
-        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.basetype == "float")
+        self.assertTrue(table.retrieveSymbol("b", requireSeen=False).typeInfo.baseType == "float")
         self.assertTrue(table.retrieveSymbol("a", requireSeen=False) is not None)
         self.assertTrue(table.retrieveSymbol("b", requireSeen=False) is not None)
         self.assertTrue(table.retrieveSymbol("c", requireSeen=False) is None)

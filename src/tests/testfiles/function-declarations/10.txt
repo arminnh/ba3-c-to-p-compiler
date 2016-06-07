@@ -1,3 +1,3 @@
-testfiles/function-declarations/10.c:1:1: error: Identifier sum already taken by function
-int sum(int a, int b);
-^
+testfiles/function-declarations/10.c:1:1: error: identifier 'sum' already taken by function
+ int sum(int a, int b);
+ ^

@@ -1,9 +1,9 @@
 import copy
 
 class TypeInfo:
-    def __init__(self, basetype, rvalue=False, indirections=[(False, False)]):
+    def __init__(self, baseType, rvalue=False, indirections=[(False, False)]):
         self.rvalue = rvalue
-        self.basetype = basetype
+        self.baseType = baseType
         self.indirections = indirections # list of tuples: (is array, is constant)
 
     def array(self):
@@ -50,7 +50,7 @@ class TypeInfo:
         if self is None or other is None:
             return False
 
-        return  self.basetype         == other.basetype \
+        return  self.baseType         == other.baseType \
             and self.nrIndirections() == other.nrIndirections() \
             and self.isArray()        == other.isArray()
 
@@ -76,7 +76,7 @@ class TypeInfo:
         if not ignoreRvalue and self.rvalue != other.rvalue:
             return False
 
-        return  self.basetype         == other.basetype \
+        return  self.baseType         == other.baseType \
             and self.nrIndirections() == other.nrIndirections() \
             and self.isArray()        == other.isArray()
 
@@ -89,7 +89,7 @@ class TypeInfo:
         if len(self.const()) and self.const()[0]:
             out += "const "
 
-        out += str(self.basetype)
+        out += str(self.baseType)
 
         for i in range(self.nrIndirections()):
             arrayPart = self.array()[i+1]
@@ -113,10 +113,10 @@ class TypeInfo:
 
 
 # global dictionary to get types
-types = {
-    "int"    : TypeInfo(basetype="int"),
-    "float"  : TypeInfo(basetype="float"),
-    "char"   : TypeInfo(basetype="char"),
-    "string" : TypeInfo(basetype="char", indirections=[(False, False), (True, False)]),
-    "void"   : TypeInfo(basetype="void")
+TYPES = {
+    "int"    : TypeInfo(baseType="int"),
+    "float"  : TypeInfo(baseType="float"),
+    "char"   : TypeInfo(baseType="char"),
+    "string" : TypeInfo(baseType="char", indirections=[(False, False), (True, False)]),
+    "void"   : TypeInfo(baseType="void")
 }

@@ -1,3 +1,3 @@
-testfiles/function-declarations/1.c:3:1: error: Function declaration parameters don't match previous declaration
-int f(int a, float b);
-^
+testfiles/function-declarations/1.c:3:1: error: function declaration parameters don't match previous declaration
+ int f(int a, float b);
+ ^

@@ -1,20 +1,10 @@
-*) bij het alloceren van een array, allocceer vanaf de bovenkant van TypeInfo.indirections tot dat je een niet-array indirectie tegenkomt
-
 *) pointer arithmetic
-*) check which arrayPart is filled in in multidimensional arrays
 
 *) scanf and strings. For a scanf("%s", ...) statement, generate a loop of in c instructions.
    Exit the loop upon reading the escape character (ascii code 27).
 
-*) Note that a warning should be generated for variables which are initialized with themselves.
+*) a warning should be generated for variables which are initialized with themselves.
 
-*) int a[not ASTIntegerLiteralNode] = {1,2,3};
-   => error: variable-sized object may not be initialized
-
-*) ask someone about: 'int b = sum(a, b);', the rightmost b does not exist yet
-      => what to do when using a variable in its own initialization?
-
-*) improve parsing time of a file (expression recognition is taking way too much time) (how?)
 *) new names for declarationProcessor and definitionProcessor
 *) look (or not) at declarations like 'int int a', 'int int float a'
       gcc: error: two or more data types in declaration specifiers
@@ -28,14 +18,13 @@ CODE GENERATION:
 *) check out how to handle void and void* type things
 *) printf/scanf
 *) check situations where there are multiple retfs in a row
-*) void pointers
 
 
 EXTRAS:
 *) implicit type conversions + warning (explicit done)
+*) warning when variable declarations have no initializer
+*) warning when overinitializing arrays
     maybe:
-    *) warning when variable declarations have no initializer
-    *) warning when overinitializing arrays
     *) check whether all paths in a function body end with a return statement
     *) dynamic arrays
     *) inline functions

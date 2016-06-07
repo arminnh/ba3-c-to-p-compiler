@@ -4,6 +4,11 @@ from VisitorSymbolTable import *
 
 class VisitorDefinitionProcessor(VisitorSymbolTable):
 
+    def visitProgramNode(self, node):
+        self.visitChildren(node)
+        self.table.resetToRoot()
+
+
     def visitStringLiteralNode(self, node):
         self.table.insertStringLiteral(node)
 
@@ -90,7 +95,7 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
         # in a function definition, all parameters need to have identifiers
         parametersCount = len(node.parent.children)
 
-        if node.basetype == "void" and node.getType().nrIndirections() == 0:
+        if node.baseType == "void" and node.getType().nrIndirections() == 0:
             if node.identifier is None and parametersCount > 1:
                 self.addError("'void' must be the only parameter", node)
                 return

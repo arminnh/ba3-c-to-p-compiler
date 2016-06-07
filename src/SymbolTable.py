@@ -64,7 +64,7 @@ class Scope:
 
     def insertSymbol(self, info:SymbolInfo):
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
-        if (info.typeInfo.basetype != "void" or info.typeInfo.indirections != 0) and isinstance(info, VariableSymbolInfo):
+        if (info.typeInfo.baseType != "void" or info.typeInfo.indirections != 0) and isinstance(info, VariableSymbolInfo):
             self.assignAddress(info)
         self.symbols[info.astnode.identifier] = info
 
@@ -85,8 +85,7 @@ class Scope:
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
-                # TODO: lower case
-                return ("Identifier {0} already taken by variable".format(old.astnode.identifier), new.astnode)
+                return ("identifier '{0}' already taken by variable".format(old.astnode.identifier), new.astnode)
 
             if type(new) is FunctionSymbolInfo:
                 if isinstance(new.astnode, ASTFunctionDefinitionNode):
@@ -94,29 +93,29 @@ class Scope:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return True # definition can overwrite declaration
                         else:
-                            return ("Function definition parameters don't match with previous declaration", new.astnode)
+                            return ("function definition parameters don't match with previous declaration", new.astnode)
 
                     elif isinstance(old.astnode, ASTFunctionDefinitionNode):
-                        return ("Redefinition of function '{0}'".format(new.astnode.identifier), new.astnode)
+                        return ("redefinition of function '{0}'".format(new.astnode.identifier), new.astnode)
 
                 elif isinstance(new.astnode, ASTFunctionDeclarationNode):
                     if type(old.astnode) is ASTFunctionDefinitionNode:
                         if not old.astnode.getType().isCompatible(new.astnode.getType()):
-                            return ("Conflicting types for function declaration " + str(new.astnode.identifier), new.astnode)
+                            return ("conflicting types for function declaration " + str(new.astnode.identifier), new.astnode)
 
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
-                            return ("Function declaration parameters don't match previous definition", new.astnode)
+                            return ("function declaration parameters don't match previous definition", new.astnode)
 
                     elif type(old.astnode) is ASTFunctionDeclarationNode:
                         if old.astnode.getParameters() == new.astnode.getParameters():
                             return False # declaration cannot overwrite definition
                         else:
-                            return ("Function declaration parameters don't match previous declaration", new.astnode)
+                            return ("function declaration parameters don't match previous declaration", new.astnode)
 
             elif type(new) is VariableSymbolInfo:
-                return ("Identifier {0} already taken by function".format(old.astnode.identifier), old.astnode)
+                return ("identifier '{0}' already taken by function".format(old.astnode.identifier), old.astnode)
 
         else:
             return True
@@ -125,7 +124,7 @@ class Scope:
     def out(self, level):
         out = offset * level + "Scope" + (" " + self.name if self.name is not None else "") + ":\n"
         if self.isFunctionScope:
-            out += offset * (level + 1) + str([info.typeInfo.basetype for info in self.addressedVariables]) + "\n"
+            out += offset * (level + 1) + str([info.typeInfo.baseType for info in self.addressedVariables]) + "\n"
         for key, value in self.symbols.items():
             out += offset * (level + 1) + str(key) + ": " + str(value.astnode.getType())
             if value.address is not None:

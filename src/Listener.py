@@ -193,7 +193,7 @@ class Listener(CListener):
 
 
     def enterTypeDeclaration(self, ctx:CParser.TypeDeclarationContext):
-        self.currentNode.basetype = ctx.getText()
+        self.currentNode.baseType = ctx.getText()
         self.currentNode.typeSpecifierPresent = True
 
     def exitTypeDeclaration(self, ctx:CParser.TypeDeclarationContext):

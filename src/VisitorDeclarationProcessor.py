@@ -8,12 +8,12 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         if node.isStdInclude and node.name == "stdio.h":
             printf = ASTFunctionDefinitionNode()
             printf.identifier = "printf"
-            printf.basetype = "void"
+            printf.baseType = "void"
             printf.isStdioFunction = True
 
             scanf = ASTFunctionDefinitionNode()
             scanf.identifier = "scanf"
-            scanf.basetype = "void"
+            scanf.baseType = "void"
             scanf.isStdioFunction =  True
 
             printfOk = self.table.isInsertionOk(printf, isFunction=True)
@@ -23,6 +23,12 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
                 self.table.insertFunctionSymbol(printf)
             if scanfOk:
                 self.table.insertFunctionSymbol(scanf)
+
+
+    def visitProgramNode(self, node):
+        self.table.traverseOn()
+        self.visitChildren(node)
+        self.table.resetToRoot()
 
 
     def visitParameterNode(self, node):
