@@ -54,6 +54,11 @@ class TypeInfo:
             and self.nrIndirections() == other.nrIndirections() \
             and self.isArray()        == other.isArray()
 
+    def doArraysMatch(self, other):
+        if self is None or other is None:
+            return False
+
+        return self.array() == other.array()
 
     def isConstCompatible(self, other):
         cself = self.const()
