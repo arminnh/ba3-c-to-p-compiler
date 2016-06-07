@@ -86,10 +86,13 @@ class VisitorTypeChecker(Visitor):
             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
             return False
 
+        if not t1.doArraysMatch(t2):
+            # this is a warning in c, but an error in c++
+            self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), node)
+
         if not t1.isConstCompatible(t2):
             # this is a warning in c, but an error in c++
             self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), node)
-            return False
 
         return True
 
@@ -243,7 +246,10 @@ class VisitorTypeChecker(Visitor):
                 t2 = argument.getType().toRvalue()
                 if not t1.isCompatible(t2):
                     node.errorParameter = i
-                    self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
+                    if t1.nrIndirections() > 0:
+                        self.addWarning("passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'".format(i+1, node.identifier, t1, t2), node)
+                    else:
+                        self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
                     continue
 
                 if not t1.isConstCompatible(t2):

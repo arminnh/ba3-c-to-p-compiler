@@ -1,12 +1,12 @@
 testfiles/const/8.c:8:8: warning: initialization discards 'const' qualifier, expected 'int * *' but got 'int * const *'
-    int** b = a;
-       ^
+     int** b = a;
+        ^
 testfiles/const/8.c:9:5: warning: passing argument 1 of 'f' discards 'const' qualifier, expected 'int * *' but got 'int * const *' 
-    f(a);
-    ^
-testfiles/const/8.c:12:7: error: parameter 1 of 'f' expected 'int * *' but got 'int * const * const * const'
-    f(c);
-      ^
+     f(a);
+     ^
+testfiles/const/8.c:12:7: warning: passing argument 1 of 'f' from incompatible pointer type, expected 'int * *' but got 'int * const * const * const'
+     f(c);
+       ^
 testfiles/const/8.c:13:5: warning: passing argument 1 of 'f' discards 'const' qualifier, expected 'int * *' but got 'int * const * const' 
-    f(*c);
-    ^
+     f(*c);
+     ^
