@@ -3,6 +3,7 @@ import logging
 
 # insert the parent directory into this path to get antlr files
 import sys
+import os
 sys.path.insert(0, "..")
 
 from antlr4_generated.CLexer import CLexer
@@ -57,7 +58,8 @@ class ASTTest():
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
         if self.errorHandler.errorCount() == 0:
-            codeGenerator = VisitorCodeGenerator(symbolTable, "out.p")
+            pFilename = os.path.splitext(filename)[0] + ".p"
+            codeGenerator = VisitorCodeGenerator(symbolTable, pFilename)
             codeGenerator.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
@@ -70,7 +72,7 @@ class ASTTest():
                 correctOutputOriginal = myfile.read()
         except:
             with open(filename + ".txt", "w") as myfile:
-                correctOutputOriginal = "blabla"
+                correctOutputOriginal = ""
 
         errorMessage = self.errorHandler.errorsToString()
         errorMessageWithWhitespace = copy.copy(errorMessage)
@@ -91,12 +93,44 @@ class ASTTest():
             print("\nEXPECTED:\n" + correctOutputOriginal + "\nGOT:\n" + errorMessageWithWhitespace + "\n\n\n\n")
 
         self.assertTrue(expectedOutputFound)
-        self.errorHandler = None
 
     def generateNoError(self, filename):
-        self.parseFile(filename)
+        self.parseFile(filename + ".c")
 
         self.assertTrue(self.errorHandler.errorCount() == 0)
+
+        # open the newly generated p code file
+        try:
+            with open(filename + ".p", "r") as myfile:
+                pCodeGeneratedOriginal = myfile.read()
+        except:
+            with open(filename + ".p", "w") as myfile:
+                pCodeGeneratedOriginal = ""
+
+        # open the file with the correct p code
+        try:
+            with open(filename + ".p_correct", "r") as myfile:
+                pCodeCorrectOriginal = myfile.read()
+        except:
+            with open(filename + ".p_correct", "w") as myfile:
+                pCodeCorrectOriginal = ""
+
+        # remove all whitespace
+        pCodeGenerated  = re.sub("[ \t\n\r]", "", pCodeGeneratedOriginal)
+        pCodeCorrect    = re.sub("[ \t\n\r]", "", pCodeCorrectOriginal)
+
+        # expectedOutputFound = errorMessage.find(correctOutput) != -1
+        expectedCodeFound = pCodeGenerated == pCodeCorrect
+
+        if set and not expectedCodeFound:
+            f = open(filename + ".p_correct", "w")
+            f.write(pCodeGeneratedOriginal)
+            f.close()
+
+        if not expectedCodeFound:
+            print("\nEXPECTED:\n" + pCodeGeneratedOriginal + "\nGOT:\n" + pCodeCorrectOriginal + "\n\n\n\n")
+
+        self.assertTrue(expectedCodeFound)
 
 class UnaryOperatorsTests(ASTTest, unittest.TestCase):
 
@@ -113,7 +147,7 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/unary-operators/4")
 
     def test5(self):
-        self.generateNoError("testfiles/unary-operators/5.c")
+        self.generateNoError("testfiles/unary-operators/5")
 
     def test6(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/6")
@@ -125,7 +159,7 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/unary-operators/8")
 
     def test9(self):
-        self.generateNoError("testfiles/unary-operators/9.c")
+        self.generateNoError("testfiles/unary-operators/9")
 
     def test10(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/10")
@@ -137,10 +171,10 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/unary-operators/12")
 
     def test13(self):
-        self.generateNoError("testfiles/unary-operators/13.c")
+        self.generateNoError("testfiles/unary-operators/13")
 
     def test14(self):
-        self.generateNoError("testfiles/unary-operators/14.c")
+        self.generateNoError("testfiles/unary-operators/14")
 
     def test15(self):
         self.generateErrorsAndCompare("testfiles/unary-operators/15")
@@ -152,10 +186,10 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
 class BinaryOperatorsTests(ASTTest, unittest.TestCase):
 
     def testLiteralsCorrect(self):
-        self.generateNoError("testfiles/binary-operators/correct-literals.c")
+        self.generateNoError("testfiles/binary-operators/correct-literals")
 
     def testStringsAndArrays(self):
-        self.generateNoError("testfiles/binary-operators/strings-and-arrays.c")
+        self.generateNoError("testfiles/binary-operators/strings-and-arrays")
 
     def test1(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/1")
@@ -254,13 +288,13 @@ class BinaryOperatorsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/binary-operators/32")
 
     def test33(self):
-        self.generateNoError("testfiles/binary-operators/33.c")
+        self.generateNoError("testfiles/binary-operators/33")
 
     def test34(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/34")
 
     def test35(self):
-        self.generateNoError("testfiles/binary-operators/35.c")
+        self.generateNoError("testfiles/binary-operators/35")
 
     def test36(self):
         self.generateErrorsAndCompare("testfiles/binary-operators/36")
@@ -282,10 +316,10 @@ class TernaryOperatorsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/ternary-operator/2")
 
     def test3(self):
-        self.generateNoError("testfiles/ternary-operator/3.c")
+        self.generateNoError("testfiles/ternary-operator/3")
 
     def test4(self):
-        self.generateNoError("testfiles/ternary-operator/4.c")
+        self.generateNoError("testfiles/ternary-operator/4")
 
     def test5(self):
         self.generateErrorsAndCompare("testfiles/ternary-operator/5")
@@ -297,7 +331,7 @@ class TernaryOperatorsTests(ASTTest, unittest.TestCase):
 class FunctionCallsTests(ASTTest, unittest.TestCase):
 
     def testCorrect(self):
-        self.generateNoError("testfiles/function-calls/correct.c")
+        self.generateNoError("testfiles/function-calls/correct")
 
     def test1(self):
         self.generateErrorsAndCompare("testfiles/function-calls/1")
@@ -327,13 +361,13 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/function-calls/9")
 
     def test10(self):
-        self.generateNoError("testfiles/function-calls/10.c")
+        self.generateNoError("testfiles/function-calls/10")
 
     def test11(self):
         self.generateErrorsAndCompare("testfiles/function-calls/11")
 
     def test12(self):
-        self.generateNoError("testfiles/function-calls/12.c")
+        self.generateNoError("testfiles/function-calls/12")
 
     def test13(self):
         self.generateErrorsAndCompare("testfiles/function-calls/13")
@@ -358,7 +392,7 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
     #     self.generateErrorsAndCompare("testfiles/function-calls/19")
 
     def test20(self):
-        self.generateNoError("testfiles/function-calls/20.c")
+        self.generateNoError("testfiles/function-calls/20")
 
     def test21(self):
         self.generateErrorsAndCompare("testfiles/function-calls/21")
@@ -379,7 +413,7 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
 class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 
     def testStrangeBrackets(self):
-        self.generateNoError("testfiles/variable-declarations/strange-brackets.c")
+        self.generateNoError("testfiles/variable-declarations/strange-brackets")
 
     def testCharArraysPointers(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/char-arrays-pointers")
@@ -418,19 +452,19 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/variable-declarations/10")
 
     def test11(self):
-        self.generateNoError("testfiles/variable-declarations/11.c")
+        self.generateNoError("testfiles/variable-declarations/11")
 
     def test12(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/12")
 
     def test13(self):
-        self.generateNoError("testfiles/variable-declarations/13.c")
+        self.generateNoError("testfiles/variable-declarations/13")
 
     def test14(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/14")
 
     def test15(self):
-        self.generateNoError("testfiles/variable-declarations/15.c")
+        self.generateNoError("testfiles/variable-declarations/15")
 
     def test16(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/16")
@@ -439,7 +473,7 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("testfiles/variable-declarations/17")
 
     def test18(self):
-        self.generateNoError("testfiles/variable-declarations/18.c")
+        self.generateNoError("testfiles/variable-declarations/18")
 
     def test19(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/19")
@@ -556,7 +590,7 @@ class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
 class ConstTests(ASTTest, unittest.TestCase):
 
     def test1(self):
-        self.generateNoError("testfiles/const/1.c")
+        self.generateNoError("testfiles/const/1")
 
     def test2(self):
         self.generateErrorsAndCompare("testfiles/const/2")
@@ -590,45 +624,45 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
 
     # expressions.c has many combinations of binary operators
     def testExpressions(self):
-        self.generateNoError("testfiles/expressions.c")
+        self.generateNoError("testfiles/expressions")
 
     # tests different usages of if, else, while, do while, if without else
     def testFlowControl(self):
-        self.generateNoError("testfiles/flow_control.c")
+        self.generateNoError("testfiles/flow_control")
 
     # many scopes and many variables and some more complex initializers
     def testVariables(self):
-        self.generateNoError("testfiles/variables.c")
+        self.generateNoError("testfiles/variables")
 
     # functions, forward declarations, weird parameters to functions and printf
     def testFunctions(self):
-        self.generateNoError("testfiles/functions.c")
+        self.generateNoError("testfiles/functions")
 
     # a file with some includes, functions, expressions and flow control
     def testHelloWorld(self):
-        self.generateNoError("testfiles/hello_world.c")
+        self.generateNoError("testfiles/hello_world")
 
     # builds and prints a Hankel matrix
     def testPrintMatrix(self):
-        self.generateNoError("testfiles/print_matrix.c")
+        self.generateNoError("testfiles/print_matrix")
 
 
 class EvalutationTests(ASTTest, unittest.TestCase):
 
     def testTypes(self):
-        self.generateNoError("testfiles/assistant-tests/1types2.c")
+        self.generateNoError("testfiles/assistant-tests/1types2")
 
     def testIO(self):
-        self.generateNoError("testfiles/assistant-tests/2io1.c")
+        self.generateNoError("testfiles/assistant-tests/2io1")
 
     def testExpressions(self):
-        self.generateNoError("testfiles/assistant-tests/3expressions3.c")
+        self.generateNoError("testfiles/assistant-tests/3expressions3")
 
     def testFunction(self):
-        self.generateNoError("testfiles/assistant-tests/7function2.c")
+        self.generateNoError("testfiles/assistant-tests/7function2")
 
     def testArrays(self):
-        self.generateNoError("testfiles/assistant-tests/8arrays2.c")
+        self.generateNoError("testfiles/assistant-tests/8arrays2")
 
 
 class SymbolTableTests(unittest.TestCase):

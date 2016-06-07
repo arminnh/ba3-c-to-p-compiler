@@ -1,14 +1,6 @@
 *) pointer arithmetic
-
-*) scanf and strings. For a scanf("%s", ...) statement, generate a loop of in c instructions.
-   Exit the loop upon reading the escape character (ascii code 27).
-
+*) scanf and strings. For a scanf("%s", ...) statement, generate a loop of in c instructions. Exit the loop upon reading the escape character (ascii code 27).
 *) a warning should be generated for variables which are initialized with themselves.
-
-*) new names for declarationProcessor and definitionProcessor
-*) look (or not) at declarations like 'int int a', 'int int float a'
-      gcc: error: two or more data types in declaration specifiers
-
 
 CODE GENERATION:
 *) finish/check pointers (&(*aa);), *(f + 1) = 4;
@@ -18,7 +10,6 @@ CODE GENERATION:
 *) check out how to handle void and void* type things
 *) printf/scanf
 *) check situations where there are multiple retfs in a row
-
 
 EXTRAS:
 *) implicit type conversions + warning (explicit done)

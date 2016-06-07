@@ -81,7 +81,7 @@ class VisitorCodeGenerator(Visitor):
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 5))
 
         # code for string literals
-        for string, symbolInfo in self.symbolTable.stringLiterals.items():
+        for string, symbolInfo in sorted(self.symbolTable.stringLiterals.items()):
             for i, c in enumerate(string):
                 self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + i + 5))
                 self.outFile.write("ldc c {0}\n".format(repr(c)))
