@@ -709,7 +709,7 @@ ldc c ' '
 out c
 ldc c '\n'
 out c
-lod a 0 12
+lda 0 12
 out a
 ldc c '\n'
 out c

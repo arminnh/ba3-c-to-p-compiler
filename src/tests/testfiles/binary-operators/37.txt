@@ -1,9 +1,6 @@
 testfiles/binary-operators/37.c:11:5: error: lvalue required as left operand of assignment
      *(b+1) + 7 = 20;
      ^
-testfiles/binary-operators/37.c:11:7: error: invalid operands to binary '+' (have 'int *' and 'int')
-     *(b+1) + 7 = 20;
-       ^
 testfiles/binary-operators/37.c:13:5: error: lvalue required as left operand of assignment
      sum(1, 2) = 3;
      ^

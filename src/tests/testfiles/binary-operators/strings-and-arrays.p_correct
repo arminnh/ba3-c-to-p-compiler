@@ -99,12 +99,12 @@ ind a
 sto a
 str a 0 19
 str a 0 24
-lod a 0 19
+lda 0 19
 str a 0 26
 ldc a 0
 lda 0 26
 dpl a
-lod a 0 24
+lda 0 24
 sto a
 ind a
 sto a
@@ -150,13 +150,13 @@ add r
 sto r
 ind r
 sto r
-lod a 0 29
+lda 0 29
 str a 0 31
 str a 0 32
 ldc a 0
 lda 0 31
 dpl a
-lod a 0 32
+lda 0 32
 sto a
 ind a
 sto a

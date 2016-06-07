@@ -25,7 +25,8 @@ import re
 
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
-set = False
+setTxtFiles = False
+setPCode = True
 
 class ASTTest():
     def setUp(self):
@@ -84,7 +85,7 @@ class ASTTest():
         # expectedOutputFound = errorMessage.find(correctOutput) != -1
         expectedOutputFound = errorMessage == correctOutput
 
-        if set and not expectedOutputFound:
+        if setTxtFiles and not expectedOutputFound:
             f = open(filename + ".txt", "w")
             f.write(errorMessageWithWhitespace)
             f.close()
@@ -122,7 +123,7 @@ class ASTTest():
         # expectedOutputFound = errorMessage.find(correctOutput) != -1
         expectedCodeFound = pCodeGenerated == pCodeCorrect
 
-        if set and not expectedCodeFound:
+        if setPCode and not expectedCodeFound:
             f = open(filename + ".p_correct", "w")
             f.write(pCodeGeneratedOriginal)
             f.close()
@@ -624,27 +625,27 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
 
     # expressions.c has many combinations of binary operators
     def testExpressions(self):
-        self.generateNoError("testfiles/expressions")
+        self.generateNoError("testfiles/misc/expressions")
 
     # tests different usages of if, else, while, do while, if without else
     def testFlowControl(self):
-        self.generateNoError("testfiles/flow_control")
+        self.generateNoError("testfiles/misc/flow_control")
 
     # many scopes and many variables and some more complex initializers
     def testVariables(self):
-        self.generateNoError("testfiles/variables")
+        self.generateNoError("testfiles/misc/variables")
 
     # functions, forward declarations, weird parameters to functions and printf
     def testFunctions(self):
-        self.generateNoError("testfiles/functions")
+        self.generateNoError("testfiles/misc/functions")
 
     # a file with some includes, functions, expressions and flow control
     def testHelloWorld(self):
-        self.generateNoError("testfiles/hello_world")
+        self.generateNoError("testfiles/misc/hello_world")
 
     # builds and prints a Hankel matrix
     def testPrintMatrix(self):
-        self.generateNoError("testfiles/print_matrix")
+        self.generateNoError("testfiles/misc/print_matrix")
 
 
 class EvalutationTests(ASTTest, unittest.TestCase):

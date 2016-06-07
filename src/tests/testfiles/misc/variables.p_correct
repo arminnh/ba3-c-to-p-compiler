@@ -256,7 +256,7 @@ ldc c 'c'
 str c 0 71
 str a 0 72
 ldc a 0
-lod a 0 69
+lda 0 69
 dpl a
 ldc c 'u'
 sto c
@@ -366,7 +366,7 @@ sto c
 ldc i 5
 str i 0 109
 str a 0 110
-lod a 0 75
+lda 0 75
 str a 0 111
 ldc a 0
 lda 0 111
@@ -379,7 +379,7 @@ ind a
 dec a 1
 sto a
 ldc a 0
-lod a 0 75
+lda 0 75
 dpl a
 ldc c 'u'
 sto c
@@ -403,7 +403,7 @@ str a 0 117
 ldc a 0
 lda 0 116
 dpl a
-lod a 0 117
+lda 0 117
 sto a
 ind a
 sto a
