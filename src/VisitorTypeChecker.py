@@ -49,11 +49,6 @@ class VisitorTypeChecker(Visitor):
 
 
     def isTypeCheckArrayInitializerValid(self, node):
-        if node.initializerList and not node.initializerList.isArray:
-            if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
-                self.addError("invalid initializer", node)
-                return False
-
         arrayCount = 0
         for (i, (isArray, isConstant)) in enumerate(node.indirections):
             if type(isArray) is int or isArray:
@@ -82,13 +77,17 @@ class VisitorTypeChecker(Visitor):
             self.addError("void value not ignored as it ought to be", node)
             return False
 
+        if t1.nrIndirections() > 0 and not t1.doArraysMatch(t2):
+            # this is a warning in c, but an error in c++
+            if t2.nrIndirections() > 0:
+                self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), node)
+            else:
+                self.addWarning("initialization makes pointer without a cast, expected '{0}' but got '{1}'".format(t1, t2), node)
+            return True
+
         elif not t1.isCompatible(t2):
             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
             return False
-
-        if not t1.doArraysMatch(t2):
-            # this is a warning in c, but an error in c++
-            self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), node)
 
         if not t1.isConstCompatible(t2):
             # this is a warning in c, but an error in c++
@@ -104,10 +103,17 @@ class VisitorTypeChecker(Visitor):
         if node.getType().isCompatible(TYPES["void"].toRvalue()):
             self.addError("variable or field '{0}' declared void".format(node.identifier), node)
 
+        if node.getType().hasArray() and not self.isTypeCheckArrayInitializerValid(node):
+            return
+
         # if baseType is array, typecheck with each elements of initializer list
         if node.getType().isArray():
-            if not self.isTypeCheckArrayInitializerValid(node) or node.initializerList is None:
+            if node.initializerList is None:
                 return
+            elif not node.initializerList.isArray:
+                if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
+                    self.addError("invalid initializer", node)
+                    return False
 
             for initListElement in node.initializerList.children:
                 # get baseType for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
@@ -115,7 +121,7 @@ class VisitorTypeChecker(Visitor):
                 t2 = initListElement.getType().toRvalue()
 
                 # if initializer is not a string literal, pop the array from the variable to be initialized
-                if not isinstance(initListElement, ASTStringLiteralNode):
+                if node.initializerList.isArray or not isinstance(initListElement, ASTStringLiteralNode):
                     t1.indirections.pop()
 
                 #  char a[] = "special case";   // types char [] and  char *
@@ -220,6 +226,28 @@ class VisitorTypeChecker(Visitor):
         if codesCount < len(arguments.children) - 1:
             self.addWarning("too many arguments for format", node)
 
+
+    def isTypeCheckArgumentsValid(self, t1, t2, node, i):
+        if t2.isCompatible(TYPES["void"].toRvalue()):
+            self.addError("invalid use of void expression", node)
+            return False
+
+        if not t1.doArraysMatch(t2):
+            self.addWarning("passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'".format(i+1, node.identifier, t1, t2), node)
+            return False
+
+        if not t1.isCompatible(t2):
+            node.errorParameter = i
+            self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
+            return False
+
+        if not t1.isConstCompatible(t2):
+            self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+            return False
+
+        return True
+
+
     def visitFunctionCallNode(self, node):
         if self.visitChildren(node) == "error":
             return
@@ -242,18 +270,8 @@ class VisitorTypeChecker(Visitor):
             for i, argument in enumerate(arguments.children):
                 if argument.error:
                     continue
-                t1 = parameterNodes[i].getType().toRvalue()
-                t2 = argument.getType().toRvalue()
-                if not t1.isCompatible(t2):
-                    node.errorParameter = i
-                    if t1.nrIndirections() > 0:
-                        self.addWarning("passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'".format(i+1, node.identifier, t1, t2), node)
-                    else:
-                        self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
-                    continue
 
-                if not t1.isConstCompatible(t2):
-                    self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+                if not self.isTypeCheckArgumentsValid(parameterNodes[i].getType().toRvalue(), argument.getType().toRvalue(), node, i):
                     continue
 
         else:

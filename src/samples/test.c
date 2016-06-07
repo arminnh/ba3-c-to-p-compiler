@@ -15,6 +15,10 @@ void sum3() {
     return;
 }
 
+int f2(int i) {
+	return 1;
+}
+
 int sum(int const * const * * a);
 int sub(const int * const * * a);
 
@@ -119,4 +123,8 @@ int main() {
 
 
     char *testS[] = {"hello", "world"};
+
+	int arr[1][3];
+	int (* const(* const arr2)[4][2])[][] = &arr;
+	int (* const(* const arr3)[4][2])[][3] = &arr;
  }

@@ -357,6 +357,24 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
     # def test19(self):
     #     self.generateErrorsAndCompare("testfiles/function-calls/19")
 
+    def test20(self):
+        self.generateNoError("testfiles/function-calls/20.c")
+
+    def test21(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/21")
+
+    def test22(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/22")
+
+    def test23(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/23")
+
+    def test24(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/24")
+
+    def test25(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/25")
+
 
 class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 
@@ -455,6 +473,12 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 
     def test29(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/29")
+
+    def test30(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/30")
+
+    def test31(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/31")
 
 
 class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
@@ -583,6 +607,10 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     # a file with some includes, functions, expressions and flow control
     def testHelloWorld(self):
         self.generateNoError("testfiles/hello_world.c")
+
+    # builds and prints a Hankel matrix
+    def testPrintMatrix(self):
+        self.generateNoError("testfiles/print_matrix.c")
 
 
 class EvalutationTests(ASTTest, unittest.TestCase):

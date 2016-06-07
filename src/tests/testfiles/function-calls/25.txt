@@ -1,0 +1,9 @@
+testfiles/function-calls/25.c:10:2: error: invalid use of void expression
+ 	f2(sum3());
+ 	^
+testfiles/function-calls/25.c:12:7: error: variable or field 'ablabla3' declared void
+ 	void ablabla3;
+ 	     ^
+testfiles/function-calls/25.c:13:2: error: invalid use of void expression
+ 	f2(ablabla3);
+ 	^

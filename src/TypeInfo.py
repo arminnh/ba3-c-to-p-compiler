@@ -54,6 +54,13 @@ class TypeInfo:
                 return nr
             nr += 1
 
+    def hasArray(self):
+        for isArray, isConst in self.indirections:
+            if isArray or type(isArray) is not bool:
+                return True
+
+        return False
+
     def isConst(self):
         return self.const()[-1]
 

@@ -1,3 +1,3 @@
-testfiles/unary-operators/16.c:16:7: error: incompatible types when initializing type 'char *' using type 'char * *'
+testfiles/unary-operators/16.c:16:7: warning: initialization from incompatible pointer type, expected 'char *' but got 'char **'
  	char * sss  = &s;
  	     ^
