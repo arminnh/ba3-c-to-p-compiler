@@ -84,6 +84,7 @@ class VisitorCodeGenerator(Visitor):
         for string, symbolInfo in sorted(self.symbolTable.stringLiterals.items()):
             for i, c in enumerate(string):
                 self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + i + 5))
+                # TODO: prints "'", which is not supported by p machine
                 self.outFile.write("ldc c {0}\n".format(repr(c)))
                 self.outFile.write("sto c\n")
 
@@ -421,6 +422,7 @@ class VisitorCodeGenerator(Visitor):
         for el in node.parsedFormat:
             if isinstance(el, str):
                 for c in bytes(el, "utf-8").decode("unicode-escape"):
+                    # TODO: prints "'", which is not supported by p machine
                     self.outFile.write("ldc c {0}\n".format(repr(c)))
                     self.outFile.write("out c\n")
             else:
@@ -577,7 +579,7 @@ class VisitorCodeGenerator(Visitor):
         elif t1.isPointer() or t2.isPointer():
             # pointer arithmetic
             pointerType, integerType = (t1, t2) if t1.isPointer() else (t2, t1)
-            
+
             pointerCode = "conv a i\n"
             integerCode = "ldc i {0}\n".format(pointerType.dereference().size())
             integerCode += "mul i\n"
@@ -589,7 +591,7 @@ class VisitorCodeGenerator(Visitor):
 
             self.outFile.write("{0} i\n".format(self.bin_arithm_op[str(node.arithmeticType)]))
             self.outFile.write("conv i a\n")
-            
+
         else:
             self.visitChildren(node)
             self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().baseType]))

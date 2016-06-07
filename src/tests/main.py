@@ -647,6 +647,10 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testPrintMatrix(self):
         self.generateNoError("testfiles/misc/print_matrix")
 
+    # the game 'snake'
+    # def testSnek(self):
+    #     self.generateNoError("testfiles/misc/snek")
+
 
 class EvalutationTests(ASTTest, unittest.TestCase):
 
