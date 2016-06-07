@@ -233,9 +233,9 @@ declarator1
     ;
 
 initializer
-    : '{' (oplevel14 (',' oplevel14)*)?   '}'
-    | '{' (initializer (',' initializer)*)? '}'
-    | oplevel14
+    : '{' (oplevel14 (',' oplevel14)*)?   '}'   #arrayInitializer
+    | '{' (initializer (',' initializer)*)? '}' #arrayInitializer
+    | oplevel14                                 #expressionInitializer
     ;
 
 returnStmt

@@ -183,7 +183,9 @@ class Listener(CListener):
 
 
     def enterArrayPart(self, ctx:CParser.ArrayPartContext):
-        self.currentNode = self.currentNode.addChildNode(ASTArrayPartNode(ctx=ctx))
+        newNode = ASTArrayPartNode(ctx=ctx)
+        self.currentNode.arrayLengths.append(newNode)
+        self.currentNode = self.currentNode.addChildNode(newNode)
 
     def exitArrayPart(self, ctx:CParser.ArrayPartContext):
         self.currentNode = self.currentNode.parent
@@ -215,10 +217,19 @@ class Listener(CListener):
 
 
 
-    def enterInitializer(self, ctx:CParser.InitializerContext):
+    def enterArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
+        self.currentNode = self.currentNode.addChildNode(ASTInitializerListNode(ctx))
+        self.currentNode.isArray = True
+
+    def exitArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
+        self.currentNode = self.currentNode.parent
+
+
+
+    def enterExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
         self.currentNode = self.currentNode.addChildNode(ASTInitializerListNode(ctx))
 
-    def exitInitializer(self, ctx:CParser.InitializerContext):
+    def exitExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
         self.currentNode = self.currentNode.parent
 
 

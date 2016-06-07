@@ -48,6 +48,59 @@ class VisitorTypeChecker(Visitor):
                 self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(returnType, funDefType), node)
 
 
+    def isTypeCheckInitializerValid(self, t1, t2, node):
+        if t2.isCompatible(types["void"].toRvalue()):
+            self.addError("void value not ignored as it ought to be", node)
+            return False
+
+        elif not t1.isCompatible(t2):
+            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
+            return False
+
+        if not t1.isConstCompatible(t2):
+            # this is a warning in c, but an error in c++
+            self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), node)
+            return False
+
+        return True
+
+
+    def isTypeCheckArrayInitializerValid(self, node):
+        if node.getType().isArray() and node.initializerList and not node.initializerList.isArray:
+            self.addError("invalid initializer", node)
+            return
+
+        arrayIterator = -1
+        for (i, (isArray, isConstant)) in reversed(list(enumerate(node.indirections))):
+            if not isArray:
+                continue
+
+            arrayIterator += 1
+            arrayLengthNode = node.arrayLengths[arrayIterator]
+
+            if not arrayLengthNode.children:
+                if arrayIterator == 0:
+                    if node.initializerList is not None:
+                        # arrayLengthNode.addChildNode(ASTIntegerLiteralNode(len(node.initializerList.children), node.initializerList.ctx))
+                        node.indirections[i] = (len(node.initializerList.children), False)
+                        continue
+                    else:
+                        self.addError("array size missing for '{0}'".format(node.identifier), node)
+                        return
+                elif i <= len(node.indirections) and node.indirections[i+1][0] == False:
+                    continue
+                else:
+                    self.addError("array type has incomplete element type for '{0}'".format(node.identifier), node)
+                    return
+
+            if not isinstance(arrayLengthNode.children[0], ASTIntegerLiteralNode):
+                self.addError("expected integer literal as array length for '{0}'".format(node.identifier), arrayLengthNode.children[0])
+                node.error = True
+                continue
+
+            node.indirections[i] = (arrayLengthNode.children[0].value, node.indirections[i][1])
+
+
     # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
         if self.visitChildren(node) == "error":
@@ -56,71 +109,47 @@ class VisitorTypeChecker(Visitor):
         if node.getType().isCompatible(types["void"].toRvalue()):
             self.addError("variable or field '{0}' declared void".format(node.identifier), node)
 
+        # TODO: find a better place for this
         for child in node.children:
-            # if child is expression node, it is the array length value
-            if isinstance(child, ASTExpressionNode):
-                arrayLengthType = child.getType().toRvalue()
-                if not arrayLengthType.isCompatible(types["int"].toRvalue()):
-                    self.addError("size of array '{0}' has non-integer type (have '{1}')".format(node.identifier, str(arrayLengthType)), node)
+            if isinstance(child, ASTInitializerListNode):
+                node.initializerList = child
+
+        # if basetype is array, typecheck with each elements of initializer list
+        if node.getType().isArray():
+            if not self.isTypeCheckArrayInitializerValid(node):
+                return
+
+            for initListElement in node.initializerList.children:
+                # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
+                t1 = copy.deepcopy(node.getType())
+                t2 = initListElement.getType().toRvalue()
+
+                # if initializer is not a string literal, pop the array from the variable to be initialized
+                if not isinstance(initListElement, ASTStringLiteralNode):
+                    t1.indirections.pop()
+
+                #  char a[] = "special case";   // types char [] and  char *
+                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(types["string"]):
                     continue
 
-            elif isinstance(child, ASTInitializerListNode):
-                # if basetype is array, typecheck with each elements of initializer list
-                if node.getType().isArray():
-                    for initListElement in child.children:
-                        # get basetype for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
-                        ownType = copy.deepcopy(node.getType())
-                        if not isinstance(initListElement, ASTStringLiteralNode):
-                            ownType.indirections.pop()
-                        t2 = initListElement.getType().toRvalue()
+                # do the type checking
+                if not self.isTypeCheckInitializerValid(t1, t2, node):
+                    continue
 
-                        #  char a[] = "uitzondering";
-                        if isinstance(child.children[0], ASTStringLiteralNode) and node.getType().equals(types["string"]):
-                            continue
+        # only typecheck with 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
+        else:
+            # if initializer list does not have any children (int a = {}), error
+            if len(node.initializerList.children) == 0:
+                self.addError("empty scalar initializer", node)
+                return
 
-                        if t2.isCompatible(types["void"].toRvalue()):
-                            self.addError("void value not ignored as it ought to be", node)
-                            continue
-                        elif not ownType.isCompatible(t2):
-                            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(ownType, t2), node)
-                            continue
+            # only 1st element matters, if multiple initialization elements: warning: excess elements
+            if len(node.initializerList.children) > 1:
+                self.addWarning("excess elements in scalar initializer", node)
 
-                        if not ownType.isConstCompatible(t2):
-                            # this is a warning in c, but an error in c++
-                            self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(ownType, t2), node)
-                            continue
-
-                #typecheck with only 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
-                else:
-                    # if initializer list does not have any children (int a = {}), error
-                    if not child.children:
-                        self.addError("empty scalar initializer", node)
-                        continue
-
-                    t1 = node.getType().toRvalue()
-                    t2 = child.children[0].getType().toRvalue()
-
-                    if t2.isCompatible(types["void"].toRvalue()):
-                        self.addError("void value not ignored as it ought to be", node)
-                        continue
-                    # only 1st element matters, if multiple initialization elements: warning: excess elements in scalar initializer
-                    elif not t1.isCompatible(t2):
-                        self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
-                        continue
-
-                    if not t1.isConstCompatible(t2):
-                        self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), node)
-
-                    if len(child.children) > 1:
-                        line, column = node.getLineAndColumn()
-                        self.errorHandler.addWarning("excess elements in scalar initializer", line, column)
-
-        # TODO: adapt for multidimensional arrays
-        # possibility: count in indirections array the amount of arrays from right to left, up until the first non-array
-        #              these are the arrays that need an array length specifier
-        if not node.children and node.getType().isArray():
-            self.addError("array size missing in '{0}'".format(node.identifier), node)
-            return
+            # do the type checking
+            if not self.isTypeCheckInitializerValid(node.getType().toRvalue(), node.initializerList.children[0].getType().toRvalue(), node):
+                return
 
 
     def visitIntegerLiteralNode(self, node):

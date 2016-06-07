@@ -54,7 +54,6 @@ class ASTNode(object):
     def out(self, level=0):
         s = offset * level + self.label + "\n"
 
-        #return (s + "\n") if (not self.children) else self.outChildren(s, level)
         return s if (not self.children) else self.outChildren(s, level)
 
     def outChildren(self, s, level):
@@ -152,9 +151,9 @@ class ASTParameterNode(ASTNode):
         super(ASTParameterNode, self).__init__("parameter", ctx)
         self.basetype = "int"
         self.typeSpecifierPresent = False
-        self.identifier = None
-        # self.arrayLength = None
         self.isConstant = False
+        self.identifier = None
+        self.arrayLengths = []
         self.indirections = [] # list of tuples of booleans: (array, const)
 
     def accept(self, visitor):
@@ -162,9 +161,6 @@ class ASTParameterNode(ASTNode):
             visitor.visitParameterNode(self)
 
     def getType(self):
-        if self.basetype is None:
-            return None
-            # raise Exception("ASTParameterNode basetype not filled in", line, column)
         return TypeInfo(rvalue=False, basetype=self.basetype, indirections = [(False, self.isConstant)] + self.indirections)
 
     def __eq__(self, other):
@@ -187,14 +183,15 @@ class ASTArgumentsNode(ASTNode):
 class ASTInitializerListNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTInitializerListNode, self).__init__("initializer list", ctx)
+        self.isArray = False
 
     def accept(self, visitor):
         if not self.error:
             visitor.visitInitializerListNode(self)
 
     def out(self, level):
-        s = offset * level
-        s += "{0}, {1} elements\n".format(self.label, len(self.children))
+        s = (offset * level) + "{0}, {1} elements\n".format(self.label, len(self.children))
+
         return s if (not self.children) else self.outChildren(s, level)
 
 class ASTArrayPartNode(ASTNode):
@@ -355,7 +352,8 @@ class ASTDeclaratorInitializerNode(ASTNode):
     def __init__(self, ctx=None):
         super(ASTDeclaratorInitializerNode, self).__init__("declarator initializer", ctx)
         self.identifier = None
-        # arrayLength will be an expressionNode child
+        self.initializerList = None
+        self.arrayLengths = []
         self.indirections = [] # list of tuples of booleans: (array, const)
 
     def accept(self, visitor):
@@ -366,19 +364,10 @@ class ASTDeclaratorInitializerNode(ASTNode):
         return TypeInfo(rvalue=False, basetype=self.parent.basetype, indirections = [(False, self.parent.isConstant)] + self.indirections)
 
     def out(self, level):
-        s = offset * level + "declarator initializer" + "\n" + (offset * (level + 1))
+        s = offset * level + "declarator initializer" + "\n"
+        s += (offset * (level + 1)) + self.identifier + ": " + str(self.getType()) + "\n"
 
-        s += self.identifier + ": "
-        s += str(self.getType()) + "\n"
-
-        for child in self.children:
-            if isinstance(child, ASTExpressionNode):
-                s += offset * (level + 1) + "arrayLength\n"
-                s += child.out(level + 2)
-            else:
-                s += child.out(level + 1)
-
-        return s
+        return s if (not self.children) else self.outChildren(s, level)
 
 
 '''
