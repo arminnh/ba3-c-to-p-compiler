@@ -91,17 +91,21 @@ class TypeInfo:
 
         out += str(self.baseType)
 
-        for i in range(self.nrIndirections()):
+        declarator = ""
+        for i in range(self.nrIndirections() - 1, -1, -1):
             arrayPart = self.array()[i+1]
             if type(arrayPart) is bool and arrayPart == False:
-                out += " *"
-            elif type(arrayPart) is int:
-                out += " [{0}]".format(arrayPart)
+                if i+1 < len(self.const()) and self.const()[i+1]:
+                	declarator = "*const " + declarator
+                else:
+                	declarator = "*" + declarator
             else:
-                out += " []"
+            	if i + 2 < len(self.indirections) and (self.indirections[i + 2][0] == False and type(self.indirections[i + 2][0]) is bool):
+            		if declarator[-1] == " ": declarator = declarator[:-1] # if closing parenthesis, remove space added by const declaration
+            		declarator = "(" + declarator + ")"
+            	declarator += "[{0}]".format(arrayPart if type(arrayPart) is int else "")
 
-            if i+1 < len(self.const()) and self.const()[i+1]:
-                out += " const"
+        out += (" " if len(declarator) else "") + declarator
 
         if withRvalue and self.rvalue is not None:
             out += " " + ("r" if self.rvalue else "l") + "value"
