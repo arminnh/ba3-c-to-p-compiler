@@ -56,8 +56,9 @@ class ASTTest():
         typeCheck = VisitorTypeChecker(self.errorHandler)
         typeCheck.visitProgramNode(abstractSyntaxTree.root)
 
-        codeGenerator = VisitorCodeGenerator(symbolTable, "out.p")
-        codeGenerator.visitProgramNode(abstractSyntaxTree.root)
+        if self.errorHandler.errorCount() == 0:
+            codeGenerator = VisitorCodeGenerator(symbolTable, "out.p")
+            codeGenerator.visitProgramNode(abstractSyntaxTree.root)
 
     def generateErrorsAndCompare(self, filename):
         self.parseFile(filename + ".c")

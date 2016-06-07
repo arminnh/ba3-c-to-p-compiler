@@ -333,32 +333,24 @@ class VisitorCodeGenerator(Visitor):
             string = initializer.children[0].decodedValue
         ttype = decl.getType()
 
-        for i in range(ttype.array()[-1] - 1):
+        for i in range(ttype.array()[-1]):
             self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + i + 5))
-            self.outFile.write("ldc c {0}\n".format(repr(string[i + 1]) if i < len(string) else 27))
-            self.outFile.write("sto c\n")
-
-        if ttype.array()[-1] > 0:
-            self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + ttype.array()[-1] + 5))
-            self.outFile.write("ldc c 27\n")
+            self.outFile.write("ldc c {0}\n".format(repr(string[i]) if i < len(string) else 27))
             self.outFile.write("sto c\n")
 
 
     def visitDeclaratorInitializerNode(self, node):
-        initializer = None
-        for child in node.children:
-            if isinstance(child, ASTInitializerListNode):
-                initializer = child
-
         ttype = node.getType()
 
-        if ttype == TYPES["string"] and isinstance(initializer.children[0], ASTStringLiteralNode):
-            self.storeString(node, initializer)
-            return
-        elif initializer is not None and not ttype.isArray():
-            initializer.accept(self)
+        if node.initializerList:
+            if ttype == TYPES["string"] and node.initializerList.children and isinstance(node.initializerList.children[0], ASTStringLiteralNode):
+                self.storeString(node, node.initializerList)
+                return
+            elif not ttype.isArray():
+                node.initializerList.accept(self)
         elif not ttype.isArray():
-            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]))
+            initializerType = self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]
+            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), initializerType))
         elif ttype.isArray():
             self.allocArray(ttype, node.symbolInfo.address + 5)
             return
@@ -406,7 +398,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitStringLiteralNode(self, node):
-        if not isinstance(node.parent, (ASTDeclaratorInitializerNode, ASTInitializerListNode)):
+        if not isinstance(node.parent, ASTInitializerListNode):
             self.outFile.write("lda 1 {0}\n".format(node.symbolInfo.address))
 
 
