@@ -82,13 +82,13 @@ class VisitorCodeGenerator(Visitor):
 
         # code for string literals
         for string, symbolInfo in self.symbolTable.stringLiterals.items():
-            for i, c in enumerate(string[1:-1]):
+            for i, c in enumerate(string):
                 self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + i + 5))
                 self.outFile.write("ldc c {0}\n".format(repr(c)))
                 self.outFile.write("sto c\n")
 
             if len(string) > 2:
-                self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) - 2 + 5))
+                self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) + 5))
                 self.outFile.write("ldc c 27\n")
                 self.outFile.write("sto c\n")
 
@@ -335,11 +335,11 @@ class VisitorCodeGenerator(Visitor):
 
         for i in range(ttype.array()[-1] - 1):
             self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + i + 5))
-            self.outFile.write("ldc c {0}\n".format(repr(string[i + 1]) if i < len(string) - 2 else 27))
+            self.outFile.write("ldc c {0}\n".format(repr(string[i + 1]) if i < len(string) else 27))
             self.outFile.write("sto c\n")
 
         if ttype.array()[-1] > 0:
-            self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + ttype.array()[-1] - 1 + 5))
+            self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + ttype.array()[-1] + 5))
             self.outFile.write("ldc c 27\n")
             self.outFile.write("sto c\n")
 
@@ -425,15 +425,32 @@ class VisitorCodeGenerator(Visitor):
         self.visitChildren(node)
 
 
+    def printf(self, node):
+        for el in node.parsedFormat:
+            if isinstance(el, str):
+                for c in bytes(el, "utf-8").decode("unicode-escape"):
+                    self.outFile.write("ldc c {0}\n".format(repr(c)))
+                    self.outFile.write("out c\n")
+            else:
+                width, node = el
+                if isinstance(node, ASTNode) and not node.getType().equals(types["void"]):
+                    self._lvalue.append(False)
+                    node.accept(self)
+                    self._lvalue.pop()
+                    self.outFile.write("out {0}\n".format(self.pType(node.getType())))
+
     def visitFunctionCallNode(self, node):
-        # organizational block
-        self.outFile.write("mst {0}\n".format(self.symbolTable.currentDepth))
+        if node.definitionNode.isStdioFunction and node.identifier == "printf":
+            self.printf(node)
+        else:
+            # organizational block
+            self.outFile.write("mst {0}\n".format(self.symbolTable.currentDepth))
 
-        # evaluate arguments
-        self.visitChildren(node)
+            # evaluate arguments
+            self.visitChildren(node)
 
-        # call user procedure
-        self.outFile.write("cup {0} function_{1}\n".format(len(node.children[0].children), node.definitionNode.identifier))
+            # call user procedure
+            self.outFile.write("cup {0} function_{1}\n".format(len(node.children[0].children), node.definitionNode.identifier))
 
 
     def visitTypeCastNode(self, node):

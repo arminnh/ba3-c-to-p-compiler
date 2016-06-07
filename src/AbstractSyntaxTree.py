@@ -459,7 +459,7 @@ class ASTStringLiteralNode(ASTExpressionNode):
 
     def getType(self):
          # +1 null termination, -2 for quotes
-        return TypeInfo(rvalue=False, basetype="char", indirections=[(False, False), (len(self.decodedValue) -1, False)])
+        return TypeInfo(rvalue=False, basetype="char", indirections=[(False, False), (len(self.decodedValue) + 1, False)])
 
     def out(self, level):
         return offset * level + self.label + " - " + str(self.value) + "\n"
