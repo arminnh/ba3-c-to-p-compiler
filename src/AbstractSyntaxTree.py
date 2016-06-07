@@ -612,7 +612,7 @@ class ASTTernaryConditionalOperatorNode(ASTTernaryOperatorNode):
         return self.children[1].getType().toRvalue()
 
 
-class ASTCommaOperatorNode(ASTExpressionNode):
+class ASTCommaOperatorNode(ASTBinaryOperatorNode):
     def __init__(self, ctx):
         super(ASTCommaOperatorNode, self).__init__(",", ctx)
 

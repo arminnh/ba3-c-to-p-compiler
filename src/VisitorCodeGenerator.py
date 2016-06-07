@@ -87,9 +87,10 @@ class VisitorCodeGenerator(Visitor):
                 self.outFile.write("ldc c {0}\n".format(repr(c)))
                 self.outFile.write("sto c\n")
 
-            self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) - 2 + 5))
-            self.outFile.write("ldc c 27\n")
-            self.outFile.write("sto c\n")
+            if len(string) > 2:
+                self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) - 2 + 5))
+                self.outFile.write("ldc c 27\n")
+                self.outFile.write("sto c\n")
 
         # code for variables
         for variable in self.symbolTable.currentScope.addressedVariables:
@@ -326,6 +327,23 @@ class VisitorCodeGenerator(Visitor):
                 self.allocArray(arrayElementType, address + i * arrayElementType.size())
 
 
+    def storeString(self, decl, initializer):
+        string = None
+        if initializer:
+            string = initializer.children[0].decodedValue
+        ttype = decl.getType()
+        
+        for i in range(ttype.array()[-1] - 1):
+            print("LOOP ITERATION")
+            self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + i + 5))
+            self.outFile.write("ldc c {0}\n".format(string[i + 1] if i < len(string) - 2 else 27))
+            self.outFile.write("sto c\n")
+
+        if ttype.array()[-1] > 0:
+            self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + ttype.array()[-1] - 1 + 5))
+            self.outFile.write("ldc c 27\n")
+            self.outFile.write("sto c\n")
+
 
     def visitDeclaratorInitializerNode(self, node):
         initializer = None
@@ -335,6 +353,8 @@ class VisitorCodeGenerator(Visitor):
 
         ttype = node.getType()
 
+        if ttype == types["string"]:
+            self.storeString(node, initializer)
         if initializer is not None and not ttype.isArray():
             initializer.accept(self)
         elif not ttype.isArray():
