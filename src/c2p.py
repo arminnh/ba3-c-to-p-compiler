@@ -78,7 +78,6 @@ def buildAST(parseTreeRoot):
 
     # output the resulting AST after the walk
     output("AST built:            " + str(time.time() - timeNow), is_timing=True)
-    output(str(abstractSyntaxTree))
 
     if SAVE_AST:
         # os.path.splitext(name) splits name into tuple: (name without extension, extension)
@@ -103,7 +102,6 @@ def scopeCheck(abstractSyntaxTree, errorHandler, symbolTable):
     tableFiller = VisitorDeclarationProcessor(symbolTable, errorHandler)
     tableFiller.visitProgramNode(abstractSyntaxTree.root)
     output("symbol table checked: " + str(time.time() - timeNow), is_timing=True)
-    output(str(symbolTable))
 
     if SAVE_SYMBOL_TABLE:
         # os.path.splitext(name) splits name into tuple: (name without extension, extension)
@@ -144,6 +142,10 @@ def main(filename):
 
         # do the type checking
         typeCheck(abstractSyntaxTree, errorHandler)
+
+        # output the decorated AST and the symbolTable after decorating the AST
+        output(str(abstractSyntaxTree))
+        output(str(symbolTable))
 
         # generate code
         symbolTable.resetToRoot()

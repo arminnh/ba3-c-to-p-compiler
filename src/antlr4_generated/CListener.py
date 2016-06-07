@@ -395,12 +395,21 @@ class CListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by CParser#initializer.
-    def enterInitializer(self, ctx:CParser.InitializerContext):
+    # Enter a parse tree produced by CParser#arrayInitializer.
+    def enterArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
         pass
 
-    # Exit a parse tree produced by CParser#initializer.
-    def exitInitializer(self, ctx:CParser.InitializerContext):
+    # Exit a parse tree produced by CParser#arrayInitializer.
+    def exitArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
+        pass
+
+
+    # Enter a parse tree produced by CParser#expressionInitializer.
+    def enterExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
+        pass
+
+    # Exit a parse tree produced by CParser#expressionInitializer.
+    def exitExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
         pass
 
 

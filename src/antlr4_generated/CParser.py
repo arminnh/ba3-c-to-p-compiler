@@ -3600,12 +3600,46 @@ class CParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+
+        def getRuleIndex(self):
+            return CParser.RULE_initializer
+
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
+
+
+
+    class ExpressionInitializerContext(InitializerContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a CParser.InitializerContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def oplevel14(self):
+            return self.getTypedRuleContext(CParser.Oplevel14Context,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExpressionInitializer" ):
+                listener.enterExpressionInitializer(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExpressionInitializer" ):
+                listener.exitExpressionInitializer(self)
+
+
+    class ArrayInitializerContext(InitializerContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a CParser.InitializerContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
         def oplevel14(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(CParser.Oplevel14Context)
             else:
                 return self.getTypedRuleContext(CParser.Oplevel14Context,i)
-
 
         def initializer(self, i:int=None):
             if i is None:
@@ -3614,17 +3648,13 @@ class CParser ( Parser ):
                 return self.getTypedRuleContext(CParser.InitializerContext,i)
 
 
-        def getRuleIndex(self):
-            return CParser.RULE_initializer
-
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInitializer" ):
-                listener.enterInitializer(self)
+            if hasattr( listener, "enterArrayInitializer" ):
+                listener.enterArrayInitializer(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInitializer" ):
-                listener.exitInitializer(self)
-
+            if hasattr( listener, "exitArrayInitializer" ):
+                listener.exitArrayInitializer(self)
 
 
 
@@ -3638,6 +3668,7 @@ class CParser ( Parser ):
             self._errHandler.sync(self);
             la_ = self._interp.adaptivePredict(self._input,59,self._ctx)
             if la_ == 1:
+                localctx = CParser.ArrayInitializerContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 568
                 self.match(CParser.T__28)
@@ -3665,6 +3696,7 @@ class CParser ( Parser ):
                 pass
 
             elif la_ == 2:
+                localctx = CParser.ArrayInitializerContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 580
                 self.match(CParser.T__28)
@@ -3692,6 +3724,7 @@ class CParser ( Parser ):
                 pass
 
             elif la_ == 3:
+                localctx = CParser.ExpressionInitializerContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 592
                 self.oplevel14()
