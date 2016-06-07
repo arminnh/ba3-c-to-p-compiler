@@ -374,15 +374,14 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitCommaOperatorNode(self, node):
-        for i in range(len(node.children) - 1):
-            child = node.children[i]
-            if not node.getType().equals(TYPES["void"]):
-                self.outFile.write("ldc a 0\n")
-                child.accept(self)
-                self.outFile.write("sto {0}\n".format(self.pType(node.getType())))
-            else:
-                child.accept(self)
-        node.children[-1].accept(self)
+        child = node.children[0]
+        if not node.getType().equals(TYPES["void"]):
+            self.outFile.write("ldc a 0\n")
+            child.accept(self)
+            self.outFile.write("sto {0}\n".format(self.pType(child.getType())))
+        else:
+            child.accept(self)
+        node.children[1].accept(self)
 
 
     def visitIntegerLiteralNode(self, node):
@@ -405,7 +404,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitVariableNode(self, node):
         depthDifference = self.symbolTable.functionDefinitionDepthDifference(node.symbolInfo)
-        if self.lvalue():
+        if self.lvalue() or node.getType().isArray():
             # put address on stack
             self.outFile.write("lda {0} {1}\n".format(depthDifference, node.symbolInfo.address + 5))
         elif node.getType().nrIndirections() > 0:
@@ -559,6 +558,8 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitBinaryArithmeticNode(self, node):
+        t1 = node.children[0].getType()
+        t2 = node.children[1].getType()
         self._lvalue.append(False)
         if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType["modulo"]:
             node.children[0].accept(self)
@@ -573,6 +574,22 @@ class VisitorCodeGenerator(Visitor):
                                "ind i\n" +\
                                "mul i\n" +\
                                "sub i\n")
+        elif t1.isPointer() or t2.isPointer():
+            # pointer arithmetic
+            pointerType, integerType = (t1, t2) if t1.isPointer() else (t2, t1)
+            
+            pointerCode = "conv a i\n"
+            integerCode = "ldc i {0}\n".format(pointerType.dereference().size())
+            integerCode += "mul i\n"
+
+            node.children[0].accept(self)
+            self.outFile.write(pointerCode if t1 is pointerType else integerCode)
+            node.children[1].accept(self)
+            self.outFile.write(pointerCode if t2 is pointerType else integerCode)
+
+            self.outFile.write("{0} i\n".format(self.bin_arithm_op[str(node.arithmeticType)]))
+            self.outFile.write("conv i a\n")
+            
         else:
             self.visitChildren(node)
             self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().baseType]))
