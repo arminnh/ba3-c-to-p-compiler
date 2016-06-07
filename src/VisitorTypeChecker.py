@@ -66,9 +66,11 @@ class VisitorTypeChecker(Visitor):
 
 
     def isTypeCheckArrayInitializerValid(self, node):
-        if node.getType().isArray() and node.initializerList and not node.initializerList.isArray:
-            self.addError("invalid initializer", node)
-            return
+        if node.getType().isArray() and node.initializerList and \
+            not node.initializerList.isArray and \
+            not isinstance(node.initializerList.children[0], ASTStringLiteralNode):
+                self.addError("invalid initializer", node)
+                return
 
         arrayIterator = -1
         for (i, (isArray, isConstant)) in reversed(list(enumerate(node.indirections))):

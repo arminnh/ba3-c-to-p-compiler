@@ -332,11 +332,12 @@ class VisitorCodeGenerator(Visitor):
         if initializer:
             string = initializer.children[0].decodedValue
         ttype = decl.getType()
-        
+
         for i in range(ttype.array()[-1] - 1):
             print("LOOP ITERATION")
+            print("ADRES:", decl.symbolInfo.address, "+", i, "+", 5)
             self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + i + 5))
-            self.outFile.write("ldc c {0}\n".format(string[i + 1] if i < len(string) - 2 else 27))
+            self.outFile.write("ldc c '{0}'\n".format(string[i + 1] if i < len(string) - 2 else 27))
             self.outFile.write("sto c\n")
 
         if ttype.array()[-1] > 0:
