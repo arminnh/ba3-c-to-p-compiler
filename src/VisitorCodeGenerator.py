@@ -399,7 +399,8 @@ class VisitorCodeGenerator(Visitor):
 
     def visitStringLiteralNode(self, node):
         if not isinstance(node.parent, ASTInitializerListNode):
-            self.outFile.write("lda 1 {0}\n".format(node.symbolInfo.address))
+            symbolInfo = self.symbolTable.stringLiterals.get(node.decodedValue)
+            self.outFile.write("lda 1 {0}\n".format(symbolInfo.address))
 
 
     def visitVariableNode(self, node):
