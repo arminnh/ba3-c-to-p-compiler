@@ -5,8 +5,6 @@ from VisitorSymbolTable import *
 class VisitorDefinitionProcessor(VisitorSymbolTable):
 
     def visitStringLiteralNode(self, node):
-        if isinstance(node.parent, ASTDeclaratorInitializerNode):
-            return
         self.table.insertStringLiteral(node)
 
 

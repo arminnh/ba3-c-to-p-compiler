@@ -334,10 +334,8 @@ class VisitorCodeGenerator(Visitor):
         ttype = decl.getType()
 
         for i in range(ttype.array()[-1] - 1):
-            print("LOOP ITERATION")
-            print("ADRES:", decl.symbolInfo.address, "+", i, "+", 5)
             self.outFile.write("lda 0 {0}\n".format(decl.symbolInfo.address + i + 5))
-            self.outFile.write("ldc c '{0}'\n".format(string[i + 1] if i < len(string) - 2 else 27))
+            self.outFile.write("ldc c {0}\n".format(repr(string[i + 1]) if i < len(string) - 2 else 27))
             self.outFile.write("sto c\n")
 
         if ttype.array()[-1] > 0:
@@ -354,9 +352,10 @@ class VisitorCodeGenerator(Visitor):
 
         ttype = node.getType()
 
-        if ttype == types["string"]:
+        if ttype == types["string"] and isinstance(initializer.children[0], ASTStringLiteralNode):
             self.storeString(node, initializer)
-        if initializer is not None and not ttype.isArray():
+            return
+        elif initializer is not None and not ttype.isArray():
             initializer.accept(self)
         elif not ttype.isArray():
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().basetype]))
