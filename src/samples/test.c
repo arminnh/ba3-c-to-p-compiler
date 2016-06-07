@@ -6,9 +6,9 @@ int aaaa(const const  const  const dwdwa) {
 }
 
 int sum2() {
-    int int float a;
+    // int int float a;
 
-    return (void) a;
+    // return (void) a;
 }
 
 void sum3() {
@@ -33,7 +33,7 @@ int main() {
 	// f(zz);
 
 	//char hello[] = {'5'};
-	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier heb ik niet aan gedacht";
+	char hello[6] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier heb ik niet aan gedacht";
 
 	int i = 5;
 	int *arrint[1] = {&i};
@@ -115,5 +115,8 @@ int main() {
 	format[3] = 'z';
 	format[4] = 'z';
 	format[5] = 'z';
-	printf(format, "5");
+	// printf(format, "5");
+
+
+    char *testS[] = {"hello", "world"};
  }

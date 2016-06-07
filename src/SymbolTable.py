@@ -85,6 +85,7 @@ class Scope:
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
+                # TODO: lower case
                 return ("Identifier {0} already taken by variable".format(old.astnode.identifier), new.astnode)
 
             if type(new) is FunctionSymbolInfo:

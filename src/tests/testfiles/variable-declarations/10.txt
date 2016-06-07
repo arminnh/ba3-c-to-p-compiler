@@ -1,6 +1,9 @@
+testfiles/variable-declarations/10.c:2:16: error: expected integer literal as array length for 'hello'
+     char hello[6+5*8] = "hello";
+                ^
 testfiles/variable-declarations/10.c:16:5: error: incompatible types when assigning to type 'char *' from type 'char'
-h = 'n'; //error
-^
+     h = 'n'; //error
+     ^
 testfiles/variable-declarations/10.c:17:5: error: incompatible types when assigning to type 'char *' from type 'int'
-h = 8; // error
-^
+     h = 8; // error
+     ^

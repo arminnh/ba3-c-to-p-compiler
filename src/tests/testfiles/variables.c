@@ -24,9 +24,9 @@ int main(void)
             }
         }
 
-        int const j[1+8+9] = {1, 2, 3};
+        int const j[9] = {1, 2, 3};
         int k[5], l[] = {1, 2}, m[1] = {6}, mns;
-        int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*mns+4, 5}, s[j[0]];
+        int o = 2, q[] = {1}, r[5] = {1, 2*e, 3, 4*mns+4, 5}, s[0];
     }
 
     int t = aa, u = bb;
@@ -42,7 +42,7 @@ int main(void)
 
     {
     	char helloo[] = {'5'};
-    	char hello[6+5*8] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier hebben we aan gedacht";
+    	char hello[5] = "hello", ccc = 'c', *str = "string", aaaa[] = "hier hebben we aan gedacht";
 
     	int i = 5;
     	int *arrint[1] = {&i};

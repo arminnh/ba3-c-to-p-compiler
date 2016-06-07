@@ -34,7 +34,7 @@ int main(void) {
 
     const int length = 1;
     float ffl = 5.0;
-    float fff[length+2];
+    float fff[2];
     fff[0] = ffl;
     fff[1] = ffl - 1.0;
     fff[2] = ffl + 1.0;

@@ -18,9 +18,11 @@ class VisitorDecorator(Visitor):
             arrayLengthNode = node.arrayLengths[arrayIterator]
 
             # ex. int a[] = {1, 2, 3};
-            if not arrayLengthNode.children and arrayIterator == 0 and  node.initializerList is not None:
+            if not arrayLengthNode.children and arrayIterator == 0 and node.initializerList is not None:
                 # ex. char s[] = "hello";
-                if node.getType().basetype == "char" and isinstance(node.initializerList.children[0], ASTStringLiteralNode):
+                if node.getType().basetype == "char" and \
+                   node.initializerList.children and isinstance(node.initializerList.children[0], ASTStringLiteralNode) and \
+                   node.getType().isCompatible(node.initializerList.children[0].getType()):
                     node.indirections[i] = (len(node.initializerList.children[0].decodedValue)+1, False)
                 else:
                     node.indirections[i] = (len(node.initializerList.children), False)

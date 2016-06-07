@@ -48,6 +48,35 @@ class VisitorTypeChecker(Visitor):
                 self.addError("incompatible conversion returning '{0}' from a function with return type '{1}'".format(returnType, funDefType), node)
 
 
+    def isTypeCheckArrayInitializerValid(self, node):
+        if node.initializerList and not node.initializerList.isArray:
+            if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
+                self.addError("invalid initializer", node)
+                return False
+
+        arrayCount = 0
+        for (i, (isArray, isConstant)) in enumerate(node.indirections):
+            if type(isArray) is int or isArray:
+                arrayCount += 1
+
+            arrayPartNode = node.arrayLengths[-arrayCount]
+            if arrayPartNode.children and type(arrayPartNode.children[0]) is not ASTIntegerLiteralNode:
+                self.addError("expected integer literal as array length for '{0}'".format(node.identifier), arrayPartNode.children[0])
+                return False
+
+            if type(isArray) is bool and isArray:
+                if arrayCount == len(node.arrayLengths):
+                    self.addError("array size missing in '{0}'".format(node.identifier), node)
+                    return False
+                else:
+                    nextIsArray = node.indirections[i + 1][0]
+                    if type(nextIsArray) is bool and nextIsArray is not False:
+                        self.addError("array type has incomplete element type in '{0}'".format(node.identifier), node)
+                        return False
+
+        return True
+
+
     def isTypeCheckInitializerValid(self, t1, t2, node):
         if t2.isCompatible(types["void"].toRvalue()):
             self.addError("void value not ignored as it ought to be", node)
@@ -65,52 +94,16 @@ class VisitorTypeChecker(Visitor):
         return True
 
 
-    def isTypeCheckArrayInitializerValid(self, node):
-        if node.getType().isArray() and node.initializerList and \
-            not node.initializerList.isArray and \
-            not isinstance(node.initializerList.children[0], ASTStringLiteralNode):
-                self.addError("invalid initializer", node)
-                return
-
-        arrayIterator = -1
-        for (i, (isArray, isConstant)) in reversed(list(enumerate(node.indirections))):
-            if not isArray:
-                continue
-
-            arrayIterator += 1
-            arrayLengthNode = node.arrayLengths[arrayIterator]
-
-            if not arrayLengthNode.children:
-                if arrayIterator == 0:
-                    if node.initializerList is not None:
-                        continue
-                    else:
-                        self.addError("array size missing for '{0}'".format(node.identifier), node)
-                        return
-                elif i <= len(node.indirections) and node.indirections[i+1][0] == False:
-                    continue
-                else:
-                    self.addError("array type has incomplete element type for '{0}'".format(node.identifier), node)
-                    return
-
-            if not isinstance(arrayLengthNode.children[0], ASTIntegerLiteralNode):
-                self.addError("expected integer literal as array length for '{0}'".format(node.identifier), arrayLengthNode.children[0])
-                node.error = True
-                continue
-
-
-    # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
         if self.visitChildren(node) == "error":
             return
 
         if node.getType().isCompatible(types["void"].toRvalue()):
             self.addError("variable or field '{0}' declared void".format(node.identifier), node)
-            return
 
         # if basetype is array, typecheck with each elements of initializer list
         if node.getType().isArray():
-            if not self.isTypeCheckArrayInitializerValid(node):
+            if not self.isTypeCheckArrayInitializerValid(node) or node.initializerList is None:
                 return
 
             for initListElement in node.initializerList.children:
@@ -167,7 +160,7 @@ class VisitorTypeChecker(Visitor):
 
 
     # the format string allows interpretation of sequences of the form %[width][code] (width only in case of output).
-    # Provide support for at least for the type codes d(int), i(int), s(char *) and c(char), f(float). You may consider the char* types to be char arrays.
+    # provide support for at least for the type codes d(int), i(int), s(char *) and c(char), f(float). You may consider the char* types to be char arrays.
     def checkStdioFunction(self, node):
         arguments = None
         for child in node.children:
@@ -190,7 +183,6 @@ class VisitorTypeChecker(Visitor):
         format = formatArgument.value
         formatSpecifiers = re.finditer(r'%([0-9]*)([a-z%])', format)
 
-        # print (codes, len(arguments.children))
         endOfLastMatch = 0
         cutIntoPieces = []
         codesCount = 0

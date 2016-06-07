@@ -16,6 +16,7 @@ from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
 from VisitorTypeChecker import *
 from VisitorCodeGenerator import *
+from VisitorDecorator import *
 
 import copy
 # import re to remove all whitespace from strings
@@ -41,6 +42,9 @@ class ASTTest():
         self.errorHandler = ErrorHandler(filename)
         listener = Listener(abstractSyntaxTree)
         walker.walk(listener, programContext)
+
+        decorator = VisitorDecorator()
+        decorator.visitProgramNode(abstractSyntaxTree.root)
 
         symbolTable = SymbolTable()
         functionFiller = VisitorDefinitionProcessor(symbolTable, self.errorHandler)
