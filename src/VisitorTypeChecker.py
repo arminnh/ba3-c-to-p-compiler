@@ -131,7 +131,7 @@ class VisitorTypeChecker(Visitor):
                     continue
 
         # only typecheck with 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
-        else:
+        elif node.initializerList is not None:
             # if initializer list does not have any children (int a = {}), error
             if len(node.initializerList.children) == 0:
                 self.addError("empty scalar initializer", node)
