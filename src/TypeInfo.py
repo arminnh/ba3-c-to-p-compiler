@@ -31,10 +31,21 @@ class TypeInfo:
 
         return cpy
 
+    def dereference(self):
+    	ttype = copy.deepcopy(self)
+    	ttype.indirections = self.indirections[:-1]
+    	return ttype
+
     def isArray(self):
         if type(self.array()[-1]) is bool:
             return self.array()[-1]
         return True
+
+    def isPointer(self):
+    	if self.nrIndirections() == 0: return False
+    	if type(self.array()[-1]) is bool and self.array()[-1] == False:
+    		return True
+    	return False
 
     def arrayNrDimensions(self):
         nr = 0

@@ -300,8 +300,13 @@ class VisitorTypeChecker(Visitor):
         if self.hasVoidType([t1, t2], node):
             return
 
+        if node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType["add"] or node.arithmeticType == ASTBinaryArithmeticOperatorNode.ArithmeticType["sub"]:
+            if (t1.isPointer() and t2.equals(TYPES["int"])) or (t1.equals(TYPES["int"]) and t2.isPointer()):
+                return
+
+        # TODO: prohibit binary arithmetic between two pointer types, even if they are the same
         if not t1.isCompatible(t2):
-            self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(t1), str(t2), node.label), node)
+            self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(t1), str(t2), str(node.arithmeticType)), node)
             return
 
 

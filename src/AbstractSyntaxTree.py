@@ -567,6 +567,7 @@ class ASTBinaryOperatorNode(ASTExpressionNode):
         super(ASTBinaryOperatorNode, self).__init__(label, ctx)
 
     def getType(self):
+        if self.children[1].getType().isPointer(): return self.children[1].getType().toRvalue()
         return self.children[0].getType().toRvalue()
 
     def addChildNode(self, node):
@@ -617,7 +618,7 @@ class ASTCommaOperatorNode(ASTBinaryOperatorNode):
         return ttype
 
     def out(self, level):
-        return self.outChildren(offset * level + self.label + "\n", level)
+        return self.outChildren(offset * level + self.label + " - " + str(self.getType()) + "\n", level)
 
 
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
@@ -629,6 +630,9 @@ class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):
             visitor.enterExpression(self)
             visitor.visitSimpleAssignmentOperatorNode(self)
             visitor.exitExpression(self)
+
+    def getType(self):
+        return self.children[0].getType()
 
 class ASTLogicOperatorNode(ASTBinaryOperatorNode):
     class LogicOperatorType(Enum):
