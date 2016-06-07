@@ -1,12 +1,12 @@
-testfiles/variable-declarations/29.c:13:6: warning: initialization from incompatible pointer type, expected 'int [2] *' but got 'int [3] *'
+testfiles/variable-declarations/29.c:13:6: warning: initialization from incompatible pointer type, expected 'int (*)[2]' but got 'int (*)[3]'
  	int (*p)[2] = &arr[5];
  	    ^
-testfiles/variable-declarations/29.c:21:4: warning: passing argument 1 of 'f' from incompatible pointer type, expected 'int [] *' but got 'int [2] [5] *'
+testfiles/variable-declarations/29.c:21:2: warning: passing argument 1 of 'f' from incompatible pointer type, expected 'int (*)[3]' but got 'int (*)[5][2]'
  	f(q);
- 	  ^
+ 	^
 testfiles/variable-declarations/29.c:23:6: error: invalid initializer
  	int *(*r[4][5])[8] = &arr[6];
  	    ^
-testfiles/variable-declarations/29.c:24:2: error: incompatible types when assigning to type 'int * [8] * [5] [4]' from type 'int [2] *'
+testfiles/variable-declarations/29.c:24:2: error: incompatible types when assigning to type 'int *(*[4][5])[8]' from type 'int (*)[2]'
  	r = &p[4];
  	^

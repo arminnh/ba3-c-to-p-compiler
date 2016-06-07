@@ -86,6 +86,7 @@ class VisitorTypeChecker(Visitor):
             self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
             return False
 
+        # TODO: move up
         if not t1.doArraysMatch(t2):
             # this is a warning in c, but an error in c++
             self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), node)
@@ -220,6 +221,28 @@ class VisitorTypeChecker(Visitor):
         if codesCount < len(arguments.children) - 1:
             self.addWarning("too many arguments for format", node)
 
+
+    def isTypeCheckArgumentsValid(self, t1, t2, node, i):
+        if t2.isCompatible(TYPES["void"].toRvalue()):
+            self.addError("invalid use of void expression", node)
+            return False
+
+        if not t1.doArraysMatch(t2):
+            self.addWarning("passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'".format(i+1, node.identifier, t1, t2), node)
+            return False
+
+        if not t1.isCompatible(t2):
+            node.errorParameter = i
+            self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
+            return False
+
+        if not t1.isConstCompatible(t2):
+            self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+            return False
+
+        return True
+
+
     def visitFunctionCallNode(self, node):
         if self.visitChildren(node) == "error":
             return
@@ -242,18 +265,8 @@ class VisitorTypeChecker(Visitor):
             for i, argument in enumerate(arguments.children):
                 if argument.error:
                     continue
-                t1 = parameterNodes[i].getType().toRvalue()
-                t2 = argument.getType().toRvalue()
-                if not t1.isCompatible(t2):
-                    node.errorParameter = i
-                    if t1.nrIndirections() > 0:
-                        self.addWarning("passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'".format(i+1, node.identifier, t1, t2), node)
-                    else:
-                        self.addError("parameter {2} of '{3}' expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
-                    continue
 
-                if not t1.isConstCompatible(t2):
-                    self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+                if not self.isTypeCheckArgumentsValid(parameterNodes[i].getType().toRvalue(), argument.getType().toRvalue(), node, i):
                     continue
 
         else:

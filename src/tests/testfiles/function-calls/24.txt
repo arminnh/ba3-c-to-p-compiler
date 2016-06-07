@@ -1,0 +1,33 @@
+testfiles/function-calls/24.c:20:5: warning: passing argument 1 of 'f1' from incompatible pointer type, expected 'int (*)[3]' but got 'int (*)[5][2]'
+     f1(q);
+     ^
+testfiles/function-calls/24.c:21:5: warning: passing argument 1 of 'f2' from incompatible pointer type, expected 'int (*(*)[3])[5]' but got 'int (*)[5][2]'
+     f2(q);
+     ^
+testfiles/function-calls/24.c:22:2: warning: passing argument 1 of 'f3' from incompatible pointer type, expected 'int (*(***)[])[][2]' but got 'int (*)[5][2]'
+ 	f3(q);
+ 	^
+testfiles/function-calls/24.c:25:5: warning: passing argument 1 of 'f1' from incompatible pointer type, expected 'int (*)[3]' but got 'int (***)[]'
+     f1(r);
+     ^
+testfiles/function-calls/24.c:26:5: warning: passing argument 1 of 'f2' from incompatible pointer type, expected 'int (*(*)[3])[5]' but got 'int (***)[]'
+     f2(r);
+     ^
+testfiles/function-calls/24.c:27:5: warning: passing argument 1 of 'f3' from incompatible pointer type, expected 'int (*(***)[])[][2]' but got 'int (***)[]'
+     f3(r);
+     ^
+testfiles/function-calls/24.c:30:5: warning: passing argument 1 of 'f1' from incompatible pointer type, expected 'int (*)[3]' but got 'int *(***)[]'
+     f1(s);
+     ^
+testfiles/function-calls/24.c:31:5: warning: passing argument 1 of 'f2' from incompatible pointer type, expected 'int (*(*)[3])[5]' but got 'int *(***)[]'
+     f2(s);
+     ^
+testfiles/function-calls/24.c:32:5: warning: passing argument 1 of 'f3' from incompatible pointer type, expected 'int (*(***)[])[][2]' but got 'int *(***)[]'
+     f3(s);
+     ^
+testfiles/function-calls/24.c:35:5: warning: passing argument 1 of 'f1' from incompatible pointer type, expected 'int (*)[3]' but got 'int (*(***)[])[][2]'
+     f1(t);
+     ^
+testfiles/function-calls/24.c:36:2: warning: passing argument 1 of 'f2' from incompatible pointer type, expected 'int (*(*)[3])[5]' but got 'int (*(***)[])[][2]'
+ 	f2(t);
+ 	^

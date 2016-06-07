@@ -167,10 +167,9 @@ class ASTParameterNode(ASTNode):
         return self.getType() == other.getType()
 
     def out(self, level):
-        s = offset * level
-        s += str(self.identifier) + ": " + str(self.getType())
+        s = (offset * level) + str(self.identifier) + ": " + str(self.getType()) + "\n"
 
-        return s + "\n"
+        return s if (not self.children) else self.outChildren(s, level)
 
 class ASTArgumentsNode(ASTNode):
     def __init__(self, ctx=None):

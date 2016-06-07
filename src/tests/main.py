@@ -357,6 +357,24 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
     # def test19(self):
     #     self.generateErrorsAndCompare("testfiles/function-calls/19")
 
+    def test20(self):
+        self.generateNoError("testfiles/function-calls/20.c")
+
+    def test21(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/21")
+
+    def test22(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/22")
+
+    def test23(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/23")
+
+    def test24(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/24")
+
+    def test25(self):
+        self.generateErrorsAndCompare("testfiles/function-calls/25")
+
 
 class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 

@@ -169,7 +169,7 @@ class Listener(CListener):
         self.currentNode = self.currentNode.addChildNode(ASTParameterNode(ctx=ctx))
 
     def exitParameter(self, ctx:CParser.ParameterContext):
-        self.currentNode.children = []
+        # self.currentNode.children = []
         self.currentNode = self.currentNode.parent
 
 
@@ -218,7 +218,9 @@ class Listener(CListener):
 
 
     def enterArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
-        self.currentNode = self.currentNode.addChildNode(ASTInitializerListNode(ctx))
+        initializerList = ASTInitializerListNode(ctx)
+        self.currentNode.initializerList = initializerList
+        self.currentNode = self.currentNode.addChildNode(initializerList)
         self.currentNode.isArray = True
 
     def exitArrayInitializer(self, ctx:CParser.ArrayInitializerContext):
@@ -227,7 +229,9 @@ class Listener(CListener):
 
 
     def enterExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
-        self.currentNode = self.currentNode.addChildNode(ASTInitializerListNode(ctx))
+        initializerList = ASTInitializerListNode(ctx)
+        self.currentNode.initializerList = initializerList
+        self.currentNode = self.currentNode.addChildNode(initializerList)
 
     def exitExpressionInitializer(self, ctx:CParser.ExpressionInitializerContext):
         self.currentNode = self.currentNode.parent

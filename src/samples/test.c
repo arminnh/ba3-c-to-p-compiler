@@ -15,6 +15,10 @@ void sum3() {
     return;
 }
 
+int f2(int i) {
+	return 1;
+}
+
 int sum(int const * const * * a);
 int sub(const int * const * * a);
 
@@ -119,4 +123,9 @@ int main() {
 
 
     char *testS[] = {"hello", "world"};
+
+	f2(sum3());
+
+	void ablabla3;
+	f2(ablabla3);
  }
