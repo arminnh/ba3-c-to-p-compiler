@@ -9,6 +9,7 @@ from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
 from VisitorTypeChecker import *
 from VisitorCodeGenerator import *
+from VisitorDecorator import *
 
 import argparse
 import traceback
@@ -89,6 +90,14 @@ def buildAST(parseTreeRoot):
     return abstractSyntaxTree
 
 
+def firstPassDecoration(abstractSyntaxTree):
+    timeNow = time.time()
+
+    decorator = VisitorDecorator()
+    decorator.visitProgramNode(abstractSyntaxTree.root)
+    output("decorated first pass:  " + str(time.time() - timeNow), is_timing=True)
+
+
 def scopeCheck(abstractSyntaxTree, errorHandler, symbolTable):
     timeNow = time.time()
     functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
@@ -135,6 +144,8 @@ def main(filename):
     try:
         # create an AST an attach it to a listener so the listener can fill in the tree
         abstractSyntaxTree = buildAST(parseTreeRoot)
+
+        firstPassDecoration(abstractSyntaxTree)
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()

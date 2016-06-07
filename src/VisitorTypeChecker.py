@@ -83,8 +83,6 @@ class VisitorTypeChecker(Visitor):
             if not arrayLengthNode.children:
                 if arrayIterator == 0:
                     if node.initializerList is not None:
-                        # arrayLengthNode.addChildNode(ASTIntegerLiteralNode(len(node.initializerList.children), node.initializerList.ctx))
-                        node.indirections[i] = (len(node.initializerList.children), False)
                         continue
                     else:
                         self.addError("array size missing for '{0}'".format(node.identifier), node)
@@ -100,8 +98,6 @@ class VisitorTypeChecker(Visitor):
                 node.error = True
                 continue
 
-            node.indirections[i] = (arrayLengthNode.children[0].value, node.indirections[i][1])
-
 
     # int a[myFun(5)] = {1, 2+"a", 3}
     def visitDeclaratorInitializerNode(self, node):
@@ -110,11 +106,7 @@ class VisitorTypeChecker(Visitor):
 
         if node.getType().isCompatible(types["void"].toRvalue()):
             self.addError("variable or field '{0}' declared void".format(node.identifier), node)
-
-        # TODO: find a better place for this
-        for child in node.children:
-            if isinstance(child, ASTInitializerListNode):
-                node.initializerList = child
+            return
 
         # if basetype is array, typecheck with each elements of initializer list
         if node.getType().isArray():
