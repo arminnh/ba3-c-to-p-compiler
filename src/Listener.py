@@ -332,7 +332,7 @@ class Listener(CListener):
 
 
     def enterStringLiteral(self, ctx:CParser.StringLiteralContext):
-        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText(), ctx))
+        self.currentNode = self.currentNode.addChildNode(ASTStringLiteralNode(ctx.getText()[1:-1], ctx))
 
     def exitStringLiteral(self, ctx:CParser.StringLiteralContext):
         self.currentNode = self.currentNode.parent
