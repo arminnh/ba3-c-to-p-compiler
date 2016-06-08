@@ -5683,4 +5683,4 @@ ldc c '_'
 out c
 ldc c '\n'
 out c
-retp
+retf

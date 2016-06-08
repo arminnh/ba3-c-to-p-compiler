@@ -2,7 +2,7 @@
 
 int string_ln(char*);
 
-void main() {
+int main() {
    char str[20];
    int length;
 

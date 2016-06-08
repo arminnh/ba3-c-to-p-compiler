@@ -215,4 +215,4 @@ dec i 1
 sto i
 ujp l2_for_condition
 l3_for_after:
-retp
+retf

@@ -364,7 +364,7 @@ ldc c ' '
 out c
 lod i 0 25
 out i
-retp
+retf
 
 function_string_ln:
 ssp 7

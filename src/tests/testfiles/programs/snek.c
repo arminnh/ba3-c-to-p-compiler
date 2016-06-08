@@ -180,7 +180,7 @@ void handlespawnprice() {
 	}
 }
 
-void main() {
+int main() {
 	initplayer();
 	initmap();
 

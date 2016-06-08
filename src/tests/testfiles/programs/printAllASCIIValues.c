@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main() {
+int main() {
    int i = 0;
    char ch;
 

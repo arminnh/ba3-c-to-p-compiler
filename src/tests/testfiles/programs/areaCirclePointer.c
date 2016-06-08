@@ -5,7 +5,7 @@ void areaperi ( int r, float *a, float *p ) {
     *p = (float) 2 * 3.14 * (float) r;
 }
 
-void main( ) {
+int main( ) {
     int radius;
     float area, perimeter;
     printf("\nEnter radius of a circle: ");

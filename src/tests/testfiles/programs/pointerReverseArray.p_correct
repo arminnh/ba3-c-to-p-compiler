@@ -788,4 +788,4 @@ inc i 1
 sto i
 ujp l5_for_condition
 l6_for_after:
-retp
+retf

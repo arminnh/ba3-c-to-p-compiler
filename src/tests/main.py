@@ -133,7 +133,7 @@ class ASTTest():
         if not expectedCodeFound:
             print("\nEXPECTED:\n" + pCodeGeneratedOriginal + "\nGOT:\n" + pCodeCorrectOriginal + "\n\n\n\n")
 
-        os.system("c99 " + filename + ".c -w -o " + filename + ".testbin")
+        os.system("gcc -std=c99 " + filename + ".c -w -o " + filename + ".testbin")
 
         self.assertTrue(expectedCodeFound)
 
@@ -518,6 +518,9 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
 
     def test31(self):
         self.generateErrorsAndCompare("testfiles/variable-declarations/31")
+
+    def test32(self):
+        self.generateErrorsAndCompare("testfiles/variable-declarations/32")
 
 
 class FunctionDeclarationsTests(ASTTest, unittest.TestCase):

@@ -19,7 +19,7 @@ void reduction(float a[][6], int size, int pivot, int col) {
    }
 }
 
-void main() {
+int main() {
    float matrix[3][6];
    int i, j;
 

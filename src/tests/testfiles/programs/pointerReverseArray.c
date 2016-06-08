@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void main() {
+int main() {
    int size, i, arr[30];
    int *ptr;
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main() {
+int main() {
    int numArray[10];
    int i, sum = 0;
    int *ptr;

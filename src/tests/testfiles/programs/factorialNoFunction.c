@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main() {
+int main() {
     int i, number, factorial = 1;
 
     printf("\nEnter the number : ");

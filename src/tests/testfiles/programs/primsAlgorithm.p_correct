@@ -1696,4 +1696,4 @@ ujp l40_for_condition
 l41_for_after:
 mst 1
 cup 0 function_prim
-retp
+retf

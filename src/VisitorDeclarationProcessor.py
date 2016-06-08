@@ -38,7 +38,7 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
             if symbolInfo is None:
                 raise Exception("Expected to find " + str(node.identifier) + " in symbol table")
 
-            symbolInfo.seen = True
+            symbolInfo.seen = 2
 
 
     # int a[myFun(5)] = {1, 2+"a", 3}
@@ -49,20 +49,27 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         if symbol is None:
             raise Exception("Expected to find " + str(node.identifier) + " in symbol table")
 
+        symbol.seen = 1
+
         self.visitChildren(node)
 
-        symbol.seen = True
+        symbol.seen = 2
 
 
     def visitVariableNode(self, node):
         symbolInfo = self.table.retrieveSymbol(node.identifier)
 
-        if symbolInfo is None or symbolInfo.seen == False:
+        if symbolInfo is None:
             self.addError("variable '{0}' undeclared".format(node.identifier), node)
             return
         else:
             node.typeInfo = symbolInfo.typeInfo
             node.symbolInfo = symbolInfo
+        
+        if symbolInfo.seen == 1:
+            self.addWarning("variable used in its own initialization", node)
+            return
+            
 
     def visitFunctionDefinitionNode(self, node):
         self.table.openScope(True, node.identifier)

@@ -74,7 +74,7 @@ void prim() {
    printf("\nMin cost : %d", minimumCost);
 }
 
-void main() {
+int main() {
    int i, j;
 
    printf("\nEnter the no. of vertices :");

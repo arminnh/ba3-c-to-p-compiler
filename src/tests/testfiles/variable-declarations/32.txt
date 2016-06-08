@@ -1,0 +1,12 @@
+testfiles/variable-declarations/32.c:2:10: warning: variable used in its own initialization
+ 	int a = a;
+ 	        ^
+testfiles/variable-declarations/32.c:3:10: warning: variable used in its own initialization
+ 	int b = b + b;
+ 	        ^
+testfiles/variable-declarations/32.c:3:14: warning: variable used in its own initialization
+ 	int b = b + b;
+ 	            ^
+testfiles/variable-declarations/32.c:4:11: warning: variable used in its own initialization
+ 	char c = c++;
+ 	         ^
