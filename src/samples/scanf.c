@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 void areaperi ( int r, float *a, float *p ) {
-    *a = 3.14 * r * r;
-    *p = 2 * 3.14 * r;
+    *a = 3.14 * (float) r * (float) r;
+    *p = (float) 2 * 3.14 * (float) r;
 }
 
 void main( ) {
-    int radius;
+    const int radius;
     float area, perimeter;
     printf("nEnter radius of a circle ");
     scanf("%d", &radius);

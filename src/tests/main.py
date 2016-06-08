@@ -100,7 +100,6 @@ class ASTTest():
 
     def generateNoError(self, filename):
         self.parseFile(filename + ".c")
-
         self.assertTrue(self.errorHandler.errorCount() == 0)
 
         # open the newly generated p code file
@@ -647,8 +646,8 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
         self.generateNoError("testfiles/misc/hello_world")
 
 
-class ProgramsTests(ASTTest):
-# class ProgramsTests(ASTTest, unittest.TestCase):
+# class ProgramsTests(ASTTest):
+class ProgramsTests(ASTTest, unittest.TestCase):
 
     def test1(self):
         self.generateNoError("testfiles/programs/areaCircle")

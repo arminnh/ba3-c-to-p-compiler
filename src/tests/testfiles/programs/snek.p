@@ -502,13 +502,13 @@ lda 0 268
 ldc c 'c'
 sto c
 lda 0 876
-ldc c "'"
+ldc c '''
 sto c
 lda 0 877
 ldc c '#'
 sto c
 lda 0 878
-ldc c "'"
+ldc c '''
 sto c
 lda 0 879
 ldc c ' '
@@ -535,13 +535,13 @@ lda 0 886
 ldc c '\n'
 sto c
 lda 0 887
-ldc c "'"
+ldc c '''
 sto c
 lda 0 888
 ldc c '@'
 sto c
 lda 0 889
-ldc c "'"
+ldc c '''
 sto c
 lda 0 890
 ldc c ' '
@@ -568,7 +568,7 @@ lda 0 897
 ldc c 'e'
 sto c
 lda 0 898
-ldc c "'"
+ldc c '''
 sto c
 lda 0 899
 ldc c 's'
@@ -592,13 +592,13 @@ lda 0 905
 ldc c '\n'
 sto c
 lda 0 906
-ldc c "'"
+ldc c '''
 sto c
 lda 0 907
 ldc c 'x'
 sto c
 lda 0 908
-ldc c "'"
+ldc c '''
 sto c
 lda 0 909
 ldc c ' '
@@ -625,7 +625,7 @@ lda 0 916
 ldc c 'e'
 sto c
 lda 0 917
-ldc c "'"
+ldc c '''
 sto c
 lda 0 918
 ldc c 's'
@@ -649,13 +649,13 @@ lda 0 924
 ldc c '\n'
 sto c
 lda 0 925
-ldc c "'"
+ldc c '''
 sto c
 lda 0 926
 ldc c '$'
 sto c
 lda 0 927
-ldc c "'"
+ldc c '''
 sto c
 lda 0 928
 ldc c ' '
@@ -691,25 +691,25 @@ lda 0 938
 ldc c 27
 sto c
 lda 0 816
-ldc c "'"
+ldc c '''
 sto c
 lda 0 817
 ldc c 'a'
 sto c
 lda 0 818
-ldc c "'"
+ldc c '''
 sto c
 lda 0 819
 ldc c '|'
 sto c
 lda 0 820
-ldc c "'"
+ldc c '''
 sto c
 lda 0 821
 ldc c 'q'
 sto c
 lda 0 822
-ldc c "'"
+ldc c '''
 sto c
 lda 0 823
 ldc c ' '
@@ -739,13 +739,13 @@ lda 0 831
 ldc c 27
 sto c
 lda 0 832
-ldc c "'"
+ldc c '''
 sto c
 lda 0 833
 ldc c 'd'
 sto c
 lda 0 834
-ldc c "'"
+ldc c '''
 sto c
 lda 0 835
 ldc c ' '
@@ -778,13 +778,13 @@ lda 0 844
 ldc c 27
 sto c
 lda 0 804
-ldc c "'"
+ldc c '''
 sto c
 lda 0 805
 ldc c 's'
 sto c
 lda 0 806
-ldc c "'"
+ldc c '''
 sto c
 lda 0 807
 ldc c ' '
@@ -814,25 +814,25 @@ lda 0 815
 ldc c 27
 sto c
 lda 0 790
-ldc c "'"
+ldc c '''
 sto c
 lda 0 791
 ldc c 'w'
 sto c
 lda 0 792
-ldc c "'"
+ldc c '''
 sto c
 lda 0 793
 ldc c '|'
 sto c
 lda 0 794
-ldc c "'"
+ldc c '''
 sto c
 lda 0 795
 ldc c 'z'
 sto c
 lda 0 796
-ldc c "'"
+ldc c '''
 sto c
 lda 0 797
 ldc c ' '
@@ -856,13 +856,13 @@ lda 0 803
 ldc c 27
 sto c
 lda 0 845
-ldc c "'"
+ldc c '''
 sto c
 lda 0 846
 ldc c 'x'
 sto c
 lda 0 847
-ldc c "'"
+ldc c '''
 sto c
 lda 0 848
 ldc c ' '
@@ -2224,13 +2224,13 @@ lda 0 944
 ldc c ' '
 sto c
 lda 0 945
-ldc c "'"
+ldc c '''
 sto c
 lda 0 946
 ldc c 's'
 sto c
 lda 0 947
-ldc c "'"
+ldc c '''
 sto c
 lda 0 948
 ldc c ' '
@@ -2299,13 +2299,13 @@ lda 0 969
 ldc c ' '
 sto c
 lda 0 970
-ldc c "'"
+ldc c '''
 sto c
 lda 0 971
 ldc c 'x'
 sto c
 lda 0 972
-ldc c "'"
+ldc c '''
 sto c
 lda 0 973
 ldc c ' '
@@ -4889,19 +4889,19 @@ ldc c '.'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'w'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c '|'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'z'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -4915,11 +4915,11 @@ ldc c 'p'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 's'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -4937,19 +4937,19 @@ ldc c 'n'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'a'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c '|'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'q'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -4967,11 +4967,11 @@ ldc c 't'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'd'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -4991,11 +4991,11 @@ ldc c 't'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'x'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5049,11 +5049,11 @@ ldc c ':'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c '#'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5071,11 +5071,11 @@ ldc c 'l'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c '@'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5093,7 +5093,7 @@ ldc c 'k'
 out c
 ldc c 'e'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 's'
 out c
@@ -5109,11 +5109,11 @@ ldc c 'd'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'x'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5131,7 +5131,7 @@ ldc c 'k'
 out c
 ldc c 'e'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 's'
 out c
@@ -5147,11 +5147,11 @@ ldc c 'y'
 out c
 ldc c '\n'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c '$'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5202,11 +5202,11 @@ ldc c 's'
 out c
 ldc c ' '
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 's'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c
@@ -5252,11 +5252,11 @@ ldc c 'r'
 out c
 ldc c ' '
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c 'x'
 out c
-ldc c "'"
+ldc c '''
 out c
 ldc c ' '
 out c

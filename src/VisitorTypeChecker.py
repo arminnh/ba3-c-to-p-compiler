@@ -171,6 +171,7 @@ class VisitorTypeChecker(Visitor):
     # the format string allows interpretation of sequences of the form %[width][code] (width only in case of output).
     # provide support for at least for the type codes d(int), i(int), s(char *) and c(char), f(float). You may consider the char* types to be char arrays.
     def checkStdioFunction(self, node):
+        scanf = node.identifier == "scanf"
         arguments = None
         for child in node.children:
             if isinstance(child, ASTArgumentsNode):
@@ -190,7 +191,7 @@ class VisitorTypeChecker(Visitor):
 
         # get the text of the first argument (the format argument) and get the format codes out of it
         format = formatArgument.value
-        formatSpecifiers = re.finditer(r'%([0-9]*)([a-z%])', format)
+        formatSpecifiers = re.finditer(r'%([0-9]*(?:\.[0-9]*)?)([a-z%])', format)
 
         endOfLastMatch = 0
         cutIntoPieces = []
@@ -213,9 +214,16 @@ class VisitorTypeChecker(Visitor):
                     continue
                 else:
                     t1 = self.stdioCodes[code]
+                    if scanf:
+                        t1 = copy.deepcopy(t1)
+                        t1.indirections.append((False, False))
                     t2 = arguments.children[i+1].getType().toRvalue()
                     if not t1.isCompatible(t2):
                         self.addError("format '{0}' expects argument of type '{1}', but argument {2} has type '{3}'".format(code, t1, i+2, t2), node)
+
+                    if scanf and not t1.isConstCompatible(t2):
+                        # TODO: fix
+                        self.addWarning("writing into constant object (argument {0})".format(i+2), node)
 
                 cutIntoPieces.append((width, arguments.children[i + 1]))
                 endOfLastMatch = match.end()
@@ -224,7 +232,7 @@ class VisitorTypeChecker(Visitor):
         node.parsedFormat = cutIntoPieces
 
         if codesCount < len(arguments.children) - 1:
-            self.addWarning("too many arguments for format", node)
+            self.addWarning("too many arguments for format (expected {0}, have {1})".format(codesCount, len(arguments.children) - 1), node)
 
 
     def isTypeCheckArgumentsValid(self, t1, t2, node, i):
