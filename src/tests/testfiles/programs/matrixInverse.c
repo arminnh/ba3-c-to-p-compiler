@@ -26,9 +26,9 @@ void main() {
    for (i = 0; i < 3; i++) {
       for (j = 0; j < 6; j++) {
          if (j == i + 3) {
-            matrix[i][j] = 1;
+            matrix[i][j] = (float) 1;
          } else {
-            matrix[i][j] = 0;
+            matrix[i][j] = (float) 0;
          }
       }
    }

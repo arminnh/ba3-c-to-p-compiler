@@ -10,7 +10,7 @@ int main() {
    printf("\nEnter the height of Right Angle Triangle : ");
    scanf("%d", &height);
 
-   area = 0.5 * base * height;
+   area = 0.5 * (float) base * (float) height;
    printf("\nArea of Right Angle Triangle : %f", area);
 
    return (0);

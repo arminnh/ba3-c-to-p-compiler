@@ -10,6 +10,6 @@ testfiles/variable-declarations/char-arrays-pointers.c:12:2: error: incompatible
 testfiles/variable-declarations/char-arrays-pointers.c:18:2: error: format 's' expects argument of type 'char *', but argument 2 has type 'char (*)[]'
  	printf("%s\n", &hello, hello);
  	^
-testfiles/variable-declarations/char-arrays-pointers.c:18:2: warning: too many arguments for format
+testfiles/variable-declarations/char-arrays-pointers.c:18:2: warning: too many arguments for format (expected 1, have 2)
  	printf("%s\n", &hello, hello);
  	^
