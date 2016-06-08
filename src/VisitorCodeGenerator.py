@@ -84,8 +84,8 @@ class VisitorCodeGenerator(Visitor):
         for string, symbolInfo in sorted(self.symbolTable.stringLiterals.items()):
             for i, c in enumerate(string):
                 self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + i + 5))
-                # TODO: prints "'", which is not supported by p machine
-                self.outFile.write("ldc c {0}\n".format(repr(c)))
+
+                self.outFile.write("ldc c {0}\n".format(repr(c) if c != '\'' else "'\''"))
                 self.outFile.write("sto c\n")
 
             if len(string) > 2:
@@ -422,8 +422,7 @@ class VisitorCodeGenerator(Visitor):
         for el in node.parsedFormat:
             if isinstance(el, str):
                 for c in bytes(el, "utf-8").decode("unicode-escape"):
-                    # TODO: prints "'", which is not supported by p machine
-                    self.outFile.write("ldc c {0}\n".format(repr(c)))
+                    self.outFile.write("ldc c {0}\n".format(repr(c) if c != '\'' else "'\''"))
                     self.outFile.write("out c\n")
             else:
                 width, node = el

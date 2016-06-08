@@ -6,6 +6,7 @@ void main() {
 
    for (i = 0; i < 256; i++) {
       printf("%c ", ch);
-      ch = ch + 1;
+      ch = (char) ((int) ch + 1);
+      //ch = ch + (char) 1;
    }
 }
