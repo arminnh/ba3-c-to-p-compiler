@@ -113,6 +113,8 @@ class VisitorDefinitionProcessor(VisitorSymbolTable):
             self.addWarning("type specifier missing in declaration of '{0}', type defaults to 'int'".format(node.identifier), node)
 
         if type(node.parent.parent) is not ASTFunctionDeclarationNode:
+            if len(node.indirections) > 0:
+                node.indirections[-1] = (False, node.indirections[-1][1])
             result = self.insertSymbol(node, isFunction=False)
             if result == False:
                 return
