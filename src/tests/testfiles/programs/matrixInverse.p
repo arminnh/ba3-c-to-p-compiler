@@ -187,6 +187,28 @@ les i
 conv b i
 conv i b
 fjp l3_for_after
+ldc a 0
+lda 0 5
+lod i 0 7
+chk 0 0
+ixa 6
+lod i 0 9
+chk 0 5
+ixa 1
+dpl a
+lda 0 5
+lod i 0 7
+chk 0 0
+ixa 6
+lod i 0 9
+chk 0 5
+ixa 1
+ind r
+lod r 0 11
+div r
+sto r
+ind r
+sto r
 l1_for_iteration:
 ldc a 0
 lda 0 9
@@ -218,6 +240,20 @@ neq i
 conv b i
 conv i b
 fjp l7_else
+ldc a 0
+lda 0 11
+dpl a
+lda 0 5
+lod i 0 9
+chk 0 0
+ixa 6
+lod i 0 8
+chk 0 5
+ixa 1
+ind r
+sto r
+ind r
+sto r
 lda 0 10
 dpl a
 ldc i 0
@@ -232,6 +268,37 @@ les i
 conv b i
 conv i b
 fjp l11_for_after
+ldc a 0
+lda 0 5
+lod i 0 9
+chk 0 0
+ixa 6
+lod i 0 10
+chk 0 5
+ixa 1
+dpl a
+lda 0 5
+lod i 0 9
+chk 0 0
+ixa 6
+lod i 0 10
+chk 0 5
+ixa 1
+ind r
+lda 0 5
+lod i 0 7
+chk 0 0
+ixa 6
+lod i 0 10
+chk 0 5
+ixa 1
+ind r
+lod r 0 11
+mul r
+sub r
+sto r
+ind r
+sto r
 l9_for_iteration:
 ldc a 0
 lda 0 10
