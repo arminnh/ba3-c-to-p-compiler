@@ -39,6 +39,9 @@ class ASTTest():
         parser = CParser(stream)
         programContext = parser.program()
 
+        if parser._syntaxErrors > 0:
+            raise Exception("error parsing file " + filename)
+
         walker = ParseTreeWalker()
         abstractSyntaxTree = AbstractSyntaxTree();
         self.errorHandler = ErrorHandler(filename)
@@ -643,13 +646,81 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testHelloWorld(self):
         self.generateNoError("testfiles/misc/hello_world")
 
-    # builds and prints a Hankel matrix
-    def testPrintMatrix(self):
-        self.generateNoError("testfiles/misc/print_matrix")
 
-    # the game 'snake'
-    # def testSnek(self):
-    #     self.generateNoError("testfiles/misc/snek")
+# in terminal: for file in tests/testfiles/programs/*.c; do c99 $file; done
+class ProgramsTests(ASTTest, unittest.TestCase):
+
+    def test1(self):
+        self.generateNoError("testfiles/programs/areaCircle")
+
+    def test2(self):
+        self.generateNoError("testfiles/programs/areaCirclePointer")
+
+    def test3(self):
+        self.generateNoError("testfiles/programs/areaRectangle")
+
+    def test4(self):
+        self.generateNoError("testfiles/programs/areaTriangle")
+
+    def test5(self):
+        self.generateNoError("testfiles/programs/arrayCopy")
+
+    def test6(self):
+        self.generateNoError("testfiles/programs/arraySum")
+
+    def test7(self):
+        self.generateNoError("testfiles/programs/centigradeToFarenheit")
+
+    def test8(self):
+        self.generateNoError("testfiles/programs/factorialNoFunction")
+
+    def test9(self):
+        self.generateNoError("testfiles/programs/factorialRecursive")
+
+    def test10(self):
+        self.generateNoError("testfiles/programs/hanoiTowers")
+
+    def test11(self):
+        self.generateNoError("testfiles/programs/knapsackProblem")
+
+    def test12(self):
+        self.generateNoError("testfiles/programs/matrixInverse")
+
+    def test13(self):
+        self.generateNoError("testfiles/programs/matrixIsMagicSquare")
+
+    def test14(self):
+        self.generateNoError("testfiles/programs/matrixMultiplication")
+
+    def test15(self):
+        self.generateNoError("testfiles/programs/matrixMultiplicationRecursive")
+
+    def test16(self):
+        self.generateNoError("testfiles/programs/pointerAddition")
+
+    def test17(self):
+        self.generateNoError("testfiles/programs/pointerReverseArray")
+
+    def test18(self):
+        self.generateNoError("testfiles/programs/pointerStringLength")
+
+    def test19(self):
+        self.generateNoError("testfiles/programs/pointerSumArray")
+
+    def test20(self):
+        self.generateNoError("testfiles/programs/primsAlgorithm")
+
+    def test21(self):
+        self.generateNoError("testfiles/programs/print_matrix")
+
+    def test22(self):
+        self.generateNoError("testfiles/programs/printAllASCIIValues")
+
+    def test23(self):
+        self.generateNoError("testfiles/programs/snek")
+
+    def test24(self):
+        self.generateNoError("testfiles/programs/tableOfSquares")
 
 
 class EvalutationTests(ASTTest, unittest.TestCase):
