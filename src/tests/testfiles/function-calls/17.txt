@@ -1,12 +1,12 @@
-testfiles/function-calls/17.c:8:5: warning: too many arguments for format
+testfiles/function-calls/17.c:8:5: warning: too many arguments for format (expected 1, have 2)
      printf("%s\n", "hello", "world");
      ^
-testfiles/function-calls/17.c:9:5: warning: too many arguments for format
+testfiles/function-calls/17.c:9:5: warning: too many arguments for format (expected 4, have 7)
      printf("%s %d %i %s\n", "hello", a, b, "world", 1, 2, 3);
      ^
 testfiles/function-calls/17.c:11:5: warning: format '%i' expects a matching 'int' argument
      printf("%i %d %i\n", a, b);
      ^
 testfiles/function-calls/17.c:12:5: warning: format '%s' expects a matching 'char *' argument
-    printf("%s\n");
-    ^
+     printf("%s\n");
+     ^

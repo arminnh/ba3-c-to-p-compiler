@@ -1,25 +1,25 @@
 #include <stdio.h>
 
 void knapsack(int n, float weight[], float profit[], float capacity) {
-   float x[20], tp = 0;
+   float x[20], tp = (float) 0;
    int i, j, u;
-   u = capacity;
+   u = (int) capacity;
 
    for (i = 0; i < n; i++)
       x[i] = 0.0;
 
    for (i = 0; i < n; i++) {
-      if (weight[i] > u)
+      if (weight[i] > (float) u)
          break;
       else {
          x[i] = 1.0;
          tp = tp + profit[i];
-         u = u - weight[i];
+         u = u - (int) weight[i];
       }
    }
 
    if (i < n)
-      x[i] = u / weight[i];
+      x[i] = (float) u / weight[i];
 
    tp = tp + (x[i] * profit[i]);
 
