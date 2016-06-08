@@ -432,9 +432,23 @@ class VisitorCodeGenerator(Visitor):
                     self._lvalue.pop()
                     self.outFile.write("out {0}\n".format(self.pType(node.getType())))
 
+    def scanf(self, node):
+        for el in node.parsedFormat:
+            if isinstance(el, tuple):
+                width, node = el
+                if isinstance(node, ASTNode):
+                    self._lvalue.append(True)
+                    node.accept(self)
+                    self._lvalue.pop()
+                    self.outFile.write("in {0}\n".format(self.pType(node.getType().dereference())))
+                    self.outFile.write("sto {0}\n".format(self.pType(node.getType().dereference())))
+
     def visitFunctionCallNode(self, node):
-        if node.definitionNode.isStdioFunction and node.identifier == "printf":
-            self.printf(node)
+        if node.definitionNode.isStdioFunction:
+            if node.identifier == "printf":
+                self.printf(node)
+            elif node.identifier == "scanf":
+                self.scanf(node)
         else:
             # organizational block
             self.outFile.write("mst {0}\n".format(self.symbolTable.currentDepth))
@@ -492,7 +506,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitUnaryArithmeticOperatorNode(self, node):
         op = str(node.arithmeticType)
-        ttype = self.pType(node.children[0].getType())
+        ttype = node.children[0].getType()
 
         self._lvalue.append(op == "++" or op == "--")
         self.visitChildren(node)
@@ -504,15 +518,25 @@ class VisitorCodeGenerator(Visitor):
             if op == "--":
                 maininstr, secinstr = secinstr, maininstr
 
-            self.outFile.write("ind {0}\n".format(ttype))
-            self.outFile.write("{0} {1} 1\n".format(maininstr, ttype))
-            self.outFile.write("sto {0}\n".format(ttype))
-            self.outFile.write("ind {0}\n".format(ttype))
+            # a++;      aPtr++;
+
+            self.outFile.write("ind {0}\n".format(self.pType(ttype)))
+            if ttype.isPointer():
+                self.outFile.write("conv a i\n")
+            self.outFile.write("{0} {1} {2}\n".format(maininstr, *((self.pType(ttype), 1) if not ttype.isPointer() else ("i", str(ttype.dereference().size())))))
+            if ttype.isPointer():
+                self.outFile.write("conv i a\n")
+            self.outFile.write("sto {0}\n".format(self.pType(ttype)))
+            self.outFile.write("ind {0}\n".format(self.pType(ttype)))
             if node.operatorType == ASTUnaryOperatorNode.Type["postfix"]:
-                self.outFile.write("{0} {1} 1\n".format(secinstr, ttype))
+                if ttype.isPointer():
+                    self.outFile.write("conv a i\n")
+                self.outFile.write("{0} {1} {2}\n".format(secinstr, *((self.pType(ttype), 1) if not ttype.isPointer() else ("i", str(ttype.dereference().size())))))
+                if ttype.isPointer():
+                    self.outFile.write("conv i a\n")
 
         if op == "-":
-            self.outFile.write("neg {0}\n".format(ttype))
+            self.outFile.write("neg {0}\n".format(self.pType(ttype)))
         elif op == "+":
             pass
 

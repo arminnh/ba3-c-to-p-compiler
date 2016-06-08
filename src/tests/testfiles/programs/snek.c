@@ -65,7 +65,7 @@ void printmap() {
 	for(int y = 0; y < HEIGHT; y++) {
 		for(int x = 0; x < WIDTH; x++) {
 			int pos = topos(x, y);
-			printf("%c", map[pos]);
+			// printf("%c", map[pos]);
 		}
 
 		printf("\n");
@@ -207,8 +207,7 @@ void main() {
 	char tmp = ' ';
 	while(tmp != 's' && tmp != 'x') {
 		printf("Press 's' to start the game or 'x' to quit: ");
-		// scanf("%c", &tmp);
-        break;
+		scanf("%c", &tmp);
 	}
 
 	int quit = 0;
@@ -224,8 +223,7 @@ void main() {
 
 		char c;
 		printf("Input: ");
-		// scanf("%c", &c);
-		break;
+		scanf("%c", &c);
 		printf("\n");
 
 		if(c == 'w' || c == 'z') {

@@ -785,7 +785,7 @@ class ASTArraySubscriptNode(ASTUnaryOperatorNode):
 
     def getType(self):
         ttype = copy.deepcopy(self.children[0].getType())
-        ttype.indirections.pop()
+        ttype = ttype.dereference()
         ttype.rvalue = False
 
         return ttype

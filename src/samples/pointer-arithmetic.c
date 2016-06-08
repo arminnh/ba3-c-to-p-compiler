@@ -8,7 +8,7 @@ int main() {
 		i[j] = j + 1;
 	}
 
-	i[0] = 1, i[1] = 2, i[2] = 3;
+	i[0] = 1; i[1] = 2; i[2] = 3;
 
 	ii = i;
 
@@ -33,17 +33,17 @@ int main() {
 
 	printf("%d\n", (*kk)[0]);
 
-	kk = 1 + kk;
+	++kk;
 
 	printf("%d\n", (*kk)[0]);
 
-	kk = kk -1;
+	--kk;
 
 	printf("%d\n", (*kk)[0]);
 
 	kk = kk - (-1);
 
-	printf("%d", (*kk)[0]);
+	printf("%d\n", (*kk)[0]);
 
 	0;
 
