@@ -2,13 +2,13 @@
 #include "stackelement.h"
 
 
-/** 
+/**
 *	Constructor
 */
 StackElement::StackElement() {}
 
 
-/** 
+/**
 *	Destructor
 */
 StackElement::~StackElement() {}
@@ -73,7 +73,7 @@ bool StackElement::grt(const StackElement *kOp) const
 
 int StackElement::getValue() const
 {
-	cerr << "getValue() not available for class StackElement" << endl;
+	cout << "getValue() not available for class StackElement" << endl;
 	return 0;
 }
 
@@ -115,14 +115,14 @@ bool StackElement::isZero()
 *	@author		Andy Zaidman
 */
 ostream& operator<<(ostream &os, const StackElement &kOutput)
-{ 
+{
 	return kOutput.print(os);
 }
 
 
 /** Compares two StackElement-derived-classes for equality (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on equal
 *	@exception		none
 *	@author			Andy Zaidman
@@ -135,7 +135,7 @@ bool operator==(const StackElement &kOp1, const StackElement &kOp2)
 
 /** Compares two StackElement-derived-classes for inequality (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on not equal
 *	@exception		none
 *	@author			Andy Zaidman
@@ -148,7 +148,7 @@ bool operator!=(const StackElement &kOp1, const StackElement &kOp2)
 
 /** Compares two StackElement-derived-classes for >= (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on >=
 *	@exception		none
 *	@author			Andy Zaidman
@@ -161,7 +161,7 @@ bool operator>=(const StackElement &kOp1, const StackElement &kOp2)
 
 /** Compares two StackElement-derived-classes for <= (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on <=
 *	@exception		none
 *	@author			Andy Zaidman
@@ -174,7 +174,7 @@ bool operator<=(const StackElement &kOp1, const StackElement &kOp2)
 
 /** Compares two StackElement-derived-classes for < (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on <
 *	@exception		none
 *	@author			Andy Zaidman
@@ -187,7 +187,7 @@ bool operator<(const StackElement &kOp1, const StackElement &kOp2)
 
 /** Compares two StackElement-derived-classes for > (both classes should be of same static type)
 *	@param kOp1		lhs operand
-*	@param kOp2		rhs operand	
+*	@param kOp2		rhs operand
 *	@return 		bool: true on >
 *	@exception		none
 *	@author			Andy Zaidman
@@ -207,12 +207,3 @@ char StackElement::getType() const
 {
 	return ' ';
 }
-
-
-
-
-
-
-
-	
-

@@ -451,7 +451,7 @@ class VisitorCodeGenerator(Visitor):
                 self.scanf(node)
         else:
             # organizational block
-            self.outFile.write("mst {0}\n".format(self.symbolTable.currentDepth))
+            self.outFile.write("mst {0}\n".format(self.symbolTable.retrieveSymbol(node.identifier).depth))
 
             # evaluate arguments
             self.visitChildren(node)

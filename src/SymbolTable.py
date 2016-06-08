@@ -24,8 +24,9 @@ class VariableSymbolInfo(SymbolInfo):
 
 
 class FunctionSymbolInfo(SymbolInfo):
-    def __init__(self, astnode):
+    def __init__(self, astnode, depth):
         super(FunctionSymbolInfo, self).__init__(astnode)
+        self.depth = depth
 
     @property
     def defined(self):
@@ -142,10 +143,13 @@ class SymbolTable(object):
         self.root = Scope()
         self.currentScope = self.root
         self.currentDepth = 0
+        self.functionDepth = 1
         self.stringLiterals = {}
 
     def openScope(self, isFunctionScope=False, name=None):
         self.currentDepth += 1
+        if isFunctionScope:
+            self.functionDepth += 1
 
         if self.traverse:
             if self.currentScope.currentChild >= len(self.currentScope.children):
@@ -161,6 +165,8 @@ class SymbolTable(object):
 
     def closeScope(self):
         self.currentDepth -= 1
+        if self.currentScope.isFunctionScope:
+            self.functionDepth -= 1
         self.currentScope = self.currentScope.parent
 
     def insertStringLiteral(self, astnode):
@@ -174,11 +180,11 @@ class SymbolTable(object):
         self.currentScope.insertSymbol(VariableSymbolInfo(astnode))
 
     def insertFunctionSymbol(self, astnode):
-        self.currentScope.insertSymbol(FunctionSymbolInfo(astnode))
+        self.currentScope.insertSymbol(FunctionSymbolInfo(astnode, self.functionDepth))
 
     def isInsertionOk(self, astnode, isFunction):
         if isFunction:
-            return self.currentScope.isInsertionOk(FunctionSymbolInfo(astnode))
+            return self.currentScope.isInsertionOk(FunctionSymbolInfo(astnode, self.functionDepth))
         else:
             return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 

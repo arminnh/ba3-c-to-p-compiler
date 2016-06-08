@@ -8,11 +8,11 @@ void areaperi ( int r, float *a, float *p ) {
 void main( ) {
     int radius;
     float area, perimeter;
-    printf("nEnter radius of a circle ");
+    printf("\nEnter radius of a circle: ");
     scanf("%d", &radius);
 
     areaperi(radius, &area, &perimeter);
 
     printf("Area = %f", area);
-    printf("nPerimeter = %f", perimeter);
+    printf("\nPerimeter = %f", perimeter);
 }

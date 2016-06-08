@@ -121,10 +121,18 @@ int main() {
 	format[5] = 'z';
 	// printf(format, "5");
 
+    //
+    // char *testS[] = {"hello", "world"};
+    //
+	// int arr[1][3];
+	// int (* const(* const arr2)[4][2])[][] = &arr;
+	// int (* const(* const arr3)[4][2])[][3] = &arr;
+    //
+    //
+    int a9[2][3];
 
-    char *testS[] = {"hello", "world"};
+    int (*aPtr1)[3] = a9;
+    int *aPtr2 = a9[0];
 
-	int arr[1][3];
-	int (* const(* const arr2)[4][2])[][] = &arr;
-	int (* const(* const arr3)[4][2])[][3] = &arr;
+    aPtr1 = aPtr1 + aPtr2;
  }
