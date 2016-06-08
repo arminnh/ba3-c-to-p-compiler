@@ -251,13 +251,12 @@ les i
 conv b i
 conv i b
 fjp l3_for_after
-mst 2
-lda 1 22
 lda 0 5
 lod i 0 15
 chk 0 9
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l1_for_iteration:
 ldc a 0
 lda 0 15
@@ -305,10 +304,14 @@ lda 0 17
 dpl a
 dpl a
 ind a
-inc a 1
+conv a i
+inc i 1
+conv i a
 sto a
 ind a
-dec a 1
+conv a i
+dec i 1
+conv i a
 sto a
 l4_for_iteration:
 ldc a 0

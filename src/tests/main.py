@@ -133,6 +133,8 @@ class ASTTest():
         if not expectedCodeFound:
             print("\nEXPECTED:\n" + pCodeGeneratedOriginal + "\nGOT:\n" + pCodeCorrectOriginal + "\n\n\n\n")
 
+        os.system("c99 " + filename + ".c -w")
+
         self.assertTrue(expectedCodeFound)
 
 class UnaryOperatorsTests(ASTTest, unittest.TestCase):
@@ -696,6 +698,9 @@ class ProgramsTests(ASTTest, unittest.TestCase):
 
     def test16(self):
         self.generateNoError("testfiles/programs/pointerAddition")
+
+    def test16_1(self):
+        self.generateNoError("testfiles/programs/pointerAdditionSegmentationFault")
 
     def test17(self):
         self.generateNoError("testfiles/programs/pointerReverseArray")

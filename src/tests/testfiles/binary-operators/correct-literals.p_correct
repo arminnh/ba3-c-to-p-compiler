@@ -191,11 +191,6 @@ ldc r 5.0
 add r
 sto r
 ldc a 0
-lda 1 0
-lda 1 2
-add c
-sto a
-ldc a 0
 ldc c 'B'
 ldc c 'b'
 add c

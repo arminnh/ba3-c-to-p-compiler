@@ -81,6 +81,18 @@ class Scope:
         return symbolInfo
 
 
+    def retrieveFunctionSymbol(self, name):
+        if name is None:
+            return None
+
+        symbolInfo = self.symbols.get(name)
+
+        if not isinstance(symbolInfo, FunctionSymbolInfo):
+            return None
+
+        return symbolInfo
+
+
     def isInsertionOk(self, new:SymbolInfo):
         old = self.retrieveSymbol(new.astnode.identifier, requireSeen=False)
 
@@ -192,7 +204,19 @@ class SymbolTable(object):
         scope = self.currentScope
 
         while scope is not None:
-            nametype = scope.retrieveSymbol(name, requireSeen)
+            nametype = scope.retrieveSymbol(name, requireSeen)]
+            if nametype is not None:
+                return nametype
+
+            scope = scope.parent
+
+        return None
+
+    def retrieveFunctionSymbol(self, name):
+        scope = self.currentScope
+
+        while scope is not None:
+            nametype = scope.retrieveFunctionSymbol(name)
             if nametype is not None:
                 return nametype
 

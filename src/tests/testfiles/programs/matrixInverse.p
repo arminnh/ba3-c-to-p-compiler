@@ -1,5 +1,5 @@
 ldc i 0
-ssp 55
+ssp 49
 lda 0 47
 ldc c '\n'
 sto c
@@ -120,24 +120,6 @@ sto c
 lda 0 46
 ldc c 27
 sto c
-lda 0 49
-ldc c '%'
-sto c
-lda 0 50
-ldc c '8'
-sto c
-lda 0 51
-ldc c '.'
-sto c
-lda 0 52
-ldc c '3'
-sto c
-lda 0 53
-ldc c 'f'
-sto c
-lda 0 54
-ldc c 27
-sto c
 lda 0 29
 ldc c '%'
 sto c
@@ -157,172 +139,10 @@ str i 0 15
 ldc r 0.0
 str r 0 16
 ldc a 0
-lda 0 16
-dpl a
-lda 0 5
-lod i 0 12
-chk 0 5
-ixa 6
-lod i 0 13
-chk 0 5
-ixa 1
-ind r
-sto r
-ind r
-sto r
-lda 0 14
-dpl a
-ldc i 0
-sto i
-ind i
-l2_for_condition:
-lod i 0 14
 ldc i 2
 lod i 0 11
 mul i
-les i
-conv b i
-conv i b
-fjp l3_for_after
-ldc a 0
-lda 0 5
-lod i 0 12
-chk 0 5
-ixa 6
-lod i 0 14
-chk 0 5
-ixa 1
-dpl a
-lda 0 5
-lod i 0 12
-chk 0 5
-ixa 6
-lod i 0 14
-chk 0 5
-ixa 1
-ind r
-lod r 0 16
-div r
-sto r
-ind r
-sto r
-l1_for_iteration:
-ldc a 0
-lda 0 14
-dpl a
-dpl a
-ind i
-inc i 1
 sto i
-ind i
-dec i 1
-sto i
-ujp l2_for_condition
-l3_for_after:
-lda 0 14
-dpl a
-ldc i 0
-sto i
-ind i
-l5_for_condition:
-lod i 0 14
-lod i 0 11
-les i
-conv b i
-conv i b
-fjp l6_for_after
-lod i 0 14
-lod i 0 12
-neq i
-conv b i
-conv i b
-fjp l7_else
-ldc a 0
-lda 0 16
-dpl a
-lda 0 5
-lod i 0 14
-chk 0 5
-ixa 6
-lod i 0 13
-chk 0 5
-ixa 1
-ind r
-sto r
-ind r
-sto r
-lda 0 15
-dpl a
-ldc i 0
-sto i
-ind i
-l10_for_condition:
-lod i 0 15
-ldc i 2
-lod i 0 11
-mul i
-les i
-conv b i
-conv i b
-fjp l11_for_after
-ldc a 0
-lda 0 5
-lod i 0 14
-chk 0 5
-ixa 6
-lod i 0 15
-chk 0 5
-ixa 1
-dpl a
-lda 0 5
-lod i 0 14
-chk 0 5
-ixa 6
-lod i 0 15
-chk 0 5
-ixa 1
-ind r
-lda 0 5
-lod i 0 12
-chk 0 5
-ixa 6
-lod i 0 15
-chk 0 5
-ixa 1
-ind r
-lod r 0 16
-mul r
-sub r
-sto r
-ind r
-sto r
-l9_for_iteration:
-ldc a 0
-lda 0 15
-dpl a
-dpl a
-ind i
-inc i 1
-sto i
-ind i
-dec i 1
-sto i
-ujp l10_for_condition
-l11_for_after:
-l7_else:
-l4_for_iteration:
-ldc a 0
-lda 0 14
-dpl a
-dpl a
-ind i
-inc i 1
-sto i
-ind i
-dec i 1
-sto i
-ujp l5_for_condition
-l6_for_after:
 retp
 
 function_main:
@@ -372,25 +192,25 @@ dpl a
 ldc i 0
 sto i
 ind i
-l13_for_condition:
+l2_for_condition:
 lod i 0 23
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l14_for_after
+fjp l3_for_after
 lda 0 24
 dpl a
 ldc i 0
 sto i
 ind i
-l16_for_condition:
+l5_for_condition:
 lod i 0 24
 ldc i 6
 les i
 conv b i
 conv i b
-fjp l17_for_after
+fjp l6_for_after
 lod i 0 24
 lod i 0 23
 ldc i 3
@@ -398,7 +218,7 @@ add i
 equ i
 conv b i
 conv i b
-fjp l18_else
+fjp l7_else
 ldc a 0
 lda 0 5
 lod i 0 23
@@ -413,8 +233,8 @@ conv i r
 sto r
 ind r
 sto r
-ujp l19_after_if
-l18_else:
+ujp l8_after_if
+l7_else:
 ldc a 0
 lda 0 5
 lod i 0 23
@@ -429,8 +249,8 @@ conv i r
 sto r
 ind r
 sto r
-l19_after_if:
-l15_for_iteration:
+l8_after_if:
+l4_for_iteration:
 ldc a 0
 lda 0 24
 dpl a
@@ -441,9 +261,9 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l16_for_condition
-l17_for_after:
-l12_for_iteration:
+ujp l5_for_condition
+l6_for_after:
+l1_for_iteration:
 ldc a 0
 lda 0 23
 dpl a
@@ -454,8 +274,8 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l13_for_condition
-l14_for_after:
+ujp l2_for_condition
+l3_for_after:
 ldc c '\n'
 out c
 ldc c 'E'
@@ -507,27 +327,25 @@ dpl a
 ldc i 0
 sto i
 ind i
-l21_for_condition:
+l10_for_condition:
 lod i 0 23
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l22_for_after
+fjp l11_for_after
 lda 0 24
 dpl a
 ldc i 0
 sto i
 ind i
-l24_for_condition:
+l13_for_condition:
 lod i 0 24
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l25_for_after
-mst 5
-lda 1 24
+fjp l14_for_after
 lda 0 5
 lod i 0 23
 chk 0 17
@@ -535,8 +353,9 @@ ixa 6
 lod i 0 24
 chk 0 5
 ixa 1
-cup 2 function_scanf
-l23_for_iteration:
+in r
+sto r
+l12_for_iteration:
 ldc a 0
 lda 0 24
 dpl a
@@ -547,9 +366,9 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l24_for_condition
-l25_for_after:
-l20_for_iteration:
+ujp l13_for_condition
+l14_for_after:
+l9_for_iteration:
 ldc a 0
 lda 0 23
 dpl a
@@ -560,27 +379,27 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l21_for_condition
-l22_for_after:
+ujp l10_for_condition
+l11_for_after:
 lda 0 23
 dpl a
 ldc i 0
 sto i
 ind i
-l27_for_condition:
+l16_for_condition:
 lod i 0 23
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l28_for_after
-mst 3
+fjp l17_for_after
+mst 1
 lda 0 5
 ldc i 3
 lda 0 23
 lda 0 23
 cup 4 function_reduction
-l26_for_iteration:
+l15_for_iteration:
 ldc a 0
 lda 0 23
 dpl a
@@ -591,8 +410,8 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l27_for_condition
-l28_for_after:
+ujp l16_for_condition
+l17_for_after:
 ldc c '\n'
 out c
 ldc c 'I'
@@ -626,13 +445,13 @@ dpl a
 ldc i 0
 sto i
 ind i
-l30_for_condition:
+l19_for_condition:
 lod i 0 23
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l31_for_after
+fjp l20_for_after
 ldc c '\n'
 out c
 lda 0 24
@@ -640,25 +459,14 @@ dpl a
 ldc i 0
 sto i
 ind i
-l33_for_condition:
+l22_for_condition:
 lod i 0 24
 ldc i 3
 les i
 conv b i
 conv i b
-fjp l34_for_after
-lda 0 5
-lod i 0 23
-chk 0 17
-ixa 6
-lod i 0 24
-ldc i 3
-add i
-chk 0 5
-ixa 1
-ind r
-out r
-l32_for_iteration:
+fjp l23_for_after
+l21_for_iteration:
 ldc a 0
 lda 0 24
 dpl a
@@ -669,9 +477,9 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l33_for_condition
-l34_for_after:
-l29_for_iteration:
+ujp l22_for_condition
+l23_for_after:
+l18_for_iteration:
 ldc a 0
 lda 0 23
 dpl a
@@ -682,6 +490,6 @@ sto i
 ind i
 dec i 1
 sto i
-ujp l30_for_condition
-l31_for_after:
+ujp l19_for_condition
+l20_for_after:
 retp

@@ -471,10 +471,9 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 43
 lda 0 5
-cup 2 function_scanf
+in i
+sto i
 ldc c '\n'
 out c
 ldc c 'E'
@@ -563,10 +562,9 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 43
 lda 0 6
-cup 2 function_scanf
+in i
+sto i
 ldc a 0
 lda 0 7
 dpl a

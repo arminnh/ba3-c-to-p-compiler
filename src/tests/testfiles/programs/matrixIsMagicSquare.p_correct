@@ -325,8 +325,6 @@ les i
 conv b i
 conv i b
 fjp l6_for_after
-mst 4
-lda 1 17
 lda 0 6
 lod i 0 15
 chk 0 8
@@ -334,7 +332,8 @@ ixa 3
 lod i 0 16
 chk 0 2
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l4_for_iteration:
 ldc a 0
 lda 0 16

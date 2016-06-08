@@ -393,10 +393,14 @@ lda 0 5
 dpl a
 dpl a
 ind a
-inc a 1
+conv a i
+inc i 1
+conv i a
 sto a
 ind a
-dec a 1
+conv a i
+dec i 1
+conv i a
 sto a
 ujp l1_while_condition
 l2_while_after:

@@ -1451,10 +1451,9 @@ ldc c ' '
 out c
 ldc c ':'
 out c
-mst 1
-lda 1 130
 lda 1 5
-cup 2 function_scanf
+in i
+sto i
 ldc c '\n'
 out c
 ldc c 'E'
@@ -1563,8 +1562,6 @@ les i
 conv b i
 conv i b
 fjp l38_for_after
-mst 4
-lda 1 130
 lda 1 6
 lod i 0 5
 chk 0 99
@@ -1572,7 +1569,8 @@ ixa 10
 lod i 0 6
 chk 0 9
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l36_for_iteration:
 ldc a 0
 lda 0 6
