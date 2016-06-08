@@ -17,10 +17,9 @@ void main() {
 
    ptr = &arr[size - 1];
 
-   printf("\nElements of array in reverse order are :");
-
+   printf("Elements of array in reverse order are :\n");
    for (i = size - 1; i >= 0; i--) {
-      printf("\nElement%d is %d : ", i, *ptr);
+      printf("  Element %d is %d \n", i, *ptr);
       ptr--;
    }
 }

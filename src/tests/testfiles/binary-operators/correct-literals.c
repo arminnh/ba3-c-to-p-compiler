@@ -36,7 +36,8 @@ int main(void) {
 
     0   +   2;
     2.0 + 5.0;
-    "a" + "b";
+    // TODO: generate error here
+    // "a" + "b";
     'B' + 'b';
 
     0   -   2;

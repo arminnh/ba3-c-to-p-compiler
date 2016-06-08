@@ -1,3 +1,8 @@
+files that didnt work but worked with gcc:
+    *) matrixInverse, knapsackProblem, primsAlgorithm
+    *) pointerReverseArray
+
+
 *) pointer arithmetic
 *) scanf and strings. For a scanf("%s", ...) statement, generate a loop of in c instructions. Exit the loop upon reading the escape character (ascii code 27).
 *) a warning should be generated for variables which are initialized with themselves.
@@ -24,5 +29,4 @@ EXTRAS:
 
 
 TO FOLD ALL IN ATOM: shift + ctrl + alt + [
-
 in terminal: for file in tests/testfiles/programs/*.c; do c99 $file; done

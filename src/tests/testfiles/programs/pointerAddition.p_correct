@@ -116,13 +116,17 @@ cup 0 function_main
 hlt
 
 function_main:
-ssp 8
-ldc a 0
-str a 0 5
-ldc a 0
-str a 0 6
+ssp 10
 ldc i 0
-str i 0 7
+str i 0 5
+ldc i 0
+str i 0 6
+lda 0 5
+str a 0 7
+lda 0 6
+str a 0 8
+ldc i 0
+str i 0 9
 ldc c '\n'
 out c
 ldc c 'E'
@@ -165,17 +169,18 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 22
-lda 0 5
-lda 0 6
-cup 3 function_scanf
-ldc a 0
 lda 0 7
+in i
+sto i
+lda 0 8
+in i
+sto i
+ldc a 0
+lda 0 9
 dpl a
-lod a 0 5
+lod a 0 7
 ind i
-lod a 0 6
+lod a 0 8
 ind i
 add i
 sto i
@@ -193,7 +198,7 @@ ldc c '='
 out c
 ldc c ' '
 out c
-lod i 0 7
+lod i 0 9
 out i
 ldc i 0
 str i 0 0

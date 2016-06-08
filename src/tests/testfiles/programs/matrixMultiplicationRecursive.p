@@ -1544,11 +1544,12 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 147
 lda 1 5
+in i
+sto i
 lda 1 7
-cup 3 function_scanf
+in i
+sto i
 ldc c 'E'
 out c
 ldc c 'n'
@@ -1635,11 +1636,12 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 147
 lda 1 6
+in i
+sto i
 lda 1 8
-cup 3 function_scanf
+in i
+sto i
 lod i 1 7
 lod i 1 6
 neq i
@@ -1794,8 +1796,6 @@ les i
 conv b i
 conv i b
 fjp l8_for_after
-mst 6
-lda 1 259
 lda 0 5
 lod i 0 205
 chk 0 99
@@ -1803,7 +1803,8 @@ ixa 10
 lod i 0 206
 chk 0 9
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l6_for_iteration:
 ldc a 0
 lda 0 206
@@ -1904,8 +1905,6 @@ les i
 conv b i
 conv i b
 fjp l14_for_after
-mst 6
-lda 1 259
 lda 0 105
 lod i 0 205
 chk 0 99
@@ -1913,7 +1912,8 @@ ixa 10
 lod i 0 206
 chk 0 9
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l12_for_iteration:
 ldc a 0
 lda 0 206
@@ -2160,7 +2160,7 @@ dec i 1
 sto i
 ujp l22_for_condition
 l23_for_after:
-mst 2
+mst 1
 lda 0 5
 lda 0 105
 cup 2 function_matrixMultiply
@@ -2380,7 +2380,7 @@ sto i
 ind i
 dec i 1
 sto i
-mst 4
+mst 1
 lda 0 5
 lda 0 105
 cup 2 function_matrixMultiply
@@ -2422,7 +2422,7 @@ sto i
 ind i
 dec i 1
 sto i
-mst 3
+mst 1
 lda 0 5
 lda 0 105
 cup 2 function_matrixMultiply
@@ -2444,7 +2444,7 @@ sto i
 ind i
 dec i 1
 sto i
-mst 2
+mst 1
 lda 0 5
 lda 0 105
 cup 2 function_matrixMultiply

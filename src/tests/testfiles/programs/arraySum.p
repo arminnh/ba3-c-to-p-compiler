@@ -350,10 +350,9 @@ ldc c ' '
 out c
 ldc c ':'
 out c
-mst 1
-lda 1 24
 lda 0 57
-cup 2 function_scanf
+in i
+sto i
 ldc c '\n'
 out c
 ldc c 'E'
@@ -404,13 +403,12 @@ les i
 conv b i
 conv i b
 fjp l3_for_after
-mst 2
-lda 1 24
 lda 0 6
 lod i 0 5
 chk 0 49
 ixa 1
-cup 2 function_scanf
+in i
+sto i
 l1_for_iteration:
 ldc a 0
 lda 0 5

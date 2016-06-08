@@ -1,43 +1,7 @@
 ldc i 0
-ssp 61
-lda 0 32
-ldc c '%'
-sto c
-lda 0 33
-ldc c 'd'
-sto c
-lda 0 35
-ldc c 'A'
-sto c
-lda 0 36
-ldc c 'r'
-sto c
-lda 0 37
-ldc c 'e'
-sto c
-lda 0 38
-ldc c 'a'
-sto c
-lda 0 39
-ldc c ' '
-sto c
-lda 0 40
-ldc c '='
-sto c
-lda 0 41
-ldc c ' '
-sto c
-lda 0 42
-ldc c '%'
-sto c
-lda 0 43
-ldc c 'f'
-sto c
-lda 0 44
-ldc c 27
-sto c
+ssp 62
 lda 0 5
-ldc c 'n'
+ldc c '\n'
 sto c
 lda 0 6
 ldc c 'E'
@@ -112,57 +76,96 @@ lda 0 29
 ldc c 'e'
 sto c
 lda 0 30
-ldc c ' '
+ldc c ':'
 sto c
 lda 0 31
+ldc c ' '
+sto c
+lda 0 32
 ldc c 27
 sto c
-lda 0 45
-ldc c 'n'
-sto c
 lda 0 46
-ldc c 'P'
+ldc c '\n'
 sto c
 lda 0 47
-ldc c 'e'
+ldc c 'P'
 sto c
 lda 0 48
-ldc c 'r'
+ldc c 'e'
 sto c
 lda 0 49
-ldc c 'i'
-sto c
-lda 0 50
-ldc c 'm'
-sto c
-lda 0 51
-ldc c 'e'
-sto c
-lda 0 52
-ldc c 't'
-sto c
-lda 0 53
-ldc c 'e'
-sto c
-lda 0 54
 ldc c 'r'
 sto c
+lda 0 50
+ldc c 'i'
+sto c
+lda 0 51
+ldc c 'm'
+sto c
+lda 0 52
+ldc c 'e'
+sto c
+lda 0 53
+ldc c 't'
+sto c
+lda 0 54
+ldc c 'e'
+sto c
 lda 0 55
-ldc c ' '
+ldc c 'r'
 sto c
 lda 0 56
-ldc c '='
-sto c
-lda 0 57
 ldc c ' '
 sto c
+lda 0 57
+ldc c '='
+sto c
 lda 0 58
-ldc c '%'
+ldc c ' '
 sto c
 lda 0 59
-ldc c 'f'
+ldc c '%'
 sto c
 lda 0 60
+ldc c 'f'
+sto c
+lda 0 61
+ldc c 27
+sto c
+lda 0 33
+ldc c '%'
+sto c
+lda 0 34
+ldc c 'd'
+sto c
+lda 0 36
+ldc c 'A'
+sto c
+lda 0 37
+ldc c 'r'
+sto c
+lda 0 38
+ldc c 'e'
+sto c
+lda 0 39
+ldc c 'a'
+sto c
+lda 0 40
+ldc c ' '
+sto c
+lda 0 41
+ldc c '='
+sto c
+lda 0 42
+ldc c ' '
+sto c
+lda 0 43
+ldc c '%'
+sto c
+lda 0 44
+ldc c 'f'
+sto c
+lda 0 45
 ldc c 27
 sto c
 mst 0
@@ -207,7 +210,7 @@ ldc r 0.0
 str r 0 6
 ldc r 0.0
 str r 0 7
-ldc c 'n'
+ldc c '\n'
 out c
 ldc c 'E'
 out c
@@ -257,12 +260,13 @@ ldc c 'l'
 out c
 ldc c 'e'
 out c
+ldc c ':'
+out c
 ldc c ' '
 out c
-mst 1
-lda 1 27
 lda 0 5
-cup 2 function_scanf
+in i
+sto i
 mst 1
 lod i 0 5
 lda 0 6
@@ -284,7 +288,7 @@ ldc c ' '
 out c
 lod r 0 6
 out r
-ldc c 'n'
+ldc c '\n'
 out c
 ldc c 'P'
 out c

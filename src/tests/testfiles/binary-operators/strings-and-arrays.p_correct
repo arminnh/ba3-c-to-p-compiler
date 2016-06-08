@@ -85,10 +85,14 @@ lda 0 16
 dpl a
 dpl a
 ind a
-inc a 1
+conv a i
+inc i 1
+conv i a
 sto a
 ind a
-dec a 1
+conv a i
+dec i 1
+conv i a
 sto a
 ldc a 0
 lda 0 16

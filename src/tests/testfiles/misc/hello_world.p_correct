@@ -33,7 +33,7 @@ fjp l2_while_after
 ldc a 0
 lda 0 7
 dpl a
-mst 2
+mst 1
 lda 0 7
 dpl a
 ldc i 2

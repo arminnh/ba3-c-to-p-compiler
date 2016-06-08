@@ -167,10 +167,9 @@ ldc c 's'
 out c
 ldc c ':'
 out c
-mst 1
-lda 1 25
 lda 0 5
-cup 2 function_scanf
+in i
+sto i
 mst 1
 lod i 0 5
 ldc i 1
@@ -192,7 +191,7 @@ grt i
 conv b i
 conv i b
 fjp l1_else
-mst 2
+mst 1
 lod i 0 5
 ldc i 1
 sub i
@@ -214,7 +213,7 @@ ldc c ' '
 out c
 lod c 0 7
 out c
-mst 2
+mst 1
 lod i 0 5
 ldc i 1
 sub i

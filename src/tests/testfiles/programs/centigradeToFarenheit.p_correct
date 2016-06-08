@@ -243,10 +243,9 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 26
 lda 0 5
-cup 2 function_scanf
+in r
+sto r
 ldc a 0
 lda 0 6
 dpl a

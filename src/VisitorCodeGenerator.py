@@ -450,8 +450,9 @@ class VisitorCodeGenerator(Visitor):
             elif node.identifier == "scanf":
                 self.scanf(node)
         else:
+            functionSymbol = self.symbolTable.retrieveFunctionSymbol(node.identifier)
             # organizational block
-            self.outFile.write("mst {0}\n".format(self.symbolTable.retrieveSymbol(node.identifier).depth))
+            self.outFile.write("mst {0}\n".format(functionSymbol.depth))
 
             # evaluate arguments
             self.visitChildren(node)

@@ -1,191 +1,5 @@
 ldc i 0
-ssp 130
-lda 0 110
-ldc c '\n'
-sto c
-lda 0 111
-ldc c 'E'
-sto c
-lda 0 112
-ldc c 'l'
-sto c
-lda 0 113
-ldc c 'e'
-sto c
-lda 0 114
-ldc c 'm'
-sto c
-lda 0 115
-ldc c 'e'
-sto c
-lda 0 116
-ldc c 'n'
-sto c
-lda 0 117
-ldc c 't'
-sto c
-lda 0 118
-ldc c '%'
-sto c
-lda 0 119
-ldc c 'd'
-sto c
-lda 0 120
-ldc c ' '
-sto c
-lda 0 121
-ldc c 'i'
-sto c
-lda 0 122
-ldc c 's'
-sto c
-lda 0 123
-ldc c ' '
-sto c
-lda 0 124
-ldc c '%'
-sto c
-lda 0 125
-ldc c 'd'
-sto c
-lda 0 126
-ldc c ' '
-sto c
-lda 0 127
-ldc c ':'
-sto c
-lda 0 128
-ldc c ' '
-sto c
-lda 0 129
-ldc c 27
-sto c
-lda 0 68
-ldc c '\n'
-sto c
-lda 0 69
-ldc c 'E'
-sto c
-lda 0 70
-ldc c 'l'
-sto c
-lda 0 71
-ldc c 'e'
-sto c
-lda 0 72
-ldc c 'm'
-sto c
-lda 0 73
-ldc c 'e'
-sto c
-lda 0 74
-ldc c 'n'
-sto c
-lda 0 75
-ldc c 't'
-sto c
-lda 0 76
-ldc c 's'
-sto c
-lda 0 77
-ldc c ' '
-sto c
-lda 0 78
-ldc c 'o'
-sto c
-lda 0 79
-ldc c 'f'
-sto c
-lda 0 80
-ldc c ' '
-sto c
-lda 0 81
-ldc c 'a'
-sto c
-lda 0 82
-ldc c 'r'
-sto c
-lda 0 83
-ldc c 'r'
-sto c
-lda 0 84
-ldc c 'a'
-sto c
-lda 0 85
-ldc c 'y'
-sto c
-lda 0 86
-ldc c ' '
-sto c
-lda 0 87
-ldc c 'i'
-sto c
-lda 0 88
-ldc c 'n'
-sto c
-lda 0 89
-ldc c ' '
-sto c
-lda 0 90
-ldc c 'r'
-sto c
-lda 0 91
-ldc c 'e'
-sto c
-lda 0 92
-ldc c 'v'
-sto c
-lda 0 93
-ldc c 'e'
-sto c
-lda 0 94
-ldc c 'r'
-sto c
-lda 0 95
-ldc c 's'
-sto c
-lda 0 96
-ldc c 'e'
-sto c
-lda 0 97
-ldc c ' '
-sto c
-lda 0 98
-ldc c 'o'
-sto c
-lda 0 99
-ldc c 'r'
-sto c
-lda 0 100
-ldc c 'd'
-sto c
-lda 0 101
-ldc c 'e'
-sto c
-lda 0 102
-ldc c 'r'
-sto c
-lda 0 103
-ldc c ' '
-sto c
-lda 0 104
-ldc c 'a'
-sto c
-lda 0 105
-ldc c 'r'
-sto c
-lda 0 106
-ldc c 'e'
-sto c
-lda 0 107
-ldc c ' '
-sto c
-lda 0 108
-ldc c ':'
-sto c
-lda 0 109
-ldc c 27
-sto c
+ssp 131
 lda 0 36
 ldc c '\n'
 sto c
@@ -366,11 +180,200 @@ sto c
 lda 0 32
 ldc c 27
 sto c
+lda 0 110
+ldc c ' '
+sto c
+lda 0 111
+ldc c ' '
+sto c
+lda 0 112
+ldc c 'E'
+sto c
+lda 0 113
+ldc c 'l'
+sto c
+lda 0 114
+ldc c 'e'
+sto c
+lda 0 115
+ldc c 'm'
+sto c
+lda 0 116
+ldc c 'e'
+sto c
+lda 0 117
+ldc c 'n'
+sto c
+lda 0 118
+ldc c 't'
+sto c
+lda 0 119
+ldc c ' '
+sto c
+lda 0 120
+ldc c '%'
+sto c
+lda 0 121
+ldc c 'd'
+sto c
+lda 0 122
+ldc c ' '
+sto c
+lda 0 123
+ldc c 'i'
+sto c
+lda 0 124
+ldc c 's'
+sto c
+lda 0 125
+ldc c ' '
+sto c
+lda 0 126
+ldc c '%'
+sto c
+lda 0 127
+ldc c 'd'
+sto c
+lda 0 128
+ldc c ' '
+sto c
+lda 0 129
+ldc c '\n'
+sto c
+lda 0 130
+ldc c 27
+sto c
 lda 0 33
 ldc c '%'
 sto c
 lda 0 34
 ldc c 'd'
+sto c
+lda 0 68
+ldc c 'E'
+sto c
+lda 0 69
+ldc c 'l'
+sto c
+lda 0 70
+ldc c 'e'
+sto c
+lda 0 71
+ldc c 'm'
+sto c
+lda 0 72
+ldc c 'e'
+sto c
+lda 0 73
+ldc c 'n'
+sto c
+lda 0 74
+ldc c 't'
+sto c
+lda 0 75
+ldc c 's'
+sto c
+lda 0 76
+ldc c ' '
+sto c
+lda 0 77
+ldc c 'o'
+sto c
+lda 0 78
+ldc c 'f'
+sto c
+lda 0 79
+ldc c ' '
+sto c
+lda 0 80
+ldc c 'a'
+sto c
+lda 0 81
+ldc c 'r'
+sto c
+lda 0 82
+ldc c 'r'
+sto c
+lda 0 83
+ldc c 'a'
+sto c
+lda 0 84
+ldc c 'y'
+sto c
+lda 0 85
+ldc c ' '
+sto c
+lda 0 86
+ldc c 'i'
+sto c
+lda 0 87
+ldc c 'n'
+sto c
+lda 0 88
+ldc c ' '
+sto c
+lda 0 89
+ldc c 'r'
+sto c
+lda 0 90
+ldc c 'e'
+sto c
+lda 0 91
+ldc c 'v'
+sto c
+lda 0 92
+ldc c 'e'
+sto c
+lda 0 93
+ldc c 'r'
+sto c
+lda 0 94
+ldc c 's'
+sto c
+lda 0 95
+ldc c 'e'
+sto c
+lda 0 96
+ldc c ' '
+sto c
+lda 0 97
+ldc c 'o'
+sto c
+lda 0 98
+ldc c 'r'
+sto c
+lda 0 99
+ldc c 'd'
+sto c
+lda 0 100
+ldc c 'e'
+sto c
+lda 0 101
+ldc c 'r'
+sto c
+lda 0 102
+ldc c ' '
+sto c
+lda 0 103
+ldc c 'a'
+sto c
+lda 0 104
+ldc c 'r'
+sto c
+lda 0 105
+ldc c 'e'
+sto c
+lda 0 106
+ldc c ' '
+sto c
+lda 0 107
+ldc c ':'
+sto c
+lda 0 108
+ldc c '\n'
+sto c
+lda 0 109
+ldc c 27
 sto c
 mst 0
 cup 0 function_main
@@ -508,10 +511,9 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-mst 1
-lda 1 28
 lda 0 5
-cup 2 function_scanf
+in i
+sto i
 ldc c '\n'
 out c
 ldc c 'E'
@@ -584,19 +586,22 @@ les i
 conv b i
 conv i b
 fjp l3_for_after
-mst 3
-lda 1 28
 lda 0 37
-cup 2 function_scanf
+in i
+sto i
 ldc a 0
 lda 0 37
 dpl a
 dpl a
 ind a
-inc a 1
+conv a i
+inc i 1
+conv i a
 sto a
 ind a
-dec a 1
+conv a i
+dec i 1
+conv i a
 sto a
 l1_for_iteration:
 ldc a 0
@@ -623,8 +628,6 @@ ixa 1
 sto a
 ind a
 sto a
-ldc c '\n'
-out c
 ldc c 'E'
 out c
 ldc c 'l'
@@ -705,6 +708,8 @@ ldc c ' '
 out c
 ldc c ':'
 out c
+ldc c '\n'
+out c
 lda 0 6
 dpl a
 lod i 0 5
@@ -719,7 +724,9 @@ geq i
 conv b i
 conv i b
 fjp l6_for_after
-ldc c '\n'
+ldc c ' '
+out c
+ldc c ' '
 out c
 ldc c 'E'
 out c
@@ -734,6 +741,8 @@ out c
 ldc c 'n'
 out c
 ldc c 't'
+out c
+ldc c ' '
 out c
 lod i 0 6
 out i
@@ -750,19 +759,21 @@ ind i
 out i
 ldc c ' '
 out c
-ldc c ':'
-out c
-ldc c ' '
+ldc c '\n'
 out c
 ldc a 0
 lda 0 37
 dpl a
 dpl a
 ind a
-dec a 1
+conv a i
+dec i 1
+conv i a
 sto a
 ind a
-inc a 1
+conv a i
+inc i 1
+conv i a
 sto a
 l4_for_iteration:
 ldc a 0
