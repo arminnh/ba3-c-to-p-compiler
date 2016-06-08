@@ -59,7 +59,7 @@ int main() {
 }
 
 void matrixMultiply(int a[10][10], int b[10][10]) {
-   static int sum, i = 0, j = 0, k = 0;
+   int sum, i = 0, j = 0, k = 0;
    //row of first matrix
    if (i < row1) {
       //column of second matrix

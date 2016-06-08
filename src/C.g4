@@ -306,7 +306,7 @@ FLOAT     : INTEGER '.' INTEGER ([eE] [+-]? INTEGER)?
           ;
 
 IDENTIFIER   : [a-zA-Z_][a-zA-Z0-9\_]*;
-CHARACTER    : ['] (. | '\n') ['];
-STRING       : ["] ( [\\] [\\"nr] | ~[\\"\r\n] )* ["];
+CHARACTER    : '\'' (. | '\\'.) '\'';
+STRING       : '"' ( '\\'. | ~[\\"\r\n] )* '"';
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines, \r (Windows)

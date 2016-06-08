@@ -3610,25 +3610,6 @@ class CParser ( Parser ):
 
 
 
-    class ExpressionInitializerContext(InitializerContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a CParser.InitializerContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def oplevel14(self):
-            return self.getTypedRuleContext(CParser.Oplevel14Context,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpressionInitializer" ):
-                listener.enterExpressionInitializer(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpressionInitializer" ):
-                listener.exitExpressionInitializer(self)
-
-
     class ArrayInitializerContext(InitializerContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a CParser.InitializerContext
@@ -3655,6 +3636,25 @@ class CParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitArrayInitializer" ):
                 listener.exitArrayInitializer(self)
+
+
+    class ExpressionInitializerContext(InitializerContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a CParser.InitializerContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def oplevel14(self):
+            return self.getTypedRuleContext(CParser.Oplevel14Context,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExpressionInitializer" ):
+                listener.enterExpressionInitializer(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExpressionInitializer" ):
+                listener.exitExpressionInitializer(self)
 
 
 

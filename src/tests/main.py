@@ -647,8 +647,8 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
         self.generateNoError("testfiles/misc/hello_world")
 
 
-# in terminal: for file in tests/testfiles/programs/*.c; do c99 $file; done
-class ProgramsTests(ASTTest, unittest.TestCase):
+class ProgramsTests(ASTTest):
+# class ProgramsTests(ASTTest, unittest.TestCase):
 
     def test1(self):
         self.generateNoError("testfiles/programs/areaCircle")

@@ -20,3 +20,9 @@ EXTRAS:
     *) dynamic arrays
     *) inline functions
     *) nested functions
+
+
+
+TO FOLD ALL IN ATOM: shift + ctrl + alt + [
+
+in terminal: for file in tests/testfiles/programs/*.c; do c99 $file; done

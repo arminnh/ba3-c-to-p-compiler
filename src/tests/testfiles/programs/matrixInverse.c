@@ -6,7 +6,7 @@ void reduction(float a[][6], int size, int pivot, int col) {
    factor = a[pivot][col];
 
    for (i = 0; i < 2 * size; i++) {
-      a[pivot][i] /= factor;
+      a[pivot][i] = a[pivot][i] / factor;
    }
 
    for (i = 0; i < size; i++) {
