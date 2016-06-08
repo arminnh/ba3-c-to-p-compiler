@@ -1494,7 +1494,7 @@ mst 1
 lod i 0 46
 lda 0 5
 lda 0 25
-lda 0 45
+lod r 0 45
 cup 4 function_knapsack
 ldc i 0
 str i 0 0

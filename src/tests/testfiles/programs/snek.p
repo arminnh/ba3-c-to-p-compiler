@@ -3,15 +3,6 @@ ssp 1098
 lda 0 1038
 ldc c '\n'
 sto c
-lda 0 572
-ldc c ' '
-sto c
-lda 0 573
-ldc c ' '
-sto c
-lda 0 574
-ldc c ' '
-sto c
 lda 0 575
 ldc c ' '
 sto c
@@ -37,106 +28,106 @@ lda 0 582
 ldc c ' '
 sto c
 lda 0 583
-ldc c 'b'
+ldc c ' '
 sto c
 lda 0 584
-ldc c 'y'
+ldc c ' '
 sto c
 lda 0 585
 ldc c ' '
 sto c
 lda 0 586
-ldc c 'n'
+ldc c 'b'
 sto c
 lda 0 587
-ldc c 'o'
+ldc c 'y'
 sto c
 lda 0 588
-ldc c 't'
-sto c
-lda 0 589
 ldc c ' '
 sto c
+lda 0 589
+ldc c 'n'
+sto c
 lda 0 590
-ldc c 'r'
+ldc c 'o'
 sto c
 lda 0 591
-ldc c 'u'
+ldc c 't'
 sto c
 lda 0 592
-ldc c 'n'
+ldc c ' '
 sto c
 lda 0 593
-ldc c 'n'
+ldc c 'r'
 sto c
 lda 0 594
-ldc c 'i'
+ldc c 'u'
 sto c
 lda 0 595
 ldc c 'n'
 sto c
 lda 0 596
-ldc c 'g'
-sto c
-lda 0 597
-ldc c ' '
-sto c
-lda 0 598
-ldc c 'i'
-sto c
-lda 0 599
 ldc c 'n'
 sto c
+lda 0 597
+ldc c 'i'
+sto c
+lda 0 598
+ldc c 'n'
+sto c
+lda 0 599
+ldc c 'g'
+sto c
 lda 0 600
-ldc c 't'
+ldc c ' '
 sto c
 lda 0 601
-ldc c 'o'
+ldc c 'i'
 sto c
 lda 0 602
-ldc c ' '
+ldc c 'n'
 sto c
 lda 0 603
-ldc c 'a'
+ldc c 't'
 sto c
 lda 0 604
-ldc c ' '
+ldc c 'o'
 sto c
 lda 0 605
-ldc c 'w'
+ldc c ' '
 sto c
 lda 0 606
 ldc c 'a'
 sto c
 lda 0 607
-ldc c 'l'
+ldc c ' '
 sto c
 lda 0 608
-ldc c 'l'
+ldc c 'w'
 sto c
 lda 0 609
-ldc c ' '
+ldc c 'a'
 sto c
 lda 0 610
-ldc c 'o'
+ldc c 'l'
 sto c
 lda 0 611
-ldc c 'r'
+ldc c 'l'
 sto c
 lda 0 612
-ldc c '\n'
+ldc c ' '
 sto c
 lda 0 613
+ldc c 'o'
+sto c
+lda 0 614
+ldc c 'r'
+sto c
+lda 0 615
+ldc c '\n'
+sto c
+lda 0 616
 ldc c 27
-sto c
-lda 0 658
-ldc c ' '
-sto c
-lda 0 659
-ldc c ' '
-sto c
-lda 0 660
-ldc c ' '
 sto c
 lda 0 661
 ldc c ' '
@@ -163,64 +154,64 @@ lda 0 668
 ldc c ' '
 sto c
 lda 0 669
-ldc c 'e'
+ldc c ' '
 sto c
 lda 0 670
-ldc c 'a'
+ldc c ' '
 sto c
 lda 0 671
-ldc c 't'
+ldc c ' '
 sto c
 lda 0 672
-ldc c ' '
+ldc c 'e'
 sto c
 lda 0 673
 ldc c 'a'
 sto c
 lda 0 674
-ldc c 's'
+ldc c 't'
 sto c
 lda 0 675
 ldc c ' '
 sto c
 lda 0 676
-ldc c 'm'
+ldc c 'a'
 sto c
 lda 0 677
-ldc c 'u'
-sto c
-lda 0 678
-ldc c 'c'
-sto c
-lda 0 679
-ldc c 'h'
-sto c
-lda 0 680
-ldc c ' '
-sto c
-lda 0 681
-ldc c 'p'
-sto c
-lda 0 682
-ldc c 'r'
-sto c
-lda 0 683
-ldc c 'i'
-sto c
-lda 0 684
-ldc c 'c'
-sto c
-lda 0 685
-ldc c 'e'
-sto c
-lda 0 686
 ldc c 's'
 sto c
-lda 0 687
+lda 0 678
 ldc c ' '
 sto c
+lda 0 679
+ldc c 'm'
+sto c
+lda 0 680
+ldc c 'u'
+sto c
+lda 0 681
+ldc c 'c'
+sto c
+lda 0 682
+ldc c 'h'
+sto c
+lda 0 683
+ldc c ' '
+sto c
+lda 0 684
+ldc c 'p'
+sto c
+lda 0 685
+ldc c 'r'
+sto c
+lda 0 686
+ldc c 'i'
+sto c
+lda 0 687
+ldc c 'c'
+sto c
 lda 0 688
-ldc c 'a'
+ldc c 'e'
 sto c
 lda 0 689
 ldc c 's'
@@ -229,46 +220,46 @@ lda 0 690
 ldc c ' '
 sto c
 lda 0 691
-ldc c 'y'
-sto c
-lda 0 692
-ldc c 'o'
-sto c
-lda 0 693
-ldc c 'u'
-sto c
-lda 0 694
-ldc c ' '
-sto c
-lda 0 695
-ldc c 'c'
-sto c
-lda 0 696
 ldc c 'a'
 sto c
+lda 0 692
+ldc c 's'
+sto c
+lda 0 693
+ldc c ' '
+sto c
+lda 0 694
+ldc c 'y'
+sto c
+lda 0 695
+ldc c 'o'
+sto c
+lda 0 696
+ldc c 'u'
+sto c
 lda 0 697
-ldc c 'n'
+ldc c ' '
 sto c
 lda 0 698
-ldc c '.'
+ldc c 'c'
 sto c
 lda 0 699
-ldc c '\n'
+ldc c 'a'
 sto c
 lda 0 700
-ldc c '\n'
+ldc c 'n'
 sto c
 lda 0 701
+ldc c '.'
+sto c
+lda 0 702
+ldc c '\n'
+sto c
+lda 0 703
+ldc c '\n'
+sto c
+lda 0 704
 ldc c 27
-sto c
-lda 0 753
-ldc c ' '
-sto c
-lda 0 754
-ldc c ' '
-sto c
-lda 0 755
-ldc c ' '
 sto c
 lda 0 756
 ldc c ' '
@@ -295,82 +286,82 @@ lda 0 763
 ldc c ' '
 sto c
 lda 0 764
-ldc c 'f'
+ldc c ' '
 sto c
 lda 0 765
-ldc c 'o'
+ldc c ' '
 sto c
 lda 0 766
-ldc c 'l'
+ldc c ' '
 sto c
 lda 0 767
-ldc c 'l'
+ldc c 'f'
 sto c
 lda 0 768
 ldc c 'o'
 sto c
 lda 0 769
-ldc c 'w'
+ldc c 'l'
 sto c
 lda 0 770
-ldc c 'e'
+ldc c 'l'
 sto c
 lda 0 771
-ldc c 'd'
+ldc c 'o'
 sto c
 lda 0 772
-ldc c ' '
+ldc c 'w'
 sto c
 lda 0 773
-ldc c 'b'
+ldc c 'e'
 sto c
 lda 0 774
-ldc c 'y'
+ldc c 'd'
 sto c
 lda 0 775
 ldc c ' '
 sto c
 lda 0 776
-ldc c 'a'
+ldc c 'b'
 sto c
 lda 0 777
-ldc c 'n'
+ldc c 'y'
 sto c
 lda 0 778
 ldc c ' '
 sto c
 lda 0 779
-ldc c 'e'
+ldc c 'a'
 sto c
 lda 0 780
 ldc c 'n'
 sto c
 lda 0 781
-ldc c 't'
+ldc c ' '
 sto c
 lda 0 782
 ldc c 'e'
 sto c
 lda 0 783
-ldc c 'r'
+ldc c 'n'
 sto c
 lda 0 784
-ldc c '.'
+ldc c 't'
 sto c
 lda 0 785
-ldc c '\n'
+ldc c 'e'
 sto c
 lda 0 786
+ldc c 'r'
+sto c
+lda 0 787
+ldc c '.'
+sto c
+lda 0 788
+ldc c '\n'
+sto c
+lda 0 789
 ldc c 27
-sto c
-lda 0 614
-ldc c ' '
-sto c
-lda 0 615
-ldc c ' '
-sto c
-lda 0 616
-ldc c ' '
 sto c
 lda 0 617
 ldc c ' '
@@ -397,541 +388,541 @@ lda 0 624
 ldc c ' '
 sto c
 lda 0 625
-ldc c 'i'
-sto c
-lda 0 626
-ldc c 'n'
-sto c
-lda 0 627
-ldc c 't'
-sto c
-lda 0 628
-ldc c 'o'
-sto c
-lda 0 629
 ldc c ' '
 sto c
+lda 0 626
+ldc c ' '
+sto c
+lda 0 627
+ldc c ' '
+sto c
+lda 0 628
+ldc c 'i'
+sto c
+lda 0 629
+ldc c 'n'
+sto c
 lda 0 630
-ldc c 'y'
+ldc c 't'
 sto c
 lda 0 631
 ldc c 'o'
 sto c
 lda 0 632
-ldc c 'u'
+ldc c ' '
 sto c
 lda 0 633
-ldc c 'r'
+ldc c 'y'
 sto c
 lda 0 634
-ldc c 's'
+ldc c 'o'
 sto c
 lda 0 635
-ldc c 'e'
-sto c
-lda 0 636
-ldc c 'l'
-sto c
-lda 0 637
-ldc c 'f'
-sto c
-lda 0 638
-ldc c '.'
-sto c
-lda 0 639
-ldc c ' '
-sto c
-lda 0 640
-ldc c 'M'
-sto c
-lda 0 641
-ldc c 'e'
-sto c
-lda 0 642
-ldc c 'a'
-sto c
-lda 0 643
-ldc c 'n'
-sto c
-lda 0 644
-ldc c 'w'
-sto c
-lda 0 645
-ldc c 'h'
-sto c
-lda 0 646
-ldc c 'i'
-sto c
-lda 0 647
-ldc c 'l'
-sto c
-lda 0 648
-ldc c 'e'
-sto c
-lda 0 649
-ldc c ' '
-sto c
-lda 0 650
-ldc c 't'
-sto c
-lda 0 651
-ldc c 'r'
-sto c
-lda 0 652
-ldc c 'y'
-sto c
-lda 0 653
-ldc c ' '
-sto c
-lda 0 654
-ldc c 't'
-sto c
-lda 0 655
-ldc c 'o'
-sto c
-lda 0 656
-ldc c '\n'
-sto c
-lda 0 657
-ldc c 27
-sto c
-lda 0 981
-ldc c '%'
-sto c
-lda 0 982
-ldc c 'c'
-sto c
-lda 0 873
-ldc c '''
-sto c
-lda 0 874
-ldc c '#'
-sto c
-lda 0 875
-ldc c '''
-sto c
-lda 0 876
-ldc c ' '
-sto c
-lda 0 877
-ldc c '='
-sto c
-lda 0 878
-ldc c ' '
-sto c
-lda 0 879
-ldc c 'W'
-sto c
-lda 0 880
-ldc c 'a'
-sto c
-lda 0 881
-ldc c 'l'
-sto c
-lda 0 882
-ldc c 'l'
-sto c
-lda 0 883
-ldc c '\n'
-sto c
-lda 0 884
-ldc c '''
-sto c
-lda 0 885
-ldc c '@'
-sto c
-lda 0 886
-ldc c '''
-sto c
-lda 0 887
-ldc c ' '
-sto c
-lda 0 888
-ldc c '='
-sto c
-lda 0 889
-ldc c ' '
-sto c
-lda 0 890
-ldc c 'S'
-sto c
-lda 0 891
-ldc c 'n'
-sto c
-lda 0 892
-ldc c 'a'
-sto c
-lda 0 893
-ldc c 'k'
-sto c
-lda 0 894
-ldc c 'e'
-sto c
-lda 0 895
-ldc c '''
-sto c
-lda 0 896
-ldc c 's'
-sto c
-lda 0 897
-ldc c ' '
-sto c
-lda 0 898
-ldc c 'h'
-sto c
-lda 0 899
-ldc c 'e'
-sto c
-lda 0 900
-ldc c 'a'
-sto c
-lda 0 901
-ldc c 'd'
-sto c
-lda 0 902
-ldc c '\n'
-sto c
-lda 0 903
-ldc c '''
-sto c
-lda 0 904
-ldc c 'x'
-sto c
-lda 0 905
-ldc c '''
-sto c
-lda 0 906
-ldc c ' '
-sto c
-lda 0 907
-ldc c '='
-sto c
-lda 0 908
-ldc c ' '
-sto c
-lda 0 909
-ldc c 'S'
-sto c
-lda 0 910
-ldc c 'n'
-sto c
-lda 0 911
-ldc c 'a'
-sto c
-lda 0 912
-ldc c 'k'
-sto c
-lda 0 913
-ldc c 'e'
-sto c
-lda 0 914
-ldc c '''
-sto c
-lda 0 915
-ldc c 's'
-sto c
-lda 0 916
-ldc c ' '
-sto c
-lda 0 917
-ldc c 'b'
-sto c
-lda 0 918
-ldc c 'o'
-sto c
-lda 0 919
-ldc c 'd'
-sto c
-lda 0 920
-ldc c 'y'
-sto c
-lda 0 921
-ldc c '\n'
-sto c
-lda 0 922
-ldc c '''
-sto c
-lda 0 923
-ldc c '$'
-sto c
-lda 0 924
-ldc c '''
-sto c
-lda 0 925
-ldc c ' '
-sto c
-lda 0 926
-ldc c '='
-sto c
-lda 0 927
-ldc c ' '
-sto c
-lda 0 928
-ldc c 'P'
-sto c
-lda 0 929
-ldc c 'r'
-sto c
-lda 0 930
-ldc c 'i'
-sto c
-lda 0 931
-ldc c 'c'
-sto c
-lda 0 932
-ldc c 'e'
-sto c
-lda 0 933
-ldc c '\n'
-sto c
-lda 0 934
-ldc c '\n'
-sto c
-lda 0 935
-ldc c 27
-sto c
-lda 0 813
-ldc c '''
-sto c
-lda 0 814
-ldc c 'a'
-sto c
-lda 0 815
-ldc c '''
-sto c
-lda 0 816
-ldc c '|'
-sto c
-lda 0 817
-ldc c '''
-sto c
-lda 0 818
-ldc c 'q'
-sto c
-lda 0 819
-ldc c '''
-sto c
-lda 0 820
-ldc c ' '
-sto c
-lda 0 821
-ldc c '='
-sto c
-lda 0 822
-ldc c ' '
-sto c
-lda 0 823
-ldc c 'L'
-sto c
-lda 0 824
-ldc c 'e'
-sto c
-lda 0 825
-ldc c 'f'
-sto c
-lda 0 826
-ldc c 't'
-sto c
-lda 0 827
-ldc c '\n'
-sto c
-lda 0 828
-ldc c 27
-sto c
-lda 0 829
-ldc c '''
-sto c
-lda 0 830
-ldc c 'd'
-sto c
-lda 0 831
-ldc c '''
-sto c
-lda 0 832
-ldc c ' '
-sto c
-lda 0 833
-ldc c '='
-sto c
-lda 0 834
-ldc c ' '
-sto c
-lda 0 835
-ldc c 'R'
-sto c
-lda 0 836
-ldc c 'i'
-sto c
-lda 0 837
-ldc c 'g'
-sto c
-lda 0 838
-ldc c 'h'
-sto c
-lda 0 839
-ldc c 't'
-sto c
-lda 0 840
-ldc c '\n'
-sto c
-lda 0 841
-ldc c 27
-sto c
-lda 0 801
-ldc c '''
-sto c
-lda 0 802
-ldc c 's'
-sto c
-lda 0 803
-ldc c '''
-sto c
-lda 0 804
-ldc c ' '
-sto c
-lda 0 805
-ldc c '='
-sto c
-lda 0 806
-ldc c ' '
-sto c
-lda 0 807
-ldc c 'D'
-sto c
-lda 0 808
-ldc c 'o'
-sto c
-lda 0 809
-ldc c 'w'
-sto c
-lda 0 810
-ldc c 'n'
-sto c
-lda 0 811
-ldc c '\n'
-sto c
-lda 0 812
-ldc c 27
-sto c
-lda 0 787
-ldc c '''
-sto c
-lda 0 788
-ldc c 'w'
-sto c
-lda 0 789
-ldc c '''
-sto c
-lda 0 790
-ldc c '|'
-sto c
-lda 0 791
-ldc c '''
-sto c
-lda 0 792
-ldc c 'z'
-sto c
-lda 0 793
-ldc c '''
-sto c
-lda 0 794
-ldc c ' '
-sto c
-lda 0 795
-ldc c '='
-sto c
-lda 0 796
-ldc c ' '
-sto c
-lda 0 797
-ldc c 'U'
-sto c
-lda 0 798
-ldc c 'p'
-sto c
-lda 0 799
-ldc c '\n'
-sto c
-lda 0 800
-ldc c 27
-sto c
-lda 0 842
-ldc c '''
-sto c
-lda 0 843
-ldc c 'x'
-sto c
-lda 0 844
-ldc c '''
-sto c
-lda 0 845
-ldc c ' '
-sto c
-lda 0 846
-ldc c '='
-sto c
-lda 0 847
-ldc c ' '
-sto c
-lda 0 848
-ldc c 'Q'
-sto c
-lda 0 849
 ldc c 'u'
 sto c
-lda 0 850
-ldc c 'i'
+lda 0 636
+ldc c 'r'
 sto c
-lda 0 851
-ldc c 't'
+lda 0 637
+ldc c 's'
 sto c
-lda 0 852
-ldc c ' '
-sto c
-lda 0 853
-ldc c 't'
-sto c
-lda 0 854
-ldc c 'h'
-sto c
-lda 0 855
+lda 0 638
 ldc c 'e'
 sto c
-lda 0 856
+lda 0 639
+ldc c 'l'
+sto c
+lda 0 640
+ldc c 'f'
+sto c
+lda 0 641
+ldc c '.'
+sto c
+lda 0 642
 ldc c ' '
 sto c
-lda 0 857
-ldc c 'g'
+lda 0 643
+ldc c 'M'
 sto c
-lda 0 858
+lda 0 644
+ldc c 'e'
+sto c
+lda 0 645
 ldc c 'a'
 sto c
-lda 0 859
-ldc c 'm'
+lda 0 646
+ldc c 'n'
 sto c
-lda 0 860
+lda 0 647
+ldc c 'w'
+sto c
+lda 0 648
+ldc c 'h'
+sto c
+lda 0 649
+ldc c 'i'
+sto c
+lda 0 650
+ldc c 'l'
+sto c
+lda 0 651
 ldc c 'e'
 sto c
-lda 0 861
+lda 0 652
+ldc c ' '
+sto c
+lda 0 653
+ldc c 't'
+sto c
+lda 0 654
+ldc c 'r'
+sto c
+lda 0 655
+ldc c 'y'
+sto c
+lda 0 656
+ldc c ' '
+sto c
+lda 0 657
+ldc c 't'
+sto c
+lda 0 658
+ldc c 'o'
+sto c
+lda 0 659
 ldc c '\n'
 sto c
-lda 0 862
-ldc c '\n'
-sto c
-lda 0 863
+lda 0 660
 ldc c 27
 sto c
-lda 0 399
-ldc c '*'
+lda 0 267
+ldc c '%'
 sto c
-lda 0 400
+lda 0 268
+ldc c 'c'
+sto c
+lda 0 876
+ldc c '''
+sto c
+lda 0 877
+ldc c '#'
+sto c
+lda 0 878
+ldc c '''
+sto c
+lda 0 879
 ldc c ' '
 sto c
-lda 0 401
+lda 0 880
+ldc c '='
+sto c
+lda 0 881
 ldc c ' '
+sto c
+lda 0 882
+ldc c 'W'
+sto c
+lda 0 883
+ldc c 'a'
+sto c
+lda 0 884
+ldc c 'l'
+sto c
+lda 0 885
+ldc c 'l'
+sto c
+lda 0 886
+ldc c '\n'
+sto c
+lda 0 887
+ldc c '''
+sto c
+lda 0 888
+ldc c '@'
+sto c
+lda 0 889
+ldc c '''
+sto c
+lda 0 890
+ldc c ' '
+sto c
+lda 0 891
+ldc c '='
+sto c
+lda 0 892
+ldc c ' '
+sto c
+lda 0 893
+ldc c 'S'
+sto c
+lda 0 894
+ldc c 'n'
+sto c
+lda 0 895
+ldc c 'a'
+sto c
+lda 0 896
+ldc c 'k'
+sto c
+lda 0 897
+ldc c 'e'
+sto c
+lda 0 898
+ldc c '''
+sto c
+lda 0 899
+ldc c 's'
+sto c
+lda 0 900
+ldc c ' '
+sto c
+lda 0 901
+ldc c 'h'
+sto c
+lda 0 902
+ldc c 'e'
+sto c
+lda 0 903
+ldc c 'a'
+sto c
+lda 0 904
+ldc c 'd'
+sto c
+lda 0 905
+ldc c '\n'
+sto c
+lda 0 906
+ldc c '''
+sto c
+lda 0 907
+ldc c 'x'
+sto c
+lda 0 908
+ldc c '''
+sto c
+lda 0 909
+ldc c ' '
+sto c
+lda 0 910
+ldc c '='
+sto c
+lda 0 911
+ldc c ' '
+sto c
+lda 0 912
+ldc c 'S'
+sto c
+lda 0 913
+ldc c 'n'
+sto c
+lda 0 914
+ldc c 'a'
+sto c
+lda 0 915
+ldc c 'k'
+sto c
+lda 0 916
+ldc c 'e'
+sto c
+lda 0 917
+ldc c '''
+sto c
+lda 0 918
+ldc c 's'
+sto c
+lda 0 919
+ldc c ' '
+sto c
+lda 0 920
+ldc c 'b'
+sto c
+lda 0 921
+ldc c 'o'
+sto c
+lda 0 922
+ldc c 'd'
+sto c
+lda 0 923
+ldc c 'y'
+sto c
+lda 0 924
+ldc c '\n'
+sto c
+lda 0 925
+ldc c '''
+sto c
+lda 0 926
+ldc c '$'
+sto c
+lda 0 927
+ldc c '''
+sto c
+lda 0 928
+ldc c ' '
+sto c
+lda 0 929
+ldc c '='
+sto c
+lda 0 930
+ldc c ' '
+sto c
+lda 0 931
+ldc c 'P'
+sto c
+lda 0 932
+ldc c 'r'
+sto c
+lda 0 933
+ldc c 'i'
+sto c
+lda 0 934
+ldc c 'c'
+sto c
+lda 0 935
+ldc c 'e'
+sto c
+lda 0 936
+ldc c '\n'
+sto c
+lda 0 937
+ldc c '\n'
+sto c
+lda 0 938
+ldc c 27
+sto c
+lda 0 816
+ldc c '''
+sto c
+lda 0 817
+ldc c 'a'
+sto c
+lda 0 818
+ldc c '''
+sto c
+lda 0 819
+ldc c '|'
+sto c
+lda 0 820
+ldc c '''
+sto c
+lda 0 821
+ldc c 'q'
+sto c
+lda 0 822
+ldc c '''
+sto c
+lda 0 823
+ldc c ' '
+sto c
+lda 0 824
+ldc c '='
+sto c
+lda 0 825
+ldc c ' '
+sto c
+lda 0 826
+ldc c 'L'
+sto c
+lda 0 827
+ldc c 'e'
+sto c
+lda 0 828
+ldc c 'f'
+sto c
+lda 0 829
+ldc c 't'
+sto c
+lda 0 830
+ldc c '\n'
+sto c
+lda 0 831
+ldc c 27
+sto c
+lda 0 832
+ldc c '''
+sto c
+lda 0 833
+ldc c 'd'
+sto c
+lda 0 834
+ldc c '''
+sto c
+lda 0 835
+ldc c ' '
+sto c
+lda 0 836
+ldc c '='
+sto c
+lda 0 837
+ldc c ' '
+sto c
+lda 0 838
+ldc c 'R'
+sto c
+lda 0 839
+ldc c 'i'
+sto c
+lda 0 840
+ldc c 'g'
+sto c
+lda 0 841
+ldc c 'h'
+sto c
+lda 0 842
+ldc c 't'
+sto c
+lda 0 843
+ldc c '\n'
+sto c
+lda 0 844
+ldc c 27
+sto c
+lda 0 804
+ldc c '''
+sto c
+lda 0 805
+ldc c 's'
+sto c
+lda 0 806
+ldc c '''
+sto c
+lda 0 807
+ldc c ' '
+sto c
+lda 0 808
+ldc c '='
+sto c
+lda 0 809
+ldc c ' '
+sto c
+lda 0 810
+ldc c 'D'
+sto c
+lda 0 811
+ldc c 'o'
+sto c
+lda 0 812
+ldc c 'w'
+sto c
+lda 0 813
+ldc c 'n'
+sto c
+lda 0 814
+ldc c '\n'
+sto c
+lda 0 815
+ldc c 27
+sto c
+lda 0 790
+ldc c '''
+sto c
+lda 0 791
+ldc c 'w'
+sto c
+lda 0 792
+ldc c '''
+sto c
+lda 0 793
+ldc c '|'
+sto c
+lda 0 794
+ldc c '''
+sto c
+lda 0 795
+ldc c 'z'
+sto c
+lda 0 796
+ldc c '''
+sto c
+lda 0 797
+ldc c ' '
+sto c
+lda 0 798
+ldc c '='
+sto c
+lda 0 799
+ldc c ' '
+sto c
+lda 0 800
+ldc c 'U'
+sto c
+lda 0 801
+ldc c 'p'
+sto c
+lda 0 802
+ldc c '\n'
+sto c
+lda 0 803
+ldc c 27
+sto c
+lda 0 845
+ldc c '''
+sto c
+lda 0 846
+ldc c 'x'
+sto c
+lda 0 847
+ldc c '''
+sto c
+lda 0 848
+ldc c ' '
+sto c
+lda 0 849
+ldc c '='
+sto c
+lda 0 850
+ldc c ' '
+sto c
+lda 0 851
+ldc c 'Q'
+sto c
+lda 0 852
+ldc c 'u'
+sto c
+lda 0 853
+ldc c 'i'
+sto c
+lda 0 854
+ldc c 't'
+sto c
+lda 0 855
+ldc c ' '
+sto c
+lda 0 856
+ldc c 't'
+sto c
+lda 0 857
+ldc c 'h'
+sto c
+lda 0 858
+ldc c 'e'
+sto c
+lda 0 859
+ldc c ' '
+sto c
+lda 0 860
+ldc c 'g'
+sto c
+lda 0 861
+ldc c 'a'
+sto c
+lda 0 862
+ldc c 'm'
+sto c
+lda 0 863
+ldc c 'e'
+sto c
+lda 0 864
+ldc c '\n'
+sto c
+lda 0 865
+ldc c '\n'
+sto c
+lda 0 866
+ldc c 27
 sto c
 lda 0 402
-ldc c ' '
+ldc c '*'
 sto c
 lda 0 403
 ldc c ' '
@@ -958,55 +949,55 @@ lda 0 410
 ldc c ' '
 sto c
 lda 0 411
-ldc c 'b'
+ldc c ' '
 sto c
 lda 0 412
-ldc c 'y'
+ldc c ' '
 sto c
 lda 0 413
 ldc c ' '
 sto c
 lda 0 414
-ldc c 'T'
+ldc c 'b'
 sto c
 lda 0 415
-ldc c 'i'
-sto c
-lda 0 416
-ldc c 'm'
-sto c
-lda 0 417
-ldc c 'o'
-sto c
-lda 0 418
-ldc c ' '
-sto c
-lda 0 419
-ldc c 'T'
-sto c
-lda 0 420
-ldc c 'r'
-sto c
-lda 0 421
-ldc c 'u'
-sto c
-lda 0 422
 ldc c 'y'
 sto c
+lda 0 416
+ldc c ' '
+sto c
+lda 0 417
+ldc c 'T'
+sto c
+lda 0 418
+ldc c 'i'
+sto c
+lda 0 419
+ldc c 'm'
+sto c
+lda 0 420
+ldc c 'o'
+sto c
+lda 0 421
+ldc c ' '
+sto c
+lda 0 422
+ldc c 'T'
+sto c
 lda 0 423
-ldc c 't'
+ldc c 'r'
 sto c
 lda 0 424
-ldc c 's'
+ldc c 'u'
 sto c
 lda 0 425
-ldc c ' '
+ldc c 'y'
 sto c
 lda 0 426
-ldc c ' '
+ldc c 't'
 sto c
 lda 0 427
-ldc c ' '
+ldc c 's'
 sto c
 lda 0 428
 ldc c ' '
@@ -1042,25 +1033,25 @@ lda 0 438
 ldc c ' '
 sto c
 lda 0 439
-ldc c '*'
+ldc c ' '
 sto c
 lda 0 440
-ldc c '\n'
+ldc c ' '
 sto c
 lda 0 441
-ldc c 27
+ldc c ' '
 sto c
-lda 0 356
+lda 0 442
 ldc c '*'
 sto c
-lda 0 357
-ldc c ' '
+lda 0 443
+ldc c '\n'
 sto c
-lda 0 358
-ldc c ' '
+lda 0 444
+ldc c 27
 sto c
 lda 0 359
-ldc c ' '
+ldc c '*'
 sto c
 lda 0 360
 ldc c ' '
@@ -1087,55 +1078,55 @@ lda 0 367
 ldc c ' '
 sto c
 lda 0 368
-ldc c 'v'
+ldc c ' '
 sto c
 lda 0 369
-ldc c 'e'
+ldc c ' '
 sto c
 lda 0 370
-ldc c 'r'
+ldc c ' '
 sto c
 lda 0 371
-ldc c 's'
+ldc c 'v'
 sto c
 lda 0 372
-ldc c 'i'
+ldc c 'e'
 sto c
 lda 0 373
-ldc c 'o'
+ldc c 'r'
 sto c
 lda 0 374
-ldc c 'n'
+ldc c 's'
 sto c
 lda 0 375
-ldc c ' '
+ldc c 'i'
 sto c
 lda 0 376
-ldc c '0'
+ldc c 'o'
 sto c
 lda 0 377
-ldc c '.'
+ldc c 'n'
 sto c
 lda 0 378
-ldc c '0'
+ldc c ' '
 sto c
 lda 0 379
-ldc c '.'
+ldc c '0'
 sto c
 lda 0 380
-ldc c '1'
+ldc c '.'
 sto c
 lda 0 381
-ldc c 'a'
+ldc c '0'
 sto c
 lda 0 382
-ldc c ' '
+ldc c '.'
 sto c
 lda 0 383
-ldc c ' '
+ldc c '1'
 sto c
 lda 0 384
-ldc c ' '
+ldc c 'a'
 sto c
 lda 0 385
 ldc c ' '
@@ -1171,25 +1162,25 @@ lda 0 395
 ldc c ' '
 sto c
 lda 0 396
-ldc c '*'
+ldc c ' '
 sto c
 lda 0 397
-ldc c '\n'
+ldc c ' '
 sto c
 lda 0 398
-ldc c 27
+ldc c ' '
 sto c
-lda 0 313
+lda 0 399
 ldc c '*'
 sto c
-lda 0 314
-ldc c ' '
+lda 0 400
+ldc c '\n'
 sto c
-lda 0 315
-ldc c ' '
+lda 0 401
+ldc c 27
 sto c
 lda 0 316
-ldc c ' '
+ldc c '*'
 sto c
 lda 0 317
 ldc c ' '
@@ -1210,67 +1201,67 @@ lda 0 322
 ldc c ' '
 sto c
 lda 0 323
-ldc c 'W'
-sto c
-lda 0 324
-ldc c 'E'
-sto c
-lda 0 325
-ldc c 'L'
-sto c
-lda 0 326
-ldc c 'C'
-sto c
-lda 0 327
-ldc c 'O'
-sto c
-lda 0 328
-ldc c 'M'
-sto c
-lda 0 329
-ldc c 'E'
-sto c
-lda 0 330
 ldc c ' '
 sto c
+lda 0 324
+ldc c ' '
+sto c
+lda 0 325
+ldc c ' '
+sto c
+lda 0 326
+ldc c 'W'
+sto c
+lda 0 327
+ldc c 'E'
+sto c
+lda 0 328
+ldc c 'L'
+sto c
+lda 0 329
+ldc c 'C'
+sto c
+lda 0 330
+ldc c 'O'
+sto c
 lda 0 331
-ldc c 'T'
+ldc c 'M'
 sto c
 lda 0 332
-ldc c 'O'
+ldc c 'E'
 sto c
 lda 0 333
 ldc c ' '
 sto c
 lda 0 334
-ldc c 'P'
+ldc c 'T'
 sto c
 lda 0 335
-ldc c '-'
+ldc c 'O'
 sto c
 lda 0 336
-ldc c 'S'
+ldc c ' '
 sto c
 lda 0 337
-ldc c 'N'
+ldc c 'P'
 sto c
 lda 0 338
-ldc c 'A'
+ldc c '-'
 sto c
 lda 0 339
-ldc c 'K'
+ldc c 'S'
 sto c
 lda 0 340
-ldc c 'E'
+ldc c 'N'
 sto c
 lda 0 341
-ldc c ' '
+ldc c 'A'
 sto c
 lda 0 342
-ldc c ' '
+ldc c 'K'
 sto c
 lda 0 343
-ldc c ' '
+ldc c 'E'
 sto c
 lda 0 344
 ldc c ' '
@@ -1300,151 +1291,151 @@ lda 0 352
 ldc c ' '
 sto c
 lda 0 353
-ldc c '*'
+ldc c ' '
 sto c
 lda 0 354
-ldc c '\n'
+ldc c ' '
 sto c
 lda 0 355
-ldc c 27
+ldc c ' '
 sto c
-lda 0 442
+lda 0 356
 ldc c '*'
 sto c
-lda 0 443
-ldc c ' '
+lda 0 357
+ldc c '\n'
 sto c
-lda 0 444
-ldc c 'T'
+lda 0 358
+ldc c 27
 sto c
 lda 0 445
-ldc c 'h'
+ldc c '*'
 sto c
 lda 0 446
-ldc c 'i'
+ldc c ' '
 sto c
 lda 0 447
-ldc c 's'
+ldc c 'T'
 sto c
 lda 0 448
-ldc c ' '
+ldc c 'h'
 sto c
 lda 0 449
-ldc c 's'
-sto c
-lda 0 450
-ldc c 'o'
-sto c
-lda 0 451
-ldc c 'f'
-sto c
-lda 0 452
-ldc c 't'
-sto c
-lda 0 453
-ldc c 'w'
-sto c
-lda 0 454
-ldc c 'a'
-sto c
-lda 0 455
-ldc c 'r'
-sto c
-lda 0 456
-ldc c 'e'
-sto c
-lda 0 457
-ldc c ' '
-sto c
-lda 0 458
 ldc c 'i'
 sto c
-lda 0 459
+lda 0 450
 ldc c 's'
+sto c
+lda 0 451
+ldc c ' '
+sto c
+lda 0 452
+ldc c 's'
+sto c
+lda 0 453
+ldc c 'o'
+sto c
+lda 0 454
+ldc c 'f'
+sto c
+lda 0 455
+ldc c 't'
+sto c
+lda 0 456
+ldc c 'w'
+sto c
+lda 0 457
+ldc c 'a'
+sto c
+lda 0 458
+ldc c 'r'
+sto c
+lda 0 459
+ldc c 'e'
 sto c
 lda 0 460
 ldc c ' '
 sto c
 lda 0 461
-ldc c 'l'
-sto c
-lda 0 462
 ldc c 'i'
 sto c
+lda 0 462
+ldc c 's'
+sto c
 lda 0 463
-ldc c 'c'
+ldc c ' '
 sto c
 lda 0 464
-ldc c 'e'
+ldc c 'l'
 sto c
 lda 0 465
-ldc c 'n'
+ldc c 'i'
 sto c
 lda 0 466
-ldc c 's'
+ldc c 'c'
 sto c
 lda 0 467
 ldc c 'e'
 sto c
 lda 0 468
-ldc c 'd'
-sto c
-lda 0 469
-ldc c ' '
-sto c
-lda 0 470
-ldc c 'u'
-sto c
-lda 0 471
 ldc c 'n'
 sto c
-lda 0 472
-ldc c 'd'
+lda 0 469
+ldc c 's'
 sto c
-lda 0 473
+lda 0 470
 ldc c 'e'
 sto c
+lda 0 471
+ldc c 'd'
+sto c
+lda 0 472
+ldc c ' '
+sto c
+lda 0 473
+ldc c 'u'
+sto c
 lda 0 474
-ldc c 'r'
+ldc c 'n'
 sto c
 lda 0 475
-ldc c ' '
+ldc c 'd'
 sto c
 lda 0 476
-ldc c 'W'
+ldc c 'e'
 sto c
 lda 0 477
-ldc c 'T'
+ldc c 'r'
 sto c
 lda 0 478
-ldc c 'F'
-sto c
-lda 0 479
-ldc c 'P'
-sto c
-lda 0 480
-ldc c 'L'
-sto c
-lda 0 481
 ldc c ' '
 sto c
+lda 0 479
+ldc c 'W'
+sto c
+lda 0 480
+ldc c 'T'
+sto c
+lda 0 481
+ldc c 'F'
+sto c
 lda 0 482
-ldc c '*'
+ldc c 'P'
 sto c
 lda 0 483
-ldc c '\n'
+ldc c 'L'
 sto c
 lda 0 484
+ldc c ' '
+sto c
+lda 0 485
+ldc c '*'
+sto c
+lda 0 486
+ldc c '\n'
+sto c
+lda 0 487
 ldc c 27
-sto c
-lda 0 270
-ldc c '*'
-sto c
-lda 0 271
-ldc c '*'
-sto c
-lda 0 272
-ldc c '*'
 sto c
 lda 0 273
 ldc c '*'
@@ -1561,19 +1552,19 @@ lda 0 310
 ldc c '*'
 sto c
 lda 0 311
-ldc c '\n'
+ldc c '*'
 sto c
 lda 0 312
+ldc c '*'
+sto c
+lda 0 313
+ldc c '*'
+sto c
+lda 0 314
+ldc c '\n'
+sto c
+lda 0 315
 ldc c 27
-sto c
-lda 0 485
-ldc c '*'
-sto c
-lda 0 486
-ldc c '*'
-sto c
-lda 0 487
-ldc c '*'
 sto c
 lda 0 488
 ldc c '*'
@@ -1690,12 +1681,21 @@ lda 0 525
 ldc c '*'
 sto c
 lda 0 526
-ldc c '\n'
+ldc c '*'
 sto c
 lda 0 527
-ldc c '\n'
+ldc c '*'
 sto c
 lda 0 528
+ldc c '*'
+sto c
+lda 0 529
+ldc c '\n'
+sto c
+lda 0 530
+ldc c '\n'
+sto c
+lda 0 531
 ldc c 27
 sto c
 lda 0 1040
@@ -1896,32 +1896,23 @@ sto c
 lda 0 1037
 ldc c 27
 sto c
-lda 0 702
+lda 0 705
 ldc c 'I'
 sto c
-lda 0 703
+lda 0 706
 ldc c 'n'
 sto c
-lda 0 704
+lda 0 707
 ldc c 'p'
 sto c
-lda 0 705
+lda 0 708
 ldc c 'u'
 sto c
-lda 0 706
+lda 0 709
 ldc c 't'
 sto c
-lda 0 707
-ldc c ':'
-sto c
-lda 0 708
-ldc c ' '
-sto c
-lda 0 709
-ldc c ' '
-sto c
 lda 0 710
-ldc c ' '
+ldc c ':'
 sto c
 lda 0 711
 ldc c ' '
@@ -1930,414 +1921,423 @@ lda 0 712
 ldc c ' '
 sto c
 lda 0 713
-ldc c 'I'
-sto c
-lda 0 714
-ldc c 'n'
-sto c
-lda 0 715
-ldc c 'p'
-sto c
-lda 0 716
-ldc c 'u'
-sto c
-lda 0 717
-ldc c 't'
-sto c
-lda 0 718
 ldc c ' '
 sto c
+lda 0 714
+ldc c ' '
+sto c
+lda 0 715
+ldc c ' '
+sto c
+lda 0 716
+ldc c 'I'
+sto c
+lda 0 717
+ldc c 'n'
+sto c
+lda 0 718
+ldc c 'p'
+sto c
 lda 0 719
-ldc c 'i'
+ldc c 'u'
 sto c
 lda 0 720
-ldc c 's'
+ldc c 't'
 sto c
 lda 0 721
 ldc c ' '
 sto c
 lda 0 722
-ldc c 'g'
-sto c
-lda 0 723
 ldc c 'i'
 sto c
+lda 0 723
+ldc c 's'
+sto c
 lda 0 724
-ldc c 'v'
-sto c
-lda 0 725
-ldc c 'e'
-sto c
-lda 0 726
-ldc c 'n'
-sto c
-lda 0 727
 ldc c ' '
 sto c
+lda 0 725
+ldc c 'g'
+sto c
+lda 0 726
+ldc c 'i'
+sto c
+lda 0 727
+ldc c 'v'
+sto c
 lda 0 728
-ldc c 'b'
+ldc c 'e'
 sto c
 lda 0 729
-ldc c 'y'
+ldc c 'n'
 sto c
 lda 0 730
 ldc c ' '
 sto c
 lda 0 731
-ldc c 'e'
+ldc c 'b'
 sto c
 lda 0 732
-ldc c 'n'
+ldc c 'y'
 sto c
 lda 0 733
-ldc c 't'
+ldc c ' '
 sto c
 lda 0 734
 ldc c 'e'
 sto c
 lda 0 735
-ldc c 'r'
+ldc c 'n'
 sto c
 lda 0 736
-ldc c 'i'
+ldc c 't'
 sto c
 lda 0 737
-ldc c 'n'
+ldc c 'e'
 sto c
 lda 0 738
-ldc c 'g'
+ldc c 'r'
 sto c
 lda 0 739
-ldc c ' '
-sto c
-lda 0 740
-ldc c 'a'
-sto c
-lda 0 741
-ldc c ' '
-sto c
-lda 0 742
-ldc c 'c'
-sto c
-lda 0 743
-ldc c 'h'
-sto c
-lda 0 744
-ldc c 'a'
-sto c
-lda 0 745
-ldc c 'r'
-sto c
-lda 0 746
-ldc c 'a'
-sto c
-lda 0 747
-ldc c 'c'
-sto c
-lda 0 748
-ldc c 't'
-sto c
-lda 0 749
-ldc c 'e'
-sto c
-lda 0 750
-ldc c 'r'
-sto c
-lda 0 751
-ldc c '\n'
-sto c
-lda 0 752
-ldc c 27
-sto c
-lda 0 864
-ldc c 'L'
-sto c
-lda 0 865
-ldc c 'e'
-sto c
-lda 0 866
-ldc c 'g'
-sto c
-lda 0 867
-ldc c 'e'
-sto c
-lda 0 868
-ldc c 'n'
-sto c
-lda 0 869
-ldc c 'd'
-sto c
-lda 0 870
-ldc c ':'
-sto c
-lda 0 871
-ldc c '\n'
-sto c
-lda 0 872
-ldc c 27
-sto c
-lda 0 529
-ldc c 'O'
-sto c
-lda 0 530
-ldc c 'b'
-sto c
-lda 0 531
-ldc c 'j'
-sto c
-lda 0 532
-ldc c 'e'
-sto c
-lda 0 533
-ldc c 'c'
-sto c
-lda 0 534
-ldc c 't'
-sto c
-lda 0 535
 ldc c 'i'
 sto c
-lda 0 536
-ldc c 'v'
+lda 0 740
+ldc c 'n'
 sto c
-lda 0 537
-ldc c 'e'
+lda 0 741
+ldc c 'g'
 sto c
-lda 0 538
-ldc c ':'
-sto c
-lda 0 539
+lda 0 742
 ldc c ' '
 sto c
-lda 0 540
-ldc c 'S'
-sto c
-lda 0 541
-ldc c 't'
-sto c
-lda 0 542
+lda 0 743
 ldc c 'a'
 sto c
+lda 0 744
+ldc c ' '
+sto c
+lda 0 745
+ldc c 'c'
+sto c
+lda 0 746
+ldc c 'h'
+sto c
+lda 0 747
+ldc c 'a'
+sto c
+lda 0 748
+ldc c 'r'
+sto c
+lda 0 749
+ldc c 'a'
+sto c
+lda 0 750
+ldc c 'c'
+sto c
+lda 0 751
+ldc c 't'
+sto c
+lda 0 752
+ldc c 'e'
+sto c
+lda 0 753
+ldc c 'r'
+sto c
+lda 0 754
+ldc c '\n'
+sto c
+lda 0 755
+ldc c 27
+sto c
+lda 0 867
+ldc c 'L'
+sto c
+lda 0 868
+ldc c 'e'
+sto c
+lda 0 869
+ldc c 'g'
+sto c
+lda 0 870
+ldc c 'e'
+sto c
+lda 0 871
+ldc c 'n'
+sto c
+lda 0 872
+ldc c 'd'
+sto c
+lda 0 873
+ldc c ':'
+sto c
+lda 0 874
+ldc c '\n'
+sto c
+lda 0 875
+ldc c 27
+sto c
+lda 0 532
+ldc c 'O'
+sto c
+lda 0 533
+ldc c 'b'
+sto c
+lda 0 534
+ldc c 'j'
+sto c
+lda 0 535
+ldc c 'e'
+sto c
+lda 0 536
+ldc c 'c'
+sto c
+lda 0 537
+ldc c 't'
+sto c
+lda 0 538
+ldc c 'i'
+sto c
+lda 0 539
+ldc c 'v'
+sto c
+lda 0 540
+ldc c 'e'
+sto c
+lda 0 541
+ldc c ':'
+sto c
+lda 0 542
+ldc c ' '
+sto c
 lda 0 543
-ldc c 'y'
+ldc c 'S'
 sto c
 lda 0 544
-ldc c ' '
+ldc c 't'
 sto c
 lda 0 545
 ldc c 'a'
 sto c
 lda 0 546
-ldc c 'l'
+ldc c 'y'
 sto c
 lda 0 547
-ldc c 'i'
-sto c
-lda 0 548
-ldc c 'v'
-sto c
-lda 0 549
-ldc c 'e'
-sto c
-lda 0 550
 ldc c ' '
 sto c
-lda 0 551
+lda 0 548
 ldc c 'a'
 sto c
+lda 0 549
+ldc c 'l'
+sto c
+lda 0 550
+ldc c 'i'
+sto c
+lda 0 551
+ldc c 'v'
+sto c
 lda 0 552
-ldc c 's'
+ldc c 'e'
 sto c
 lda 0 553
 ldc c ' '
 sto c
 lda 0 554
-ldc c 'l'
-sto c
-lda 0 555
-ldc c 'o'
-sto c
-lda 0 556
-ldc c 'n'
-sto c
-lda 0 557
-ldc c 'g'
-sto c
-lda 0 558
-ldc c ' '
-sto c
-lda 0 559
 ldc c 'a'
 sto c
-lda 0 560
+lda 0 555
 ldc c 's'
+sto c
+lda 0 556
+ldc c ' '
+sto c
+lda 0 557
+ldc c 'l'
+sto c
+lda 0 558
+ldc c 'o'
+sto c
+lda 0 559
+ldc c 'n'
+sto c
+lda 0 560
+ldc c 'g'
 sto c
 lda 0 561
 ldc c ' '
 sto c
 lda 0 562
-ldc c 'p'
+ldc c 'a'
 sto c
 lda 0 563
-ldc c 'o'
+ldc c 's'
 sto c
 lda 0 564
-ldc c 's'
-sto c
-lda 0 565
-ldc c 's'
-sto c
-lda 0 566
-ldc c 'i'
-sto c
-lda 0 567
-ldc c 'b'
-sto c
-lda 0 568
-ldc c 'l'
-sto c
-lda 0 569
-ldc c 'e'
-sto c
-lda 0 570
-ldc c '\n'
-sto c
-lda 0 571
-ldc c 27
-sto c
-lda 0 936
-ldc c 'P'
-sto c
-lda 0 937
-ldc c 'r'
-sto c
-lda 0 938
-ldc c 'e'
-sto c
-lda 0 939
-ldc c 's'
-sto c
-lda 0 940
-ldc c 's'
-sto c
-lda 0 941
 ldc c ' '
 sto c
+lda 0 565
+ldc c 'p'
+sto c
+lda 0 566
+ldc c 'o'
+sto c
+lda 0 567
+ldc c 's'
+sto c
+lda 0 568
+ldc c 's'
+sto c
+lda 0 569
+ldc c 'i'
+sto c
+lda 0 570
+ldc c 'b'
+sto c
+lda 0 571
+ldc c 'l'
+sto c
+lda 0 572
+ldc c 'e'
+sto c
+lda 0 573
+ldc c '\n'
+sto c
+lda 0 574
+ldc c 27
+sto c
+lda 0 939
+ldc c 'P'
+sto c
+lda 0 940
+ldc c 'r'
+sto c
+lda 0 941
+ldc c 'e'
+sto c
 lda 0 942
-ldc c '''
+ldc c 's'
 sto c
 lda 0 943
 ldc c 's'
 sto c
 lda 0 944
-ldc c '''
-sto c
-lda 0 945
 ldc c ' '
 sto c
+lda 0 945
+ldc c '''
+sto c
 lda 0 946
-ldc c 't'
+ldc c 's'
 sto c
 lda 0 947
-ldc c 'o'
+ldc c '''
 sto c
 lda 0 948
 ldc c ' '
 sto c
 lda 0 949
-ldc c 's'
-sto c
-lda 0 950
 ldc c 't'
 sto c
+lda 0 950
+ldc c 'o'
+sto c
 lda 0 951
-ldc c 'a'
+ldc c ' '
 sto c
 lda 0 952
-ldc c 'r'
+ldc c 's'
 sto c
 lda 0 953
 ldc c 't'
 sto c
 lda 0 954
-ldc c ' '
-sto c
-lda 0 955
-ldc c 't'
-sto c
-lda 0 956
-ldc c 'h'
-sto c
-lda 0 957
-ldc c 'e'
-sto c
-lda 0 958
-ldc c ' '
-sto c
-lda 0 959
-ldc c 'g'
-sto c
-lda 0 960
 ldc c 'a'
 sto c
-lda 0 961
-ldc c 'm'
+lda 0 955
+ldc c 'r'
 sto c
-lda 0 962
-ldc c 'e'
+lda 0 956
+ldc c 't'
 sto c
-lda 0 963
+lda 0 957
 ldc c ' '
 sto c
+lda 0 958
+ldc c 't'
+sto c
+lda 0 959
+ldc c 'h'
+sto c
+lda 0 960
+ldc c 'e'
+sto c
+lda 0 961
+ldc c ' '
+sto c
+lda 0 962
+ldc c 'g'
+sto c
+lda 0 963
+ldc c 'a'
+sto c
 lda 0 964
-ldc c 'o'
+ldc c 'm'
 sto c
 lda 0 965
-ldc c 'r'
+ldc c 'e'
 sto c
 lda 0 966
 ldc c ' '
 sto c
 lda 0 967
-ldc c '''
+ldc c 'o'
 sto c
 lda 0 968
-ldc c 'x'
+ldc c 'r'
 sto c
 lda 0 969
-ldc c '''
-sto c
-lda 0 970
 ldc c ' '
 sto c
+lda 0 970
+ldc c '''
+sto c
 lda 0 971
-ldc c 't'
+ldc c 'x'
 sto c
 lda 0 972
-ldc c 'o'
+ldc c '''
 sto c
 lda 0 973
 ldc c ' '
 sto c
 lda 0 974
-ldc c 'q'
-sto c
-lda 0 975
-ldc c 'u'
-sto c
-lda 0 976
-ldc c 'i'
-sto c
-lda 0 977
 ldc c 't'
 sto c
-lda 0 978
-ldc c ':'
+lda 0 975
+ldc c 'o'
 sto c
-lda 0 979
+lda 0 976
 ldc c ' '
 sto c
+lda 0 977
+ldc c 'q'
+sto c
+lda 0 978
+ldc c 'u'
+sto c
+lda 0 979
+ldc c 'i'
+sto c
 lda 0 980
+ldc c 't'
+sto c
+lda 0 981
+ldc c ':'
+sto c
+lda 0 982
+ldc c ' '
+sto c
+lda 0 983
 ldc c 27
 sto c
 lda 0 984
@@ -3003,7 +3003,7 @@ str i 0 265
 ldc i 0
 str i 0 266
 ldc i 1
-str i 0 269
+str i 0 272
 mst 0
 cup 0 function_main
 hlt
@@ -3262,6 +3262,12 @@ lod i 0 6
 lod i 0 5
 cup 2 function_topos
 str i 0 7
+lda 1 7
+lod i 0 7
+chk 0 224
+ixa 1
+ind c
+out c
 l17_for_iteration:
 ldc a 0
 lda 0 6
@@ -3594,7 +3600,7 @@ function_handlespawnprice:
 ssp 14
 mst 1
 lod i 1 265
-lod i 1 269
+lod i 1 272
 cup 2 function_modulo
 ldc i 0
 neq i
@@ -3827,7 +3833,7 @@ sto i
 ind i
 sto i
 ldc a 0
-lda 1 269
+lda 1 272
 dpl a
 mst 1
 lod i 1 266
@@ -3848,14 +3854,14 @@ cup 2 function_modulo
 sto i
 ind i
 sto i
-lod i 1 269
+lod i 1 272
 ldc i 0
 equ i
 conv b i
 conv i b
 fjp l64_else
 ldc a 0
-lda 1 269
+lda 1 272
 dpl a
 dpl a
 ind i

@@ -5,14 +5,14 @@ cup 0 function_main
 hlt
 
 function_f1:
-ssp 8
+ssp 6
 ldc i 0
 str i 0 0
 retf
 retf
 
 function_f2:
-ssp 8
+ssp 6
 ldc i 0
 str i 0 0
 retf

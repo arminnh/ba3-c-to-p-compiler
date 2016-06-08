@@ -2318,50 +2318,50 @@ retf
 retf
 
 function_matrixMultiply:
-ssp 209
+ssp 11
 ldc i 0
-str i 0 205
+str i 0 7
 ldc i 0
-str i 0 206
+str i 0 8
 ldc i 0
-str i 0 207
+str i 0 9
 ldc i 0
-str i 0 208
-lod i 0 206
+str i 0 10
+lod i 0 8
 lod i 1 5
 les i
 conv b i
 conv i b
 fjp l33_else
-lod i 0 207
+lod i 0 9
 lod i 1 8
 les i
 conv b i
 conv i b
 fjp l35_else
-lod i 0 208
+lod i 0 10
 lod i 1 7
 les i
 conv b i
 conv i b
 fjp l37_else
 ldc a 0
-lda 0 205
+lda 0 7
 dpl a
-lod i 0 205
+lod i 0 7
 lda 0 5
-lod i 0 206
-chk 0 99
+lod i 0 8
+chk 0 0
 ixa 10
-lod i 0 208
+lod i 0 10
 chk 0 9
 ixa 1
 ind i
-lda 0 105
-lod i 0 208
-chk 0 99
+lda 0 6
+lod i 0 10
+chk 0 0
 ixa 10
-lod i 0 207
+lod i 0 9
 chk 0 9
 ixa 1
 ind i
@@ -2371,7 +2371,7 @@ sto i
 ind i
 sto i
 ldc a 0
-lda 0 208
+lda 0 10
 dpl a
 dpl a
 ind i
@@ -2382,38 +2382,38 @@ dec i 1
 sto i
 mst 1
 lda 0 5
-lda 0 105
+lda 0 6
 cup 2 function_matrixMultiply
 l37_else:
 ldc a 0
 lda 1 9
-lod i 0 206
+lod i 0 8
 chk 0 99
 ixa 10
-lod i 0 207
+lod i 0 9
 chk 0 9
 ixa 1
 dpl a
-lod i 0 205
+lod i 0 7
 sto i
 ind i
 sto i
 ldc a 0
-lda 0 205
+lda 0 7
 dpl a
 ldc i 0
 sto i
 ind i
 sto i
 ldc a 0
-lda 0 208
+lda 0 10
 dpl a
 ldc i 0
 sto i
 ind i
 sto i
 ldc a 0
-lda 0 207
+lda 0 9
 dpl a
 dpl a
 ind i
@@ -2424,18 +2424,18 @@ dec i 1
 sto i
 mst 1
 lda 0 5
-lda 0 105
+lda 0 6
 cup 2 function_matrixMultiply
 l35_else:
 ldc a 0
-lda 0 207
+lda 0 9
 dpl a
 ldc i 0
 sto i
 ind i
 sto i
 ldc a 0
-lda 0 206
+lda 0 8
 dpl a
 dpl a
 ind i
@@ -2446,7 +2446,7 @@ dec i 1
 sto i
 mst 1
 lda 0 5
-lda 0 105
+lda 0 6
 cup 2 function_matrixMultiply
 l33_else:
 retp

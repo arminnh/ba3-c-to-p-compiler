@@ -32,6 +32,7 @@ sto i
 ldc a 0
 mst 1
 lod a 0 7
+ind a
 cup 1 function_f
 sto i
 retf

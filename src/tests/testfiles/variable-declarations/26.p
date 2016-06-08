@@ -25,7 +25,7 @@ cup 2 function_sum
 sto i
 ldc a 0
 mst 1
-lda 0 5
+lod i 0 5
 lda 0 6
 cup 2 function_sum
 sto i

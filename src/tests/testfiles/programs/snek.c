@@ -65,7 +65,7 @@ void printmap() {
 	for(int y = 0; y < HEIGHT; y++) {
 		for(int x = 0; x < WIDTH; x++) {
 			int pos = topos(x, y);
-			// printf("%c", map[pos]);
+			printf("%c", map[pos]);
 		}
 
 		printf("\n");

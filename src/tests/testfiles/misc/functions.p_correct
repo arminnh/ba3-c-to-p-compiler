@@ -511,10 +511,10 @@ l2_after_if:
 retf
 
 function_myFunction3:
-ssp 11
+ssp 7
 lda 0 5
 ldc i 3
-chk 0 4
+chk 0 0
 ixa 1
 ind i
 ldc i 0
@@ -522,7 +522,7 @@ equ i
 conv b i
 conv i b
 fjp l3_else
-lda 0 10
+lda 0 6
 ldc i 5
 chk 0 0
 ixa 1
@@ -531,7 +531,7 @@ str i 0 0
 retf
 ujp l4_after_if
 l3_else:
-lda 0 10
+lda 0 6
 ldc i 0
 chk 0 0
 ixa 1
