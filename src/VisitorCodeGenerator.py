@@ -179,6 +179,7 @@ class VisitorCodeGenerator(Visitor):
                 if child.getType().nrIndirections() > 0:
                     self._lvalue.append(True)
                     child.accept(self)
+                    self._lvalue.pop()
                 else:
                     child.accept(self)
             else:
