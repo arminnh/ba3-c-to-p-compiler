@@ -133,7 +133,7 @@ class ASTTest():
         if not expectedCodeFound:
             print("\nEXPECTED:\n" + pCodeGeneratedOriginal + "\nGOT:\n" + pCodeCorrectOriginal + "\n\n\n\n")
 
-        os.system("c99 " + filename + ".c -w")
+        os.system("c99 " + filename + ".c -w -o " + filename + ".testbin")
 
         self.assertTrue(expectedCodeFound)
 

@@ -1,3 +1,4 @@
+*.testbin
 out.p
 out_AST.txt
 out_symbol_table.txt

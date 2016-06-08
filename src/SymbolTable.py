@@ -204,7 +204,7 @@ class SymbolTable(object):
         scope = self.currentScope
 
         while scope is not None:
-            nametype = scope.retrieveSymbol(name, requireSeen)]
+            nametype = scope.retrieveSymbol(name, requireSeen)
             if nametype is not None:
                 return nametype
 
