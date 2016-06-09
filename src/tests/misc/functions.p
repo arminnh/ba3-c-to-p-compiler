@@ -1,4 +1,6 @@
 ldc i 0
+ldc i 0
+ldc i 0
 ssp 176
 lda 0 134
 ldc c '%'
@@ -680,7 +682,77 @@ ldc c 't'
 out c
 ldc c ' '
 out c
+ldc a 2
 ldc i 1257
+sto i
+ldc a 1
+ldc a 2
+ind i
+sto i
+ldc a 0
+ldc i 1
+sto i
+ldc a 1
+ind i
+ldc i 0
+les i
+fjp l5_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+neg i
+sto i
+l5_loop1:
+ldc a 1
+ind i
+ldc i 9
+grt i
+fjp l6_after_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+ldc i 10
+div i
+sto i
+ujp l5_loop1
+l6_after_loop1:
+ldc a 0
+ldc i 37
+ldc a 0
+ind i
+sub i
+sto i
+ldc a 1
+ldc i 0
+sto i
+l7_loop2:
+ldc a 1
+ind i
+ldc a 0
+ind i
+les i
+fjp l9_no_padding
+ldc c ' '
+out c
+ldc a 1
+ldc a 1
+ind i
+inc i 1
+sto i
+ujp l7_loop2
+l9_no_padding:
+ldc a 2
+ind i
 out i
 ldc c ','
 out c
@@ -714,7 +786,77 @@ ldc c 't'
 out c
 ldc c ' '
 out c
+ldc a 2
 ldc i 342347
+sto i
+ldc a 1
+ldc a 2
+ind i
+sto i
+ldc a 0
+ldc i 1
+sto i
+ldc a 1
+ind i
+ldc i 0
+les i
+fjp l10_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+neg i
+sto i
+l10_loop1:
+ldc a 1
+ind i
+ldc i 9
+grt i
+fjp l11_after_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+ldc i 10
+div i
+sto i
+ujp l10_loop1
+l11_after_loop1:
+ldc a 0
+ldc i 37
+ldc a 0
+ind i
+sub i
+sto i
+ldc a 1
+ldc i 0
+sto i
+l12_loop2:
+ldc a 1
+ind i
+ldc a 0
+ind i
+les i
+fjp l14_no_padding
+ldc c ' '
+out c
+ldc a 1
+ldc a 1
+ind i
+inc i 1
+sto i
+ujp l12_loop2
+l14_no_padding:
+ldc a 2
+ind i
 out i
 ldc c ','
 out c

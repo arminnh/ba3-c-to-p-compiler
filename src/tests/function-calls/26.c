@@ -9,5 +9,6 @@ int main() {
   printf("%5d\n", -5400);
   printf("%5d\n", -64000);
   printf("%5d\n", 764000);
+  printf("%5s\n", "he");
 
 }

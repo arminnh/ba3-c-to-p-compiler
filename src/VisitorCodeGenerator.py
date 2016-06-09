@@ -429,7 +429,7 @@ class VisitorCodeGenerator(Visitor):
                     self.outFile.write("out c\n")
             else:
                 width, node = el
-                if node.getType().equals(TYPES["int"]):
+                if node.getType().equals(TYPES["int"]) and width > 0:
                     loop1Label = self.getLabel() + "_loop1"
                     afterLoop1Label = self.getLabel() + "_after_loop1"
                     loop2Label = self.getLabel() + "_loop2"

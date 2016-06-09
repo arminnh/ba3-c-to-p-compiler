@@ -423,7 +423,7 @@ class FunctionCallsTests(ASTTest, unittest.TestCase):
         self.generateErrorsAndCompare("function-calls/25")
 
     def test26(self):
-        self.generateErrorsAndCompare("function-calls/26")
+        self.generateNoError("function-calls/26")
 
 
 class VariableDeclarationsTests(ASTTest, unittest.TestCase):

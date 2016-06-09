@@ -1,4 +1,6 @@
 ldc i 0
+ldc i 0
+ldc i 0
 ssp 28
 lda 0 8
 ldc c ' '
@@ -633,6 +635,7 @@ les i
 conv b i
 conv i b
 fjp l12_for_after
+ldc a 2
 lda 0 5
 lod i 0 247
 chk 0 239
@@ -640,6 +643,75 @@ ixa 16
 lod i 0 248
 chk 0 15
 ixa 1
+ind i
+sto i
+ldc a 1
+ldc a 2
+ind i
+sto i
+ldc a 0
+ldc i 1
+sto i
+ldc a 1
+ind i
+ldc i 0
+les i
+fjp l13_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+neg i
+sto i
+l13_loop1:
+ldc a 1
+ind i
+ldc i 9
+grt i
+fjp l14_after_loop1
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+ldc a 1
+ldc a 1
+ind i
+ldc i 10
+div i
+sto i
+ujp l13_loop1
+l14_after_loop1:
+ldc a 0
+ldc i 2
+ldc a 0
+ind i
+sub i
+sto i
+ldc a 1
+ldc i 0
+sto i
+l15_loop2:
+ldc a 1
+ind i
+ldc a 0
+ind i
+les i
+fjp l17_no_padding
+ldc c ' '
+out c
+ldc a 1
+ldc a 1
+ind i
+inc i 1
+sto i
+ujp l15_loop2
+l17_no_padding:
+ldc a 2
 ind i
 out i
 lod i 0 248
@@ -649,12 +721,12 @@ sub i
 les i
 conv b i
 conv i b
-fjp l13_else
+fjp l18_else
 ldc c ','
 out c
 ldc c ' '
 out c
-l13_else:
+l18_else:
 l10_for_iteration:
 ldc a 0
 lda 0 248

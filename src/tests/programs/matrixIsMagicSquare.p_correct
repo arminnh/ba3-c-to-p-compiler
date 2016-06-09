@@ -1,4 +1,6 @@
 ldc i 0
+ldc i 0
+ldc i 0
 ssp 84
 lda 0 49
 ldc c '\t'
