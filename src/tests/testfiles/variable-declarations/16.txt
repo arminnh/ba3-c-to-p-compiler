@@ -1,9 +1,0 @@
-testfiles/variable-declarations/16.c:2:11: warning: excess elements in scalar initializer
-     float a = {"error", 1, 2.0, '3', "aaa"};
-           ^
-testfiles/variable-declarations/16.c:2:11: error: incompatible types when initializing type 'float' using type 'char *'
-     float a = {"error", 1, 2.0, '3', "aaa"};
-           ^
-testfiles/variable-declarations/16.c:4:5: error: incompatible conversion returning 'float' from a function with return type 'int'
-     return a;
-     ^

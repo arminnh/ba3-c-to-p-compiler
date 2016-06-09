@@ -1,3 +1,0 @@
-testfiles/function-declarations/2.c:5:1: error: redefinition of function 'f'
- int f(int a, int b) {
- ^

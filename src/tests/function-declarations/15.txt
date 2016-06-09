@@ -1,0 +1,3 @@
+function-declarations/15.c:2:5: error: incompatible conversion returning 'int' from a function with return type 'const int *****const *****const *'
+     return 0;
+     ^

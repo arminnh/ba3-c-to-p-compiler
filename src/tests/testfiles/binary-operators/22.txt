@@ -1,3 +1,0 @@
-testfiles/binary-operators/22.c:2:5: error: invalid operands to binary '%' (have 'char *' and 'float')
-"a" % 4.0;
-^

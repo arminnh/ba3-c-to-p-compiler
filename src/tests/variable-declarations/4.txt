@@ -1,0 +1,3 @@
+variable-declarations/4.c:3:9: error: incompatible types when initializing type 'float' using type 'int'
+   float a = 8;
+         ^

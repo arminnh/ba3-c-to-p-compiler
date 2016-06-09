@@ -1,0 +1,3 @@
+ternary-operator/1.c:3:6: error: invalid first operand to ternary '?:' (have 'char *', need 'int')
+     ("3.0" ? "a" : "b");
+      ^

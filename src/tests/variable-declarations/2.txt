@@ -1,0 +1,3 @@
+variable-declarations/2.c:3:7: error: identifier 'a' already taken by variable
+   int a;
+       ^

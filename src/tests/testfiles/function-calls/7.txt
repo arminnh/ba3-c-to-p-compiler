@@ -1,3 +1,0 @@
-testfiles/function-calls/7.c:8:5: error: number of arguments to function 'f' does not match definition (have 1, need 0)
-f(0.0);
-^

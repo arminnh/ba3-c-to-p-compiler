@@ -1,6 +1,0 @@
-testfiles/function-declarations/18.c:2:2: error: incompatible conversion returning 'char' from a function with return type 'float *'
-return 'a';
-^
-testfiles/function-declarations/18.c:6:2: error: incompatible conversion returning 'float' from a function with return type 'int'
-return 0.0;
-^

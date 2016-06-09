@@ -1,0 +1,3 @@
+variable-declarations/33.c:12:6: error: incompatible types when initializing type 'int' using type 'int (*const (*const)[4][2])[][3]'
+ 	int k = arr2;
+ 	    ^

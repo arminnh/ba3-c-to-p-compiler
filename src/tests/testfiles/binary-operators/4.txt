@@ -1,3 +1,0 @@
-testfiles/binary-operators/4.c:2:9: error: invalid operands to comparison '!=' (have 'float' and 'int')
-1.0 != 3;
-    ^

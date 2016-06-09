@@ -1,3 +1,0 @@
-testfiles/binary-operators/26.c:2:5: error: invalid operands to logical 'and' (have 'char' and 'int')
-'a' && 0;
-^

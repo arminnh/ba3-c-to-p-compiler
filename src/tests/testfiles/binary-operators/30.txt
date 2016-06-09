@@ -1,3 +1,0 @@
-testfiles/binary-operators/30.c:5:7: error: invalid operands to comparison '==' (have 'int' and 'float')
-a == b;
-  ^

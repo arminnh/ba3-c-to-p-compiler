@@ -1,3 +1,0 @@
-testfiles/unary-operators/8.c:2:3: error: invalid type argument of unary '*' (have 'int')
-*5;
- ^

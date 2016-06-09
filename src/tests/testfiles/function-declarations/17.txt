@@ -1,6 +1,0 @@
-testfiles/function-declarations/17.c:2:5: warning: 'return' with a value, in function returning void
-     return a;
-     ^
- testfiles/function-declarations/17.c:22:5: error: incompatible conversion returning 'char' from a function with return type 'char *'
-      return 'h';
-      ^

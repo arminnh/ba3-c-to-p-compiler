@@ -1,0 +1,3 @@
+function-calls/2.c:6:3: warning: passing argument 1 of 'f' from incompatible pointer type, expected 'int' but got 'char *'
+   f("c");
+   ^

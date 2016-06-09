@@ -1,0 +1,3 @@
+variable-declarations/17.c:2:9: error: empty scalar initializer
+     int aa = {};
+         ^

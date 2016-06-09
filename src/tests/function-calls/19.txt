@@ -1,0 +1,27 @@
+function-calls/19.c:12:17: error: void value not ignored as it ought to be
+     a = f(a) + (f2(a) * (f(a) - (f2(a) / f(a)) * (f2(a) + f(a)) / f2(a) % f(a) % f2(a)));
+                 ^
+function-calls/19.c:12:33: error: void value not ignored as it ought to be
+     a = f(a) + (f2(a) * (f(a) - (f2(a) / f(a)) * (f2(a) + f(a)) / f2(a) % f(a) % f2(a)));
+                                 ^
+function-calls/19.c:12:33: error: void value not ignored as it ought to be
+     a = f(a) + (f2(a) * (f(a) - (f2(a) / f(a)) * (f2(a) + f(a)) / f2(a) % f(a) % f2(a)));
+                                 ^
+function-calls/19.c:12:34: error: void value not ignored as it ought to be
+     a = f(a) + (f2(a) * (f(a) - (f2(a) / f(a)) * (f2(a) + f(a)) / f2(a) % f(a) % f2(a)));
+                                  ^
+function-calls/19.c:12:51: error: void value not ignored as it ought to be
+     a = f(a) + (f2(a) * (f(a) - (f2(a) / f(a)) * (f2(a) + f(a)) / f2(a) % f(a) % f2(a)));
+                                                   ^
+function-calls/19.c:13:17: error: void value not ignored as it ought to be
+     a = f(a) ? (f2(a) && (f(a) > (f2(a) / f(a)) || (f2(a) + f(a)) / f2(a) % f(a) < f2(a))) : (f2(5));
+                 ^
+function-calls/19.c:13:35: error: void value not ignored as it ought to be
+     a = f(a) ? (f2(a) && (f(a) > (f2(a) / f(a)) || (f2(a) + f(a)) / f2(a) % f(a) < f2(a))) : (f2(5));
+                                   ^
+function-calls/19.c:13:52: error: void value not ignored as it ought to be
+     a = f(a) ? (f2(a) && (f(a) > (f2(a) / f(a)) || (f2(a) + f(a)) / f2(a) % f(a) < f2(a))) : (f2(5));
+                                                    ^
+function-calls/19.c:13:53: error: void value not ignored as it ought to be
+     a = f(a) ? (f2(a) && (f(a) > (f2(a) / f(a)) || (f2(a) + f(a)) / f2(a) % f(a) < f2(a))) : (f2(5));
+                                                     ^

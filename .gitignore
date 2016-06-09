@@ -8,6 +8,7 @@ a.out
 .DS_Store
 .tm_properties
 visualisation_java/
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

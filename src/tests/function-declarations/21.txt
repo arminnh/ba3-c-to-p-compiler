@@ -1,0 +1,12 @@
+function-declarations/21.c:6:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+function-declarations/21.c:10:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+function-declarations/21.c:14:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^
+function-declarations/21.c:18:2: warning: 'return' with no value, in function returning non-void
+ 	return;
+ 	^

@@ -1,0 +1,3 @@
+const/7.c:5:8: warning: initialization discards 'const' qualifier, expected 'int **' but got 'int *const *'
+     int** intarray[] = {aaa};
+        ^

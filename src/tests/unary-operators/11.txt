@@ -1,0 +1,3 @@
+unary-operators/11.c:2:2: error: lvalue required as decrement operand
+ 	--'a';
+ 	^

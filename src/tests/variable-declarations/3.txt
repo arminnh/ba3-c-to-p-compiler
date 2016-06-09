@@ -1,0 +1,3 @@
+variable-declarations/3.c:3:7: error: incompatible types when initializing type 'int' using type 'float'
+   int b = 5.0;
+       ^

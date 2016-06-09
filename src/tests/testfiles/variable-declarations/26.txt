@@ -1,9 +1,0 @@
-testfiles/variable-declarations/26.c:1:9: warning: type specifier missing in declaration of 'a', type defaults to 'int'
-int sum(const a, const int * const b) {
-        ^
-testfiles/variable-declarations/26.c:5:43: warning: type specifier missing in declaration of 'c', type defaults to 'int'
-int sub(const int a, int const * const b, const const const c);
-                                          ^
-testfiles/variable-declarations/26.c:8:11: warning: type specifier missing in declaration of 'a', type defaults to 'int'
-    const a;
-          ^

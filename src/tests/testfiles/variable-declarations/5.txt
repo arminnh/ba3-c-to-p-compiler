@@ -1,6 +1,0 @@
-testfiles/variable-declarations/5.c:3:7: warning: initialization makes pointer without a cast, expected 'int *' but got 'int'
-   int *b = a;
-       ^
-testfiles/variable-declarations/5.c:4:8: warning: initialization makes pointer without a cast, expected 'char *' but got 'int'
-   char *c = a;
-        ^

@@ -1,0 +1,9 @@
+unary-operators/15.c:2:2: error: lvalue required as unary '&' operand, (got rvalue of type 'int')
+ 	&5;
+ 	^
+unary-operators/15.c:6:2: error: lvalue required as unary '&' operand, (got rvalue of type 'char')
+ 	&'b';
+ 	^
+unary-operators/15.c:8:2: error: lvalue required as unary '&' operand, (got rvalue of type 'float')
+ 	&5.5;
+ 	^

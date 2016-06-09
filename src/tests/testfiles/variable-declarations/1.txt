@@ -1,3 +1,0 @@
-testfiles/variable-declarations/1.c:3:9: error: identifier 'a' already taken by variable
-   float a;
-         ^

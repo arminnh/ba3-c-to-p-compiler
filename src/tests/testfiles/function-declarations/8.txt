@@ -1,6 +1,0 @@
-testfiles/function-declarations/8.c:1:10: error: parameter name omitted
-int sum (int, int) {
-         ^
-testfiles/function-declarations/8.c:1:15: error: parameter name omitted
-int sum (int, int) {
-              ^

@@ -1,3 +1,0 @@
-testfiles/const/9.c:8:5: warning: passing argument 1 of 'f' discards 'const' qualifier, expected 'int *' but got 'const int *' 
-    f(&a);
-    ^

@@ -1,0 +1,3 @@
+binary-operators/39.c:3:27: error: variable 'l' undeclared
+ 	int i = (1, j = 	2), k = l;
+ 	                	        ^

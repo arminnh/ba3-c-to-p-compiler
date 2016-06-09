@@ -1,0 +1,3 @@
+function-declarations/5.c:4:1: error: function definition parameters don't match with previous declaration
+ int f(int a, float b) {
+ ^

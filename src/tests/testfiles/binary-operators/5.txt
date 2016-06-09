@@ -1,3 +1,0 @@
-testfiles/binary-operators/5.c:2:9: error: invalid operands to comparison '<=' (have 'char *' and 'float')
-"1" <= 2.0;
-    ^

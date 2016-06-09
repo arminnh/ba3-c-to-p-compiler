@@ -1,0 +1,9 @@
+const/5.c:5:5: error: assignment of read-only variable 'aa'
+     aa = &a;
+     ^
+const/5.c:6:5: error: assignment of read-only location '*aa'
+     *aa = a;
+     ^
+const/5.c:9:5: error: assignment of read-only location 'blabla[4]'
+     blabla[4] = 0;
+     ^

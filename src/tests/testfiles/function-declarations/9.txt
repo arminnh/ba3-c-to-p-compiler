@@ -1,3 +1,0 @@
-testfiles/function-declarations/9.c:5:1: error: function declaration parameters don't match previous definition
- int sum(int a);
- ^

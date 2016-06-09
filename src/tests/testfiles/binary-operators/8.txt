@@ -1,3 +1,0 @@
-testfiles/binary-operators/8.c:2:9: error: invalid operands to comparison '>=' (have 'char' and 'char *')
-'a' >= "B";
-    ^
