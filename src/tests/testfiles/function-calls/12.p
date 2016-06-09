@@ -480,9 +480,9 @@ ldc i 1
 str i 0 5
 ldc i 2
 str i 0 6
-ldc r 1.1
+ldc r 1.100000
 str r 0 7
-ldc r 2.2
+ldc r 2.200000
 str r 0 8
 ldc c 'd'
 str c 0 9
@@ -624,7 +624,7 @@ out c
 ldc c ' '
 out c
 mst 1
-ldc r 1.0
+ldc r 1.000000
 lod r 0 8
 cup 2 function_sumf
 out r

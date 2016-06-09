@@ -19,8 +19,8 @@ les i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 les r
 conv b i
 sto i
@@ -43,8 +43,8 @@ grt i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 grt r
 conv b i
 sto i
@@ -67,8 +67,8 @@ leq i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 leq r
 conv b i
 sto i
@@ -91,8 +91,8 @@ geq i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 geq r
 conv b i
 sto i
@@ -115,8 +115,8 @@ equ i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 equ r
 conv b i
 sto i
@@ -139,8 +139,8 @@ equ i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 equ r
 conv b i
 sto i
@@ -163,8 +163,8 @@ neq i
 conv b i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 neq r
 conv b i
 sto i
@@ -186,8 +186,8 @@ ldc i 2
 add i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 add r
 sto r
 ldc a 0
@@ -201,8 +201,8 @@ ldc i 2
 sub i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 sub r
 sto r
 ldc a 0
@@ -221,8 +221,8 @@ ldc i 2
 div i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 div r
 sto r
 ldc a 0
@@ -236,8 +236,8 @@ ldc i 2
 mul i
 sto i
 ldc a 0
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 mul r
 sto r
 ldc a 0

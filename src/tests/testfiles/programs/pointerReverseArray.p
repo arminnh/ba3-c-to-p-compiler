@@ -586,7 +586,7 @@ les i
 conv b i
 conv i b
 fjp l3_for_after
-lda 0 37
+lod a 0 37
 in i
 sto i
 ldc a 0

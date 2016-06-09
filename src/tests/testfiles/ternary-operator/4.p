@@ -23,7 +23,7 @@ ixa 1
 ind r
 ujp l2_after_if
 l1_else:
-ldc r 1.0
+ldc r 1.000000
 l2_after_if:
 sto r
 ldc i 0

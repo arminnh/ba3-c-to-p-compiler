@@ -114,7 +114,7 @@ ixa 1
 ind r
 ujp l8_after_if
 l7_else:
-ldc r 0.5
+ldc r 0.500000
 l8_after_if:
 sto r
 ldc a 0

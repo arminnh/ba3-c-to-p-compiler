@@ -163,8 +163,8 @@ ldc a 0
 lda 0 11
 dpl a
 lda 0 5
+ind a
 lod i 0 7
-chk 0 0
 ixa 6
 lod i 0 8
 chk 0 5
@@ -189,16 +189,16 @@ conv i b
 fjp l3_for_after
 ldc a 0
 lda 0 5
+ind a
 lod i 0 7
-chk 0 0
 ixa 6
 lod i 0 9
 chk 0 5
 ixa 1
 dpl a
 lda 0 5
+ind a
 lod i 0 7
-chk 0 0
 ixa 6
 lod i 0 9
 chk 0 5
@@ -244,8 +244,8 @@ ldc a 0
 lda 0 11
 dpl a
 lda 0 5
+ind a
 lod i 0 9
-chk 0 0
 ixa 6
 lod i 0 8
 chk 0 5
@@ -270,24 +270,24 @@ conv i b
 fjp l11_for_after
 ldc a 0
 lda 0 5
+ind a
 lod i 0 9
-chk 0 0
 ixa 6
 lod i 0 10
 chk 0 5
 ixa 1
 dpl a
 lda 0 5
+ind a
 lod i 0 9
-chk 0 0
 ixa 6
 lod i 0 10
 chk 0 5
 ixa 1
 ind r
 lda 0 5
+ind a
 lod i 0 7
-chk 0 0
 ixa 6
 lod i 0 10
 chk 0 5

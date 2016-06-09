@@ -7,7 +7,7 @@ hlt
 function_main:
 ssp 5
 ldc a 0
-ldc r 2.5e-10
+ldc r 0.000000
 neg r
 sto r
 retf

@@ -33,7 +33,7 @@ hlt
 
 function_main:
 ssp 35
-ldc r 5.0
+ldc r 5.000000
 str r 0 5
 str a 0 6
 str a 0 8
@@ -114,7 +114,7 @@ ind a
 sto a
 ldc i 1
 str i 0 27
-ldc r 5.0
+ldc r 5.000000
 str r 0 28
 ldc r 0.0
 str r 0 29
@@ -137,7 +137,7 @@ chk 0 1
 ixa 1
 dpl a
 lod r 0 28
-ldc r 1.0
+ldc r 1.000000
 sub r
 sto r
 ind r
@@ -149,7 +149,7 @@ chk 0 1
 ixa 1
 dpl a
 lod r 0 28
-ldc r 1.0
+ldc r 1.000000
 add r
 sto r
 ind r

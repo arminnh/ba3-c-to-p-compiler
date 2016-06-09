@@ -47,7 +47,7 @@ retf
 retf
 
 function_main:
-ssp 7
+ssp 9
 ldc a 0
 mst 1
 ldc i 5490
@@ -60,7 +60,7 @@ sto i
 ldc a 0
 mst 1
 ldc i 5
-ldc r 5e-36
+ldc r 0.000000
 cup 2 function_c
 sto i
 ldc a 0
@@ -71,14 +71,18 @@ cup 2 function_d
 sto i
 ldc a 0
 mst 1
-ldc r 3.0
-ldc r 7e-09
+ldc r 3.000000
+ldc r 0.000000
 cup 2 function_e
 sto i
 ldc a 0
 str a 0 5
-ldc a 0
+lda 0 5
 str a 0 6
+ldc r 5.500000
+str r 0 7
+lda 0 7
+str a 0 8
 ldc a 0
 mst 1
 ldc c 't'
@@ -98,11 +102,11 @@ ldc a 0
 ind i
 mul i
 sub i
-lod a 0 6
+lod a 0 8
 ind r
-lod a 0 5
+lod a 0 6
 ind a
-lda 0 6
+lda 0 8
 cup 5 function_g
 sto i
 retf

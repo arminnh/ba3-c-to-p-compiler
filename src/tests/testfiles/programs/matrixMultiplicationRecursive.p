@@ -2350,16 +2350,16 @@ lda 0 7
 dpl a
 lod i 0 7
 lda 0 5
+ind a
 lod i 0 8
-chk 0 0
 ixa 10
 lod i 0 10
 chk 0 9
 ixa 1
 ind i
 lda 0 6
+ind a
 lod i 0 10
-chk 0 0
 ixa 10
 lod i 0 9
 chk 0 9

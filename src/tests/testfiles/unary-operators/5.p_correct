@@ -85,7 +85,7 @@ ind i
 sto i
 ind i
 sto i
-ldc r 7.8
+ldc r 7.800000
 str r 0 7
 lda 0 7
 str a 0 8

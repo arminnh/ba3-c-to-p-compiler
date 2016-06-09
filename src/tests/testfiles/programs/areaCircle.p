@@ -238,7 +238,7 @@ sto r
 ldc a 0
 lda 0 6
 dpl a
-ldc r 3.14
+ldc r 3.140000
 lod r 0 5
 mul r
 lod r 0 5

@@ -27,8 +27,8 @@ str a 0 6
 ldc a 0
 lod c 0 5
 lda 0 6
+ind a
 ldc i 0
-chk 0 0
 ixa 1
 ind c
 equ c
