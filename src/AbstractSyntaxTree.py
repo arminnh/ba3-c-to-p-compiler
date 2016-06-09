@@ -465,6 +465,7 @@ class ASTVariableNode(ASTExpressionNode):
     def __init__(self, identifier, ctx=None):
         super(ASTVariableNode, self).__init__("variable", ctx)
         self.identifier = identifier
+        self.symbolInfo = None
         self.typeInfo = None
 
     def accept(self, visitor):
@@ -610,12 +611,10 @@ class ASTCommaOperatorNode(ASTBinaryOperatorNode):
             visitor.exitExpression(self)
 
     def getType(self):
-        ttype = self.children[-1].getType()
-        ttype.rvalue = True
-        return ttype
+        return self.children[1].getType().toRvalue()
 
     def out(self, level):
-        return self.outChildren(offset * level + self.label + " - " + str(self.getType()) + "\n", level)
+        return self.outChildren(offset * level + self.label + "\n", level)
 
 
 class ASTSimpleAssignmentOperatorNode(ASTBinaryOperatorNode):

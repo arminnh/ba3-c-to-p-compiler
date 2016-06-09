@@ -379,6 +379,9 @@ class VisitorCodeGenerator(Visitor):
 
     def visitCommaOperatorNode(self, node):
         child = node.children[0]
+
+        self._lvalue.append(False)
+
         if not node.getType().equals(TYPES["void"]):
             self.outFile.write("ldc a 0\n")
             child.accept(self)
@@ -386,6 +389,8 @@ class VisitorCodeGenerator(Visitor):
         else:
             child.accept(self)
         node.children[1].accept(self)
+
+        self._lvalue.pop()
 
 
     def visitIntegerLiteralNode(self, node):
