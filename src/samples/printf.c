@@ -1,6 +1,13 @@
 #include <stdio.h>
 
 int main() {
-  int i = 5;
-  printf("helloo\n%d\n%c\n%f", i, 'c', 5.3);
+  printf("%5d\n", 5);
+  printf("%5d\n", -5);
+  printf("%5d\n", 25);
+  printf("%5d\n", 350);
+  printf("%5d\n", 4300);
+  printf("%5d\n", -5400);
+  printf("%5d\n", -64000);
+  printf("%5d\n", 764000);
+
 }

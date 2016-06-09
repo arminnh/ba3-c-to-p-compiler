@@ -200,6 +200,7 @@ class VisitorTypeChecker(Visitor):
             for i, match in enumerate(formatSpecifiers):
                 cutIntoPieces.append(format[endOfLastMatch:match.start()])
                 width, code = match.groups()
+                width = int(width) if len(width) else 0
                 codesCount += 1
 
                 if code == "%":

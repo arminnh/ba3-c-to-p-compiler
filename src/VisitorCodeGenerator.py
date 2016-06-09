@@ -78,6 +78,7 @@ class VisitorCodeGenerator(Visitor):
 
     def visitProgramNode(self, node):
         self.outFile.write("ldc i 0\n") # work/trash register
+        self.outFile.write("ldc i 0\nldc i 0\n") # work registers
         self.outFile.write("ssp {0}\n".format(self.symbolTable.currentScope.getAddressCounter() + 5))
 
         # code for string literals
@@ -428,7 +429,50 @@ class VisitorCodeGenerator(Visitor):
                     self.outFile.write("out c\n")
             else:
                 width, node = el
-                if isinstance(node, ASTNode) and not node.getType().equals(TYPES["void"]):
+                if node.getType().equals(TYPES["int"]):
+                    loop1Label = self.getLabel() + "_loop1"
+                    afterLoop1Label = self.getLabel() + "_after_loop1"
+                    loop2Label = self.getLabel() + "_loop2"
+                    afterLoop2Label = self.getLabel() + "_after_loop2"
+                    noPaddingLabel = self.getLabel() + "_no_padding"
+
+                    self.outFile.write("ldc a 2\n")
+                    self._lvalue.append(False)
+                    node.accept(self)
+                    self._lvalue.pop()
+                    c = "sto i\n" # store number in 2
+                    c += "ldc a 1\nldc a 2\nind i\nsto i\n" # initialize quotient
+                    c += "ldc a 0\nldc i 1\nsto i\n" # initialize number length to -1 in 0
+                    c += "ldc a 1\nind i\n"
+                    c += "ldc i 0\n"
+                    c += "les i\n" # if number < 0
+                    c += "fjp {0}\n".format(loop1Label)
+                    c += "ldc a 0\nldc a 0\nind i\ninc i 1\nsto i\n" # increment number length if number is negative
+                    c += "ldc a 1\nldc a 1\nind i\nneg i\nsto i\n" # negate the quotient if it is negative
+                    c += "{0}:\n".format(loop1Label) # loop
+                    c += "ldc a 1\nind i\nldc i 9\ngrt i\nfjp {0}\n".format(afterLoop1Label) # if quotient > 9, iterate
+                    c += "ldc a 0\nldc a 0\nind i\ninc i 1\nsto i\n" # increment number length in iteration
+                    c += "ldc a 1\nldc a 1\nind i\n"
+                    c += "ldc i 10\n"
+                    c += "div i\n" # divide number by 10
+                    c += "sto i\n"
+                    c += "ujp {0}\n".format(loop1Label)
+                    c += "{0}:\n".format(afterLoop1Label)
+                    c += "ldc a 0\nldc i {0}\n".format(width)
+                    c += "ldc a 0\nind i\n"
+                    c += "sub i\nsto i\n" # calculate amount of padding, store in 0
+                    # c += "ldc a 0\nind i\nldc i 0\ngeq i\nfjp {0}\n".format(noPaddingLabel)
+                    c += "ldc a 1\nldc i 0\nsto i\n" # initialize loop iterator in 1
+                    c += "{0}:\n".format(loop2Label)
+                    c += "ldc a 1\nind i\nldc a 0\nind i\n" # iterator >= padding: end of loop
+                    c += "les i\nfjp {0}\n".format(noPaddingLabel)
+                    c += "ldc c ' '\nout c\n" # print padding
+                    c += "ldc a 1\nldc a 1\nind i\ninc i 1\nsto i\n" # increment iterator
+                    c += "ujp {0}\n".format(loop2Label)
+                    c += "{0}:\n".format(noPaddingLabel)
+                    c += "ldc a 2\nind i\nout i\n"
+                    self.outFile.write(c)
+                elif isinstance(node, ASTNode) and not node.getType().equals(TYPES["void"]):
                     self._lvalue.append(False)
                     node.accept(self)
                     self._lvalue.pop()
