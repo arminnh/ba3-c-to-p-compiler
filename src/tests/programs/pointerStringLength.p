@@ -350,8 +350,27 @@ ldc c 'g'
 out c
 ldc c ' '
 out c
+ldc a 1
 lda 0 5
-out a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l1_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l2_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l1_out_loop
+l2_after_out_loop:
 ldc c ' '
 out c
 ldc c 'i'
@@ -372,14 +391,14 @@ function_string_ln:
 ssp 7
 ldc i 0
 str i 0 6
-l1_while_condition:
+l3_while_condition:
 lod a 0 5
 ind c
 ldc c '\0'
 neq c
 conv b i
 conv i b
-fjp l2_while_after
+fjp l4_while_after
 ldc a 0
 lda 0 6
 dpl a
@@ -404,8 +423,8 @@ conv a i
 dec i 1
 conv i a
 sto a
-ujp l1_while_condition
-l2_while_after:
+ujp l3_while_condition
+l4_while_after:
 lod i 0 6
 str i 0 0
 retf

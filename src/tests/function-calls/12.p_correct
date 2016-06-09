@@ -844,6 +844,7 @@ lod c 0 9
 out c
 mst 1
 lda 1 0
+ind a
 lda 0 12
 cup 2 function_sums
 out a
@@ -851,8 +852,27 @@ ldc c ' '
 out c
 ldc c '\n'
 out c
+ldc a 1
 lda 0 12
-out a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l11_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l12_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l11_out_loop
+l12_after_out_loop:
 ldc c '\n'
 out c
 ldc i 1

@@ -21,6 +21,7 @@ ssp 5
 ldc a 0
 mst 1
 lda 1 0
+ind a
 cup 1 function_f
 sto i
 retf

@@ -880,8 +880,69 @@ ldc c ','
 out c
 ldc c ' '
 out c
+ldc a 1
 lda 1 109
-out a
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l15_count_loop:
+ldc c 27
+neq c
+fjp l16_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l15_count_loop
+l16_after_count_loop:
+sto a
+ldc a 0
+ldc i 7
+ldc a 0
+ind i
+sub i
+sto i
+l17_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l18_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l17_padding_loop
+l18_after_padding_loop:
+ldc a 1
+ind a
+l19_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l20_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l19_out_loop
+l20_after_out_loop:
 ldc c ' '
 out c
 ldc c '\n'

@@ -200,7 +200,7 @@ class VisitorTypeChecker(Visitor):
             for i, match in enumerate(formatSpecifiers):
                 cutIntoPieces.append(format[endOfLastMatch:match.start()])
                 width, code = match.groups()
-                width = round(float(width)) if len(width) else 0
+                width = int(width.split(".")[0]) if len(width) else 0
                 codesCount += 1
 
                 if code == "%":
@@ -215,7 +215,7 @@ class VisitorTypeChecker(Visitor):
                     continue
                 else:
                     t1 = self.stdioCodes[code]
-                    if scanf:
+                    if scanf and not t1.equals(TYPES["string"]):
                         t1 = copy.deepcopy(t1)
                         t1.indirections.append((False, False))
                     t2 = arguments.children[i+1].getType().toRvalue()

@@ -1,7 +1,22 @@
 ldc i 0
 ldc i 0
 ldc i 0
-ssp 53
+ssp 109
+lda 0 61
+ldc c '%'
+sto c
+lda 0 62
+ldc c '5'
+sto c
+lda 0 63
+ldc c 'c'
+sto c
+lda 0 64
+ldc c '\n'
+sto c
+lda 0 65
+ldc c 27
+sto c
 lda 0 40
 ldc c '%'
 sto c
@@ -17,19 +32,43 @@ sto c
 lda 0 44
 ldc c 27
 sto c
-lda 0 45
+lda 0 94
 ldc c '%'
 sto c
-lda 0 46
+lda 0 95
 ldc c '5'
 sto c
-lda 0 47
+lda 0 96
 ldc c 's'
 sto c
-lda 0 48
+lda 0 97
 ldc c '\n'
 sto c
-lda 0 49
+lda 0 98
+ldc c 27
+sto c
+lda 0 57
+ldc c '%'
+sto c
+lda 0 58
+ldc c 'd'
+sto c
+lda 0 59
+ldc c '\n'
+sto c
+lda 0 60
+ldc c 27
+sto c
+lda 0 99
+ldc c '%'
+sto c
+lda 0 100
+ldc c 's'
+sto c
+lda 0 101
+ldc c '\n'
+sto c
+lda 0 102
 ldc c 27
 sto c
 lda 0 50
@@ -38,12 +77,72 @@ sto c
 lda 0 51
 ldc c 'e'
 sto c
+lda 0 103
+ldc c 'h'
+sto c
+lda 0 104
+ldc c 'e'
+sto c
+lda 0 105
+ldc c 'l'
+sto c
+lda 0 106
+ldc c 'l'
+sto c
+lda 0 107
+ldc c 'o'
+sto c
+lda 0 108
+ldc c 27
+sto c
+lda 0 71
+ldc c 'l'
+sto c
+lda 0 72
+ldc c 'l'
+sto c
+lda 0 73
+ldc c 'o'
+sto c
+lda 0 74
+ldc c 27
+sto c
+lda 0 84
+ldc c 't'
+sto c
+lda 0 85
+ldc c 'o'
+sto c
+lda 0 86
+ldc c 'o'
+sto c
+lda 0 87
+ldc c 't'
+sto c
+lda 0 88
+ldc c 'o'
+sto c
+lda 0 89
+ldc c 'o'
+sto c
+lda 0 90
+ldc c 'l'
+sto c
+lda 0 91
+ldc c 'o'
+sto c
+lda 0 92
+ldc c 'n'
+sto c
+lda 0 93
+ldc c 27
+sto c
 mst 0
 cup 0 function_main
 hlt
 
 function_main:
-ssp 5
+ssp 22
 ldc a 2
 ldc i 5
 sto i
@@ -194,7 +293,7 @@ out i
 ldc c '\n'
 out c
 ldc a 2
-ldc i 25
+ldc i 19
 sto i
 ldc a 1
 ldc a 2
@@ -639,8 +738,380 @@ ind i
 out i
 ldc c '\n'
 out c
+ldc a 1
 lda 1 45
-out a
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l41_count_loop:
+ldc c 27
+neq c
+fjp l42_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l41_count_loop
+l42_after_count_loop:
+sto a
+ldc a 0
+ldc i 5
+ldc a 0
+ind i
+sub i
+sto i
+l43_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l44_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l43_padding_loop
+l44_after_padding_loop:
+ldc a 1
+ind a
+l45_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l46_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l45_out_loop
+l46_after_out_loop:
+ldc c '\n'
+out c
+ldc i 75
+out i
+ldc c '\n'
+out c
+ldc i 75
+neg i
+out i
+ldc c '\n'
+out c
+ldc c ' '
+out c
+ldc c ' '
+out c
+ldc c ' '
+out c
+ldc c ' '
+out c
+ldc c 'a'
+out c
+ldc c '\n'
+out c
+lda 0 5
+ldc c 'h'
+sto c
+lda 0 6
+ldc c 'e'
+sto c
+lda 0 7
+ldc c 27
+sto c
+ldc a 1
+lda 0 5
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l47_count_loop:
+ldc c 27
+neq c
+fjp l48_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l47_count_loop
+l48_after_count_loop:
+sto a
+ldc a 0
+ldc i 5
+ldc a 0
+ind i
+sub i
+sto i
+l49_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l50_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l49_padding_loop
+l50_after_padding_loop:
+ldc a 1
+ind a
+l51_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l52_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l51_out_loop
+l52_after_out_loop:
+ldc c '\n'
+out c
+lda 0 8
+ldc c 'l'
+sto c
+lda 0 9
+ldc c 'l'
+sto c
+lda 0 10
+ldc c 'o'
+sto c
+lda 0 11
+ldc c 27
+sto c
+ldc a 1
+lda 0 8
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l53_count_loop:
+ldc c 27
+neq c
+fjp l54_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l53_count_loop
+l54_after_count_loop:
+sto a
+ldc a 0
+ldc i 5
+ldc a 0
+ind i
+sub i
+sto i
+l55_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l56_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l55_padding_loop
+l56_after_padding_loop:
+ldc a 1
+ind a
+l57_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l58_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l57_out_loop
+l58_after_out_loop:
+ldc c '\n'
+out c
+ldc a 1
+lda 0 8
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l59_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l60_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l59_out_loop
+l60_after_out_loop:
+ldc c '\n'
+out c
+lda 0 12
+ldc c 't'
+sto c
+lda 0 13
+ldc c 'o'
+sto c
+lda 0 14
+ldc c 'o'
+sto c
+lda 0 15
+ldc c 't'
+sto c
+lda 0 16
+ldc c 'o'
+sto c
+lda 0 17
+ldc c 'o'
+sto c
+lda 0 18
+ldc c 'l'
+sto c
+lda 0 19
+ldc c 'o'
+sto c
+lda 0 20
+ldc c 'n'
+sto c
+lda 0 21
+ldc c 27
+sto c
+ldc a 1
+lda 0 12
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l61_count_loop:
+ldc c 27
+neq c
+fjp l62_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l61_count_loop
+l62_after_count_loop:
+sto a
+ldc a 0
+ldc i 5
+ldc a 0
+ind i
+sub i
+sto i
+l63_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l64_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l63_padding_loop
+l64_after_padding_loop:
+ldc a 1
+ind a
+l65_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l66_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l65_out_loop
+l66_after_out_loop:
+ldc c '\n'
+out c
+ldc a 1
+lda 1 98
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l67_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l68_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l67_out_loop
+l68_after_out_loop:
 ldc c '\n'
 out c
 retf

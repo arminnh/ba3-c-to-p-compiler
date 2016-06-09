@@ -19,9 +19,11 @@ ldc i 3
 conv i b
 fjp l1_else
 lda 1 0
+ind a
 ujp l2_after_if
 l1_else:
 lda 1 2
+ind a
 l2_after_if:
 sto a
 ldc i 0

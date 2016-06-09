@@ -17,8 +17,6 @@ class ASTNode(object):
         self.children = [] # don't manipulate or read directly; use addChildNode and getChildren
 
     def addChildNode(self, node):
-        if not isinstance(node, ASTNode):
-            raise Exception("trying to add child of non-ASTNode type: expected" + str(ASTNode) + ", got " + str(type(node)))
         self.children.append(node)
         node.parent = self
         node.tree = self.tree

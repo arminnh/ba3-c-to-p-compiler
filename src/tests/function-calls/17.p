@@ -130,12 +130,52 @@ str i 0 5
 ldc i 2
 str i 0 6
 str a 0 7
+ldc a 1
 lda 1 10
-out a
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l1_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l2_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l1_out_loop
+l2_after_out_loop:
 ldc c '\n'
 out c
+ldc a 1
 lda 1 10
-out a
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l3_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l4_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l3_out_loop
+l4_after_out_loop:
 ldc c ' '
 out c
 lod i 0 5
@@ -146,8 +186,28 @@ lod i 0 6
 out i
 ldc c ' '
 out c
+ldc a 1
 lda 1 0
-out a
+ind a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l5_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l6_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l5_out_loop
+l6_after_out_loop:
 ldc c '\n'
 out c
 lod i 0 5

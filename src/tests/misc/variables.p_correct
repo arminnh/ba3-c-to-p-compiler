@@ -402,6 +402,7 @@ ldc a 0
 lda 0 112
 dpl a
 lda 1 48
+ind a
 sto a
 ind a
 sto a

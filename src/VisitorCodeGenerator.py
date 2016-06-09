@@ -401,9 +401,14 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitStringLiteralNode(self, node):
-        if not isinstance(node.parent, ASTInitializerListNode):
-            symbolInfo = self.symbolTable.stringLiterals.get(node.decodedValue)
-            self.outFile.write("lda 1 {0}\n".format(symbolInfo.address))
+        if isinstance(node.parent, ASTInitializerListNode):
+            return
+        symbolInfo = self.symbolTable.stringLiterals.get(node.decodedValue)
+        self.outFile.write("lda 1 {0}\n".format(symbolInfo.address))
+
+        if self.rvalue():
+            self.outFile.write("ind a\n")
+
 
 
     def visitVariableNode(self, node):
@@ -472,6 +477,69 @@ class VisitorCodeGenerator(Visitor):
                     c += "{0}:\n".format(noPaddingLabel)
                     c += "ldc a 2\nind i\nout i\n"
                     self.outFile.write(c)
+                elif node.getType().equals(TYPES["char"]):
+                    i = 0
+                    while i < width - 1:
+                        self.outFile.write("ldc c ' '\nout c\n")
+                        i += 1
+                    node.accept(self)
+                    self.outFile.write("out c\n")
+                elif node.getType().equals(TYPES["string"]):
+                    b = c = ""
+
+                    # code before evaluating char*
+                    b += "ldc a 1\n"
+                    
+                    # code after evaluating char*
+                    c += "sto a\n" # store the address of the string
+                    c += "ldc a 0\nldc i 0\nsto i\n" # initialize counter
+                    
+                    if width > 0:
+                        loopLabel = self.getLabel() + "_count_loop"
+                        afterLoopLabel = self.getLabel() + "_after_count_loop"
+                        paddingLoopLabel = self.getLabel() + "_padding_loop"
+                        afterPaddingLoopLabel = self.getLabel() + "_after_padding_loop"
+
+                        c += "ldc a 2\n" # load address to be able to pop the string's address later
+                        c += "ldc a 1\nind a\n" # load the address of the string to 1
+                        c += "dpl a\nind c\n"
+                        c += "{0}:\n".format(loopLabel)
+                        c += "ldc c 27\nneq c\nfjp {0}\n".format(afterLoopLabel)
+                        c += "ldc a 0\nldc a 0\nind i\ninc i 1\nsto i\n" # increment counter
+                        c += "inc a 1\ndpl a\nind c\n"
+                        c += "ujp {0}\n".format(loopLabel)
+                        c += "{0}:\n".format(afterLoopLabel)
+                        c += "sto a\n" # pop address from stack
+                        c += "ldc a 0\nldc i {0}\n".format(width)
+                        c += "ldc a 0\nind i\n"
+                        c += "sub i\nsto i\n" # determine number of padding spaces required
+                        # c += "ldc a 0\nind i\nout i\nhlt\n"
+                        c += "{0}:\n".format(paddingLoopLabel)
+                        c += "ldc a 0\nind i\nldc i 0\ngrt i\nfjp {0}\n".format(afterPaddingLoopLabel) # padding <= 0
+                        c += "ldc c ' '\nout c\n" # print padding
+                        c += "ldc a 0\nldc a 0\nind i\ndec i 1\nsto i\n"
+                        c += "ujp {0}\n".format(paddingLoopLabel)
+                        c += "{0}:\n".format(afterPaddingLoopLabel)
+
+                    loopLabel = self.getLabel() + "_out_loop"
+                    afterLoopLabel = self.getLabel() + "_after_out_loop"
+
+                    c += "ldc a 1\nind a\n"
+                    c += "{0}:\n".format(loopLabel)
+                    c += "\ndpl a\nind c\n"
+                    c += "ldc c 27\nneq c\nfjp {0}\n".format(afterLoopLabel)
+                    c += "dpl a\nind c\nout c\n" # print character
+                    c += "inc a 1\n"
+                    c += "ujp {0}\n".format(loopLabel)
+                    c += "{0}:\n".format(afterLoopLabel)
+
+                    self.outFile.write(b)
+                    self._lvalue.append(False)
+                    node.accept(self)
+                    self._lvalue.pop()
+                    self.outFile.write(c)
+
+
                 elif isinstance(node, ASTNode) and not node.getType().equals(TYPES["void"]):
                     self._lvalue.append(False)
                     node.accept(self)

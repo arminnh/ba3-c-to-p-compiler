@@ -129,9 +129,11 @@ conv b i
 conv i b
 fjp l9_else
 lda 1 0
+ind a
 ujp l10_after_if
 l9_else:
 lda 1 2
+ind a
 l10_after_if:
 sto a
 ldc i 1

@@ -72,6 +72,7 @@ lod a 0 18
 ind a
 dpl a
 lda 1 7
+ind a
 sto a
 ind a
 sto a
@@ -79,6 +80,7 @@ ldc a 0
 lda 0 16
 dpl a
 lda 1 7
+ind a
 sto a
 ind a
 sto a
@@ -100,6 +102,7 @@ ldc a 0
 lda 0 16
 dpl a
 lda 1 9
+ind a
 sto a
 ind a
 sto a

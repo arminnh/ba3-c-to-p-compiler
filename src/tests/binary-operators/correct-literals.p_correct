@@ -28,7 +28,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 les c
 conv b i
 sto i
@@ -52,7 +54,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 grt c
 conv b i
 sto i
@@ -76,7 +80,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 leq c
 conv b i
 sto i
@@ -100,7 +106,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 geq c
 conv b i
 sto i
@@ -124,7 +132,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 equ c
 conv b i
 sto i
@@ -148,7 +158,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 equ c
 conv b i
 sto i
@@ -172,7 +184,9 @@ conv b i
 sto i
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 neq c
 conv b i
 sto i
@@ -209,7 +223,9 @@ sub r
 sto r
 ldc a 0
 lda 1 0
+ind a
 lda 1 2
+ind a
 sub c
 sto a
 ldc a 0
