@@ -63,7 +63,7 @@ class Scope:
         self.children.append(scope)
         return scope
 
-    def insertSymbol(self, info:SymbolInfo):
+    def insertSymbol(self, info):
         #print("inserted id " + str(info.astnode.identifier) + " into symbol table")
         if (info.typeInfo.baseType != "void" or info.typeInfo.indirections != 0) and isinstance(info, VariableSymbolInfo):
             self.assignAddress(info)
@@ -81,7 +81,7 @@ class Scope:
         return symbolInfo
 
 
-    def isInsertionOk(self, new:SymbolInfo):
+    def isInsertionOk(self, new):
         old = self.retrieveSymbol(new.astnode.identifier, requireSeen=0)
 
         if old is not None:
