@@ -65,11 +65,12 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         else:
             node.typeInfo = symbolInfo.typeInfo
             node.symbolInfo = symbolInfo
-        
+
         if symbolInfo.seen == 1:
+            # TODO: add identifier
             self.addWarning("variable used in its own initialization", node)
             return
-            
+
 
     def visitFunctionDefinitionNode(self, node):
         self.table.openScope(True, node.identifier)

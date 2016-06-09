@@ -1,8 +1,8 @@
-import unittest
 import logging
 
 # insert the parent directory into this path to get antlr files
 import sys
+import unittest
 import os
 sys.path.insert(0, "..")
 

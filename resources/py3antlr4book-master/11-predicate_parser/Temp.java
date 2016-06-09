@@ -1,1 +1,0 @@
-enum Temp { HOT, COLD }
