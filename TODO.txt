@@ -1,32 +1,11 @@
-files that didnt work but worked with gcc:
-    *) matrixInverse, knapsackProblem, primsAlgorithm
-    *) pointerReverseArray
-
-
-*) pointer arithmetic
-*) scanf and strings. For a scanf("%s", ...) statement, generate a loop of in c instructions. Exit the loop upon reading the escape character (ascii code 27).
-*) a warning should be generated for variables which are initialized with themselves.
-
 CODE GENERATION:
-*) finish/check pointers (&(*aa);), *(f + 1) = 4;
-*) static arrays + array subscripting
-*) test all unary, binary and ternary operators
-*) check argument loading for functions
+*) printf/scanf for char arrays
+*) printf with witdh
 *) check out how to handle void and void* type things
-*) printf/scanf
 *) check situations where there are multiple retfs in a row
 
 EXTRAS:
 *) implicit type conversions + warning (explicit done)
 *) warning when variable declarations have no initializer
+*) multidimensional array initializers
 *) warning when overinitializing arrays
-    maybe:
-    *) check whether all paths in a function body end with a return statement
-    *) dynamic arrays
-    *) inline functions
-    *) nested functions
-
-
-
-TO FOLD ALL IN ATOM: shift + ctrl + alt + [
-in terminal: for file in tests/testfiles/programs/*.c; do c99 $file; done
