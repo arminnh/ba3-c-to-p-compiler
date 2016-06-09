@@ -168,7 +168,6 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitParameterNode(self, node):
-        # self.outFile.write("code\n")
         pass
 
 
@@ -343,21 +342,23 @@ class VisitorCodeGenerator(Visitor):
 
     def visitDeclaratorInitializerNode(self, node):
         ttype = node.getType()
+        needStore = True
 
         if node.initializerList:
             if ttype == TYPES["string"] and node.initializerList.children and isinstance(node.initializerList.children[0], ASTStringLiteralNode):
                 self.storeString(node, node.initializerList)
-                return
+                needStore = False
             elif not ttype.isArray():
                 node.initializerList.accept(self)
         elif not ttype.isArray():
-            initializerType = self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]
-            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), initializerType))
+            initializer = self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]
+            self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), initializer))
         elif ttype.isArray():
             self.allocArray(ttype, node.symbolInfo.address + 5)
-            return
+            needStore = False
 
-        self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
+        if needStore:
+            self.outFile.write("str {0} 0 {1}\n".format(self.pType(node.getType()), node.symbolInfo.address + 5))
 
 
     def visitInitializerListNode(self, node):
@@ -391,7 +392,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitFloatLiteralNode(self, node):
-        self.outFile.write("ldc r {0}\n".format(str(node.value)))
+        self.outFile.write("ldc r {0}\n".format(format(node.value, "f")))
 
 
     def visitCharacterLiteralNode(self, node):
@@ -451,7 +452,7 @@ class VisitorCodeGenerator(Visitor):
             elif node.identifier == "scanf":
                 self.scanf(node)
         else:
-            functionSymbol = self.symbolTable.retrieveFunctionSymbol(node.identifier)
+            functionSymbol = self.symbolTable.retrieveSymbol(node.identifier)
             # organizational block
             self.outFile.write("mst {0}\n".format(functionSymbol.depth))
 

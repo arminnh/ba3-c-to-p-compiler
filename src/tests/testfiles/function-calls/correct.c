@@ -31,8 +31,11 @@ int main() {
   d(3, 4);
   e(3.0, 7e-9);
 
-  int** i;
-  float* a;
+  int* actual_int_p;
+  int** i = &actual_int_p;
+
+  float actual_float = 5.5;
+  float* a = &actual_float;
 
   g('t', (4 - 3 + 5) % 2, *a, *i, &a);
 }

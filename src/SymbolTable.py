@@ -12,7 +12,7 @@ class SymbolInfo:
 class VariableSymbolInfo(SymbolInfo):
     def __init__(self, astnode):
         # astnode is ASTDeclaratorInitializerNode
-        self.seen = False
+        self.seen = 0 # 0: unseen, 1: begind declared right now, 2: seen and declaration finished
         super(VariableSymbolInfo, self).__init__(astnode)
 
     @property
@@ -76,25 +76,13 @@ class Scope:
         symbolInfo = self.symbols.get(name)
 
         if symbolInfo is not None and requireSeen:
-            if isinstance(symbolInfo, VariableSymbolInfo) and symbolInfo.seen == False:
+            if isinstance(symbolInfo, VariableSymbolInfo) and symbolInfo.seen < requireSeen:
                 return None
         return symbolInfo
 
 
-    def retrieveFunctionSymbol(self, name):
-        if name is None:
-            return None
-
-        symbolInfo = self.symbols.get(name)
-
-        if not isinstance(symbolInfo, FunctionSymbolInfo):
-            return None
-
-        return symbolInfo
-
-
     def isInsertionOk(self, new:SymbolInfo):
-        old = self.retrieveSymbol(new.astnode.identifier, requireSeen=False)
+        old = self.retrieveSymbol(new.astnode.identifier, requireSeen=0)
 
         if old is not None:
             if isinstance(old.astnode, ASTDeclaratorInitializerNode):
@@ -171,6 +159,9 @@ class SymbolTable(object):
             if name != self.currentScope.name:
                 print("Warning: Symbol table open scope traverse: expected {0}, got {1}".format(self.currentScope.name, name))
             self.currentScope.currentChild = 0
+            for identifier, symbol in self.currentScope.symbols.items():
+                if isinstance(symbol, VariableSymbolInfo):
+                    symbol.seen = 0
         else:
             scope = self.currentScope
             self.currentScope = self.currentScope.addChild(Scope(isFunctionScope=isFunctionScope, name=name))
@@ -200,7 +191,7 @@ class SymbolTable(object):
         else:
             return self.currentScope.isInsertionOk(VariableSymbolInfo(astnode))
 
-    def retrieveSymbol(self, name, requireSeen=True):
+    def retrieveSymbol(self, name, requireSeen=1):
         scope = self.currentScope
 
         while scope is not None:
@@ -212,19 +203,7 @@ class SymbolTable(object):
 
         return None
 
-    def retrieveFunctionSymbol(self, name):
-        scope = self.currentScope
-
-        while scope is not None:
-            nametype = scope.retrieveFunctionSymbol(name)
-            if nametype is not None:
-                return nametype
-
-            scope = scope.parent
-
-        return None
-
-    def functionDefinitionDepthDifference(self, symbolInfo, requireSeen=True):
+    def functionDefinitionDepthDifference(self, symbolInfo):
         scope = self.currentScope
         depthDifference = 0
 
