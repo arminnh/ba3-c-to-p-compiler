@@ -169,10 +169,10 @@ ldc c ':'
 out c
 ldc c ' '
 out c
-lda 0 7
+lod a 0 7
 in i
 sto i
-lda 0 8
+lod a 0 8
 in i
 sto i
 ldc a 0

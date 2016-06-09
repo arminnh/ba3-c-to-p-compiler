@@ -18,9 +18,9 @@ hlt
 
 function_main:
 ssp 6
-ldc r 5.0
+ldc r 5.000000
 ldc i 1
-ldc r 2.0
+ldc r 2.000000
 ldc c '3'
 str r 0 5
 ldc i 0

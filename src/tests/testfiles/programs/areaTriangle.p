@@ -568,7 +568,7 @@ sto i
 ldc a 0
 lda 0 7
 dpl a
-ldc r 0.5
+ldc r 0.500000
 lod i 0 5
 conv i r
 mul r

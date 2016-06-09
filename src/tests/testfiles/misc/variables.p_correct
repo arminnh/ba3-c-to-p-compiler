@@ -190,13 +190,13 @@ str a 0 5
 ldc i 1
 ldc i 6
 str i 0 15
-ldc r 3.0
+ldc r 3.000000
 str r 0 16
-ldc r 1.0
+ldc r 1.000000
 str r 0 17
-ldc r 7.0
+ldc r 7.000000
 str r 0 18
-ldc r 8.0
+ldc r 8.000000
 str r 0 19
 ldc c 'a'
 str c 0 20

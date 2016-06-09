@@ -74,7 +74,7 @@ function_main:
 ssp 8
 ldc i 1
 str i 0 5
-ldc r 2.0
+ldc r 2.000000
 str r 0 6
 str a 0 7
 ldc c '%'

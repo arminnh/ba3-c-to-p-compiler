@@ -6,6 +6,6 @@ hlt
 
 function_main:
 ssp 6
-ldc r 1.0
+ldc r 1.000000
 str r 0 5
 retf

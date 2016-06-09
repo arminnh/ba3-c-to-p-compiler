@@ -491,8 +491,8 @@ equ i
 conv b i
 conv i b
 fjp l1_else
-ldc r 5.0
-ldc r 3.0
+ldc r 5.000000
+ldc r 3.000000
 mul r
 lod a 0 6
 ind a
@@ -502,8 +502,8 @@ str r 0 0
 retf
 ujp l2_after_if
 l1_else:
-ldc r 2.0
-ldc r 5.0
+ldc r 2.000000
+ldc r 5.000000
 mul r
 str r 0 0
 retf
@@ -513,8 +513,8 @@ retf
 function_myFunction3:
 ssp 7
 lda 0 5
+ind a
 ldc i 3
-chk 0 0
 ixa 1
 ind i
 ldc i 0
@@ -523,8 +523,8 @@ conv b i
 conv i b
 fjp l3_else
 lda 0 6
+ind a
 ldc i 5
-chk 0 0
 ixa 1
 ind i
 str i 0 0
@@ -532,8 +532,8 @@ retf
 ujp l4_after_if
 l3_else:
 lda 0 6
+ind a
 ldc i 0
-chk 0 0
 ixa 1
 ind i
 str i 0 0
@@ -614,7 +614,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 1.0
+ldc r 1.000000
 out r
 ldc c ' '
 out c
@@ -664,7 +664,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 353332.53523
+ldc r 353332.535230
 out r
 ldc c ' '
 out c
@@ -698,7 +698,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 4.9
+ldc r 4.900000
 out r
 ldc c ' '
 out c
@@ -732,7 +732,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 4535.7
+ldc r 4535.700000
 out r
 ldc c ','
 out c

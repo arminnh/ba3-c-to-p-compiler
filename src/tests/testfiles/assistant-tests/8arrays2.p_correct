@@ -7,19 +7,19 @@ hlt
 function_f:
 ssp 6
 lda 0 5
+ind a
 ldc i 0
-chk 0 0
 ixa 1
 ind i
 lda 0 5
+ind a
 ldc i 1
-chk 0 0
 ixa 1
 ind i
 add i
 lda 0 5
+ind a
 ldc i 2
-chk 0 0
 ixa 1
 ind i
 add i

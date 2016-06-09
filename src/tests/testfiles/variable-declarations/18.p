@@ -27,7 +27,7 @@ hlt
 
 function_main:
 ssp 19
-ldc r 5.0
+ldc r 5.000000
 str r 0 5
 str a 0 6
 str a 0 8

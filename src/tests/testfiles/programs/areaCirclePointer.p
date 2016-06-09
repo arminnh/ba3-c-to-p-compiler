@@ -177,7 +177,7 @@ ssp 8
 ldc a 0
 lod a 0 6
 dpl a
-ldc r 3.14
+ldc r 3.140000
 lod i 0 5
 conv i r
 mul r
@@ -192,7 +192,7 @@ lod a 0 7
 dpl a
 ldc i 2
 conv i r
-ldc r 3.14
+ldc r 3.140000
 mul r
 lod i 0 5
 conv i r

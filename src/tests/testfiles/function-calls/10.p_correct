@@ -536,7 +536,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 1.0
+ldc r 1.000000
 out r
 ldc c ' '
 out c
@@ -586,7 +586,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 353332.53523
+ldc r 353332.535230
 out r
 ldc c ' '
 out c
@@ -620,7 +620,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 4.9
+ldc r 4.900000
 out r
 ldc c ' '
 out c
@@ -660,7 +660,7 @@ ldc c ','
 out c
 ldc c ' '
 out c
-ldc r 4535.7
+ldc r 4535.700000
 out r
 ldc c ','
 out c
@@ -676,13 +676,13 @@ ldc c 'h'
 out c
 lda 1 152
 out a
-ldc r 3.14
+ldc r 3.140000
 out r
 ldc i 666
 out i
 ldc i 42
 out i
-ldc r 123.456
+ldc r 123.456000
 out r
 ldc i 789
 out i

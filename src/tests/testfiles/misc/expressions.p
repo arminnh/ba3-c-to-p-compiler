@@ -28,7 +28,7 @@ ldc i 1
 sto i
 ldc a 0
 lod r 0 9
-ldc r 1.0
+ldc r 1.000000
 add r
 sto r
 ldc a 0
@@ -41,8 +41,8 @@ sto i
 ldc a 0
 lda 0 9
 dpl a
-ldc r 1.0
-ldc r 2.0
+ldc r 1.000000
+ldc r 2.000000
 mul r
 sto r
 ind r
@@ -51,9 +51,9 @@ ldc a 0
 lda 0 10
 dpl a
 lod r 0 9
-ldc r 0.5
+ldc r 0.500000
 sub r
-ldc r 1.0
+ldc r 1.000000
 add r
 sto r
 ind r
@@ -90,23 +90,23 @@ sto i
 ind i
 sto i
 ldc a 0
-ldc r 5.5
+ldc r 5.500000
 sto r
 ldc a 0
 lda 0 11
 dpl a
-ldc r 5.5
-ldc r 5.7
-ldc r 5.4
+ldc r 5.500000
+ldc r 5.700000
+ldc r 5.400000
 add r
 lod r 0 10
 add r
 mul r
 lod r 0 11
 add r
-ldc r 7.0
+ldc r 7.000000
 mul r
-ldc r 5.2
+ldc r 5.200000
 sub r
 sto r
 ind r
@@ -114,20 +114,20 @@ sto r
 ldc a 0
 lda 0 11
 dpl a
-ldc r 5.0
-ldc r 5.5
-ldc r 5.6
+ldc r 5.000000
+ldc r 5.500000
+ldc r 5.600000
 add r
 lod r 0 10
 add r
 mul r
 lod r 0 11
 add r
-ldc r 7.7
+ldc r 7.700000
 mul r
-ldc r 5.8
+ldc r 5.800000
 sub r
-ldc r 100.0
+ldc r 100.000000
 div r
 sto r
 ind r

@@ -612,7 +612,7 @@ lod i 0 30
 chk 0 19
 ixa 1
 dpl a
-ldc r 0.0
+ldc r 0.000000
 sto r
 ind r
 sto r
@@ -642,8 +642,8 @@ conv b i
 conv i b
 fjp l6_for_after
 lda 0 6
+ind a
 lod i 0 30
-chk 0 0
 ixa 1
 ind r
 lod i 0 32
@@ -661,7 +661,7 @@ lod i 0 30
 chk 0 19
 ixa 1
 dpl a
-ldc r 1.0
+ldc r 1.000000
 sto r
 ind r
 sto r
@@ -670,8 +670,8 @@ lda 0 29
 dpl a
 lod r 0 29
 lda 0 7
+ind a
 lod i 0 30
-chk 0 0
 ixa 1
 ind r
 add r
@@ -683,8 +683,8 @@ lda 0 32
 dpl a
 lod i 0 32
 lda 0 6
+ind a
 lod i 0 30
-chk 0 0
 ixa 1
 ind r
 conv r i
@@ -721,8 +721,8 @@ dpl a
 lod i 0 32
 conv i r
 lda 0 6
+ind a
 lod i 0 30
-chk 0 0
 ixa 1
 ind r
 div r
@@ -740,8 +740,8 @@ chk 0 19
 ixa 1
 ind r
 lda 0 7
+ind a
 lod i 0 30
-chk 0 0
 ixa 1
 ind r
 mul r

@@ -439,7 +439,7 @@ class VisitorCodeGenerator(Visitor):
             if isinstance(el, tuple):
                 width, node = el
                 if isinstance(node, ASTNode):
-                    self._lvalue.append(True)
+                    self._lvalue.append(False)
                     node.accept(self)
                     self._lvalue.pop()
                     self.outFile.write("in {0}\n".format(self.pType(node.getType().dereference())))
@@ -572,13 +572,20 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitArraySubscriptNode(self, node):
+        arrayType = node.children[0].getType()
         arrayElementType = node.getType()
+
         self._lvalue.append(True)
         node.children[0].accept(self)
+        if arrayType.isPointer():
+            self.outFile.write("ind a\n")
         self._lvalue[-1] = False
         node.children[1].accept(self)
         self._lvalue.pop()
-        self.outFile.write("chk 0 {0}\n".format(node.children[0].getType().size() - 1))
+
+        if not arrayType.isPointer():
+            self.outFile.write("chk 0 {0}\n".format(arrayType.size() - 1))
+        
         self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
 
         if self.rvalue():
