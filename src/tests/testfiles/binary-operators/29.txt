@@ -1,3 +1,0 @@
-testfiles/binary-operators/29.c:2:5: error: invalid operands to logical 'or' (have 'int' and 'char *')
-5 || "&";
-^

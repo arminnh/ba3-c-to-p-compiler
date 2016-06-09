@@ -1,0 +1,6 @@
+function-declarations/16.c:1:14: error: 'void' must be the only parameter
+ int iojiofej(void, void a) {
+              ^
+function-declarations/16.c:1:20: error: parameter 'a' has incomplete type
+ int iojiofej(void, void a) {
+                    ^

@@ -1,3 +1,0 @@
-testfiles/function-declarations/6.c:3:1: error: identifier 'f' already taken by variable
- int f(int a, float b);
- ^

@@ -1,3 +1,0 @@
-testfiles/binary-operators/9.c:2:10: error: invalid operands to comparison '>' (have 'float' and 'int')
-10.5 > 10;
-     ^

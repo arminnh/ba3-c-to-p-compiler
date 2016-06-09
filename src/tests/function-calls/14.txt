@@ -1,0 +1,6 @@
+function-calls/14.c:9:5: error: argument 1 of function 'printf' should be a string literal
+     printf(a);
+     ^
+function-calls/14.c:10:5: error: argument 1 of function 'printf' should be a string literal
+     printf(a, b, f);
+     ^

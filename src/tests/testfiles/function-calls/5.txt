@@ -1,3 +1,0 @@
-testfiles/function-calls/5.c:8:3: warning: passing argument 6 of 'f' from incompatible pointer type, expected 'int' but got 'float *'
-   f('z', a, *b, &a, &b, b);
-   ^

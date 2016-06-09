@@ -1,6 +1,0 @@
-testfiles/function-declarations/14.c:1:15: error: 'void' must be the only parameter
-int foiejfoja(void, void *aaaa);
-              ^
-testfiles/function-declarations/14.c:3:15: error: parameter 'a' has incomplete type
-int foiejfoja(void a, void *aaaa) {
-              ^

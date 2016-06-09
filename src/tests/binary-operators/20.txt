@@ -1,0 +1,3 @@
+binary-operators/20.c:2:5: error: invalid operands to binary '/' (have 'int' and 'float')
+     1 / 1.0;
+     ^

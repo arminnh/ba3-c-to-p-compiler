@@ -1,0 +1,3 @@
+variable-declarations/31.c:6:10: warning: excess elements in scalar initializer
+     char *s4 = {"hello", "world"};
+          ^

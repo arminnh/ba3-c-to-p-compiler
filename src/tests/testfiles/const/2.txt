@@ -1,3 +1,0 @@
-testfiles/const/2.c:6:5: error: assignment of read-only variable 'b'
-b = a;
-^

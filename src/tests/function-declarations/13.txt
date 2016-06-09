@@ -1,0 +1,6 @@
+function-declarations/13.c:1:14: error: parameter 'a' has incomplete type
+ int iojiofej(void a) {
+              ^
+function-declarations/13.c:2:12: error: variable 'a' undeclared
+     return a;
+            ^

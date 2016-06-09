@@ -1,0 +1,3 @@
+unary-operators/1.c:3:5: error: invalid operand to logical '!' (have 'float', need 'int')
+     !f;
+     ^

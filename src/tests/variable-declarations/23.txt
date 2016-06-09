@@ -1,0 +1,3 @@
+variable-declarations/23.c:2:8: error: expected integer literal as array length for 'a'
+ 	int a[5.5] = {1, 2, 3, 4, 5};
+ 	      ^

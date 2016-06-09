@@ -1,0 +1,12 @@
+function-calls/15.c:9:5: warning: unknown format code 'v'
+     printf("%v\n", a);
+     ^
+function-calls/15.c:10:5: warning: unknown format code 'y'
+     printf("%y, %l, %z\n", a, b, f);
+     ^
+function-calls/15.c:10:5: warning: unknown format code 'l'
+     printf("%y, %l, %z\n", a, b, f);
+     ^
+function-calls/15.c:10:5: warning: unknown format code 'z'
+     printf("%y, %l, %z\n", a, b, f);
+     ^

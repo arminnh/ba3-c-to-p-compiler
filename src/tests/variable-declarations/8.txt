@@ -1,0 +1,9 @@
+variable-declarations/8.c:2:9: error: incompatible types when initializing type 'int' using type 'char *'
+     int j = "hello";
+         ^
+variable-declarations/8.c:4:9: warning: excess elements in scalar initializer
+     int jj = {'h', 'e', 'l', 'l'};
+         ^
+variable-declarations/8.c:4:9: error: incompatible types when initializing type 'int' using type 'char'
+     int jj = {'h', 'e', 'l', 'l'};
+         ^

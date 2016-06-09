@@ -1,0 +1,3 @@
+unary-operators/16.c:16:7: warning: initialization from incompatible pointer type, expected 'char *' but got 'char **'
+ 	char * sss  = &s;
+ 	     ^

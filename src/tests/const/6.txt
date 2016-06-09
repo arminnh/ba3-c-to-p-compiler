@@ -1,0 +1,3 @@
+const/6.c:4:8: warning: initialization discards 'const' qualifier, expected 'int *' but got 'const int *'
+     int* aaa = aa;
+        ^

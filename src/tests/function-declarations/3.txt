@@ -1,0 +1,6 @@
+function-declarations/3.c:6:1: error: redefinition of function 'f'
+ float f(int a, int b) {
+ ^
+function-declarations/3.c:10:1: error: redefinition of function 'f'
+ char f(int a, int b) {
+ ^

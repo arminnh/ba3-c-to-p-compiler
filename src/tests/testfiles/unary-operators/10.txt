@@ -1,3 +1,0 @@
-testfiles/unary-operators/10.c:5:10: error: invalid type argument of unary '*' (have 'char')
-a = *b[0];
-     ^

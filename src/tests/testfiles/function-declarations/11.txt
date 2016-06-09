@@ -1,3 +1,0 @@
-testfiles/function-declarations/11.c:3:5: error: function 'sum' undeclared
-sum(1, 2);
-^

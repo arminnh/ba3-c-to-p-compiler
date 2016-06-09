@@ -1,3 +1,0 @@
-testfiles/const/3.c:6:5: error: assignment of read-only location '*aa'
-*aa = a;
-^

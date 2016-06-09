@@ -1,3 +1,0 @@
-testfiles/function-declarations/12.c:6:1: error: redefinition of function 'main'
- int main(void) {
- ^

@@ -1,3 +1,0 @@
-testfiles/function-calls/1.c:6:5: error: parameter 1 of 'f' expected 'int' but got 'float'
-f(0.0);
-  ^

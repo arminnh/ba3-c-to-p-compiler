@@ -1,0 +1,3 @@
+unary-operators/2.c:3:5: error: invalid operand to logical '!' (have 'char', need 'int')
+     !c;
+     ^

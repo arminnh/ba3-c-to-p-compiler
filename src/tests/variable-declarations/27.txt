@@ -1,0 +1,6 @@
+variable-declarations/27.c:1:43: warning: type specifier missing in declaration of 'c', type defaults to 'int'
+ int sub(const int a, int const * const b, const const const c);
+                                           ^
+variable-declarations/27.c:3:43: warning: type specifier missing in declaration of 'c', type defaults to 'int'
+ int sub(const int a, int const * const b, const const const c) {
+                                           ^

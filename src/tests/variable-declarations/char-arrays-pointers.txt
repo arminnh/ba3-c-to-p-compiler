@@ -1,0 +1,15 @@
+variable-declarations/char-arrays-pointers.c:5:13: error: expected integer literal as array length for 'hello'
+ 	char hello[6+5*8] = "hello";
+ 	           ^
+variable-declarations/char-arrays-pointers.c:9:2: error: incompatible types when assigning to type 'char []' from type 'char *'
+ 	hello = s123; // error
+ 	^
+variable-declarations/char-arrays-pointers.c:12:2: error: incompatible types when assigning to type 'char [46]' from type 'char *'
+ 	hello2 = hello; // error
+ 	^
+variable-declarations/char-arrays-pointers.c:18:2: error: format 's' expects argument of type 'char *', but argument 2 has type 'char (*)[]'
+ 	printf("%s\n", &hello, hello);
+ 	^
+variable-declarations/char-arrays-pointers.c:18:2: warning: too many arguments for format (expected 1, have 2)
+ 	printf("%s\n", &hello, hello);
+ 	^

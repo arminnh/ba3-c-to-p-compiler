@@ -1,3 +1,0 @@
-testfiles/function-declarations/7.c:4:5: error: function: undefined reference to 'sum'
-sum(1, 2);
-^

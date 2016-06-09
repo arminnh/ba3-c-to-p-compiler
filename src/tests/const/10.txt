@@ -1,0 +1,12 @@
+const/10.c:10:2: error: assignment of read-only location 'constarr[0]'
+ 	constarr[0] = bb;
+ 	^
+const/10.c:12:3: error: assignment of read-only location 'constarr[i]'
+  	constarr[i] = bb;
+  	^
+const/10.c:13:3: error: assignment of read-only location 'constarr[aaa(5)]'
+  	constarr[aaa(5)] = bb;
+  	^
+const/10.c:14:2: error: assignment of read-only variable 'bb'
+ 	bb = 2;
+ 	^
