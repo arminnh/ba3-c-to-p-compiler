@@ -37,6 +37,8 @@ function_main:
 ssp 35
 ldc r 5.000000
 str r 0 5
+initialize element at depth 1 for array b with 'a'
+initialize element at depth 1 for array b with 'b'
 str a 0 6
 str a 0 8
 ldc c 'd'
@@ -106,7 +108,14 @@ ind a
 sto a
 ind a
 sto a
+initialize element at depth 1 for array aaa with 1
+initialize element at depth 1 for array aaa with 2
+initialize element at depth 1 for array aaa with 3
+initialize element at depth 1 for array aaa with 4
+initialize element at depth 1 for array aaa with 5
 str a 0 19
+initialize element at depth 1 for array aaaa with 1
+initialize element at depth 1 for array aaaa with 2
 str a 0 24
 lda 0 19
 str a 0 26
@@ -161,6 +170,9 @@ ind r
 sto r
 lda 0 29
 str a 0 31
+initialize element at depth 1 for array fltArr with 1.0
+initialize element at depth 1 for array fltArr with 2.0
+initialize element at depth 1 for array fltArr with 3.0
 str a 0 32
 ldc a 0
 lda 0 31

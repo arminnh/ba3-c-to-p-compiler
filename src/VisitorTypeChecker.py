@@ -155,7 +155,7 @@ class VisitorTypeChecker(Visitor):
             elif not node.initializerList.isArray:
                 if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
                     self.addError("invalid initializer", node.initializerList)
-                    return False
+                    return
 
             self.typeCheckArrayInitialization(node, node.initializerList)
 
@@ -441,7 +441,7 @@ class VisitorTypeChecker(Visitor):
 
         if ttype.rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"]):
             self.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), node)
-            return False
+            return
 
 
     def visitAddressOfoperatorNode(self, node):

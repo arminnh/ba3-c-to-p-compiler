@@ -236,9 +236,46 @@ ldc i 0
 str i 0 99
 ldc i 0
 str i 0 100
+initialize element at depth 3 for array aa21 with 10
+initialize element at depth 3 for array aa21 with 11
+initialize element at depth 3 for array aa21 with 10
+initialize element at depth 3 for array aa21 with 11
+initialize element at depth 3 for array aa21 with 12
+initialize element at depth 3 for array aa21 with 13
+initialize element at depth 3 for array aa21 with 12
+initialize element at depth 3 for array aa21 with 13
+initialize element at depth 3 for array aa21 with 12
+initialize element at depth 3 for array aa21 with 345
+initialize element at depth 3 for array aa21 with 568
+initialize element at depth 3 for array aa21 with 1
+initialize element at depth 3 for array aa21 with 14
+initialize element at depth 3 for array aa21 with 15
+initialize element at depth 3 for array aa21 with 14
+initialize element at depth 3 for array aa21 with 15
+initialize element at depth 3 for array aa21 with 16
+initialize element at depth 3 for array aa21 with 17
+initialize element at depth 3 for array aa21 with 16
+initialize element at depth 3 for array aa21 with 17
+initialize element at depth 3 for array aa21 with 41
+initialize element at depth 3 for array aa21 with 345
+initialize element at depth 3 for array aa21 with 74
+initialize element at depth 3 for array aa21 with 34
 str a 0 101
+initialize element at depth 3 for array aa2 with 1
+initialize element at depth 3 for array aa2 with default initializer value
+initialize element at depth 3 for array aa2 with 2
+initialize element at depth 3 for array aa2 with default initializer value
+initialize element at depth 3 for array aa2 with 3
+initialize element at depth 3 for array aa2 with default initializer value
 str a 0 125
+initialize element at depth 3 for array a with default initializer value
+initialize element at depth 3 for array a with 12
+initialize element at depth 3 for array a with 14
+initialize element at depth 3 for array a with 16
 str a 0 131
+initialize element at depth 1 for array arr with 10
+initialize element at depth 1 for array arr with 20
+initialize element at depth 1 for array arr with 30
 str a 0 135
 lda 0 131
 ind a
@@ -278,7 +315,19 @@ lda 0 138
 str a 0 139
 lda 0 139
 str a 0 140
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
+initialize element at depth 1 for array josse with nn
 str a 0 141
+initialize element at depth 1 for array a2 with &josse
+initialize element at depth 1 for array a2 with &josse
 str a 0 151
 ldc a 0
 lda 0 151
@@ -294,6 +343,56 @@ ldc a 0
 str a 0 153
 ldc a 0
 str a 0 154
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 1
+initialize element at depth 2 for array a232 with 2
+initialize element at depth 2 for array a232 with 2
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 1
+initialize element at depth 2 for array a232 with 2
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with default initializer value
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 7
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
+initialize element at depth 2 for array a232 with 0
 str a 0 155
 lda 0 131
 ldc i 0
@@ -329,7 +428,18 @@ ldc i 1
 str i 0 205
 ldc i 2
 str i 0 206
+initialize element at depth 1 for array c with 1
+initialize element at depth 1 for array c with 2
 str a 0 207
+initialize element at depth 2 for array d with 1
+initialize element at depth 2 for array d with 2
+initialize element at depth 2 for array d with 3
+initialize element at depth 2 for array d with 4
+initialize element at depth 2 for array d with 5
+initialize element at depth 2 for array d with 6
+initialize element at depth 2 for array d with 7
+initialize element at depth 2 for array d with 8
+initialize element at depth 2 for array d with 9
 str a 0 209
 str a 0 218
 retf

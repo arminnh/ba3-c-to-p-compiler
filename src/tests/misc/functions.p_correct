@@ -547,8 +547,8 @@ function_main:
 ssp 39
 ldc i 8
 str i 0 5
-str a 0 6
-str a 0 11
+initialize element at depth 1 for array b with 1initialize element at depth 1 for array b with 2initialize element at depth 1 for array b with 3initialize element at depth 1 for array b with 4initialize element at depth 1 for array b with 5str a 0 6
+initialize element at depth 1 for array c with 7initialize element at depth 1 for array c with 8str a 0 11
 ldc i 0
 str i 0 17
 ldc i 0
