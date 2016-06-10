@@ -5,8 +5,14 @@ ssp 9
 lda 0 5
 ldc c 'a'
 sto c
+lda 0 6
+ldc c 27
+sto c
 lda 0 7
 ldc c 'b'
+sto c
+lda 0 8
+ldc c 27
 sto c
 mst 0
 cup 0 function_main
@@ -27,10 +33,8 @@ les r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 les c
 conv b i
 sto i
@@ -53,10 +57,8 @@ grt r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 grt c
 conv b i
 sto i
@@ -79,10 +81,8 @@ leq r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 leq c
 conv b i
 sto i
@@ -105,10 +105,8 @@ geq r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 geq c
 conv b i
 sto i
@@ -131,10 +129,8 @@ equ r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 equ c
 conv b i
 sto i
@@ -157,10 +153,8 @@ equ r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 equ c
 conv b i
 sto i
@@ -183,10 +177,8 @@ neq r
 conv b i
 sto i
 ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
+lda 1 5
+lda 1 7
 neq c
 conv b i
 sto i

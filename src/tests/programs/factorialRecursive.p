@@ -8,6 +8,9 @@ sto c
 lda 0 31
 ldc c 'd'
 sto c
+lda 0 32
+ldc c 27
+sto c
 lda 0 5
 ldc c 'E'
 sto c

@@ -5,8 +5,14 @@ ssp 16
 lda 0 14
 ldc c 'B'
 sto c
+lda 0 15
+ldc c 27
+sto c
 lda 0 12
 ldc c 'a'
+sto c
+lda 0 13
+ldc c 27
 sto c
 lda 0 5
 ldc c 'a'
@@ -73,16 +79,14 @@ ldc a 0
 lod a 0 18
 ind a
 dpl a
-lda 1 7
-ind a
+lda 1 12
 sto a
 ind a
 sto a
 ldc a 0
 lda 0 16
 dpl a
-lda 1 7
-ind a
+lda 1 12
 sto a
 ind a
 sto a
@@ -103,8 +107,7 @@ sto a
 ldc a 0
 lda 0 16
 dpl a
-lda 1 9
-ind a
+lda 1 14
 sto a
 ind a
 sto a

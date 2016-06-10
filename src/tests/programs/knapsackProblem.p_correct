@@ -497,11 +497,17 @@ sto c
 lda 0 88
 ldc c 'd'
 sto c
+lda 0 89
+ldc c 27
+sto c
 lda 0 181
 ldc c '%'
 sto c
 lda 0 182
 ldc c 'f'
+sto c
+lda 0 183
+ldc c 27
 sto c
 lda 0 30
 ldc c '%'

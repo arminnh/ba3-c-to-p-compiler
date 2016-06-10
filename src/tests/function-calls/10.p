@@ -809,8 +809,7 @@ out c
 ldc c ' '
 out c
 ldc a 1
-lda 1 113
-ind a
+lda 1 118
 sto a
 ldc a 0
 ldc i 0
@@ -878,8 +877,7 @@ out c
 ldc c 'h'
 out c
 ldc a 1
-lda 1 152
-ind a
+lda 1 157
 sto a
 ldc a 0
 ldc i 0
@@ -912,8 +910,7 @@ out i
 ldc c '0'
 out c
 ldc a 1
-lda 1 157
-ind a
+lda 1 162
 sto a
 ldc a 0
 ldc i 0

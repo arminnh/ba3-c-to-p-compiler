@@ -5,6 +5,9 @@ ssp 1098
 lda 0 1038
 ldc c '\n'
 sto c
+lda 0 1039
+ldc c 27
+sto c
 lda 0 575
 ldc c ' '
 sto c
@@ -502,6 +505,9 @@ ldc c '%'
 sto c
 lda 0 268
 ldc c 'c'
+sto c
+lda 0 269
+ldc c 27
 sto c
 lda 0 876
 ldc c '''

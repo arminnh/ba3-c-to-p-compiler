@@ -888,8 +888,7 @@ out c
 ldc c ' '
 out c
 ldc a 1
-lda 1 109
-ind a
+lda 1 114
 sto a
 ldc a 0
 ldc i 0

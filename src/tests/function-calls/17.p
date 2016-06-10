@@ -131,8 +131,7 @@ ldc i 2
 str i 0 6
 str a 0 7
 ldc a 1
-lda 1 10
-ind a
+lda 1 15
 sto a
 ldc a 0
 ldc i 0
@@ -155,8 +154,7 @@ l2_after_out_loop:
 ldc c '\n'
 out c
 ldc a 1
-lda 1 10
-ind a
+lda 1 15
 sto a
 ldc a 0
 ldc i 0
@@ -187,8 +185,7 @@ out i
 ldc c ' '
 out c
 ldc a 1
-lda 1 0
-ind a
+lda 1 5
 sto a
 ldc a 0
 ldc i 0

@@ -17,6 +17,9 @@ sto c
 lda 0 47
 ldc c '\n'
 sto c
+lda 0 48
+ldc c 27
+sto c
 lda 0 5
 ldc c '\n'
 sto c
@@ -166,6 +169,9 @@ ldc c '%'
 sto c
 lda 0 23
 ldc c 'd'
+sto c
+lda 0 24
+ldc c 27
 sto c
 lda 0 25
 ldc c 'E'

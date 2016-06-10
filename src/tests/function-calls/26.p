@@ -77,6 +77,9 @@ sto c
 lda 0 51
 ldc c 'e'
 sto c
+lda 0 52
+ldc c 27
+sto c
 lda 0 103
 ldc c 'h'
 sto c
@@ -739,8 +742,7 @@ out i
 ldc c '\n'
 out c
 ldc a 1
-lda 1 45
-ind a
+lda 1 50
 sto a
 ldc a 0
 ldc i 0
@@ -1091,8 +1093,7 @@ l66_after_out_loop:
 ldc c '\n'
 out c
 ldc a 1
-lda 1 98
-ind a
+lda 1 103
 sto a
 ldc a 0
 ldc i 0

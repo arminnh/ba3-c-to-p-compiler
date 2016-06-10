@@ -5,6 +5,9 @@ ssp 150
 lda 0 148
 ldc c '\n'
 sto c
+lda 0 149
+ldc c 27
+sto c
 lda 0 5
 ldc c '\n'
 sto c
@@ -274,6 +277,9 @@ ldc c '%'
 sto c
 lda 0 30
 ldc c 'd'
+sto c
+lda 0 31
+ldc c 27
 sto c
 lda 0 55
 ldc c 'T'

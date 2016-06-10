@@ -5,6 +5,9 @@ ssp 56
 lda 0 48
 ldc c '\n'
 sto c
+lda 0 49
+ldc c 27
+sto c
 lda 0 5
 ldc c '\n'
 sto c
@@ -148,6 +151,9 @@ ldc c '%'
 sto c
 lda 0 30
 ldc c 'f'
+sto c
+lda 0 31
+ldc c 27
 sto c
 mst 0
 cup 0 function_main

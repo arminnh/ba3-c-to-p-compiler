@@ -164,6 +164,9 @@ sto c
 lda 0 37
 ldc c 'f'
 sto c
+lda 0 38
+ldc c 27
+sto c
 mst 0
 cup 0 function_main
 hlt

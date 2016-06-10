@@ -5,6 +5,9 @@ ssp 65
 lda 0 11
 ldc c '5'
 sto c
+lda 0 12
+ldc c 27
+sto c
 lda 0 7
 ldc c 'a'
 sto c
@@ -482,8 +485,7 @@ str i 0 116
 ldc a 0
 lda 0 112
 dpl a
-lda 1 48
-ind a
+lda 1 53
 sto a
 ind a
 sto a

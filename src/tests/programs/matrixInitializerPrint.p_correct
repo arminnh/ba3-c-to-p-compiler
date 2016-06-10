@@ -50,17 +50,26 @@ sto c
 lda 0 18
 ldc c ' '
 sto c
+lda 0 19
+ldc c 27
+sto c
 lda 0 5
 ldc c '['
 sto c
 lda 0 6
 ldc c '\n'
 sto c
+lda 0 7
+ldc c 27
+sto c
 lda 0 25
 ldc c ']'
 sto c
 lda 0 26
 ldc c '\n'
+sto c
+lda 0 27
+ldc c 27
 sto c
 mst 0
 cup 0 function_main

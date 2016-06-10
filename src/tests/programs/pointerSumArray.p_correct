@@ -74,6 +74,9 @@ sto c
 lda 0 28
 ldc c 'd'
 sto c
+lda 0 29
+ldc c 27
+sto c
 lda 0 30
 ldc c 'T'
 sto c

@@ -251,6 +251,9 @@ sto c
 lda 0 34
 ldc c 'd'
 sto c
+lda 0 35
+ldc c 27
+sto c
 lda 0 68
 ldc c 'E'
 sto c

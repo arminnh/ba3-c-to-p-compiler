@@ -843,8 +843,7 @@ out i
 lod c 0 9
 out c
 mst 1
-lda 1 0
-ind a
+lda 1 5
 lda 0 12
 cup 2 function_sums
 out a
