@@ -17,21 +17,13 @@ int sum(int a, int b) {
 
 
 int main() {
-    printf("globals: %i and %i \n", global_a, global_b);
+    printf("globals: %i and %i \n", (global_a, global_b, global_a, global_b, global_a, global_b, global_a), global_b);
 
-    // global_a = 1, global_b = 2;
-    global_a = 1;
-    global_b = 2;
+    global_a = 1, global_b = 2, printf("globals: %i and %i \n", (global_a, global_b, global_a, global_b, global_a), (global_b, global_a, global_b));
 
-    printf("globals: %i and %i \n", global_a, global_b);
+    sum(2, 111), printf("globals: %i and %i \n", (global_a, global_b, global_a), (global_b, global_a, global_b, global_a, global_b)); 
 
-    sum(2, 111);
-
-    printf("globals: %i and %i \n", global_a, global_b);
-
-    sum(1, 1);
-
-    printf("globals: %i and %i \n", global_a, global_b);
+    sum(1, 1), printf("globals: %i and %i \n", global_a, (global_b, global_a, global_b, global_a, global_b, global_a, global_b));
 
     return 0;
 }

@@ -2,7 +2,7 @@
 
 int main() {
     const int aa11[3][8][4];
-    const int aa21[2][3][4] = {
+    const int aa21[][3][4] = {
       {
         {10, 11, 10, 11}, {12, 13, 12, 13}, {12, 345, 568, 1}
       },
@@ -13,7 +13,7 @@ int main() {
 
     // int aa1[][1][2] = 7897; // invalid initializer
     int aa2[][1][2] = {1, 2, 3};
-    const int a[2][2][1] = {
+    const int a[][2][1] = {
         {
             {}, {12, 13}
         },

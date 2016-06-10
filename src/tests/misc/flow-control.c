@@ -2,8 +2,13 @@ int main(int argc, char *argv[])
 {
     int a = 5, b, c;
 
+    do {
+        c = a + b;
+        int var;
+    } while (1 == 2);
+
     if (1)
-        1 + 1; // declaration not allowed here in c99
+        1 + 1;
     else
         2 + 2;
 
@@ -36,11 +41,6 @@ int main(int argc, char *argv[])
     while (0) {
         1 + 1;
     }
-
-    do {
-        c = a + b;
-        int var;
-    } while (1 == 2);
 
     return 1;
 }

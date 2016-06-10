@@ -136,6 +136,24 @@ ldc c ':'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
 lod i 1 5
 out i
 ldc c ' '
@@ -161,13 +179,11 @@ ldc i 1
 sto i
 ind i
 sto i
-ldc a 0
 lda 1 6
 dpl a
 ldc i 2
 sto i
 ind i
-sto i
 ldc c 'g'
 out c
 ldc c 'l'
@@ -186,6 +202,18 @@ ldc c ':'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
 lod i 1 5
 out i
 ldc c ' '
@@ -198,18 +226,22 @@ ldc c 'd'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+lod i 1 6
+sto i
+lod i 1 5
+sto i
 lod i 1 6
 out i
 ldc c ' '
 out c
 ldc c '\n'
 out c
-ldc a 0
 mst 1
 ldc i 2
 ldc i 111
 cup 2 function_sum
-sto i
 ldc c 'g'
 out c
 ldc c 'l'
@@ -228,6 +260,12 @@ ldc c ':'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+lod i 1 5
+sto i
+lod i 1 6
+sto i
 lod i 1 5
 out i
 ldc c ' '
@@ -240,18 +278,28 @@ ldc c 'd'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
 lod i 1 6
 out i
 ldc c ' '
 out c
 ldc c '\n'
 out c
-ldc a 0
 mst 1
 ldc i 1
 ldc i 1
 cup 2 function_sum
-sto i
 ldc c 'g'
 out c
 ldc c 'l'
@@ -282,6 +330,24 @@ ldc c 'd'
 out c
 ldc c ' '
 out c
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+ldc a 0
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
+lod i 1 6
+sto i
+lod i 1 5
+sto i
 lod i 1 6
 out i
 ldc c ' '
