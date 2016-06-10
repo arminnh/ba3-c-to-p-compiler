@@ -547,19 +547,28 @@ function_main:
 ssp 39
 ldc i 8
 str i 0 5
-initialize element at depth 1 for array b with 1
-initialize element at depth 1 for array b with 2
-initialize element at depth 1 for array b with 3
-initialize element at depth 1 for array b with 4
-initialize element at depth 1 for array b with 5
-str a 0 6
-initialize element at depth 1 for array c with 7
-initialize element at depth 1 for array c with 8
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-str a 0 11
+ldc i 1
+str i 0 6
+ldc i 2
+str i 0 7
+ldc i 3
+str i 0 8
+ldc i 4
+str i 0 9
+ldc i 5
+str i 0 10
+ldc i 7
+str i 0 11
+ldc i 8
+str i 0 12
+ldc i 0
+str i 0 13
+ldc i 0
+str i 0 14
+ldc i 0
+str i 0 15
+ldc i 0
+str i 0 16
 ldc i 0
 str i 0 17
 ldc i 0
@@ -578,12 +587,16 @@ ldc i 0
 str i 0 24
 ldc i 0
 str i 0 25
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-str a 0 26
+ldc i 0
+str i 0 26
+ldc i 0
+str i 0 27
+ldc i 0
+str i 0 28
+ldc i 0
+str i 0 29
+ldc i 0
+str i 0 30
 ldc i 0
 str i 0 31
 ldc i 0

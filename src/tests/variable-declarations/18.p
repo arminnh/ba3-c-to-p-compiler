@@ -31,10 +31,10 @@ function_main:
 ssp 19
 ldc r 5.000000
 str r 0 5
-initialize element at depth 1 for array b with 'a'
-initialize element at depth 1 for array b with 'b'
-str a 0 6
-str a 0 8
+ldc c 'a'
+str c 0 6
+ldc c 'b'
+str c 0 7
 ldc c 'd'
 str c 0 8
 lda 0 9

@@ -38,9 +38,6 @@ int main(int argc, char *argv[])
     float c[2] = {1.1, 2.2};
     (1 || 2 ? c[0] : c[1]);
     (1 || 2 ? c[0] : 0.5);
-    (5 && 2 ? "a" : "b");
-
-
 
     return 1;
 }

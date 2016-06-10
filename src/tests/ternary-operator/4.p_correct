@@ -8,7 +8,10 @@ hlt
 
 function_main:
 ssp 7
-str a 0 5
+ldc r 1.1
+str r 0 5
+ldc r 2.2
+str r 0 6
 ldc a 0
 ldc i 1
 conv i b

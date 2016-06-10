@@ -76,7 +76,10 @@ str i 0 8
 ldc a 0
 lod i 0 8
 sto i
-str a 0 9
+ldc r 1.1
+str r 0 9
+ldc r 2.2
+str r 0 10
 ldc a 0
 ldc i 1
 conv i b

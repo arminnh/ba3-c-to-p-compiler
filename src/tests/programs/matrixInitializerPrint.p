@@ -68,247 +68,486 @@ hlt
 
 function_main:
 ssp 247
-initialize element at depth 2 for array arr2 with 1
-initialize element at depth 2 for array arr2 with 2
-initialize element at depth 2 for array arr2 with 3
-initialize element at depth 2 for array arr2 with 4
-initialize element at depth 2 for array arr2 with 5
-initialize element at depth 2 for array arr2 with 6
-initialize element at depth 2 for array arr2 with 7
-initialize element at depth 2 for array arr2 with 8
-initialize element at depth 2 for array arr2 with 9
-initialize element at depth 2 for array arr2 with 10
-initialize element at depth 2 for array arr2 with 11
-initialize element at depth 2 for array arr2 with 12
-initialize element at depth 2 for array arr2 with 13
-initialize element at depth 2 for array arr2 with 14
-initialize element at depth 2 for array arr2 with 15
-initialize element at depth 2 for array arr2 with 16
-initialize element at depth 2 for array arr2 with 17
-initialize element at depth 2 for array arr2 with 18
-initialize element at depth 2 for array arr2 with 19
-initialize element at depth 2 for array arr2 with 20
-initialize element at depth 2 for array arr2 with 21
-initialize element at depth 2 for array arr2 with 22
-initialize element at depth 2 for array arr2 with 23
-initialize element at depth 2 for array arr2 with 24
-initialize element at depth 2 for array arr2 with 25
-initialize element at depth 2 for array arr2 with 26
-initialize element at depth 2 for array arr2 with 27
-initialize element at depth 2 for array arr2 with 28
-initialize element at depth 2 for array arr2 with 29
-initialize element at depth 2 for array arr2 with 30
-initialize element at depth 2 for array arr2 with 31
-initialize element at depth 2 for array arr2 with 32
-initialize element at depth 2 for array arr2 with 33
-initialize element at depth 2 for array arr2 with 34
-initialize element at depth 2 for array arr2 with 35
-initialize element at depth 2 for array arr2 with 36
-initialize element at depth 2 for array arr2 with 37
-initialize element at depth 2 for array arr2 with 38
-initialize element at depth 2 for array arr2 with 39
-initialize element at depth 2 for array arr2 with 40
-initialize element at depth 2 for array arr2 with 41
-initialize element at depth 2 for array arr2 with 42
-initialize element at depth 2 for array arr2 with 43
-initialize element at depth 2 for array arr2 with 44
-initialize element at depth 2 for array arr2 with 45
-initialize element at depth 2 for array arr2 with 46
-initialize element at depth 2 for array arr2 with 47
-initialize element at depth 2 for array arr2 with 48
-initialize element at depth 2 for array arr2 with 49
-initialize element at depth 2 for array arr2 with 50
-initialize element at depth 2 for array arr2 with 51
-initialize element at depth 2 for array arr2 with 52
-initialize element at depth 2 for array arr2 with 53
-initialize element at depth 2 for array arr2 with 54
-initialize element at depth 2 for array arr2 with 55
-initialize element at depth 2 for array arr2 with 56
-initialize element at depth 2 for array arr2 with 57
-initialize element at depth 2 for array arr2 with 58
-initialize element at depth 2 for array arr2 with 59
-initialize element at depth 2 for array arr2 with 60
-initialize element at depth 2 for array arr2 with 61
-initialize element at depth 2 for array arr2 with 62
-initialize element at depth 2 for array arr2 with 63
-initialize element at depth 2 for array arr2 with 64
-initialize element at depth 2 for array arr2 with 65
-initialize element at depth 2 for array arr2 with 67
-initialize element at depth 2 for array arr2 with 68
-initialize element at depth 2 for array arr2 with 69
-initialize element at depth 2 for array arr2 with 60
-initialize element at depth 2 for array arr2 with 70
-initialize element at depth 2 for array arr2 with 71
-initialize element at depth 2 for array arr2 with 72
-initialize element at depth 2 for array arr2 with 73
-initialize element at depth 2 for array arr2 with 74
-initialize element at depth 2 for array arr2 with 75
-initialize element at depth 2 for array arr2 with 76
-initialize element at depth 2 for array arr2 with 77
-initialize element at depth 2 for array arr2 with 78
-initialize element at depth 2 for array arr2 with 79
-initialize element at depth 2 for array arr2 with 80
-initialize element at depth 2 for array arr2 with 81
-initialize element at depth 2 for array arr2 with 82
-initialize element at depth 2 for array arr2 with 83
-initialize element at depth 2 for array arr2 with 84
-initialize element at depth 2 for array arr2 with 85
-initialize element at depth 2 for array arr2 with 86
-initialize element at depth 2 for array arr2 with 87
-initialize element at depth 2 for array arr2 with 88
-initialize element at depth 2 for array arr2 with 89
-initialize element at depth 2 for array arr2 with 90
-initialize element at depth 2 for array arr2 with 91
-initialize element at depth 2 for array arr2 with 92
-initialize element at depth 2 for array arr2 with 93
-initialize element at depth 2 for array arr2 with 94
-initialize element at depth 2 for array arr2 with 95
-initialize element at depth 2 for array arr2 with 96
-initialize element at depth 2 for array arr2 with 97
-initialize element at depth 2 for array arr2 with 98
-initialize element at depth 2 for array arr2 with 99
-initialize element at depth 2 for array arr2 with 100
-initialize element at depth 2 for array arr2 with 101
-initialize element at depth 2 for array arr2 with 102
-initialize element at depth 2 for array arr2 with 103
-initialize element at depth 2 for array arr2 with 104
-initialize element at depth 2 for array arr2 with 105
-initialize element at depth 2 for array arr2 with 106
-initialize element at depth 2 for array arr2 with 107
-initialize element at depth 2 for array arr2 with 108
-initialize element at depth 2 for array arr2 with 109
-initialize element at depth 2 for array arr2 with 110
-initialize element at depth 2 for array arr2 with 111
-initialize element at depth 2 for array arr2 with 112
-initialize element at depth 2 for array arr2 with 1
-initialize element at depth 2 for array arr2 with 2
-initialize element at depth 2 for array arr2 with 3
-initialize element at depth 2 for array arr2 with 4
-initialize element at depth 2 for array arr2 with 5
-initialize element at depth 2 for array arr2 with 6
-initialize element at depth 2 for array arr2 with 7
-initialize element at depth 2 for array arr2 with 8
-initialize element at depth 2 for array arr2 with 9
-initialize element at depth 2 for array arr2 with 10
-initialize element at depth 2 for array arr2 with 11
-initialize element at depth 2 for array arr2 with 12
-initialize element at depth 2 for array arr2 with 13
-initialize element at depth 2 for array arr2 with 14
-initialize element at depth 2 for array arr2 with 15
-initialize element at depth 2 for array arr2 with 16
-initialize element at depth 2 for array arr2 with 17
-initialize element at depth 2 for array arr2 with 18
-initialize element at depth 2 for array arr2 with 19
-initialize element at depth 2 for array arr2 with 20
-initialize element at depth 2 for array arr2 with 21
-initialize element at depth 2 for array arr2 with 22
-initialize element at depth 2 for array arr2 with 23
-initialize element at depth 2 for array arr2 with 24
-initialize element at depth 2 for array arr2 with 25
-initialize element at depth 2 for array arr2 with 26
-initialize element at depth 2 for array arr2 with 27
-initialize element at depth 2 for array arr2 with 28
-initialize element at depth 2 for array arr2 with 29
-initialize element at depth 2 for array arr2 with 30
-initialize element at depth 2 for array arr2 with 31
-initialize element at depth 2 for array arr2 with 32
-initialize element at depth 2 for array arr2 with 33
-initialize element at depth 2 for array arr2 with 34
-initialize element at depth 2 for array arr2 with 35
-initialize element at depth 2 for array arr2 with 36
-initialize element at depth 2 for array arr2 with 37
-initialize element at depth 2 for array arr2 with 38
-initialize element at depth 2 for array arr2 with 39
-initialize element at depth 2 for array arr2 with 40
-initialize element at depth 2 for array arr2 with 41
-initialize element at depth 2 for array arr2 with 42
-initialize element at depth 2 for array arr2 with 43
-initialize element at depth 2 for array arr2 with 44
-initialize element at depth 2 for array arr2 with 45
-initialize element at depth 2 for array arr2 with 46
-initialize element at depth 2 for array arr2 with 47
-initialize element at depth 2 for array arr2 with 48
-initialize element at depth 2 for array arr2 with 49
-initialize element at depth 2 for array arr2 with 50
-initialize element at depth 2 for array arr2 with 51
-initialize element at depth 2 for array arr2 with 52
-initialize element at depth 2 for array arr2 with 53
-initialize element at depth 2 for array arr2 with 54
-initialize element at depth 2 for array arr2 with 55
-initialize element at depth 2 for array arr2 with 56
-initialize element at depth 2 for array arr2 with 57
-initialize element at depth 2 for array arr2 with 58
-initialize element at depth 2 for array arr2 with 59
-initialize element at depth 2 for array arr2 with 60
-initialize element at depth 2 for array arr2 with 61
-initialize element at depth 2 for array arr2 with 62
-initialize element at depth 2 for array arr2 with 63
-initialize element at depth 2 for array arr2 with 64
-initialize element at depth 2 for array arr2 with 65
-initialize element at depth 2 for array arr2 with 67
-initialize element at depth 2 for array arr2 with 68
-initialize element at depth 2 for array arr2 with 69
-initialize element at depth 2 for array arr2 with 60
-initialize element at depth 2 for array arr2 with 70
-initialize element at depth 2 for array arr2 with 71
-initialize element at depth 2 for array arr2 with 72
-initialize element at depth 2 for array arr2 with 73
-initialize element at depth 2 for array arr2 with 74
-initialize element at depth 2 for array arr2 with 75
-initialize element at depth 2 for array arr2 with 76
-initialize element at depth 2 for array arr2 with 77
-initialize element at depth 2 for array arr2 with 78
-initialize element at depth 2 for array arr2 with 79
-initialize element at depth 2 for array arr2 with 80
-initialize element at depth 2 for array arr2 with 81
-initialize element at depth 2 for array arr2 with 82
-initialize element at depth 2 for array arr2 with 83
-initialize element at depth 2 for array arr2 with 84
-initialize element at depth 2 for array arr2 with 85
-initialize element at depth 2 for array arr2 with 86
-initialize element at depth 2 for array arr2 with 87
-initialize element at depth 2 for array arr2 with 88
-initialize element at depth 2 for array arr2 with 89
-initialize element at depth 2 for array arr2 with 90
-initialize element at depth 2 for array arr2 with 91
-initialize element at depth 2 for array arr2 with 92
-initialize element at depth 2 for array arr2 with 93
-initialize element at depth 2 for array arr2 with 94
-initialize element at depth 2 for array arr2 with 95
-initialize element at depth 2 for array arr2 with 96
-initialize element at depth 2 for array arr2 with 97
-initialize element at depth 2 for array arr2 with 98
-initialize element at depth 2 for array arr2 with 99
-initialize element at depth 2 for array arr2 with 100
-initialize element at depth 2 for array arr2 with 101
-initialize element at depth 2 for array arr2 with 102
-initialize element at depth 2 for array arr2 with 103
-initialize element at depth 2 for array arr2 with 104
-initialize element at depth 2 for array arr2 with 105
-initialize element at depth 2 for array arr2 with 106
-initialize element at depth 2 for array arr2 with 107
-initialize element at depth 2 for array arr2 with 108
-initialize element at depth 2 for array arr2 with 109
-initialize element at depth 2 for array arr2 with 110
-initialize element at depth 2 for array arr2 with 111
-initialize element at depth 2 for array arr2 with 112
-initialize element at depth 2 for array arr2 with 97
-initialize element at depth 2 for array arr2 with 98
-initialize element at depth 2 for array arr2 with 99
-initialize element at depth 2 for array arr2 with 100
-initialize element at depth 2 for array arr2 with 101
-initialize element at depth 2 for array arr2 with 102
-initialize element at depth 2 for array arr2 with 103
-initialize element at depth 2 for array arr2 with 104
-initialize element at depth 2 for array arr2 with 105
-initialize element at depth 2 for array arr2 with 106
-initialize element at depth 2 for array arr2 with 107
-initialize element at depth 2 for array arr2 with 108
-initialize element at depth 2 for array arr2 with 109
-initialize element at depth 2 for array arr2 with 110
-initialize element at depth 2 for array arr2 with 111
-initialize element at depth 2 for array arr2 with 112
-str a 0 5
+ldc i 1
+str i 0 5
+ldc i 2
+str i 0 6
+ldc i 3
+str i 0 7
+ldc i 4
+str i 0 8
+ldc i 5
+str i 0 9
+ldc i 6
+str i 0 10
+ldc i 7
+str i 0 11
+ldc i 8
+str i 0 12
+ldc i 9
+str i 0 13
+ldc i 10
+str i 0 14
+ldc i 11
+str i 0 15
+ldc i 12
+str i 0 16
+ldc i 13
+str i 0 17
+ldc i 14
+str i 0 18
+ldc i 15
+str i 0 19
+ldc i 16
+str i 0 20
+ldc i 17
+str i 0 21
+ldc i 18
+str i 0 22
+ldc i 19
+str i 0 23
+ldc i 20
+str i 0 24
+ldc i 21
+str i 0 25
+ldc i 22
+str i 0 26
+ldc i 23
+str i 0 27
+ldc i 24
+str i 0 28
+ldc i 25
+str i 0 29
+ldc i 26
+str i 0 30
+ldc i 27
+str i 0 31
+ldc i 28
+str i 0 32
+ldc i 29
+str i 0 33
+ldc i 30
+str i 0 34
+ldc i 31
+str i 0 35
+ldc i 32
+str i 0 36
+ldc i 33
+str i 0 37
+ldc i 34
+str i 0 38
+ldc i 35
+str i 0 39
+ldc i 36
+str i 0 40
+ldc i 37
+str i 0 41
+ldc i 38
+str i 0 42
+ldc i 39
+str i 0 43
+ldc i 40
+str i 0 44
+ldc i 41
+str i 0 45
+ldc i 42
+str i 0 46
+ldc i 43
+str i 0 47
+ldc i 44
+str i 0 48
+ldc i 45
+str i 0 49
+ldc i 46
+str i 0 50
+ldc i 47
+str i 0 51
+ldc i 48
+str i 0 52
+ldc i 49
+str i 0 53
+ldc i 50
+str i 0 54
+ldc i 51
+str i 0 55
+ldc i 52
+str i 0 56
+ldc i 53
+str i 0 57
+ldc i 54
+str i 0 58
+ldc i 55
+str i 0 59
+ldc i 56
+str i 0 60
+ldc i 57
+str i 0 61
+ldc i 58
+str i 0 62
+ldc i 59
+str i 0 63
+ldc i 60
+str i 0 64
+ldc i 61
+str i 0 65
+ldc i 62
+str i 0 66
+ldc i 63
+str i 0 67
+ldc i 64
+str i 0 68
+ldc i 65
+str i 0 69
+ldc i 67
+str i 0 70
+ldc i 68
+str i 0 71
+ldc i 69
+str i 0 72
+ldc i 60
+str i 0 73
+ldc i 70
+str i 0 74
+ldc i 71
+str i 0 75
+ldc i 72
+str i 0 76
+ldc i 73
+str i 0 77
+ldc i 74
+str i 0 78
+ldc i 75
+str i 0 79
+ldc i 76
+str i 0 80
+ldc i 77
+str i 0 81
+ldc i 78
+str i 0 82
+ldc i 79
+str i 0 83
+ldc i 80
+str i 0 84
+ldc i 81
+str i 0 85
+ldc i 82
+str i 0 86
+ldc i 83
+str i 0 87
+ldc i 84
+str i 0 88
+ldc i 85
+str i 0 89
+ldc i 86
+str i 0 90
+ldc i 87
+str i 0 91
+ldc i 88
+str i 0 92
+ldc i 89
+str i 0 93
+ldc i 90
+str i 0 94
+ldc i 91
+str i 0 95
+ldc i 92
+str i 0 96
+ldc i 93
+str i 0 97
+ldc i 94
+str i 0 98
+ldc i 95
+str i 0 99
+ldc i 96
+str i 0 100
+ldc i 97
+str i 0 101
+ldc i 98
+str i 0 102
+ldc i 99
+str i 0 103
+ldc i 100
+str i 0 104
+ldc i 101
+str i 0 105
+ldc i 102
+str i 0 106
+ldc i 103
+str i 0 107
+ldc i 104
+str i 0 108
+ldc i 105
+str i 0 109
+ldc i 106
+str i 0 110
+ldc i 107
+str i 0 111
+ldc i 108
+str i 0 112
+ldc i 109
+str i 0 113
+ldc i 110
+str i 0 114
+ldc i 111
+str i 0 115
+ldc i 112
+str i 0 116
+ldc i 1
+str i 0 117
+ldc i 2
+str i 0 118
+ldc i 3
+str i 0 119
+ldc i 4
+str i 0 120
+ldc i 5
+str i 0 121
+ldc i 6
+str i 0 122
+ldc i 7
+str i 0 123
+ldc i 8
+str i 0 124
+ldc i 9
+str i 0 125
+ldc i 10
+str i 0 126
+ldc i 11
+str i 0 127
+ldc i 12
+str i 0 128
+ldc i 13
+str i 0 129
+ldc i 14
+str i 0 130
+ldc i 15
+str i 0 131
+ldc i 16
+str i 0 132
+ldc i 17
+str i 0 133
+ldc i 18
+str i 0 134
+ldc i 19
+str i 0 135
+ldc i 20
+str i 0 136
+ldc i 21
+str i 0 137
+ldc i 22
+str i 0 138
+ldc i 23
+str i 0 139
+ldc i 24
+str i 0 140
+ldc i 25
+str i 0 141
+ldc i 26
+str i 0 142
+ldc i 27
+str i 0 143
+ldc i 28
+str i 0 144
+ldc i 29
+str i 0 145
+ldc i 30
+str i 0 146
+ldc i 31
+str i 0 147
+ldc i 32
+str i 0 148
+ldc i 33
+str i 0 149
+ldc i 34
+str i 0 150
+ldc i 35
+str i 0 151
+ldc i 36
+str i 0 152
+ldc i 37
+str i 0 153
+ldc i 38
+str i 0 154
+ldc i 39
+str i 0 155
+ldc i 40
+str i 0 156
+ldc i 41
+str i 0 157
+ldc i 42
+str i 0 158
+ldc i 43
+str i 0 159
+ldc i 44
+str i 0 160
+ldc i 45
+str i 0 161
+ldc i 46
+str i 0 162
+ldc i 47
+str i 0 163
+ldc i 48
+str i 0 164
+ldc i 49
+str i 0 165
+ldc i 50
+str i 0 166
+ldc i 51
+str i 0 167
+ldc i 52
+str i 0 168
+ldc i 53
+str i 0 169
+ldc i 54
+str i 0 170
+ldc i 55
+str i 0 171
+ldc i 56
+str i 0 172
+ldc i 57
+str i 0 173
+ldc i 58
+str i 0 174
+ldc i 59
+str i 0 175
+ldc i 60
+str i 0 176
+ldc i 61
+str i 0 177
+ldc i 62
+str i 0 178
+ldc i 63
+str i 0 179
+ldc i 64
+str i 0 180
+ldc i 65
+str i 0 181
+ldc i 67
+str i 0 182
+ldc i 68
+str i 0 183
+ldc i 69
+str i 0 184
+ldc i 60
+str i 0 185
+ldc i 70
+str i 0 186
+ldc i 71
+str i 0 187
+ldc i 72
+str i 0 188
+ldc i 73
+str i 0 189
+ldc i 74
+str i 0 190
+ldc i 75
+str i 0 191
+ldc i 76
+str i 0 192
+ldc i 77
+str i 0 193
+ldc i 78
+str i 0 194
+ldc i 79
+str i 0 195
+ldc i 80
+str i 0 196
+ldc i 81
+str i 0 197
+ldc i 82
+str i 0 198
+ldc i 83
+str i 0 199
+ldc i 84
+str i 0 200
+ldc i 85
+str i 0 201
+ldc i 86
+str i 0 202
+ldc i 87
+str i 0 203
+ldc i 88
+str i 0 204
+ldc i 89
+str i 0 205
+ldc i 90
+str i 0 206
+ldc i 91
+str i 0 207
+ldc i 92
+str i 0 208
+ldc i 93
+str i 0 209
+ldc i 94
+str i 0 210
+ldc i 95
+str i 0 211
+ldc i 96
+str i 0 212
+ldc i 97
+str i 0 213
+ldc i 98
+str i 0 214
+ldc i 99
+str i 0 215
+ldc i 100
+str i 0 216
+ldc i 101
+str i 0 217
+ldc i 102
+str i 0 218
+ldc i 103
+str i 0 219
+ldc i 104
+str i 0 220
+ldc i 105
+str i 0 221
+ldc i 106
+str i 0 222
+ldc i 107
+str i 0 223
+ldc i 108
+str i 0 224
+ldc i 109
+str i 0 225
+ldc i 110
+str i 0 226
+ldc i 111
+str i 0 227
+ldc i 112
+str i 0 228
+ldc i 97
+str i 0 229
+ldc i 98
+str i 0 230
+ldc i 99
+str i 0 231
+ldc i 100
+str i 0 232
+ldc i 101
+str i 0 233
+ldc i 102
+str i 0 234
+ldc i 103
+str i 0 235
+ldc i 104
+str i 0 236
+ldc i 105
+str i 0 237
+ldc i 106
+str i 0 238
+ldc i 107
+str i 0 239
+ldc i 108
+str i 0 240
+ldc i 109
+str i 0 241
+ldc i 110
+str i 0 242
+ldc i 111
+str i 0 243
+ldc i 112
+str i 0 244
 ldc c '['
 out c
 ldc c '\n'

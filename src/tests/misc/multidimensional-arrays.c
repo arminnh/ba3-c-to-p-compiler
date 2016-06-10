@@ -24,20 +24,21 @@ int main() {
 
     const int arr[] = {10, 20, 30};
 
-    printf("%i\n", *(**a + 1));
+    printf("%i\n", 1111111);
     printf("%i\n", a[0][1][0]);
-    printf("%i\n", *(arr+1) + 1);
-
+    // printf("%i\n", *(**a + 1));
+    // printf("%i\n", *(arr+1) + 1);
 
     int n = 5;
     int *nn = &n;
     int **nnn = &nn;
 
-    int * josse [10] = { nn, nn, nn, nn, nn, nn, nn, nn, nn, nn };
-    int *(* a2[2])[10] = { &josse, &josse };
-    a2[0] = &josse;
+    // int * josse [10] = { nn, nn, nn, nn, nn, nn, nn, nn, nn, nn };
+    // int *(* a2[2])[10] = { &josse, &josse };
+    // a2[0] = &josse;
 
     int *(* a3[2])[10][9];
+    printf("%i\n", 1111111111);
     int ** a232[5][10] = {
         { 0, 1, 2, 2 },
         { 0, 1, 2 },
@@ -46,7 +47,7 @@ int main() {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
     };
 
-    printf("%i, %i\n", a[0][1][0], a[0][1][1]);
+    printf("%i, %i\n", a[0][1][0], a[0][0][0]);
 
     int a4 = 1, b = 2, c[] = {1, 2}, d[][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, f[] = {};
 }

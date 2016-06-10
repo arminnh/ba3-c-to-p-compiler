@@ -26,7 +26,7 @@ import re
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
 setTxtFiles = False
-setPCode = False
+setPCode = True
 
 class ASTTest():
     def setUp(self):

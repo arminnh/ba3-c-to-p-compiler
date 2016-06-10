@@ -62,10 +62,12 @@ ldc i 5
 str i 0 30
 ldc i 3
 str i 0 31
-initialize element at depth 1 for array ablaba with 1
-initialize element at depth 1 for array ablaba with 2
-initialize element at depth 1 for array ablaba with 3
-str a 0 32
+ldc i 1
+str i 0 32
+ldc i 2
+str i 0 33
+ldc i 3
+str i 0 34
 ldc a 0
 str a 0 35
 ldc a 0

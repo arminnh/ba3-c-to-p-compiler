@@ -82,7 +82,8 @@ lda 0 17
 ldc c 27
 sto c
 str a 0 18
-initialize element at depth 1 for array s5 with "hello"
-initialize element at depth 1 for array s5 with "world"
-str a 0 19
+ldc c hello
+str c 0 19
+ldc c world
+str c 0 20
 retf
