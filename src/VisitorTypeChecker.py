@@ -155,7 +155,7 @@ class VisitorTypeChecker(Visitor):
             elif not node.initializerList.isArray:
                 if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
                     self.addError("invalid initializer", node.initializerList)
-                    return False
+                    return
 
             self.typeCheckArrayInitialization(node, node.initializerList)
 
@@ -451,7 +451,6 @@ class VisitorTypeChecker(Visitor):
             else:
                 self.addError("read-only variable is not assignable", node)
             return
-
 
 
     def visitAddressOfoperatorNode(self, node):

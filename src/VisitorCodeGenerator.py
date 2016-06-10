@@ -341,6 +341,23 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("sto c\n")
 
 
+    def arrayInitialization(self, node, initializerList, level=1):
+        currentArrayLength = node.getType().array()[-level]
+        maxLevel = node.getType().arrayNrDimensions()
+
+        for i in range(currentArrayLength):
+            if i > len(initializerList.children) - 1:
+                if level == maxLevel:
+                    self.outFile.write("initialize element at depth {0} for array {1} with default initializer value\n".format(level, node.identifier))
+                else:
+                    self.arrayInitialization(node, ASTInitializerListNode(initializerList.ctx), level+1)
+            else:
+                if level == maxLevel:
+                    self.outFile.write("initialize element at depth {0} for array {1} with {2}\n".format(level, node.identifier, initializerList.children[i].ctx.getText()))
+                else:
+                    self.arrayInitialization(node, initializerList.children[i], level+1)
+
+
     def visitDeclaratorInitializerNode(self, node):
         ttype = node.getType()
         needStore = True
@@ -351,6 +368,8 @@ class VisitorCodeGenerator(Visitor):
                 needStore = False
             elif not ttype.isArray():
                 node.initializerList.accept(self)
+            elif ttype.isArray():
+                self.arrayInitialization(node, node.initializerList)
         elif not ttype.isArray():
             initializer = self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), initializer))
@@ -493,11 +512,11 @@ class VisitorCodeGenerator(Visitor):
 
                     # code before evaluating char*
                     b += "ldc a 1\n"
-                    
+
                     # code after evaluating char*
                     c += "sto a\n" # store the address of the string
                     c += "ldc a 0\nldc i 0\nsto i\n" # initialize counter
-                    
+
                     if width > 0:
                         loopLabel = self.getLabel() + "_count_loop"
                         afterLoopLabel = self.getLabel() + "_after_count_loop"
@@ -717,7 +736,7 @@ class VisitorCodeGenerator(Visitor):
 
         if not arrayType.isPointer():
             self.outFile.write("chk 0 {0}\n".format(arrayType.size() - 1))
-        
+
         self.outFile.write("ixa {0}\n".format(arrayElementType.size()))
 
         if self.rvalue():

@@ -8,6 +8,8 @@ hlt
 
 function_main:
 ssp 7
+initialize element at depth 1 for array c with 1.1
+initialize element at depth 1 for array c with 2.2
 str a 0 5
 ldc a 0
 ldc i 1

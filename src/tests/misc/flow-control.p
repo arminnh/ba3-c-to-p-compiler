@@ -118,6 +118,9 @@ equ i
 conv b i
 conv i b
 fjp l17_else
+initialize element at depth 1 for array a with 1
+initialize element at depth 1 for array a with 2
+initialize element at depth 1 for array a with 3
 str a 0 12
 ldc i 0
 str i 0 15

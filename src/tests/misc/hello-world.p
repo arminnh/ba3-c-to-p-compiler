@@ -76,6 +76,8 @@ str i 0 8
 ldc a 0
 lod i 0 8
 sto i
+initialize element at depth 1 for array c with 1.1
+initialize element at depth 1 for array c with 2.2
 str a 0 9
 ldc a 0
 ldc i 1
