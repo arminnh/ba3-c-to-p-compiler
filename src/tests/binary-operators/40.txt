@@ -1,0 +1,6 @@
+binary-operators/40.c:3:2: error: invalid operands to binary '+' (have 'int *' and 'int *')
+ 	p + p;
+ 	^
+binary-operators/40.c:6:2: error: invalid operands to binary '-' (have 'int *' and 'int *')
+ 	q - q;
+ 	^

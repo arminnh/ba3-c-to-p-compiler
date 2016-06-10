@@ -1,0 +1,9 @@
+unary-operators/17.c:6:2: error: read-only variable is not assignable
+ 	(*ii)++;
+ 	^
+unary-operators/17.c:8:2: error: cannot assign to variable 'v' with const-qualified type 'v'
+ 	v++, v--;
+ 	^
+unary-operators/17.c:8:7: error: cannot assign to variable 'v' with const-qualified type 'v'
+ 	v++, v--;
+ 	     ^

@@ -1,13 +1,7 @@
 ldc i 0
 ldc i 0
 ldc i 0
-ssp 9
-lda 0 5
-ldc c 'a'
-sto c
-lda 0 7
-ldc c 'b'
-sto c
+ssp 5
 mst 0
 cup 0 function_main
 hlt
@@ -122,23 +116,6 @@ l7_else:
 ldc r 0.500000
 l8_after_if:
 sto r
-ldc a 0
-ldc i 5
-conv i b
-ldc i 2
-conv i b
-and
-conv b i
-conv i b
-fjp l9_else
-lda 1 0
-ind a
-ujp l10_after_if
-l9_else:
-lda 1 2
-ind a
-l10_after_if:
-sto a
 ldc i 1
 str i 0 0
 retf

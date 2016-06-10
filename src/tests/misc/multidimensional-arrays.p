@@ -43,7 +43,7 @@ cup 0 function_main
 hlt
 
 function_main:
-ssp 218
+ssp 206
 ldc i 0
 str i 0 5
 ldc i 0
@@ -310,12 +310,7 @@ ldc i 20
 str i 0 136
 ldc i 30
 str i 0 137
-lda 0 131
-ind a
-ind a
-ldc i 1
-add i
-ind i
+ldc i 1111111
 out i
 ldc c '\n'
 out c
@@ -333,66 +328,51 @@ ind i
 out i
 ldc c '\n'
 out c
-lda 0 135
-ldc i 1
-add i
-ind i
-ldc i 1
-add i
-out i
-ldc c '\n'
-out c
 ldc i 5
 str i 0 138
 lda 0 138
 str a 0 139
 lda 0 139
 str a 0 140
-lod a 0 139
-str i 0 141
-lod a 0 139
-str i 0 142
-lod a 0 139
-str i 0 143
-lod a 0 139
+ldc a 0
+str a 0 141
+ldc a 0
+str a 0 142
+ldc i 1111111111
+out i
+ldc c '\n'
+out c
+ldc a 0
+str a 0 143
+ldc i 1
 str i 0 144
-lod a 0 139
+ldc i 2
 str i 0 145
-lod a 0 139
+ldc i 2
 str i 0 146
-lod a 0 139
+ldc i 0
 str i 0 147
-lod a 0 139
+ldc i 0
 str i 0 148
-lod a 0 139
+ldc i 0
 str i 0 149
-lod a 0 139
+ldc i 0
 str i 0 150
-lda 0 141
-str a 0 151
-lda 0 141
+ldc i 0
+str i 0 151
+ldc i 0
 str i 0 152
 ldc a 0
-lda 0 151
-ldc i 0
-chk 0 1
-ixa 1
-dpl a
-lda 0 141
-sto a
-ind a
-sto a
-ldc a 0
 str a 0 153
-ldc a 0
-str a 0 154
-ldc a 0
-str a 0 155
 ldc i 1
+str i 0 154
+ldc i 2
+str i 0 155
+ldc i 0
 str i 0 156
-ldc i 2
+ldc i 0
 str i 0 157
-ldc i 2
+ldc i 0
 str i 0 158
 ldc i 0
 str i 0 159
@@ -402,15 +382,15 @@ ldc i 0
 str i 0 161
 ldc i 0
 str i 0 162
-ldc i 0
-str i 0 163
+ldc a 0
+str a 0 163
 ldc i 0
 str i 0 164
-ldc a 0
-str a 0 165
-ldc i 1
+ldc i 0
+str i 0 165
+ldc i 0
 str i 0 166
-ldc i 2
+ldc i 0
 str i 0 167
 ldc i 0
 str i 0 168
@@ -422,19 +402,19 @@ ldc i 0
 str i 0 171
 ldc i 0
 str i 0 172
-ldc i 0
-str i 0 173
+ldc a 0
+str a 0 173
 ldc i 0
 str i 0 174
-ldc a 0
-str a 0 175
+ldc i 0
+str i 0 175
 ldc i 0
 str i 0 176
 ldc i 0
 str i 0 177
 ldc i 0
 str i 0 178
-ldc i 0
+ldc i 7
 str i 0 179
 ldc i 0
 str i 0 180
@@ -442,12 +422,12 @@ ldc i 0
 str i 0 181
 ldc i 0
 str i 0 182
-ldc i 0
-str i 0 183
+ldc a 0
+str a 0 183
 ldc i 0
 str i 0 184
-ldc a 0
-str a 0 185
+ldc i 0
+str i 0 185
 ldc i 0
 str i 0 186
 ldc i 0
@@ -458,34 +438,10 @@ ldc i 0
 str i 0 189
 ldc i 0
 str i 0 190
-ldc i 7
+ldc i 0
 str i 0 191
 ldc i 0
 str i 0 192
-ldc i 0
-str i 0 193
-ldc i 0
-str i 0 194
-ldc a 0
-str a 0 195
-ldc i 0
-str i 0 196
-ldc i 0
-str i 0 197
-ldc i 0
-str i 0 198
-ldc i 0
-str i 0 199
-ldc i 0
-str i 0 200
-ldc i 0
-str i 0 201
-ldc i 0
-str i 0 202
-ldc i 0
-str i 0 203
-ldc i 0
-str i 0 204
 lda 0 131
 ldc i 0
 chk 0 3
@@ -506,10 +462,10 @@ lda 0 131
 ldc i 0
 chk 0 3
 ixa 2
-ldc i 1
+ldc i 0
 chk 0 1
 ixa 1
-ldc i 1
+ldc i 0
 chk 0 0
 ixa 1
 ind i
@@ -517,29 +473,29 @@ out i
 ldc c '\n'
 out c
 ldc i 1
-str i 0 205
+str i 0 193
 ldc i 2
-str i 0 206
+str i 0 194
 ldc i 1
-str i 0 207
+str i 0 195
 ldc i 2
-str i 0 208
+str i 0 196
 ldc i 1
-str i 0 209
+str i 0 197
 ldc i 2
-str i 0 210
+str i 0 198
 ldc i 3
-str i 0 211
+str i 0 199
 ldc i 4
-str i 0 212
+str i 0 200
 ldc i 5
-str i 0 213
+str i 0 201
 ldc i 6
-str i 0 214
+str i 0 202
 ldc i 7
-str i 0 215
+str i 0 203
 ldc i 8
-str i 0 216
+str i 0 204
 ldc i 9
-str i 0 217
+str i 0 205
 retf

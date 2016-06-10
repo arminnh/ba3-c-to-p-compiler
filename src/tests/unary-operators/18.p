@@ -7,14 +7,14 @@ cup 0 function_main
 hlt
 
 function_main:
-ssp 9
-ldc i 5
-neg i
+ssp 6
+ldc i 0
 str i 0 5
-lda 0 5
-str a 0 6
-lda 0 6
-str a 0 7
-lda 0 7
-str a 0 8
+ldc a 0
+lod i 0 5
+sto i
+ldc a 0
+lod i 0 5
+neg i
+sto i
 retf

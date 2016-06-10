@@ -1,7 +1,7 @@
 import logging
-
 # insert the parent directory into this path to get antlr files
 import sys
+
 import unittest
 import os
 sys.path.insert(0, "..")
@@ -26,7 +26,7 @@ import re
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
 setTxtFiles = False
-setPCode = True
+setPCode = False
 
 class ASTTest():
     def setUp(self):
@@ -187,6 +187,12 @@ class UnaryOperatorsTests(ASTTest, unittest.TestCase):
     def test16(self):
         self.generateErrorsAndCompare("unary-operators/16")
 
+    def test17(self):
+        self.generateErrorsAndCompare("unary-operators/17")
+
+    def test18(self):
+        self.generateNoError("unary-operators/18")
+
 
 class BinaryOperatorsTests(ASTTest, unittest.TestCase):
 
@@ -315,6 +321,9 @@ class BinaryOperatorsTests(ASTTest, unittest.TestCase):
 
     def test39(self):
         self.generateErrorsAndCompare("binary-operators/39")
+
+    def test39(self):
+        self.generateErrorsAndCompare("binary-operators/40")
 
 
 class TernaryOperatorsTests(ASTTest, unittest.TestCase):

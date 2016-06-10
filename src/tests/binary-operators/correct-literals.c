@@ -39,11 +39,6 @@ int main(void) {
     // "a" + "b"; //error: invalid operands to binary + (have 'char *' and 'char *')
     'B' + 'b';
 
-    0   -   2;
-    2.0 - 5.0;
-    "a" - "b";
-    'B' - 'b';
-
     0   /   2;
     2.0 / 5.0;
     // "a" / "b"; //error: invalid operands to binary + (have 'char *' and 'char *')
