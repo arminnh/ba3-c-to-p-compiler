@@ -1,10 +1,4 @@
-*) fix comma operator
-        see tests/misc/global-var.c @ 22, this one fails for example while others are ok
-*) nested modulo operator fix?
-
 CODE GENERATION:
-*) printf/scanf for char arrays
-*) printf with witdh
 *) check out how to handle void and void* type things
 *) check situations where there are multiple retfs in a row
 

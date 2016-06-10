@@ -96,6 +96,49 @@ class VisitorTypeChecker(Visitor):
         return True
 
 
+    def typeCheckArrayInitialization(self, node, initializerList, level=1):
+        currentArrayLength = node.getType().array()[-level]
+        currentInitListLength = len(initializerList.children)
+        maxLevel = node.getType().arrayNrDimensions()
+
+        if currentArrayLength < currentInitListLength:
+            self.addWarning("excess elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier + level*"[]", currentArrayLength, currentInitListLength), initializerList)
+
+        if level == maxLevel:
+            for initListElement in initializerList.children:
+                # get baseType for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
+                t1 = copy.deepcopy(node.getType())
+                t2 = initListElement.getType().toRvalue()
+
+                # if initializer is not a string literal, pop the array from the variable to be initialized
+                if node.initializerList.isArray or not isinstance(initListElement, ASTStringLiteralNode):
+                    for i in range(level):
+                        t1.indirections.pop()
+
+                #  char a[] = "special case";   // types char [] and  char *
+                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(TYPES["string"]):
+                    continue
+
+                # do the type checking
+                if not self.isTypeCheckInitializerValid(t1, t2, node):
+                    continue
+        else:
+            rrange = currentArrayLength
+            if currentArrayLength > currentInitListLength:
+                rrange = currentInitListLength
+                self.addWarning("insufficient elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier + level*"[]", currentArrayLength, rrange), initializerList)
+
+            rrange = currentArrayLength if currentArrayLength <= currentInitListLength else currentInitListLength
+            for i in range(rrange):
+                if type(initializerList.children[i]) is not ASTInitializerListNode:
+                    newNode = ASTInitializerListNode(initializerList.ctx)
+                    newNode.parent = initializerList
+                    newNode.addChildNode(initializerList.children[i])
+                    initializerList.children[i] = newNode
+                self.typeCheckArrayInitialization(node, initializerList.children[i], level+1)
+
+
+
     def visitDeclaratorInitializerNode(self, node):
         if self.visitChildren(node) == "error":
             return
@@ -110,27 +153,13 @@ class VisitorTypeChecker(Visitor):
         if node.getType().isArray():
             if node.initializerList is None:
                 return
+
             elif not node.initializerList.isArray:
                 if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
                     self.addError("invalid initializer", node)
                     return False
 
-            for initListElement in node.initializerList.children:
-                # get baseType for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
-                t1 = copy.deepcopy(node.getType())
-                t2 = initListElement.getType().toRvalue()
-
-                # if initializer is not a string literal, pop the array from the variable to be initialized
-                if node.initializerList.isArray or not isinstance(initListElement, ASTStringLiteralNode):
-                    t1.indirections.pop()
-
-                #  char a[] = "special case";   // types char [] and  char *
-                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(TYPES["string"]):
-                    continue
-
-                # do the type checking
-                if not self.isTypeCheckInitializerValid(t1, t2, node):
-                    continue
+            self.typeCheckArrayInitialization(node, node.initializerList)
 
         # only typecheck with 1st element of initializer list, example: int a = {1, 2.0, "aaa", 'a'} is ok
         elif node.initializerList is not None:

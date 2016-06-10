@@ -437,6 +437,9 @@ class VariableDeclarationsTests(ASTTest, unittest.TestCase):
     def testMultiArraysPointers(self):
         self.generateErrorsAndCompare("variable-declarations/multi-arrays-pointers")
 
+    def testFunctionVariableSameName(self):
+        self.generateErrorsAndCompare("variable-declarations/function-variable-same-name")
+
     def testTypeCasts(self):
         self.generateNoError("variable-declarations/typecasts")
 

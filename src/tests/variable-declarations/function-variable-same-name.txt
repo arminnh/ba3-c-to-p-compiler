@@ -1,0 +1,3 @@
+variable-declarations/function-variable-same-name.c:15:17: error: function: undefined reference to 'b'
+     char b[] = {b(), 'b', 'c'};
+                 ^

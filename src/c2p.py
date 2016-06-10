@@ -152,6 +152,7 @@ def main(filename):
 
         # do the type checking
         typeCheck(abstractSyntaxTree, errorHandler)
+        output(str(abstractSyntaxTree))
 
         # generate code
         if not errorHandler.errorCount():
