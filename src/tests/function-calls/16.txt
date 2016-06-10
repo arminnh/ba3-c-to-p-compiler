@@ -1,9 +1,9 @@
-function-calls/16.c:13:8: error: invalid initializer
+function-calls/16.c:13:20: error: invalid initializer
    char string3[] = s3;
-        ^
-function-calls/16.c:15:8: error: invalid initializer
+                    ^
+function-calls/16.c:15:20: error: invalid initializer
    char string4[] = string;
-        ^
-function-calls/16.c:19:7: error: invalid initializer
+                    ^
+function-calls/16.c:19:15: error: invalid initializer
    int arr[] = aPtr;
-       ^
+               ^

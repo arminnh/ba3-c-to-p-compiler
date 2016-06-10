@@ -6,4 +6,3 @@ EXTRAS:
 *) implicit type conversions + warning (explicit done)
 *) warning when variable declarations have no initializer
 *) multidimensional array initializers
-*) warning when overinitializing arrays

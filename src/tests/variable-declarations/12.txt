@@ -1,6 +1,6 @@
-variable-declarations/12.c:2:7: error: invalid initializer
+variable-declarations/12.c:2:16: error: invalid initializer
  	char *str[] = "hello i am string";
- 	     ^
-variable-declarations/12.c:3:7: error: invalid initializer
+ 	              ^
+variable-declarations/12.c:3:17: error: invalid initializer
  	char *str2[] = "hello i am string";
- 	     ^
+ 	               ^

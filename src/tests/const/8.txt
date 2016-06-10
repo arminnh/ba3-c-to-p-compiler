@@ -1,6 +1,6 @@
-const/8.c:8:8: warning: initialization discards 'const' qualifier, expected 'int **' but got 'int *const *'
+const/8.c:8:15: warning: initialization discards 'const' qualifier, expected 'int **' but got 'int *const *'
      int** b = a;
-        ^
+               ^
 const/8.c:9:5: warning: passing argument 1 of 'f' discards 'const' qualifier, expected 'int **' but got 'int *const *' 
      f(a);
      ^

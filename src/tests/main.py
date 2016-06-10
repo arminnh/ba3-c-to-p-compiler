@@ -26,7 +26,7 @@ import re
 # set this to True to generate test .txt files for failing
 # generate-error-and-compare tests with output from c2p.py
 setTxtFiles = False
-setPCode = False
+setPCode = True
 
 class ASTTest():
     def setUp(self):
@@ -654,6 +654,10 @@ class MiscellaneousTests(ASTTest, unittest.TestCase):
     def testStoreInAddress(self):
         self.generateNoError("misc/store-in-address")
 
+    # some uses of multi dimensional arrays
+    def testMultidimensionalArrays(self):
+        self.generateErrorsAndCompare("misc/multidimensional-arrays")
+
     # expressions.c has many combinations of binary operators
     def testExpressions(self):
         self.generateNoError("misc/expressions")
@@ -720,6 +724,9 @@ class ProgramsTests(ASTTest, unittest.TestCase):
 
     def test11(self):
         self.generateNoError("programs/knapsackProblem")
+
+    def test12_0(self):
+        self.generateNoError("programs/matrixInitializerPrint")
 
     def test12(self):
         self.generateNoError("programs/matrixInverse")

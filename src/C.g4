@@ -233,8 +233,8 @@ declarator1
     ;
 
 initializer
-    : '{' (oplevel14 (',' oplevel14)*)?   '}'   #arrayInitializer
-    | '{' (initializer (',' initializer)*)? '}' #arrayInitializer
+    : '{' (oplevel14 (',' oplevel14)*)?   '}'  ','?  #arrayInitializer
+    | '{' (initializer (',' initializer)*)? '}' ','? #arrayInitializer
     | oplevel14                                 #expressionInitializer
     ;
 

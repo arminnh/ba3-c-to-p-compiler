@@ -72,7 +72,8 @@ class VisitorTypeChecker(Visitor):
         return True
 
 
-    def isTypeCheckInitializerValid(self, t1, t2, node):
+    def isTypeCheckInitializerValid(self, node, t1, initListElement):
+        t2 = initListElement.getType().toRvalue()
         if t2.isCompatible(TYPES["void"].toRvalue()):
             self.addError("void value not ignored as it ought to be", node)
             return False
@@ -80,18 +81,18 @@ class VisitorTypeChecker(Visitor):
         if t1.nrIndirections() > 0 and not t1.doArraysMatch(t2):
             # this is a warning in c, but an error in c++
             if t2.nrIndirections() > 0:
-                self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), node)
+                self.addWarning("initialization from incompatible pointer type, expected '{0}' but got '{1}'".format(t1, t2), initListElement)
             else:
-                self.addWarning("initialization makes pointer without a cast, expected '{0}' but got '{1}'".format(t1, t2), node)
+                self.addWarning("initialization makes pointer without a cast, expected '{0}' but got '{1}'".format(t1, t2), initListElement)
             return True
 
         elif not t1.isCompatible(t2):
-            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), node)
+            self.addError("incompatible types when initializing type '{0}' using type '{1}'".format(t1, t2), initListElement)
             return False
 
         if not t1.isConstCompatible(t2):
             # this is a warning in c, but an error in c++
-            self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), node)
+            self.addWarning("initialization discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2), initListElement)
 
         return True
 
@@ -100,35 +101,33 @@ class VisitorTypeChecker(Visitor):
         currentArrayLength = node.getType().array()[-level]
         currentInitListLength = len(initializerList.children)
         maxLevel = node.getType().arrayNrDimensions()
+        rrange = currentArrayLength
 
         if currentArrayLength < currentInitListLength:
-            self.addWarning("excess elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier + level*"[]", currentArrayLength, currentInitListLength), initializerList)
+            self.addWarning("excess elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier, currentArrayLength, currentInitListLength), initializerList)
+        elif currentArrayLength > currentInitListLength:
+            rrange = currentInitListLength
+            # self.addWarning("insufficient elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier + level*"[]", currentArrayLength, rrange), initializerList)
 
         if level == maxLevel:
             for initListElement in initializerList.children:
+                #  char a[] = "special case";   // types char [] and  char *
+                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(TYPES["string"]):
+                    continue
+
                 # get baseType for typechecking with initializer list elements, example: int a[] = {1, 2, 3, 4};
                 t1 = copy.deepcopy(node.getType())
-                t2 = initListElement.getType().toRvalue()
 
                 # if initializer is not a string literal, pop the array from the variable to be initialized
                 if node.initializerList.isArray or not isinstance(initListElement, ASTStringLiteralNode):
                     for i in range(level):
                         t1.indirections.pop()
 
-                #  char a[] = "special case";   // types char [] and  char *
-                if isinstance(node.initializerList.children[0], ASTStringLiteralNode) and node.getType().equals(TYPES["string"]):
-                    continue
-
                 # do the type checking
-                if not self.isTypeCheckInitializerValid(t1, t2, node):
+                if not self.isTypeCheckInitializerValid(node, t1, initListElement):
                     continue
-        else:
-            rrange = currentArrayLength
-            if currentArrayLength > currentInitListLength:
-                rrange = currentInitListLength
-                self.addWarning("insufficient elements in array initializer of '{0}', expected {1} elements but got {2}".format(node.identifier + level*"[]", currentArrayLength, rrange), initializerList)
 
-            rrange = currentArrayLength if currentArrayLength <= currentInitListLength else currentInitListLength
+        else:
             for i in range(rrange):
                 if type(initializerList.children[i]) is not ASTInitializerListNode:
                     newNode = ASTInitializerListNode(initializerList.ctx)
@@ -136,7 +135,6 @@ class VisitorTypeChecker(Visitor):
                     newNode.addChildNode(initializerList.children[i])
                     initializerList.children[i] = newNode
                 self.typeCheckArrayInitialization(node, initializerList.children[i], level+1)
-
 
 
     def visitDeclaratorInitializerNode(self, node):
@@ -156,7 +154,7 @@ class VisitorTypeChecker(Visitor):
 
             elif not node.initializerList.isArray:
                 if not isinstance(node.initializerList.children[0], ASTStringLiteralNode) or not node.getType().isCompatible(node.initializerList.children[0].getType()):
-                    self.addError("invalid initializer", node)
+                    self.addError("invalid initializer", node.initializerList)
                     return False
 
             self.typeCheckArrayInitialization(node, node.initializerList)
@@ -173,7 +171,7 @@ class VisitorTypeChecker(Visitor):
                 self.addWarning("excess elements in scalar initializer", node)
 
             # do the type checking
-            if not self.isTypeCheckInitializerValid(node.getType().toRvalue(), node.initializerList.children[0].getType().toRvalue(), node):
+            if not self.isTypeCheckInitializerValid(node, node.getType().toRvalue(), node.initializerList.children[0]):
                 return
 
 
