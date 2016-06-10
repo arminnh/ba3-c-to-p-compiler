@@ -345,17 +345,15 @@ class VisitorCodeGenerator(Visitor):
         currentArrayLength = node.getType().array()[-level]
         maxLevel = node.getType().arrayNrDimensions()
 
-        if level == maxLevel:
-            for i in range(currentArrayLength):
-                if i > len(initializerList.children) - 1:
+        for i in range(currentArrayLength):
+            if i > len(initializerList.children) - 1:
+                if level == maxLevel:
                     self.outFile.write("initialize element at depth {0} for array {1} with default initializer value\n".format(level, node.identifier))
                 else:
-                    self.outFile.write("initialize element at depth {0} for array {1} with {2}\n".format(level, node.identifier, initializerList.children[i].ctx.getText()))
-
-        else:
-            for i in range(currentArrayLength):
-                if i > len(initializerList.children) - 1:
                     self.arrayInitialization(node, ASTInitializerListNode(initializerList.ctx), level+1)
+            else:
+                if level == maxLevel:
+                    self.outFile.write("initialize element at depth {0} for array {1} with {2}\n".format(level, node.identifier, initializerList.children[i].ctx.getText()))
                 else:
                     self.arrayInitialization(node, initializerList.children[i], level+1)
 
