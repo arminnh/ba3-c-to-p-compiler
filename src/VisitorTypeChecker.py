@@ -278,7 +278,7 @@ class VisitorTypeChecker(Visitor):
             return False
 
         if not t1.isConstCompatible(t2):
-            self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}' ".format(t1, t2, i+1, node.identifier), node)
+            self.addWarning("passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}'".format(t1, t2, i+1, node.identifier), node)
             return False
 
         return True

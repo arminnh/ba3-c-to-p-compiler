@@ -92,12 +92,11 @@
             <li><a href="#errors">extensive collection of errors</a></li>
             <li><a href="src/tests/misc/multidimensional-arrays.c">array aggregate initialization</a></li>
             <li><a href="src/tests/misc/multidimensional-arrays.c">initializer lists for multi dimensional arrays</a></li>
-            <li><a href="src/tests/programs/areaCirclePointer.c">explicit basic type conversions</a></li>
             <li><a href="src/tests/binary-operators/pointer-arithmetic.c">pointer arithmetic</a></li>
+            <li><a href="src/tests/programs/areaCirclePointer.c">explicit type conversion</a></li>
             <li><a href="src/tests/const/10.c">const correctness</a></li>
             <li><a href="src/tests/misc/for-and-while.c">break, continue</a></li>
             <li><a href="src/tests/misc/for-and-while.c">for loops</a></li>
-            <li><a href="src/tests/programs/areaCirclePointer.c">explicit type conversion</a></li>
             <li><a href="src/tests/misc/global-var.c">comma operator</a></li>
             <li><a href="src/tests/function-declarations/23.c">variables get 'int' type by default if no type is specified at initialization</a></li>
             <li><a href="src/tests/binary-operators/correct-literals.c">binary operators <=, >=</a></li>
@@ -110,18 +109,93 @@
 
         <h3 id="errors">Errors and Warnings</h3>
         <h4>Errors</h4>
+        <strong>symbol table checking</strong>
         <ul>
-
+            <li>variable '{0}' undeclared</li>
+            <li>function '{0}' undeclared</li>
+            <li>function: undefined reference to '{0}'</li>
+            <li>'break' statement not in loop statement</li>
+            <li>'continue' statement not in loop statement</li>
+            <li>'void' must be the only parameter</li>
+            <li>parameter '{0}' has incomplete type</li>
+            <li>parameter name omitted</li>
+            <li>identifier '{0}' already taken by variable</li>
+            <li>function definition parameters don't match with previous declaration</li>
+            <li>redefinition of function '{0}'</li>
+            <li>conflicting types for function declaration</li>
+            <li>function declaration parameters don't match previous definition</li>
+            <li>function declaration parameters don't match previous declaration</li>
+            <li>identifier '{0}' already taken by function</li>
         </ul>
 
+        <strong>type checking</strong>
         <ul>
-
+            <li>incompatible conversion returning '{0}' from a function with return type '{1}'</li>
+            <li>expected integer literal as array length for '{0}'</li>
+            <li>array size missing in '{0}'</li>
+            <li>array type has incomplete element type in '{0}'</li>
+            <li>void value not ignored as it ought to be</li>
+            <li>incompatible types when initializing type '{0}' using type '{1}'</li>
+            <li>variable or field '{0}' declared void</li>
+            <li>invalid initializer</li>
+            <li>empty scalar initializer</li>
+            <li>argument 1 of function '{0}' should be a string literal</li>
+            <li>format '{0}' expects argument of type '{1}', but argument {2} has type '{3}'</li>
+            <li>invalid use of void expression</li>
+            <li>parameter {2} of '{3}' expected '{0}' but got '{1}'</li>
+            <li>number of arguments to function '{0}' does not match definition (have {1}, need {2})</li>
+            <li>void value not ignored as it ought to be</li>
+            <li>invalid first operand to ternary '?:' (have '{0}', need 'int')</li>
+            <li>invalid operands to ternary '?:', alternatives should be of equal type (have '{0}' and '{1}')</li>
+            <li>invalid operands to binary '{2}' (have '{0}' and '{1}')</li>
+            <li>lvalue required as left operand of assignment</li>
+            <li>incompatible types when assigning to type '{0}' from type '{1}'</li>
+            <li>assignment of read-only location '{0}'</li>
+            <li>assignment of read-only variable</li>
+            <li>assigning to '{0}' from '{1}' discards 'const' qualifier</li>
+            <li>invalid operands to logical '{2}' (have '{0}' and '{1}')</li>
+            <li>invalid operands to logical '{2}' (have '{0}' and '{1}', need 'int' and 'int')</li>
+            <li>invalid operands to comparison '{2}' (have '{0}' and '{1}')</li>
+            <li>invalid use of void expression</li>
+            <li>lvalue required as {0} operand</li>
+            <li>lvalue required as unary '&' operand, (got rvalue of type '{0}')</li>
+            <li>void value not ignored as it ought to be</li>
+            <li>invalid type argument of unary '*' (have '{0}')</li>
+            <li>invalid use of void expression"</li>
+            <li>lvalue required as {0} operand</li>
+            <li>lvalue required as unary '&' operand, (got rvalue of type '{0}')</li>
+            <li>void value not ignored as it ought to be</li>
+            <li>invalid type argument of unary '*' (have '{0}')</li>
+            <li>invalid use of void expression</li>
+            <li>invalid operand to logical '!' (have '{0}', need 'int')</li>
+            <li>subscripted value is neither array nor pointer nor vector</li>
         </ul>
         <h4>Warnings</h4>
+        <strong>symbol table checking</strong>
         <ul>
-
+            <li>variable used in its own initialization</li>
+            <li>type specifier missing, defaults to 'int'</li>
+            <li>type specifier missing, return type defaults to 'int'</li>
+            <li>type specifier missing in declaration of '{0}', type defaults to 'int'</li>
+            <li>data definition has no type or storage class, type defaults to 'int' in declaration of '{0}'</li>
         </ul>
-
+        <strong>type checking</strong>
+        <ul>
+            <li>'return' with no value, in function returning non-void</li>
+            <li>'return' with a value, in function returning void</li>
+            <li>initialization from incompatible pointer type, expected '{0}' but got '{1}'</li>
+            <li>initialization makes pointer without a cast, expected '{0}' but got '{1}'</li>
+            <li>initialization discards 'const' qualifier, expected '{0}' but got '{1}'</li>
+            <li>excess elements in array initializer of '{0}', expected {1} elements but got {2}</li>
+            <li>excess elements in scalar initializer</li>
+            <li>unknown format code '{0}'</li>
+            <li>format '%{0}' expects a matching '{1}' argument</li>
+            <li>writing into constant object (argument {0})</li>
+            <li>too many arguments for format (expected {0}, have {1})</li>
+            <li>passing argument {0} of '{1}' from incompatible pointer type, expected '{2}' but got '{3}'</li>
+            <li>passing argument {2} of '{3}' discards 'const' qualifier, expected '{0}' but got '{1}'</li>
+            <li>taking address of expression of type ‘void’</li>
+        </ul>
         <h3>Testing</h3>
         <p>
             203 tests are included. They are made so that all of the possible errors are generated by as many different situations as possible.
