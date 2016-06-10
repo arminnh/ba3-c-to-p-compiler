@@ -242,15 +242,16 @@ class VisitorTypeChecker(Visitor):
                     continue
                 else:
                     t1 = self.stdioCodes[code]
-                    if scanf and not t1.equals(TYPES["string"]):
+                    if scanf and code != "s":
                         t1 = copy.deepcopy(t1)
                         t1.indirections.append((False, False))
+
                     t2 = arguments.children[i+1].getType().toRvalue()
                     if not t1.isCompatible(t2):
                         self.addError("format '{0}' expects argument of type '{1}', but argument {2} has type '{3}'".format(code, t1, i+2, t2), node)
+                        continue
 
                     if scanf and not t1.isConstCompatible(t2):
-                        # TODO: fix
                         self.addWarning("writing into constant object (argument {0})".format(i+2), node)
 
                 cutIntoPieces.append((width, arguments.children[i + 1]))

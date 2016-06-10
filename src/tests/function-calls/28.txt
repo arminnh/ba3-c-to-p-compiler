@@ -1,0 +1,3 @@
+function-calls/28.c:5:2: error: format 's' expects argument of type 'char *', but argument 2 has type 'char (*)[10]'
+ 	scanf("%s", &string);
+ 	^

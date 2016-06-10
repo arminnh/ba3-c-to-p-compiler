@@ -1114,4 +1114,7 @@ ujp l67_out_loop
 l68_after_out_loop:
 ldc c '\n'
 out c
+ldc i 0
+str i 0 0
+retf
 retf

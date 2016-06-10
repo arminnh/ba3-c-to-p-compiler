@@ -471,7 +471,6 @@ class VisitorCodeGenerator(Visitor):
                     c += "ldc a 0\nldc i {0}\n".format(width)
                     c += "ldc a 0\nind i\n"
                     c += "sub i\nsto i\n" # calculate amount of padding, store in 0
-                    # c += "ldc a 0\nind i\nldc i 0\ngeq i\nfjp {0}\n".format(noPaddingLabel)
                     c += "ldc a 1\nldc i 0\nsto i\n" # initialize loop iterator in 1
                     c += "{0}:\n".format(loop2Label)
                     c += "ldc a 1\nind i\nldc a 0\nind i\n" # iterator >= padding: end of loop
@@ -518,9 +517,8 @@ class VisitorCodeGenerator(Visitor):
                         c += "ldc a 0\nldc i {0}\n".format(width)
                         c += "ldc a 0\nind i\n"
                         c += "sub i\nsto i\n" # determine number of padding spaces required
-                        # c += "ldc a 0\nind i\nout i\nhlt\n"
                         c += "{0}:\n".format(paddingLoopLabel)
-                        c += "ldc a 0\nind i\nldc i 0\ngrt i\nfjp {0}\n".format(afterPaddingLoopLabel) # padding <= 0
+                        c += "ldc a 0\nind i\nldc i 0\ngrt i\nfjp {0}\n".format(afterPaddingLoopLabel) # padding > 0
                         c += "ldc c ' '\nout c\n" # print padding
                         c += "ldc a 0\nldc a 0\nind i\ndec i 1\nsto i\n"
                         c += "ujp {0}\n".format(paddingLoopLabel)
@@ -555,7 +553,24 @@ class VisitorCodeGenerator(Visitor):
         for el in node.parsedFormat:
             if isinstance(el, tuple):
                 width, node = el
-                if isinstance(node, ASTNode):
+                if node.getType().equals(TYPES["string"]):
+                    loopLabel = self.getLabel() + "_scanf_string_loop"
+                    doneLabel = self.getLabel() + "_scanf_string_done"
+
+                    # load address of first character
+                    self._lvalue.append(False)
+                    node.accept(self)
+                    self._lvalue.pop()
+
+                    self.outFile.write("{0}:\n".format(loopLabel))
+                    self.outFile.write("dpl a\nin c\n") # accept input
+                    self.outFile.write("sto c\n") # store it
+                    self.outFile.write("dpl a\nind c\nldc c 27\nneq c\nfjp {0}\n".format(doneLabel)) # if read character != 27 (escape character)
+                    self.outFile.write("inc a 1\n") # increment address
+                    self.outFile.write("ujp {0}\n".format(loopLabel))
+                    self.outFile.write("{0}:\n".format(doneLabel))
+
+                elif isinstance(node, ASTNode):
                     self._lvalue.append(False)
                     node.accept(self)
                     self._lvalue.pop()
