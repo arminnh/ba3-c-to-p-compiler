@@ -3,6 +3,9 @@ from AbstractSyntaxTree import *
 from VisitorSymbolTable import *
 
 class VisitorDeclarationProcessor(VisitorSymbolTable):
+    def __init__(self, symbolTable, errorHandler):
+        super(VisitorDeclarationProcessor, self).__init__(symbolTable, errorHandler)
+        self.mainFunctionDefined = False
 
     def visitIncludeNode(self, node):
         if node.isStdInclude and node.name == "stdio.h":
@@ -29,6 +32,9 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
         self.table.traverseOn()
         self.visitChildren(node)
         self.table.resetToRoot()
+
+        if not self.mainFunctionDefined:
+            self.addError("no main function defined", node)
 
 
     def visitParameterNode(self, node):
@@ -73,6 +79,9 @@ class VisitorDeclarationProcessor(VisitorSymbolTable):
 
 
     def visitFunctionDefinitionNode(self, node):
+        if node.identifier == "main":
+            self.mainFunctionDefined = True
+
         self.table.openScope(True, node.identifier)
         self.visitChildren(node)
         self.table.closeScope()

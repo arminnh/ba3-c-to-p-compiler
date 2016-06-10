@@ -629,6 +629,9 @@ class FunctionDeclarationsTests(ASTTest, unittest.TestCase):
     def test23(self):
         self.generateErrorsAndCompare("function-declarations/23")
 
+    def test24(self):
+        self.generateErrorsAndCompare("function-declarations/24")
+
 
 class ConstTests(ASTTest, unittest.TestCase):
 

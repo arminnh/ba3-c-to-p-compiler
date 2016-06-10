@@ -1,3 +1,6 @@
+function-declarations/1.c:0:1: error: no main function defined
+ 
+ ^
 function-declarations/1.c:3:1: error: function declaration parameters don't match previous declaration
  int f(int a, float b);
  ^

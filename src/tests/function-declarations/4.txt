@@ -1,3 +1,6 @@
+function-declarations/4.c:0:1: error: no main function defined
+ 
+ ^
 function-declarations/4.c:6:1: error: conflicting types for function declaration f
  float f(int a, int b);
  ^

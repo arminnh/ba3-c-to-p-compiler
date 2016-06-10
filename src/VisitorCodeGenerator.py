@@ -89,7 +89,7 @@ class VisitorCodeGenerator(Visitor):
                 self.outFile.write("ldc c {0}\n".format(repr(c) if c != '\'' else "'\''"))
                 self.outFile.write("sto c\n")
 
-            if len(string) > 2:
+            if len(string) > 0:
                 self.outFile.write("lda 0 {0}\n".format(symbolInfo.address + len(string) + 5))
                 self.outFile.write("ldc c 27\n")
                 self.outFile.write("sto c\n")
@@ -428,11 +428,7 @@ class VisitorCodeGenerator(Visitor):
         if isinstance(node.parent, ASTInitializerListNode):
             return
         symbolInfo = self.symbolTable.stringLiterals.get(node.decodedValue)
-        self.outFile.write("lda 1 {0}\n".format(symbolInfo.address))
-
-        if self.rvalue():
-            self.outFile.write("ind a\n")
-
+        self.outFile.write("lda 1 {0}\n".format(symbolInfo.address + 5))
 
 
     def visitVariableNode(self, node):

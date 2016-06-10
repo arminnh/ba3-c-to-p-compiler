@@ -29,6 +29,8 @@ class ASTNode(object):
         return self.getFirstToken()
 
     def getFirstToken(self, node=None): # node = context node, not AST node
+        if self.ctx is None:
+            return None
         if node is None: node = self.ctx
         if node is None:
             raise Exception(str(type(self)) + "'s ctx was not set")
@@ -47,7 +49,7 @@ class ASTNode(object):
         token = self.getRelevantToken()
         if isinstance(token, CommonToken):
             return (token.line, token.column)
-        return (None, None)
+        return (0, 0)
 
     def out(self, level=0):
         s = offset * level + self.label + "\n"
