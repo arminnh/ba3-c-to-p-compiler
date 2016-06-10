@@ -360,7 +360,7 @@ class VisitorTypeChecker(Visitor):
                 return
 
         # TODO: prohibit binary arithmetic between two pointer types, even if they are the same
-        if not t1.isCompatible(t2):
+        if not t1.isCompatible(t2) or (t1.isPointer() and t2.isPointer()):
             self.addError("invalid operands to binary '{2}' (have '{0}' and '{1}')".format(str(t1), str(t2), str(node.arithmeticType)), node)
             return
 
@@ -442,7 +442,16 @@ class VisitorTypeChecker(Visitor):
 
         if ttype.rvalue and (node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType["increment"] or node.arithmeticType is ASTUnaryArithmeticOperatorNode.ArithmeticType["decrement"]):
             self.addError("lvalue required as {0} operand".format(node.arithmeticType.wordStr()), node)
-            return False
+            return
+
+        op = str(node.arithmeticType)
+        if (op not in "+-") and ttype.isConst():
+            if isinstance(node.children[0], ASTVariableNode):
+                self.addError("cannot assign to variable '{0}' with const-qualified type '{0}'".format(node.children[0].identifier, node.children[0].getType()), node)
+            else:
+                self.addError("read-only variable is not assignable", node)
+            return
+
 
 
     def visitAddressOfoperatorNode(self, node):

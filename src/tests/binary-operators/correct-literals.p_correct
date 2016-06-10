@@ -214,28 +214,6 @@ sto c
 ldc a 0
 ldc i 0
 ldc i 2
-sub i
-sto i
-ldc a 0
-ldc r 2.000000
-ldc r 5.000000
-sub r
-sto r
-ldc a 0
-lda 1 0
-ind a
-lda 1 2
-ind a
-sub c
-sto a
-ldc a 0
-ldc c 'B'
-ldc c 'b'
-sub c
-sto c
-ldc a 0
-ldc i 0
-ldc i 2
 div i
 sto i
 ldc a 0
