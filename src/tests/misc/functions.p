@@ -477,7 +477,7 @@ ldc a 0
 str a 0 7
 lod a 0 5
 lod a 0 7
-equ i
+equ a
 conv b i
 conv i b
 fjp l1_else

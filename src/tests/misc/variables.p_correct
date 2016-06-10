@@ -227,6 +227,7 @@ ldc r 8.000000
 str r 0 20
 ldc c 'a'
 str c 0 21
+lda 1 7
 str a 0 22
 ldc i 1
 str i 0 23
@@ -336,6 +337,7 @@ ldc c 27
 sto c
 ldc c 'c'
 str c 0 72
+lda 1 13
 str a 0 73
 ldc a 0
 lda 0 70
@@ -365,6 +367,7 @@ ldc c 'o'
 sto c
 ldc c 'c'
 str c 0 81
+lda 1 13
 str a 0 82
 lda 0 83
 ldc c 'h'
@@ -539,6 +542,7 @@ sto c
 lda 0 135
 ldc c 27
 sto c
+lda 1 7
 str a 0 136
 ldc i 0
 str i 0 0

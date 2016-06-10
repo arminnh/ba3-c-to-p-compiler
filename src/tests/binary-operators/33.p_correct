@@ -25,6 +25,7 @@ function_main:
 ssp 7
 ldc c 0
 str c 0 5
+lda 1 5
 str a 0 6
 ldc a 0
 lod c 0 5

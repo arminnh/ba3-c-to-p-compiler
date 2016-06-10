@@ -78,6 +78,7 @@ ldc i 1
 str i 0 5
 ldc r 2.000000
 str r 0 6
+lda 1 5
 str a 0 7
 ldc c '%'
 out c

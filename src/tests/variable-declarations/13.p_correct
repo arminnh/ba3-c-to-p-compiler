@@ -24,6 +24,7 @@ ldc r 5.000000
 ldc i 1
 ldc r 2.000000
 ldc c '3'
+lda 1 5
 str r 0 5
 ldc i 0
 str i 0 0

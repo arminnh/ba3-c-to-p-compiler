@@ -35,7 +35,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-les c
+les a
 conv b i
 sto i
 ldc a 0
@@ -59,7 +59,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-grt c
+grt a
 conv b i
 sto i
 ldc a 0
@@ -83,7 +83,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-leq c
+leq a
 conv b i
 sto i
 ldc a 0
@@ -107,7 +107,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-geq c
+geq a
 conv b i
 sto i
 ldc a 0
@@ -131,7 +131,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-equ c
+equ a
 conv b i
 sto i
 ldc a 0
@@ -155,7 +155,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-equ c
+equ a
 conv b i
 sto i
 ldc a 0
@@ -179,7 +179,7 @@ sto i
 ldc a 0
 lda 1 5
 lda 1 7
-neq c
+neq a
 conv b i
 sto i
 ldc a 0

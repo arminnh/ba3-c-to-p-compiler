@@ -21,7 +21,7 @@ int main(void)
     int a = 1, b = 2;
     float c = 1.1, h = 2.2;
     char d = 'd', e = 'e';
-    char* f = "hello", i[] = "world";
+    char f[] = "hello", i[] = "world";
 
     printf("aaa \n");
     printf("test %c, %f \n", d, c);

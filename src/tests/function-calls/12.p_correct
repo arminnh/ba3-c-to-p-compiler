@@ -472,12 +472,12 @@ retf
 function_sums:
 ssp 7
 lod a 0 6
-str c 0 0
+str a 0 0
 retf
 retf
 
 function_main:
-ssp 18
+ssp 23
 ldc i 1
 str i 0 5
 ldc i 2
@@ -490,23 +490,40 @@ ldc c 'd'
 str c 0 9
 ldc c 'e'
 str c 0 10
-str a 0 11
+lda 0 11
+ldc c 'h'
+sto c
 lda 0 12
-ldc c 'w'
+ldc c 'e'
 sto c
 lda 0 13
-ldc c 'o'
-sto c
-lda 0 14
-ldc c 'r'
-sto c
-lda 0 15
 ldc c 'l'
 sto c
+lda 0 14
+ldc c 'l'
+sto c
+lda 0 15
+ldc c 'o'
+sto c
 lda 0 16
-ldc c 'd'
+ldc c 27
 sto c
 lda 0 17
+ldc c 'w'
+sto c
+lda 0 18
+ldc c 'o'
+sto c
+lda 0 19
+ldc c 'r'
+sto c
+lda 0 20
+ldc c 'l'
+sto c
+lda 0 21
+ldc c 'd'
+sto c
+lda 0 22
 ldc c 27
 sto c
 ldc c 'a'
@@ -811,19 +828,98 @@ ldc c ','
 out c
 ldc c ' '
 out c
-lod a 0 11
-out a
+ldc a 1
+lda 0 11
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 2
+ldc a 1
+ind a
+dpl a
+ind c
+l11_count_loop:
+ldc c 27
+neq c
+fjp l12_after_count_loop
+ldc a 0
+ldc a 0
+ind i
+inc i 1
+sto i
+inc a 1
+dpl a
+ind c
+ujp l11_count_loop
+l12_after_count_loop:
+sto a
+ldc a 0
+ldc i 7
+ldc a 0
+ind i
+sub i
+sto i
+l13_padding_loop:
+ldc a 0
+ind i
+ldc i 0
+grt i
+fjp l14_after_padding_loop
+ldc c ' '
+out c
+ldc a 0
+ldc a 0
+ind i
+dec i 1
+sto i
+ujp l13_padding_loop
+l14_after_padding_loop:
+ldc a 1
+ind a
+l15_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l16_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l15_out_loop
+l16_after_out_loop:
 ldc c ' '
 out c
 ldc c '\n'
 out c
 ldc c 'h'
 out c
+ldc a 1
 mst 1
 lda 0 11
 lda 0 11
 cup 2 function_sums
-out a
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l17_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l18_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l17_out_loop
+l18_after_out_loop:
 lod r 0 7
 out r
 lod i 0 6
@@ -842,36 +938,55 @@ cup 2 function_sum
 out i
 lod c 0 9
 out c
+ldc a 1
 mst 1
 lda 1 5
-lda 0 12
+lda 0 17
 cup 2 function_sums
-out a
-ldc c ' '
-out c
-ldc c '\n'
-out c
-ldc a 1
-lda 0 12
 sto a
 ldc a 0
 ldc i 0
 sto i
 ldc a 1
 ind a
-l11_out_loop:
+l19_out_loop:
 
 dpl a
 ind c
 ldc c 27
 neq c
-fjp l12_after_out_loop
+fjp l20_after_out_loop
 dpl a
 ind c
 out c
 inc a 1
-ujp l11_out_loop
-l12_after_out_loop:
+ujp l19_out_loop
+l20_after_out_loop:
+ldc c ' '
+out c
+ldc c '\n'
+out c
+ldc a 1
+lda 0 17
+sto a
+ldc a 0
+ldc i 0
+sto i
+ldc a 1
+ind a
+l21_out_loop:
+
+dpl a
+ind c
+ldc c 27
+neq c
+fjp l22_after_out_loop
+dpl a
+ind c
+out c
+inc a 1
+ujp l21_out_loop
+l22_after_out_loop:
 ldc c '\n'
 out c
 ldc i 1

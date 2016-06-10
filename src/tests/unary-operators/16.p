@@ -30,6 +30,7 @@ ldc i 5
 str i 0 5
 ldc i 10
 str i 0 6
+lda 1 5
 str a 0 7
 ldc r 0.0
 str r 0 8

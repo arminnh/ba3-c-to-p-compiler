@@ -208,7 +208,7 @@ class VisitorCodeGenerator(Visitor):
             return
 
         self.visitChildren(node) # TODO: make sure this takes the r value
-        self.outFile.write("str {0} 0 0\n".format(self.p_types[node.children[0].getType().baseType]))
+        self.outFile.write("str {0} 0 0\n".format(self.pType(node.children[0].getType())))
         self.outFile.write("retf\n") # note: this was not in the compendium
 
     def visitBreakNode(self, node):
@@ -436,7 +436,7 @@ class VisitorCodeGenerator(Visitor):
 
 
     def visitStringLiteralNode(self, node):
-        if isinstance(node.parent, ASTInitializerListNode):
+        if isinstance(node.parent, ASTInitializerListNode) and node.parent.parent.getType().equals(TYPES["string"]):
             return
         symbolInfo = self.symbolTable.stringLiterals.get(node.decodedValue)
         self.outFile.write("lda 1 {0}\n".format(symbolInfo.address + 5))
@@ -514,7 +514,7 @@ class VisitorCodeGenerator(Visitor):
                         i += 1
                     node.accept(self)
                     self.outFile.write("out c\n")
-                elif node.getType().equals(TYPES["string"]):
+                elif node.getType().toRvalue().equals(TYPES["string"].toRvalue()):
                     b = c = ""
 
                     # code before evaluating char*
@@ -660,7 +660,7 @@ class VisitorCodeGenerator(Visitor):
     def visitComparisonOperatorNode(self, node):
         self._lvalue.append(False)
         self.visitChildren(node)
-        self.outFile.write("{0} {1}\n".format(self.bin_comp_op[str(node.comparisonType)], self.p_types[node.children[0].getType().baseType]))
+        self.outFile.write("{0} {1}\n".format(self.bin_comp_op[str(node.comparisonType)], self.pType(node.children[0].getType())))
         self.outFile.write("conv b i\n")
         self._lvalue.pop()
 
@@ -785,7 +785,7 @@ class VisitorCodeGenerator(Visitor):
 
         else:
             self.visitChildren(node)
-            self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.p_types[node.children[0].getType().baseType]))
+            self.outFile.write("{0} {1}\n".format(self.bin_arithm_op[str(node.arithmeticType)], self.pType(node.children[0].getType())))
         self._lvalue.pop()
 
 def expressionResultNeedsToBeCleanedUp(node):

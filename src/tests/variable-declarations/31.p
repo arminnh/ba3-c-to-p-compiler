@@ -62,6 +62,7 @@ sto c
 lda 0 10
 ldc c 27
 sto c
+lda 1 5
 str a 0 11
 lda 0 12
 ldc c 'h'
@@ -81,6 +82,8 @@ sto c
 lda 0 17
 ldc c 27
 sto c
+lda 1 5
+lda 1 11
 str a 0 18
 ldc c hello
 str c 0 19

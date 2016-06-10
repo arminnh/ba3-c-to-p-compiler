@@ -129,6 +129,7 @@ ldc i 1
 str i 0 5
 ldc i 2
 str i 0 6
+lda 1 5
 str a 0 7
 ldc a 1
 lda 1 15

@@ -70,6 +70,7 @@ sto c
 lda 0 15
 ldc c 27
 sto c
+lda 1 5
 str a 0 16
 lda 0 16
 str a 0 17
