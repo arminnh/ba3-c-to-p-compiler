@@ -188,17 +188,27 @@ retf
 
 function_main:
 ssp 137
-initialize element at depth 1 for array a with func()
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-initialize element at depth 1 for array a with default initializer value
-str a 0 5
+mst 1
+cup 0 function_func
+str i 0 5
+ldc i 0
+str i 0 6
+ldc i 0
+str i 0 7
+ldc i 0
+str i 0 8
+ldc i 0
+str i 0 9
+ldc i 0
+str i 0 10
+ldc i 0
+str i 0 11
+ldc i 0
+str i 0 12
+ldc i 0
+str i 0 13
+ldc i 0
+str i 0 14
 ldc i 1
 ldc i 6
 str i 0 15
@@ -215,30 +225,46 @@ str r 0 20
 ldc c 'a'
 str c 0 21
 str a 0 22
-initialize element at depth 1 for array g with 1
-initialize element at depth 1 for array g with 2
-initialize element at depth 1 for array g with 3
-str a 0 23
+ldc i 1
+str i 0 23
+ldc i 2
+str i 0 24
+ldc i 3
+str i 0 25
 ldc i 5
 str i 0 26
-initialize element at depth 1 for array i with 1
-initialize element at depth 1 for array i with 2
-initialize element at depth 1 for array i with default initializer value
-initialize element at depth 1 for array i with default initializer value
-initialize element at depth 1 for array i with default initializer value
-initialize element at depth 1 for array i with default initializer value
-initialize element at depth 1 for array i with default initializer value
-str a 0 27
-initialize element at depth 1 for array j with 1
-initialize element at depth 1 for array j with 2
-initialize element at depth 1 for array j with 3
-initialize element at depth 1 for array j with default initializer value
-initialize element at depth 1 for array j with default initializer value
-initialize element at depth 1 for array j with default initializer value
-initialize element at depth 1 for array j with default initializer value
-initialize element at depth 1 for array j with default initializer value
-initialize element at depth 1 for array j with default initializer value
-str a 0 34
+ldc i 1
+str i 0 27
+ldc i 2
+str i 0 28
+ldc i 0
+str i 0 29
+ldc i 0
+str i 0 30
+ldc i 0
+str i 0 31
+ldc i 0
+str i 0 32
+ldc i 0
+str i 0 33
+ldc i 1
+str i 0 34
+ldc i 2
+str i 0 35
+ldc i 3
+str i 0 36
+ldc i 0
+str i 0 37
+ldc i 0
+str i 0 38
+ldc i 0
+str i 0 39
+ldc i 0
+str i 0 40
+ldc i 0
+str i 0 41
+ldc i 0
+str i 0 42
 ldc i 0
 str i 0 43
 ldc i 0
@@ -249,23 +275,34 @@ ldc i 0
 str i 0 46
 ldc i 0
 str i 0 47
-initialize element at depth 1 for array l with 1
-initialize element at depth 1 for array l with 2
-str a 0 48
-initialize element at depth 1 for array m with 6
-str a 0 50
+ldc i 1
+str i 0 48
+ldc i 2
+str i 0 49
+ldc i 6
+str i 0 50
 ldc i 0
 str i 0 51
 ldc i 2
 str i 0 52
-initialize element at depth 1 for array q with 1
-str a 0 53
-initialize element at depth 1 for array r with 1
-initialize element at depth 1 for array r with 2*e
-initialize element at depth 1 for array r with 3
-initialize element at depth 1 for array r with 4*mns+4
-initialize element at depth 1 for array r with 5
-str a 0 54
+ldc i 1
+str i 0 53
+ldc i 1
+str i 0 54
+ldc i 2
+lod i 0 15
+mul i
+str i 0 55
+ldc i 3
+str i 0 56
+ldc i 4
+lod i 0 51
+mul i
+ldc i 4
+add i
+str i 0 57
+ldc i 5
+str i 0 58
 lod i 1 5
 str i 0 59
 lod i 1 6
@@ -304,10 +341,10 @@ ldc c 'u'
 sto c
 ind c
 sto c
-initialize element at depth 1 for array arrint with &e
-str a 0 74
-initialize element at depth 1 for array helloo with '5'
-str a 0 75
+lda 0 15
+str i 0 74
+ldc c '5'
+str c 0 75
 lda 0 76
 ldc c 'h'
 sto c
@@ -409,8 +446,8 @@ ldc c 27
 sto c
 ldc i 5
 str i 0 110
-initialize element at depth 1 for array arrint with &i
-str a 0 111
+lda 0 110
+str i 0 111
 lda 0 76
 str a 0 112
 ldc a 0
@@ -438,9 +475,10 @@ ldc i 1
 str i 0 113
 ldc i 2
 str i 0 114
-initialize element at depth 1 for array constarr with 1
-initialize element at depth 1 for array constarr with 2
-str a 0 115
+ldc i 1
+str i 0 115
+ldc i 2
+str i 0 116
 ldc a 0
 lda 0 112
 dpl a
@@ -451,10 +489,12 @@ ind a
 sto a
 ldc a 0
 str a 0 117
-initialize element at depth 1 for array aaaaa with 1
-initialize element at depth 1 for array aaaaa with 2
-initialize element at depth 1 for array aaaaa with 3
-str a 0 118
+ldc i 1
+str i 0 118
+ldc i 2
+str i 0 119
+ldc i 3
+str i 0 120
 ldc a 0
 lda 0 117
 dpl a
@@ -470,14 +510,18 @@ ldc i 0
 str i 0 123
 ldc i 0
 str i 0 124
-initialize element at depth 1 for array asdfas with 1
-initialize element at depth 1 for array asdfas with 2
-initialize element at depth 1 for array asdfas with 3
-str a 0 125
-initialize element at depth 1 for array aasdfad with 1
-initialize element at depth 1 for array aasdfad with 2
-initialize element at depth 1 for array aasdfad with 3
-str a 0 128
+ldc i 1
+str i 0 125
+ldc i 2
+str i 0 126
+ldc i 3
+str i 0 127
+ldc i 1
+str i 0 128
+ldc i 2
+str i 0 129
+ldc i 3
+str i 0 130
 lda 0 131
 ldc c 'a'
 sto c

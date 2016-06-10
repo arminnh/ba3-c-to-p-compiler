@@ -1,29 +1,17 @@
 ldc i 0
 ldc i 0
 ldc i 0
-ssp 176
-lda 0 134
+ssp 172
+lda 0 146
 ldc c '%'
 sto c
-lda 0 135
-ldc c 'f'
-sto c
-lda 0 136
-ldc c '\n'
-sto c
-lda 0 137
-ldc c 27
-sto c
-lda 0 150
-ldc c '%'
-sto c
-lda 0 151
+lda 0 147
 ldc c 'i'
 sto c
-lda 0 152
+lda 0 148
 ldc c '\n'
 sto c
-lda 0 153
+lda 0 149
 ldc c 27
 sto c
 lda 0 5
@@ -44,6 +32,18 @@ sto c
 lda 0 10
 ldc c 27
 sto c
+lda 0 163
+ldc c 'b'
+sto c
+lda 0 164
+ldc c 'l'
+sto c
+lda 0 165
+ldc c 'a'
+sto c
+lda 0 166
+ldc c ' '
+sto c
 lda 0 167
 ldc c 'b'
 sto c
@@ -54,60 +54,48 @@ lda 0 169
 ldc c 'a'
 sto c
 lda 0 170
-ldc c ' '
+ldc c '\n'
 sto c
 lda 0 171
-ldc c 'b'
-sto c
-lda 0 172
-ldc c 'l'
-sto c
-lda 0 173
-ldc c 'a'
-sto c
-lda 0 174
-ldc c '\n'
-sto c
-lda 0 175
 ldc c 27
 sto c
-lda 0 154
+lda 0 150
 ldc c 'h'
 sto c
-lda 0 155
+lda 0 151
 ldc c 'e'
 sto c
-lda 0 156
+lda 0 152
 ldc c 'l'
 sto c
-lda 0 157
+lda 0 153
 ldc c 'l'
 sto c
-lda 0 158
+lda 0 154
 ldc c 'o'
 sto c
-lda 0 159
+lda 0 155
 ldc c ' '
 sto c
-lda 0 160
+lda 0 156
 ldc c 'w'
 sto c
-lda 0 161
+lda 0 157
 ldc c 'o'
 sto c
-lda 0 162
+lda 0 158
 ldc c 'r'
 sto c
-lda 0 163
+lda 0 159
 ldc c 'l'
 sto c
-lda 0 164
+lda 0 160
 ldc c 'd'
 sto c
-lda 0 165
+lda 0 161
 ldc c '\n'
 sto c
-lda 0 166
+lda 0 162
 ldc c 27
 sto c
 lda 0 114
@@ -544,22 +532,31 @@ l4_after_if:
 retf
 
 function_main:
-ssp 39
+ssp 37
 ldc i 8
 str i 0 5
-initialize element at depth 1 for array b with 1
-initialize element at depth 1 for array b with 2
-initialize element at depth 1 for array b with 3
-initialize element at depth 1 for array b with 4
-initialize element at depth 1 for array b with 5
-str a 0 6
-initialize element at depth 1 for array c with 7
-initialize element at depth 1 for array c with 8
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-initialize element at depth 1 for array c with default initializer value
-str a 0 11
+ldc i 1
+str i 0 6
+ldc i 2
+str i 0 7
+ldc i 3
+str i 0 8
+ldc i 4
+str i 0 9
+ldc i 5
+str i 0 10
+ldc i 7
+str i 0 11
+ldc i 8
+str i 0 12
+ldc i 0
+str i 0 13
+ldc i 0
+str i 0 14
+ldc i 0
+str i 0 15
+ldc i 0
+str i 0 16
 ldc i 0
 str i 0 17
 ldc i 0
@@ -578,12 +575,16 @@ ldc i 0
 str i 0 24
 ldc i 0
 str i 0 25
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-initialize element at depth 1 for array h with default initializer value
-str a 0 26
+ldc i 0
+str i 0 26
+ldc i 0
+str i 0 27
+ldc i 0
+str i 0 28
+ldc i 0
+str i 0 29
+ldc i 0
+str i 0 30
 ldc i 0
 str i 0 31
 ldc i 0
@@ -596,16 +597,6 @@ ldc c 0
 str c 0 35
 lda 0 5
 str a 0 36
-lda 0 34
-str a 0 37
-lda 0 37
-str a 0 38
-ldc a 0
-mst 1
-lda 0 17
-lda 0 38
-cup 2 function_myFunction1
-sto r
 ldc c 'a'
 out c
 ldc c 'a'
@@ -971,13 +962,6 @@ cup 0 function_myFunction4
 sto r
 ind r
 sto r
-mst 1
-lda 0 36
-lda 0 38
-cup 2 function_myFunction1
-out r
-ldc c '\n'
-out c
 mst 1
 lda 0 6
 lda 0 11

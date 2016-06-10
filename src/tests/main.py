@@ -1,7 +1,7 @@
 import logging
-
 # insert the parent directory into this path to get antlr files
 import sys
+
 import unittest
 import os
 sys.path.insert(0, "..")
@@ -133,7 +133,7 @@ class ASTTest():
         if not expectedCodeFound:
             print("\nEXPECTED:\n" + pCodeGeneratedOriginal + "\nGOT:\n" + pCodeCorrectOriginal + "\n\n\n\n")
 
-        os.system("gcc -std=c99 " + filename + ".c -w -o " + filename + ".testbin")
+        # os.system("gcc -std=c99 " + filename + ".c -w -o " + filename + ".testbin")
 
         self.assertTrue(expectedCodeFound)
 

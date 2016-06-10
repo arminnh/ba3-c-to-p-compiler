@@ -31,10 +31,12 @@ retf
 
 function_main:
 ssp 8
-initialize element at depth 1 for array a with 1
-initialize element at depth 1 for array a with 2
-initialize element at depth 1 for array a with 3
-str a 0 5
+ldc i 1
+str i 0 5
+ldc i 2
+str i 0 6
+ldc i 3
+str i 0 7
 ldc a 0
 lda 0 5
 ldc i 2

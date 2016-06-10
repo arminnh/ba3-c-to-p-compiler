@@ -15,6 +15,6 @@ lda 0 5
 str a 0 6
 lda 0 6
 str a 0 7
-initialize element at depth 1 for array intarray with aaa
+lda 0 7
 str a 0 8
 retf

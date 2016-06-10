@@ -341,21 +341,31 @@ class VisitorCodeGenerator(Visitor):
             self.outFile.write("sto c\n")
 
 
-    def arrayInitialization(self, node, initializerList, level=1):
+    def arrayInitialization(self, node, initializerList, address, level=1):
         currentArrayLength = node.getType().array()[-level]
         maxLevel = node.getType().arrayNrDimensions()
+        ttype = node.getType()
 
         for i in range(currentArrayLength):
             if i > len(initializerList.children) - 1:
                 if level == maxLevel:
-                    self.outFile.write("initialize element at depth {0} for array {1} with default initializer value\n".format(level, node.identifier))
+                    ttype.indirections = ttype.indirections[:-level-1]
+                    self.outFile.write("ldc {0} {1}\n".format(self.pType(ttype), self.initializers["address" if ttype.nrIndirections() > 0 else ttype.baseType]))
+                    self.outFile.write("str {0} 0 {1}\n".format(self.pType(ttype), address + i))
                 else:
-                    self.arrayInitialization(node, ASTInitializerListNode(initializerList.ctx), level+1)
+                    self.arrayInitialization(node, ASTInitializerListNode(initializerList.ctx), address + i * ttype.size(), level+1)
             else:
                 if level == maxLevel:
-                    self.outFile.write("initialize element at depth {0} for array {1} with {2}\n".format(level, node.identifier, initializerList.children[i].ctx.getText()))
+                    ttype.indirections = ttype.indirections[:-level-1]
+                    if not hasattr(initializerList.children[i], 'value'):
+                        self._lvalue.append(True)
+                        initializerList.children[i].accept(self)
+                        self._lvalue.pop()
+                    else:
+                        self.outFile.write("ldc {0} {1}\n".format(self.pType(ttype), initializerList.children[i].value))
+                    self.outFile.write("str {0} 0 {1}\n".format(self.pType(ttype), address + i))
                 else:
-                    self.arrayInitialization(node, initializerList.children[i], level+1)
+                    self.arrayInitialization(node, initializerList.children[i], address + i * ttype.array()[-level-1], level+1)
 
 
     def visitDeclaratorInitializerNode(self, node):
@@ -369,7 +379,8 @@ class VisitorCodeGenerator(Visitor):
             elif not ttype.isArray():
                 node.initializerList.accept(self)
             elif ttype.isArray():
-                self.arrayInitialization(node, node.initializerList)
+                self.arrayInitialization(node, node.initializerList, node.symbolInfo.address + 5)
+                needStore = False
         elif not ttype.isArray():
             initializer = self.initializers["address" if node.getType().nrIndirections() > 0 else node.getType().baseType]
             self.outFile.write("ldc {0} {1}\n".format(self.pType(node.getType()), initializer))

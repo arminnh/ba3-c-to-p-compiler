@@ -143,16 +143,16 @@ def main(filename):
         abstractSyntaxTree = buildAST(parseTreeRoot)
 
         firstPassDecoration(abstractSyntaxTree)
-        output(str(abstractSyntaxTree))
 
         # create a symbol table and symbol table filler, fill in the table and check if everything is declared before it is used in the c file
         symbolTable = SymbolTable()
         scopeCheck(abstractSyntaxTree, errorHandler, symbolTable)
-        output(str(symbolTable))
 
         # do the type checking
         typeCheck(abstractSyntaxTree, errorHandler)
+
         output(str(abstractSyntaxTree))
+        output(str(symbolTable))
 
         # generate code
         if not errorHandler.errorCount():

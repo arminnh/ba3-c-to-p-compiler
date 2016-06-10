@@ -33,9 +33,9 @@ int main(void)
     const char f;
 
     const int * aPtr = &a;
-    float * dPtr = &dd, ** dPtrPtr = &dPtr;
+    // float * dPtr = &dd, ** dPtrPtr = &dPtr;
 
-    myFunction1(&d, dPtrPtr);
+    // myFunction1(&d, dPtrPtr);
 
     printf("aaa \n");
     printf("test %c, %f \n", '1', 1.0);
@@ -47,7 +47,7 @@ int main(void)
     e = myFunction4();
     // printf("%d\n", myFunction2(d, &e)); // undefined reference
 
-    printf("%f\n", myFunction1(aPtr, dPtrPtr));
+    // printf("%f\n", myFunction1(aPtr, dPtrPtr));
     printf("%i\n", myFunction3(b, c));
     printf("%i\n", myFunction3(h, c));
     printf("%i\n", myFunction3(g, c));
