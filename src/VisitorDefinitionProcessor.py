@@ -2,7 +2,7 @@ from antlr4 import *
 from AbstractSyntaxTree import *
 from VisitorSymbolTable import *
 
-class VisitorSymbolTableFiller(VisitorSymbolTable):
+class VisitorDefinitionProcessor(VisitorSymbolTable):
 
     def visitProgramNode(self, node):
         self.visitChildren(node)

@@ -13,7 +13,7 @@ from AbstractSyntaxTree import *
 from Listener import *
 from ErrorHandler import *
 from SymbolTable import *
-from VisitorSymbolTableFiller import *
+from VisitorDefinitionProcessor import *
 from VisitorDeclarationProcessor import *
 from VisitorTypeChecker import *
 from VisitorCodeGenerator import *
@@ -52,7 +52,7 @@ class ASTTest():
         decorator.visitProgramNode(abstractSyntaxTree.root)
 
         symbolTable = SymbolTable()
-        functionFiller = VisitorSymbolTableFiller(symbolTable, self.errorHandler)
+        functionFiller = VisitorDefinitionProcessor(symbolTable, self.errorHandler)
         functionFiller.visitProgramNode(abstractSyntaxTree.root)
 
         tableFiller = VisitorDeclarationProcessor(symbolTable, self.errorHandler)
