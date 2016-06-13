@@ -5,7 +5,7 @@ from AbstractSyntaxTree import *
 from Listener import *
 from ErrorHandler import *
 from SymbolTable import *
-from VisitorDefinitionProcessor import *
+from VisitorSymbolTableFiller import *
 from VisitorDeclarationProcessor import *
 from VisitorTypeChecker import *
 from VisitorCodeGenerator import *
@@ -100,7 +100,7 @@ def firstPassDecoration(abstractSyntaxTree):
 
 def scopeCheck(abstractSyntaxTree, errorHandler, symbolTable):
     timeNow = time.time()
-    functionFiller = VisitorDefinitionProcessor(symbolTable, errorHandler)
+    functionFiller = VisitorSymbolTableFiller(symbolTable, errorHandler)
     functionFiller.visitProgramNode(abstractSyntaxTree.root)
     output("symbol table filled:  " + str(time.time() - timeNow), is_timing=True)
 
