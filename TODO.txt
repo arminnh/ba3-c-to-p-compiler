@@ -1,8 +1,0 @@
-CODE GENERATION:
-*) check out how to handle void and void* type things
-*) check situations where there are multiple retfs in a row
-
-EXTRAS:
-*) implicit type conversions + warning (explicit done)
-*) warning when variable declarations have no initializer
-*) multidimensional array initializers

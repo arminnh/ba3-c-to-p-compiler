@@ -10,10 +10,10 @@ if [ -d "visualisation_java/" ]; then
 fi
 
 # create files for java tree visualisation
-java -jar ./antlr-4.5.3-complete.jar -o visualisation_java C.g4
+java -jar ../resources/antlr-4.5.3-complete.jar -o visualisation_java C.g4
 
 cd visualisation_java
-javac -classpath ../antlr-4.5.3-complete.jar C*.java
+javac -classpath ../../resources/antlr-4.5.3-complete.jar C*.java
 
 # run visualisation
 java -cp ../../resources/antlr-4.5.3-complete.jar: org.antlr.v4.gui.TestRig C program -gui ../$1
